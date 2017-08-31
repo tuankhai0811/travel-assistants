@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="random_1">#f79d3b</color>
+    <color name="random_2">#d92440</color>
+    <color name="random_3">#53bdc9</color>
+    <color name="random_4">#2aa035</color>
+    <color name="random_5">#b1439e</color>
+    <color name="random_6">#6a3787</color>
+    <color name="random_7">#400459</color>
+    <color name="random_8">#ffce00</color>
+    <color name="random_9">#007a31</color>
+    <color name="random_10">#0a55c1</color>
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Travel Assistants</string>
+    <string name="font_boto_regular">fonts/Roboto-Light.ttf</string>
+</resources>

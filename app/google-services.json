@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "457605976695",
+    "firebase_url": "https://travelassistants-0811.firebaseio.com",
+    "project_id": "travelassistants-0811",
+    "storage_bucket": "travelassistants-0811.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457605976695:android:a011b88d6805417e",
+        "android_client_info": {
+          "package_name": "com.tuankhai.travelassistants"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457605976695-he08pgqtjeinmtn9m56n2ps092l9ruco.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tuankhai.travelassistants",
+            "certificate_hash": "a934c60bc194bdf91073bb6d11a93cc0fdc603f6"
+          }
+        },
+        {
+          "client_id": "457605976695-bgbv8j5n4297qbne84eocobfmcu83qfi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuYQXbs2H_weWRyvA2as5q989do92t750"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457605976695-bgbv8j5n4297qbne84eocobfmcu83qfi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
