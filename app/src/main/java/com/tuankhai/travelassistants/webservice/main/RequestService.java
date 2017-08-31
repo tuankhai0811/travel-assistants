@@ -28,7 +28,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  * Created by Khai on 31/08/2017.
  */
 
-public class MyRequestService {
+public class RequestService {
     public static String BASE_URL = "http://localhost/TravelAssistants";
     private Retrofit retrofit = null;
 
