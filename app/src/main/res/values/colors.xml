@@ -14,4 +14,6 @@
     <color name="random_8">#ffce00</color>
     <color name="random_9">#007a31</color>
     <color name="random_10">#0a55c1</color>
+
+    <color name="globalwhite">#FFFFFFFF</color>
 </resources>

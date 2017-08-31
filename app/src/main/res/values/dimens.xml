@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="corner_radius">8dp</dimen>
+    <dimen name="corner_radius">25dp</dimen>
+    <dimen name="height_icon_province">50dp</dimen>
+    <dimen name="margin_icon_province">5dp</dimen>
+    <dimen name="size_icon_province">30sp</dimen>
 </resources>
