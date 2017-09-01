@@ -6,13 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by tuank on 31/08/2017.
+ * Created by Khai on 01/09/2017.
  */
 
-public class GetListProvinceRequest extends BasicRequest {
-    public final static String GET_ORD_DETAILS = "TravelAssistants/public/Province";
+public class GetSliderPlaceRequest extends BasicRequest {
+    public final static String GET_ORD_DETAILS = "TravelAssistants/public/PlaceSlider";
 
-    public GetListProvinceRequest() {
+    public GetSliderPlaceRequest() {
     }
 
     @Override

@@ -12,7 +12,6 @@ import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Khai on 31/08/2017.
@@ -38,6 +37,16 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
         backgrounds.add(R.drawable.bg_random_8);
         backgrounds.add(R.drawable.bg_random_9);
         backgrounds.add(R.drawable.bg_random_10);
+        backgrounds.add(R.drawable.bg_random_11);
+        backgrounds.add(R.drawable.bg_random_12);
+        backgrounds.add(R.drawable.bg_random_13);
+        backgrounds.add(R.drawable.bg_random_14);
+        backgrounds.add(R.drawable.bg_random_15);
+        backgrounds.add(R.drawable.bg_random_16);
+        backgrounds.add(R.drawable.bg_random_17);
+        backgrounds.add(R.drawable.bg_random_18);
+        backgrounds.add(R.drawable.bg_random_19);
+        backgrounds.add(R.drawable.bg_random_20);
     }
 
     @Override
@@ -49,8 +58,8 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
     public void onBindViewHolder(ProvinceViewHolder holder, int position) {
         ProvinceDTO.Province item = lists.get(position);
         holder.txtName.setText(item.name);
-        holder.txtIcon.setText(item.name.charAt(0));
-        holder.txtIcon.setBackground(context.getResources().getDrawable(new Random().nextInt(9)));
+        holder.txtIcon.setText(item.name.toString().substring(0, 1));
+        holder.txtIcon.setBackgroundResource(backgrounds.get(item.color));
     }
 
     @Override

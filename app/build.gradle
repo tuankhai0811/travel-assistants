@@ -41,6 +41,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:support-compat:26.+'
+    compile 'com.android.support:design:26.+'
     compile 'com.google.android.gms:play-services-location:11.0.4'
 
     //recycleview
@@ -50,6 +51,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-jackson:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
+    compile project(':loopingviewpager')
     testCompile 'junit:junit:4.12'
 }
 

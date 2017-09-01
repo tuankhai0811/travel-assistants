@@ -3,6 +3,8 @@ package com.tuankhai.travelassistants.webservice.DTO;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Random;
+
 /**
  * Created by Khai on 31/08/2017.
  */
@@ -28,6 +30,7 @@ public final class ProvinceDTO {
         public final long num_place;
         public final String created_at;
         public final String updated_at;
+        public int color;
 
         @JsonCreator
         public Province(@JsonProperty("_id") long _id,
@@ -42,6 +45,7 @@ public final class ProvinceDTO {
             this.num_place = num_place;
             this.created_at = created_at;
             this.updated_at = updated_at;
+            this.color = new Random().nextInt(19);
         }
     }
 }

@@ -29,7 +29,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  */
 
 public class RequestService {
-    public static String BASE_URL = "http://localhost/TravelAssistants";
+    public static String BASE_URL = "http://192.168.0.117/";
     private Retrofit retrofit = null;
 
     public Retrofit getClient(String baseUrl) {
@@ -55,10 +55,7 @@ public class RequestService {
                 .create(WebserviceRequest.class)
                 .getAnswers(path(path, 0),
                         path(path, 1),
-                        path(path, 2),
-                        path(path, 3),
-                        path(path, 4),
-                        mainDTO.params())
+                        path(path, 2))
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -82,10 +79,7 @@ public class RequestService {
                 .create(WebserviceRequest.class)
                 .getAnswers(path(path, 0),
                         path(path, 1),
-                        path(path, 2),
-                        path(path, 3),
-                        path(path, 4),
-                        mainDTO.params())
+                        path(path, 2))
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
