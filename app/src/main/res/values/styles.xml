@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="text_type_travel">
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/global_white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

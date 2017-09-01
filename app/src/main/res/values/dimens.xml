@@ -8,4 +8,9 @@
     <dimen name="width_layout_item_province">70dp</dimen>
     <dimen name="height_text_province">20dp</dimen>
     <dimen name="size_text_province">11sp</dimen>
+    <dimen name="height_slider_place">300dp</dimen>
+    <dimen name="height_text_item_slider_place">50dp</dimen>
+    <dimen name="width_text_item_slider_place">250dp</dimen>
+    <dimen name="height_layout_type_place">120dp</dimen>
+    <dimen name="height_image_type_travel">40dp</dimen>
 </resources>

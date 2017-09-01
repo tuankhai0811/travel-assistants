@@ -19,6 +19,7 @@ import com.tuankhai.travelassistants.webservice.request.GetSliderPlaceRequest;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Khai on 31/08/2017.
@@ -52,11 +53,13 @@ public class PlacesController {
     }
 
     public void getSliderPlace() {
+        final View progress = placesFragment.mRootView.findViewById(R.id.progressBar_loading_slider_place);
+        progress.setVisibility(View.VISIBLE);
         new RequestService().load(new GetSliderPlaceRequest(), false, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);
-                new GetImageSlider((SliderPlaceDTO) response).execute();
+                new GetImageSlider((SliderPlaceDTO) response, progress).execute();
             }
 
             @Override
@@ -69,9 +72,11 @@ public class PlacesController {
     class GetImageSlider extends AsyncTask<Void, Void, ArrayList<Bitmap>> {
 
         SliderPlaceDTO sliderPlaceDTO;
+        View progressBar;
 
-        public GetImageSlider(SliderPlaceDTO sliderPlaceDTO) {
+        public GetImageSlider(SliderPlaceDTO sliderPlaceDTO, View progress) {
             this.sliderPlaceDTO = sliderPlaceDTO;
+            this.progressBar = progress;
         }
 
         @Override
@@ -96,7 +101,8 @@ public class PlacesController {
         protected void onPostExecute(ArrayList<Bitmap> bitmaps) {
             super.onPostExecute(bitmaps);
             if (bitmaps.size() == 0) return;
-            placesFragment.setSliderPlace(bitmaps);
+            progressBar.setVisibility(View.GONE);
+            placesFragment.setSliderPlace(bitmaps, sliderPlaceDTO.places);
         }
     }
 }
