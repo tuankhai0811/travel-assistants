@@ -1,7 +1,7 @@
 package com.tuankhai.travelassistants.fragment;
 
 import com.tuankhai.travelassistants.activity.BaseActivity;
-import com.tuankhai.travelassistants.webservice.DTO.Province;
+import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.travelassistants.webservice.request.GetListProvinceRequest;
@@ -20,6 +20,17 @@ public class PlacesController {
     }
 
     public void getAllProvince() {
-        new RequestService().load(new GetListProvinceRequest(), false, new MyCallback(), Province.class);
+        new RequestService().load(new GetListProvinceRequest(), false, new MyCallback() {
+            @Override
+            public void onSuccess(Object response) {
+                super.onSuccess(response);
+                placesFragment.setAllProvince((ProvinceDTO) response);
+            }
+
+            @Override
+            public void onFailure(Object error) {
+                super.onFailure(error);
+            }
+        }, ProvinceDTO.Province.class);
     }
 }

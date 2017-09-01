@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.webservice.DTO.Province;
+import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,10 +21,10 @@ import java.util.Random;
 public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.ProvinceViewHolder> {
 
     private Activity context;
-    private ArrayList<Province> lists;
+    private ArrayList<ProvinceDTO.Province> lists;
     private ArrayList<Integer> backgrounds;
 
-    public ProvinceAdapter(Activity context, ArrayList<Province> lists) {
+    public ProvinceAdapter(Activity context, ArrayList<ProvinceDTO.Province> lists) {
         this.context = context;
         this.lists = lists;
         backgrounds = new ArrayList<>();
@@ -47,7 +47,7 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
 
     @Override
     public void onBindViewHolder(ProvinceViewHolder holder, int position) {
-        Province item = lists.get(position);
+        ProvinceDTO.Province item = lists.get(position);
         holder.txtName.setText(item.name);
         holder.txtIcon.setText(item.name.charAt(0));
         holder.txtIcon.setBackground(context.getResources().getDrawable(new Random().nextInt(9)));

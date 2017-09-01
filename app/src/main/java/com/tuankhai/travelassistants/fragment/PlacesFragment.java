@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.adapter.ProvinceAdapter;
-import com.tuankhai.travelassistants.webservice.DTO.Province;
+import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Khai on 31/08/2017.
@@ -25,7 +26,7 @@ public class PlacesFragment extends Fragment {
 
     RecyclerView lvProvince;
     RecyclerView.LayoutManager layoutManagerProvince;
-    ArrayList<Province> arrProvinces;
+    ArrayList<ProvinceDTO.Province> arrProvinces;
     ProvinceAdapter adapterProvinces;
 
     public static PlacesFragment newInstance() {
@@ -55,5 +56,11 @@ public class PlacesFragment extends Fragment {
         adapterProvinces = new ProvinceAdapter(getActivity(), arrProvinces);
         lvProvince.setLayoutManager(layoutManagerProvince);
         lvProvince.setAdapter(adapterProvinces);
+    }
+
+    public void setAllProvince(ProvinceDTO allProvince) {
+        arrProvinces.clear();
+        arrProvinces.addAll(Arrays.asList(allProvince.provinces));
+        adapterProvinces.notifyDataSetChanged();
     }
 }

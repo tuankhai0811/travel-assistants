@@ -65,13 +65,13 @@ public class RequestService {
                         try {
                             callback.onSuccess(Utils.readValue(response.body().bytes(), returnClass));
                         } catch (IOException e) {
-
+                            Log.e(getClass().toString(), "Data err");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        Log.e(getClass().toString(), "onFailure");
                     }
                 });
     }
