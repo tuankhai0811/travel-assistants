@@ -22,7 +22,7 @@ import android.widget.LinearLayout;
 
 public class CircleIndicator extends LinearLayout {
 
-    private final static int DEFAULT_INDICATOR_WIDTH = 5;
+    private final static int DEFAULT_INDICATOR_WIDTH = 6;
     private ViewPager mViewpager;
     private int mIndicatorMargin = -1;
     private int mIndicatorWidth = -1;
