@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Travel Assistants</string>
     <string name="font_boto_regular">fonts/Roboto-Light.ttf</string>
+
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
 </resources>

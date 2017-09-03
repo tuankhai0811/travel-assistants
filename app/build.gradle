@@ -51,7 +51,10 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-jackson:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
+    //lib
     compile project(':loopingviewpager')
+    compile project(':floatingsearchview')
+    compile project(':viewpagertransformers')
     testCompile 'junit:junit:4.12'
 }
 

@@ -7,7 +7,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbarSize="0dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,6 +31,10 @@
                     layout="@layout/progressbar_loading"
                     android:visibility="gone" />
             </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_divider_view" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,22 +66,30 @@
                 </FrameLayout>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_divider_view" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/height_divider_view"
+                android:layout_marginRight="@dimen/height_divider_view"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+
                     android:weightSum="2">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/height_divider_view_2"
                         android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -109,6 +123,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/height_divider_view_2"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -134,7 +149,7 @@
                                     style="@style/text_type_travel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Du lịch biển" />
+                                    android:text="Thắng cảnh" />
                             </LinearLayout>
 
                         </RelativeLayout>
@@ -142,6 +157,10 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_divider_view" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -152,6 +171,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/height_divider_view_2"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -177,7 +197,7 @@
                                     style="@style/text_type_travel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Du lịch biển" />
+                                    android:text="Văn hóa" />
                             </LinearLayout>
 
                         </RelativeLayout>
@@ -187,6 +207,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/height_divider_view_2"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -212,7 +233,7 @@
                                     style="@style/text_type_travel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Du lịch biển" />
+                                    android:text="Giải trí" />
                             </LinearLayout>
 
                         </RelativeLayout>
@@ -220,6 +241,152 @@
                     </LinearLayout>
 
                 </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_divider_view" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/height_divider_view"
+                android:layout_marginRight="@dimen/height_divider_view"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_image_type_travel_2">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/bg_spring" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@color/gray_10" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
+                        <TextView
+                            style="@style/text_type_travel_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mùa xuân" />
+
+                    </LinearLayout>
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_divider_view" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_image_type_travel_2">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/bg_summer" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@color/gray_10" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
+                        <TextView
+                            style="@style/text_type_travel_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mùa hè" />
+
+                    </LinearLayout>
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_divider_view" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_image_type_travel_2">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/bg_autumn" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@color/gray_10" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
+                        <TextView
+                            style="@style/text_type_travel_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mùa thu" />
+
+                    </LinearLayout>
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_divider_view" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_image_type_travel_2">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/bg_winter" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@color/gray_10" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
+                        <TextView
+                            style="@style/text_type_travel_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mùa đông" />
+
+                    </LinearLayout>
+                </FrameLayout>
+
+
             </LinearLayout>
 
         </LinearLayout>

@@ -13,4 +13,10 @@
     <dimen name="width_text_item_slider_place">250dp</dimen>
     <dimen name="height_layout_type_place">120dp</dimen>
     <dimen name="height_image_type_travel">40dp</dimen>
+    <dimen name="height_divider_view">2dp</dimen>
+    <dimen name="margin_layout_main">1dp</dimen>
+    <dimen name="height_divider_view_2">1dp</dimen>
+    <dimen name="height_image_type_travel_2">230dp</dimen>
+    <dimen name="search_view_inset">5dp</dimen>
+    <dimen name="height_toolbar">66dp</dimen>
 </resources>
