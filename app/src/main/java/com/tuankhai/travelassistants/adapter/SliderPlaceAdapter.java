@@ -11,7 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.webservice.DTO.SliderPlaceDTO;
+import com.tuankhai.travelassistants.model.AllSliderPlace;
+import com.tuankhai.travelassistants.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -22,12 +23,22 @@ import java.util.ArrayList;
 public class SliderPlaceAdapter extends PagerAdapter {
     private Activity context;
     private ArrayList<Bitmap> arrImage;
-    private SliderPlaceDTO.Place[] arrPlace;
+    //    private SliderPlaceDTO.Place[] arrPlace;
+    private AllSliderPlace data;
 
-    public SliderPlaceAdapter(FragmentActivity context, ArrayList<Bitmap> arrImgSliderPlace, SliderPlaceDTO.Place[] arrSliderPlace) {
-        this.context = context;
-        this.arrImage = arrImgSliderPlace;
-        this.arrPlace = arrSliderPlace;
+//    public SliderPlaceAdapter(FragmentActivity context, ArrayList<Bitmap> arrImgSliderPlace, SliderPlaceDTO.Place[] arrSliderPlace) {
+//        this.context = context;
+//        this.arrImage = arrImgSliderPlace;
+//        this.arrPlace = arrSliderPlace;
+//    }
+
+    public SliderPlaceAdapter(FragmentActivity activity, AllSliderPlace data) {
+        this.context = activity;
+        this.data = data;
+        arrImage = new ArrayList<>();
+        for (int i = 0; i < data.listSliderPlace.length; i++) {
+            arrImage.add(Utils.decodeToBase64(data.listSliderPlace[i].image));
+        }
     }
 
     @Override
@@ -51,7 +62,8 @@ public class SliderPlaceAdapter extends PagerAdapter {
         View item = LayoutInflater.from(context).inflate(R.layout.item_slider_place, null);
         ImageView imageView = item.findViewById(R.id.img_item_slider_place);
         TextView textView = item.findViewById(R.id.txt_item_name_slider_place);
-        textView.setText(arrPlace[position].long_name);
+//        textView.setText(arrPlace[position].long_name);
+        textView.setText(data.listSliderPlace[position].name);
         imageView.setImageBitmap(arrImage.get(position));
         view.addView(item, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         return item;

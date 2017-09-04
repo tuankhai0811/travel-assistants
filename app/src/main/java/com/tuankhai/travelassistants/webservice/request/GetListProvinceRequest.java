@@ -10,14 +10,18 @@ import java.util.Map;
  */
 
 public class GetListProvinceRequest extends BasicRequest {
-    public final static String GET_ORD_DETAILS = "TravelAssistants/public/Province";
+    public final static String GET_ORD_DETAILS = "TravelAssistants/public/Province/get/all";
 
-    public GetListProvinceRequest() {
+    String key;
+
+    public GetListProvinceRequest(String key) {
+        this.key = key;
     }
 
     @Override
     public Map<String, Object> params() {
         Map<String, Object> params = new HashMap<String, Object>();
+        params.put("key", key);
         return params;
     }
 

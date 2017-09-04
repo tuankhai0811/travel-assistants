@@ -1,7 +1,7 @@
 package com.tuankhai.travelassistants.fragment;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -21,10 +21,12 @@ import com.tuankhai.loopingviewpager.LoopViewPager;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.BaseActivity;
 import com.tuankhai.travelassistants.activity.BaseFragment;
+import com.tuankhai.travelassistants.activity.ListPlaceActivity;
 import com.tuankhai.travelassistants.adapter.ProvinceAdapter;
 import com.tuankhai.travelassistants.adapter.SliderPlaceAdapter;
+import com.tuankhai.travelassistants.model.AllSliderPlace;
+import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
-import com.tuankhai.travelassistants.webservice.DTO.SliderPlaceDTO;
 import com.tuankhai.viewpagertransformers.ZoomOutTranformer;
 
 import java.util.ArrayList;
@@ -36,7 +38,9 @@ import java.util.TimerTask;
  * Created by Khai on 31/08/2017.
  */
 
-public class PlacesFragment extends BaseFragment implements AppBarLayout.OnOffsetChangedListener {
+public class PlacesFragment extends BaseFragment
+        implements AppBarLayout.OnOffsetChangedListener,
+        ProvinceAdapter.LayoutProvinceItemListener {
     protected String TAG = "";
     protected BaseActivity mActivity;
     protected View mRootView;
@@ -49,7 +53,7 @@ public class PlacesFragment extends BaseFragment implements AppBarLayout.OnOffse
     ProvinceAdapter adapterProvinces;
 
     SliderPlaceAdapter adapterSliderPlace;
-    ArrayList<Bitmap> arrImgSliderPlace;
+    //    ArrayList<Bitmap> arrImgSliderPlace;
     LoopViewPager viewpager;
     CircleIndicator indicator;
 
@@ -59,6 +63,7 @@ public class PlacesFragment extends BaseFragment implements AppBarLayout.OnOffse
     int currentPage;
     int numPage;
     Timer timer;
+    TimerTask task;
     final long DELAY_MS = 5000;      //delay in milliseconds before task is to be executed
     final long PERIOD_MS = 5000;    //time in milliseconds between successive task executions.
 
@@ -169,7 +174,7 @@ public class PlacesFragment extends BaseFragment implements AppBarLayout.OnOffse
         lvProvince = mRootView.findViewById(R.id.lv_province);
         arrProvinces = new ArrayList<>();
         layoutManagerProvince = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        adapterProvinces = new ProvinceAdapter(getActivity(), arrProvinces);
+        adapterProvinces = new ProvinceAdapter(mActivity, arrProvinces, this);
         lvProvince.setLayoutManager(layoutManagerProvince);
         lvProvince.setAdapter(adapterProvinces);
 
@@ -210,36 +215,36 @@ public class PlacesFragment extends BaseFragment implements AppBarLayout.OnOffse
         adapterProvinces.notifyDataSetChanged();
     }
 
-    public void setSliderPlace(ArrayList<Bitmap> arrImg, SliderPlaceDTO.Place[] arrPlace) {
-        viewpager = mRootView.findViewById(R.id.viewpagerPlace);
-        indicator = mRootView.findViewById(R.id.indicatorPlace);
-        arrImgSliderPlace = new ArrayList<>();
-        arrImgSliderPlace.addAll(arrImg);
-        adapterSliderPlace = new SliderPlaceAdapter(getActivity(), arrImgSliderPlace, arrPlace);
-        viewpager.setAdapter(adapterSliderPlace);
-        viewpager.setPageTransformer(true, new ZoomOutTranformer());
-        indicator.setViewPager(viewpager);
-        currentPage = 0;
-        numPage = arrImg.size();
-        final Handler handler = new Handler();
-        final Runnable update = new Runnable() {
-            public void run() {
-                currentPage = viewpager.getCurrentItem() + 1;
-                if (currentPage == numPage) {
-                    currentPage = 0;
-                }
-                viewpager.setCurrentItem(currentPage++, true);
-            }
-        };
-        timer = new Timer();    //This will create a new Thread
-        timer.schedule(new TimerTask() {    //task to be scheduled
-
-            @Override
-            public void run() {
-                handler.post(update);
-            }
-        }, DELAY_MS, PERIOD_MS);
-    }
+//    public void setSliderPlace(ArrayList<Bitmap> arrImg, SliderPlaceDTO.Place[] arrPlace) {
+//        viewpager = mRootView.findViewById(R.id.viewpagerPlace);
+//        indicator = mRootView.findViewById(R.id.indicatorPlace);
+//        arrImgSliderPlace = new ArrayList<>();
+//        arrImgSliderPlace.addAll(arrImg);
+//        adapterSliderPlace = new SliderPlaceAdapter(getActivity(), arrImgSliderPlace, arrPlace);
+//        viewpager.setAdapter(adapterSliderPlace);
+//        viewpager.setPageTransformer(true, new ZoomOutTranformer());
+//        indicator.setViewPager(viewpager);
+//        currentPage = 0;
+//        numPage = arrImg.size();
+//        final Handler handler = new Handler();
+//        final Runnable update = new Runnable() {
+//            public void run() {
+//                currentPage = viewpager.getCurrentItem() + 1;
+//                if (currentPage == numPage) {
+//                    currentPage = 0;
+//                }
+//                viewpager.setCurrentItem(currentPage++, true);
+//            }
+//        };
+//        task = new TimerTask() {
+//            @Override
+//            public void run() {
+//                handler.post(update);
+//            }
+//        };
+//        timer = new Timer();    //This will create a new Thread
+//        timer.schedule(task, DELAY_MS, PERIOD_MS);
+//    }
 
     @Override
     public boolean onActivityBackPress() {
@@ -252,5 +257,42 @@ public class PlacesFragment extends BaseFragment implements AppBarLayout.OnOffse
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         mActivity.searchView.setTranslationY(verticalOffset);
+    }
+
+    public void setSliderPlace(AllSliderPlace data) {
+        viewpager = mRootView.findViewById(R.id.viewpagerPlace);
+        indicator = mRootView.findViewById(R.id.indicatorPlace);
+        adapterSliderPlace = new SliderPlaceAdapter(getActivity(), data);
+        viewpager.setAdapter(adapterSliderPlace);
+        viewpager.setPageTransformer(true, new ZoomOutTranformer());
+        indicator.setViewPager(viewpager);
+        currentPage = 0;
+        numPage = data.listSliderPlace.length;
+        final Handler handler = new Handler();
+        final Runnable update = new Runnable() {
+            public void run() {
+                currentPage = viewpager.getCurrentItem() + 1;
+                if (currentPage == numPage) {
+                    currentPage = 0;
+                }
+                viewpager.setCurrentItem(currentPage++, true);
+            }
+        };
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        };
+        timer = new Timer();    //This will create a new Thread
+        timer.schedule(task, DELAY_MS, PERIOD_MS);
+    }
+
+    @Override
+    public void onProvinceClick(View view, ProvinceDTO.Province item) {
+        Intent intent = new Intent(getContext(), ListPlaceActivity.class);
+        intent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_PROVINCE);
+        intent.putExtra(AppContansts.INTENT_DATA, item);
+        startActivity(intent);
     }
 }

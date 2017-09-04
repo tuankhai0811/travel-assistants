@@ -23,9 +23,12 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
     private ArrayList<ProvinceDTO.Province> lists;
     private ArrayList<Integer> backgrounds;
 
-    public ProvinceAdapter(Activity context, ArrayList<ProvinceDTO.Province> lists) {
+    LayoutProvinceItemListener itemListener;
+
+    public ProvinceAdapter(Activity context, ArrayList<ProvinceDTO.Province> lists, LayoutProvinceItemListener listener) {
         this.context = context;
         this.lists = lists;
+        this.itemListener = listener;
         backgrounds = new ArrayList<>();
         backgrounds.add(R.drawable.bg_random_1);
         backgrounds.add(R.drawable.bg_random_2);
@@ -56,10 +59,16 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
 
     @Override
     public void onBindViewHolder(ProvinceViewHolder holder, int position) {
-        ProvinceDTO.Province item = lists.get(position);
+        final ProvinceDTO.Province item = lists.get(position);
         holder.txtName.setText(item.name);
         holder.txtIcon.setText(item.name.toString().substring(0, 1));
         holder.txtIcon.setBackgroundResource(backgrounds.get(item.color));
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemListener.onProvinceClick(view, item);
+            }
+        });
     }
 
     @Override
@@ -77,5 +86,9 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
             txtIcon = itemView.findViewById(R.id.txt_item_icon_province);
             txtName = itemView.findViewById(R.id.txt_item_name_province);
         }
+    }
+
+    public interface LayoutProvinceItemListener {
+        void onProvinceClick(View view, ProvinceDTO.Province item);
     }
 }

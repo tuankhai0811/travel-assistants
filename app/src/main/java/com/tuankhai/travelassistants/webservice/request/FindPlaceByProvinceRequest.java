@@ -6,15 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Khai on 01/09/2017.
+ * Created by tuank on 04/09/2017.
  */
 
-public class GetSliderPlaceRequest extends BasicRequest {
-    public final static String GET_ORD_DETAILS = "TravelAssistants/public/PlaceSlider/get/all";
+public class FindPlaceByProvinceRequest extends BasicRequest {
+    public final static String GET_ORD_DETAILS = "TravelAssistants/public/Place/find/province";
 
     String key;
 
-    public GetSliderPlaceRequest(String key) {
+    public FindPlaceByProvinceRequest(String key) {
         this.key = key;
     }
 

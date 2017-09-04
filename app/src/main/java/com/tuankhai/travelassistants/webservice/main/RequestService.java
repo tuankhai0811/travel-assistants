@@ -6,9 +6,6 @@ import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.interfaces.UploadserviceRequest;
 import com.tuankhai.travelassistants.webservice.interfaces.WebserviceRequest;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -54,9 +51,7 @@ public class RequestService {
         String[] path = mainDTO.path();
         getClient(BASE_URL)
                 .create(WebserviceRequest.class)
-                .getAnswers(path(path, 0),
-                        path(path, 1),
-                        path(path, 2))
+                .getAnswers(path(path, 0), path(path, 1), path(path, 2), path(path, 3), path(path, 4), mainDTO.params())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -70,36 +65,6 @@ public class RequestService {
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.e(getClass().toString(), "onFailure");
-                    }
-                });
-    }
-
-    public void load(BasicRequest mainDTO, boolean isShowLoading, final MyCallback callback) {
-        String[] path = mainDTO.path();
-        getClient(BASE_URL)
-                .create(WebserviceRequest.class)
-                .getAnswers(path(path, 0),
-                        path(path, 1),
-                        path(path, 2))
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        JSONObject data = null;
-                        JSONObject result = null;
-                        try {
-                            data = new JSONObject(response.body().string());
-                            result = data.getJSONObject("result");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        callback.onSuccess(result);
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-
                     }
                 });
     }

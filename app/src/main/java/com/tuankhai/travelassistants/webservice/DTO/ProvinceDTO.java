@@ -3,6 +3,7 @@ package com.tuankhai.travelassistants.webservice.DTO;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -23,7 +24,7 @@ public final class ProvinceDTO {
         this.message = message;
     }
 
-    public static final class Province {
+    public static final class Province implements Serializable {
         public final long _id;
         public final String id;
         public final String name;
