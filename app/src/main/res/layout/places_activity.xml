@@ -296,7 +296,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/bg_sea_travel" />
+                        app:srcCompat="@drawable/bg_summer" />
 
                     <View
                         android:layout_width="match_parent"
@@ -330,7 +330,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/bg_sea_travel" />
+                        app:srcCompat="@drawable/bg_autumn" />
 
                     <View
                         android:layout_width="match_parent"
@@ -364,7 +364,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/bg_sea_travel" />
+                        app:srcCompat="@drawable/bg_winter" />
 
                     <View
                         android:layout_width="match_parent"
