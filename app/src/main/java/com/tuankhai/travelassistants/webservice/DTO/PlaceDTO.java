@@ -2,8 +2,14 @@ package com.tuankhai.travelassistants.webservice.DTO;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tuankhai.travelassistants.utils.AppContansts;
+import com.tuankhai.travelassistants.utils.Utils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by tuank on 04/09/2017.
@@ -58,6 +64,7 @@ public final class PlaceDTO {
         public final String game;
         public final String created_at;
         public final String updated_at;
+        public final ArrayList<String> arrImage;
 
         @JsonCreator
         public Place(@JsonProperty("_id") long _id,
@@ -128,6 +135,17 @@ public final class PlaceDTO {
             this.game = game;
             this.created_at = created_at;
             this.updated_at = updated_at;
+            this.arrImage = new ArrayList<>();
+            if (!Utils.isEmptyString(this.photos)) {
+                try {
+                    JSONArray array = new JSONArray(this.photos);
+                    for (int i = 0; i < array.length(); i++) {
+                        this.arrImage.add(AppContansts.URL_IMAGE + array.getString(i));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

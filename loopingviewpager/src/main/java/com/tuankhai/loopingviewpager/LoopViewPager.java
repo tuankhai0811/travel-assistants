@@ -186,23 +186,23 @@ public class LoopViewPager extends ViewPager {
 
         @Override
         public void onPageScrollStateChanged(int state) {
-            if (mAdapter != null) {
-                int position = LoopViewPager.super.getCurrentItem();
-                int realPosition = mAdapter.toRealPosition(position);
-                if (state == ViewPager.SCROLL_STATE_IDLE && (position == 0
-                        || position == mAdapter.getCount() - 1)) {
-                    setCurrentItem(realPosition, false);
-                }
-            }
-
-            if (mOnPageChangeListeners != null) {
-                for (int i = 0; i < mOnPageChangeListeners.size(); i++) {
-                    OnPageChangeListener listener = mOnPageChangeListeners.get(i);
-                    if (listener != null) {
-                        listener.onPageScrollStateChanged(state);
-                    }
-                }
-            }
+//            if (mAdapter != null) {
+//                int position = LoopViewPager.super.getCurrentItem();
+//                int realPosition = mAdapter.toRealPosition(position);
+//                if (state == ViewPager.SCROLL_STATE_IDLE && (position == 0
+//                        || position == mAdapter.getCount() - 1)) {
+//                    setCurrentItem(realPosition, false);
+//                }
+//            }
+//
+//            if (mOnPageChangeListeners != null) {
+//                for (int i = 0; i < mOnPageChangeListeners.size(); i++) {
+//                    OnPageChangeListener listener = mOnPageChangeListeners.get(i);
+//                    if (listener != null) {
+//                        listener.onPageScrollStateChanged(state);
+//                    }
+//                }
+//            }
         }
     };
 }

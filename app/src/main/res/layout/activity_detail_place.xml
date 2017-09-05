@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_material_light"
-    android:fitsSystemWindows="true"
-    tools:context="com.tuankhai.travelassistants.activity.DetailPlaceActivity">
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -42,6 +40,7 @@
                         android:id="@+id/viewpagerImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@drawable/bg_place_global_16_10"
                         android:fitsSystemWindows="true"
                         app:layout_collapseMode="parallax" />
 
@@ -55,35 +54,21 @@
                         android:gravity="bottom|right" />
 
                 </FrameLayout>
-
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:paddingBottom="16dp"
-                    android:paddingLeft="76dp"
-                    android:text="Ninh Thuan"
-                    android:textColor="@color/global_white"
-                    android:textSize="24sp" />
-
             </RelativeLayout>
 
-            <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
                 android:background="@color/transparent"
                 android:theme="@style/ActionBarThemeOverlay"
+                app:layout_collapseMode="pin"
                 app:popupTheme="@style/ActionBarPopupThemeOverlay" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></LinearLayout>
+    <include layout="@layout/content_main_detail_place"/>
 
 </android.support.design.widget.CoordinatorLayout>
