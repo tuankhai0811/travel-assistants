@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.BaseActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -29,6 +29,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.ListPlaceActivity" />
+        <activity android:name=".activity.DetailPlaceActivity"
+            android:theme="@style/Theme.Slider.Sliderable"></activity>
     </application>
 
 </manifest>

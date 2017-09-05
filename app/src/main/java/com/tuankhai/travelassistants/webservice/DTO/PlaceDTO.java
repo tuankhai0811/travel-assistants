@@ -3,6 +3,8 @@ package com.tuankhai.travelassistants.webservice.DTO;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Created by tuank on 04/09/2017.
  */
@@ -21,7 +23,7 @@ public final class PlaceDTO {
         this.message = message;
     }
 
-    public static final class Place {
+    public static final class Place implements Serializable {
         public final long _id;
         public final String id;
         public final String long_name;

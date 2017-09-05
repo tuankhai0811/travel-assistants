@@ -27,9 +27,12 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
 
     private static int type;
 
-    public PlaceAdapter(Activity context, ArrayList<PlaceDTO.Place> arrPlace) {
+    LayoutListPlaceItemListener itemListener;
+
+    public PlaceAdapter(Activity context, ArrayList<PlaceDTO.Place> arrPlace, LayoutListPlaceItemListener listener) {
         this.context = context;
         this.arrPlace = arrPlace;
+        this.itemListener = listener;
         type = R.layout.item_place_line;
     }
 
@@ -59,7 +62,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         return arrPlace.size();
     }
 
-    public class PlaceViewHolder extends RecyclerView.ViewHolder {
+    public class PlaceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RelativeLayout layout;
         TextView txtName;
         ImageView imageView;
@@ -69,6 +72,16 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
             layout = itemView.findViewById(R.id.layout_item_place);
             txtName = itemView.findViewById(R.id.txt_item_name_place);
             imageView = itemView.findViewById(R.id.img_item_place);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            itemListener.onItemPlaceClick(view, arrPlace.get(getAdapterPosition()));
+        }
+    }
+
+    public interface LayoutListPlaceItemListener {
+        void onItemPlaceClick(View view, PlaceDTO.Place item);
     }
 }

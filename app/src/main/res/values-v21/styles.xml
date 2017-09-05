@@ -8,4 +8,13 @@
         <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
         <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
     <!--</style>-->
+    <!--<style name="Theme.Slider.Sliderable" parent="Theme.AppCompat.NoActionBar">-->
+        <!--&lt;!&ndash; These values must be set for this mechanism to work &ndash;&gt;-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+
+    <!--</style>-->
 </resources>

@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/floatingsearchview/floatingsearchview.iml" filepath="$PROJECT_DIR$/floatingsearchview/floatingsearchview.iml" />
       <module fileurl="file://$PROJECT_DIR$/loopingviewpager/loopingviewpager.iml" filepath="$PROJECT_DIR$/loopingviewpager/loopingviewpager.iml" />
       <module fileurl="file://$PROJECT_DIR$/ripple/ripple.iml" filepath="$PROJECT_DIR$/ripple/ripple.iml" />
+      <module fileurl="file://$PROJECT_DIR$/slideractivity/slideractivity.iml" filepath="$PROJECT_DIR$/slideractivity/slideractivity.iml" />
       <module fileurl="file://$PROJECT_DIR$/travel-assistants.iml" filepath="$PROJECT_DIR$/travel-assistants.iml" />
       <module fileurl="file://$PROJECT_DIR$/viewpagertransformers/viewpagertransformers.iml" filepath="$PROJECT_DIR$/viewpagertransformers/viewpagertransformers.iml" />
     </modules>

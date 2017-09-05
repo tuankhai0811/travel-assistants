@@ -1,11 +1,13 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.ListPlaceController;
@@ -19,7 +21,7 @@ import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ListPlaceActivity extends AppCompatActivity {
+public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter.LayoutListPlaceItemListener {
     ListPlaceController placeController;
     int type;
 
@@ -57,7 +59,7 @@ public class ListPlaceActivity extends AppCompatActivity {
         lvPlace = (RecyclerView) findViewById(R.id.lv_place);
         arrPlace = new ArrayList<>();
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        placeAdapter = new PlaceAdapter(this, arrPlace);
+        placeAdapter = new PlaceAdapter(this, arrPlace, this);
         lvPlace.setLayoutManager(layoutManager);
         lvPlace.addItemDecoration(new GridSpacingItemDecoration(1, Utils.dpToPx(this, 0), true));
         lvPlace.setItemAnimator(new DefaultItemAnimator());
@@ -74,5 +76,12 @@ public class ListPlaceActivity extends AppCompatActivity {
         arrPlace.clear();
         arrPlace.addAll(Arrays.asList(response.place));
         placeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemPlaceClick(View view, PlaceDTO.Place item) {
+        Intent intent = new Intent(ListPlaceActivity.this, DetailPlaceActivity.class);
+        intent.putExtra(AppContansts.INTENT_DATA, item);
+        startActivity(intent);
     }
 }

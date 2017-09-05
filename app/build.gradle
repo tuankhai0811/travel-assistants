@@ -39,14 +39,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    //font
-    //recycleview
-    //retrofit
-    //lib
-    compile project(':loopingviewpager')
-    compile project(':floatingsearchview')
-    compile project(':viewpagertransformers')
 
+    compile project(path: ':loopingviewpager')
+    compile project(path: ':floatingsearchview')
+    compile project(path: ':viewpagertransformers')
+    compile project(path: ':ripple')
+    compile project(path: ':slideractivity')
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:support-compat:26.+'
     compile 'com.android.support:design:26.+'
@@ -59,10 +57,10 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.bumptech.glide:glide:4.0.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     testCompile 'junit:junit:4.12'
-    compile project(path: ':ripple')
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 }
+
 
 
 
