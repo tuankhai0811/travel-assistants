@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MaterialRippleLayout">
+        <attr name="kt_rippleColor" format="color" localization="suggested" />
+        <attr name="kt_rippleDimension" format="dimension" localization="suggested" />
+        <attr name="kt_rippleOverlay" format="boolean" localization="suggested" />
+        <attr name="kt_rippleAlpha" format="float" localization="suggested" />
+        <attr name="kt_rippleDuration" format="integer" localization="suggested" />
+        <attr name="kt_rippleFadeDuration" format="integer" localization="suggested" />
+        <attr name="kt_rippleHover" format="boolean" localization="suggested" />
+        <attr name="kt_rippleBackground" format="color" localization="suggested" />
+        <attr name="kt_rippleDelayClick" format="boolean" localization="suggested" />
+        <attr name="kt_ripplePersistent" format="boolean" localization="suggested" />
+        <attr name="kt_rippleInAdapter" format="boolean" localization="suggested" />
+        <attr name="kt_rippleRoundedCorners" format="dimension" localization="suggested" />
+    </declare-styleable>
+</resources>

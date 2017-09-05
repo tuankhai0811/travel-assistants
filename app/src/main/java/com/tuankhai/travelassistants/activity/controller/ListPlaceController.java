@@ -1,14 +1,12 @@
-package com.tuankhai.travelassistants.activity;
+package com.tuankhai.travelassistants.activity.controller;
 
 import android.util.Log;
 
-import com.tuankhai.travelassistants.utils.Utils;
+import com.tuankhai.travelassistants.activity.ListPlaceActivity;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
-import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.travelassistants.webservice.request.FindPlaceByProvinceRequest;
-import com.tuankhai.travelassistants.webservice.request.GetListProvinceRequest;
 
 /**
  * Created by tuank on 04/09/2017.
@@ -22,7 +20,7 @@ public class ListPlaceController {
     }
 
     public void getListPlace(String id) {
-        new RequestService().load(new FindPlaceByProvinceRequest("key"), false, new MyCallback() {
+        new RequestService().load(new FindPlaceByProvinceRequest("key", id), false, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);
@@ -38,6 +36,6 @@ public class ListPlaceController {
                 super.onFailure(error);
                 Log.e("RequestService", error.toString());
             }
-        }, ProvinceDTO.class);
+        }, PlaceDTO.class);
     }
 }

@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.tuankhai.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.controller.BaseController;
+import com.tuankhai.travelassistants.fragment.BaseFragment;
 import com.tuankhai.travelassistants.fragment.BaseFragmentCallbacks;
 
 import java.util.List;
@@ -30,16 +32,16 @@ public class BaseActivity extends AppCompatActivity
         BaseFragmentCallbacks {
     protected String TAG = "";
 
-    private BaseActivityCallback callback;
-    private BaseController mBaseController;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
+    public BaseActivityCallback callback;
+    public BaseController mBaseController;
+    public FragmentManager fragmentManager;
+    public FragmentTransaction fragmentTransaction;
 
-    private DrawerLayout drawerLayout;
-    private Toolbar toolbar;
+    public DrawerLayout drawerLayout;
+    Toolbar toolbar;
 
     public AppBarLayout appBarLayout;
-    FrameLayout searchviewLayout;
+    public FrameLayout searchviewLayout;
     public FloatingSearchView searchView;
 
 

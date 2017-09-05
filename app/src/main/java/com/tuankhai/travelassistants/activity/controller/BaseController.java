@@ -1,8 +1,9 @@
-package com.tuankhai.travelassistants.activity;
+package com.tuankhai.travelassistants.activity.controller;
 
 import android.support.v4.app.Fragment;
 
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.BaseActivity;
 import com.tuankhai.travelassistants.fragment.PlacesFragment;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;

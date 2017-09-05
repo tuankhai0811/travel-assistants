@@ -19,4 +19,5 @@
     <dimen name="height_image_type_travel_2">230dp</dimen>
     <dimen name="search_view_inset">5dp</dimen>
     <dimen name="height_toolbar">66dp</dimen>
+    <dimen name="height_layout_item_place_table">210dp</dimen>
 </resources>

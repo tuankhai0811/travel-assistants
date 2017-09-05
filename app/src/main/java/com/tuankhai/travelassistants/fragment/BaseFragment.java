@@ -1,4 +1,4 @@
-package com.tuankhai.travelassistants.activity;
+package com.tuankhai.travelassistants.fragment;
 
 import android.support.v4.app.Fragment;
 

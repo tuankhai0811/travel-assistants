@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/floatingsearchview" />
             <option value="$PROJECT_DIR$/loopingviewpager" />
+            <option value="$PROJECT_DIR$/ripple" />
             <option value="$PROJECT_DIR$/viewpagertransformers" />
           </set>
         </option>

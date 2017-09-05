@@ -20,10 +20,10 @@ import com.tuankhai.loopingviewpager.CircleIndicator;
 import com.tuankhai.loopingviewpager.LoopViewPager;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.BaseActivity;
-import com.tuankhai.travelassistants.activity.BaseFragment;
 import com.tuankhai.travelassistants.activity.ListPlaceActivity;
 import com.tuankhai.travelassistants.adapter.ProvinceAdapter;
 import com.tuankhai.travelassistants.adapter.SliderPlaceAdapter;
+import com.tuankhai.travelassistants.fragment.controller.PlacesController;
 import com.tuankhai.travelassistants.model.AllSliderPlace;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
@@ -43,7 +43,7 @@ public class PlacesFragment extends BaseFragment
         ProvinceAdapter.LayoutProvinceItemListener {
     protected String TAG = "";
     protected BaseActivity mActivity;
-    protected View mRootView;
+    public View mRootView;
     protected PlacesController placesController;
     BaseFragmentCallbacks callbacks;
 
@@ -177,13 +177,6 @@ public class PlacesFragment extends BaseFragment
         adapterProvinces = new ProvinceAdapter(mActivity, arrProvinces, this);
         lvProvince.setLayoutManager(layoutManagerProvince);
         lvProvince.setAdapter(adapterProvinces);
-
-//        viewpager = mRootView.findViewById(R.id.viewpager);
-//        indicator = mRootView.findViewById(R.id.indicator);
-//        arrImgSliderPlace = new ArrayList<>();
-//        adapterSliderPlace = new SliderPlaceAdapter(getActivity(), arrImgSliderPlace);
-//        viewpager.setAdapter(adapterSliderPlace);
-//        indicator.setViewPager(viewpager);
     }
 
     protected void attachSearchViewActivityDrawer(FloatingSearchView searchView) {

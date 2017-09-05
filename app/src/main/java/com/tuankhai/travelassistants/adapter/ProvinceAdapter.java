@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tuankhai.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 
@@ -54,7 +55,15 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
 
     @Override
     public ProvinceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ProvinceViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_province, null));
+        final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        return new ProvinceViewHolder(
+                MaterialRippleLayout.on(inflater.inflate(R.layout.item_province, parent, false))
+                        .rippleOverlay(true)
+                        .rippleAlpha(0.05f)
+                        .rippleColor(R.integer.rippleColor)
+                        .rippleHover(true)
+                        .create()
+        );
     }
 
     @Override
@@ -63,12 +72,6 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
         holder.txtName.setText(item.name);
         holder.txtIcon.setText(item.name.toString().substring(0, 1));
         holder.txtIcon.setBackgroundResource(backgrounds.get(item.color));
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                itemListener.onProvinceClick(view, item);
-            }
-        });
     }
 
     @Override
@@ -76,7 +79,7 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
         return lists.size();
     }
 
-    public class ProvinceViewHolder extends RecyclerView.ViewHolder {
+    public class ProvinceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         LinearLayout layout;
         TextView txtIcon, txtName;
 
@@ -85,6 +88,12 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
             layout = itemView.findViewById(R.id.layout_item_province);
             txtIcon = itemView.findViewById(R.id.txt_item_icon_province);
             txtName = itemView.findViewById(R.id.txt_item_name_province);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            itemListener.onProvinceClick(view, lists.get(getAdapterPosition()));
         }
     }
 

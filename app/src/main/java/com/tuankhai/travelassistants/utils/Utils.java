@@ -2,10 +2,12 @@ package com.tuankhai.travelassistants.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
+import android.util.TypedValue;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -90,5 +92,13 @@ public class Utils {
     public static boolean isEmptyString(String string) {
         if (string == null || string.trim().equals("")) return true;
         return false;
+    }
+
+    /**
+     * Converting dp to pixel
+     */
+    public static int dpToPx(Context context, int dp) {
+        Resources r = context.getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 }

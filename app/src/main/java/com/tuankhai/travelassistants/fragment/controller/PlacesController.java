@@ -1,9 +1,10 @@
-package com.tuankhai.travelassistants.fragment;
+package com.tuankhai.travelassistants.fragment.controller;
 
 import android.view.View;
 
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.BaseActivity;
+import com.tuankhai.travelassistants.fragment.PlacesFragment;
 import com.tuankhai.travelassistants.model.AllSliderPlace;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
