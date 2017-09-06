@@ -19,21 +19,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:scrimAnimationDuration="600"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleTextAppearance="@android:color/transparent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:scrimAnimationDuration="600">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_place_global_16_10">
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/bg_image"
                     android:fitsSystemWindows="true"
                     app:layout_collapseMode="parallax">
 
@@ -41,7 +42,6 @@
                         android:id="@+id/viewpagerImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/bg_place_global_16_10"
                         android:fitsSystemWindows="true"
                         app:layout_collapseMode="parallax" />
 
@@ -58,18 +58,18 @@
                         android:id="@+id/txt_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="7dp"
-                        android:paddingBottom="7dp"
                         android:layout_gravity="bottom"
+                        android:layout_marginBottom="40dp"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:paddingBottom="7dp"
                         android:paddingLeft="40dp"
                         android:paddingRight="30dp"
-                        android:layout_marginBottom="40dp"
+                        android:paddingTop="7dp"
                         android:text="Khu du lịch Suối Tiên"
-                        android:textStyle="bold"
                         android:textColor="@color/global_white"
-                        android:textSize="26sp" />
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
 
                 </FrameLayout>
             </RelativeLayout>

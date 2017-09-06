@@ -4,7 +4,9 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.animation.Interpolator;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class LoopViewPager extends ViewPager {
     private boolean mBoundaryCaching = DEFAULT_BOUNDARY_CASHING;
     private boolean mBoundaryLooping = DEFAULT_BOUNDARY_LOOPING;
     private List<OnPageChangeListener> mOnPageChangeListeners;
+
+    private ScrollerCustomDuration mScroller = null;
 
     /**
      * helper function which may be used when implementing FragmentPagerAdapter
@@ -80,9 +84,8 @@ public class LoopViewPager extends ViewPager {
 
     @Override
     public void setCurrentItem(int item) {
-        if (getCurrentItem() != item) {
-            setCurrentItem(item, true);
-        }
+        int realItem = mAdapter.toInnerPosition(item);
+        super.setCurrentItem(realItem, false);
     }
 
     @Override
@@ -126,7 +129,22 @@ public class LoopViewPager extends ViewPager {
         if (onPageChangeListener != null) {
             super.removeOnPageChangeListener(onPageChangeListener);
         }
+        try {
+            Field scroller = ViewPager.class.getDeclaredField("mScroller");
+            scroller.setAccessible(true);
+            Field interpolator = ViewPager.class.getDeclaredField("sInterpolator");
+            interpolator.setAccessible(true);
+
+            mScroller = new ScrollerCustomDuration(getContext(),
+                    (Interpolator) interpolator.get(null));
+            scroller.set(this, mScroller);
+        } catch (Exception e) {
+        }
         super.addOnPageChangeListener(onPageChangeListener);
+    }
+
+    public void setScrollDurationFactor(double scrollFactor) {
+        mScroller.setScrollDurationFactor(scrollFactor);
     }
 
     private OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
@@ -135,7 +153,6 @@ public class LoopViewPager extends ViewPager {
 
         @Override
         public void onPageSelected(int position) {
-
             int realPosition = mAdapter.toRealPosition(position);
             if (mPreviousPosition != realPosition) {
                 mPreviousPosition = realPosition;

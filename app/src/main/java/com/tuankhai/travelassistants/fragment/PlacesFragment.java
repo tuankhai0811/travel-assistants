@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -53,7 +54,6 @@ public class PlacesFragment extends BaseFragment
     ProvinceAdapter adapterProvinces;
 
     SliderPlaceAdapter adapterSliderPlace;
-    //    ArrayList<Bitmap> arrImgSliderPlace;
     LoopViewPager viewpager;
     CircleIndicator indicator;
 
@@ -64,8 +64,8 @@ public class PlacesFragment extends BaseFragment
     int numPage;
     Timer timer;
     TimerTask task;
-    final long DELAY_MS = 5000;      //delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 5000;    //time in milliseconds between successive task executions.
+    final long DELAY_MS = 5000;
+    final long PERIOD_MS = 5000;
 
     public static PlacesFragment newInstance(BaseActivity activity) {
         PlacesFragment fragment = new PlacesFragment();
@@ -134,9 +134,6 @@ public class PlacesFragment extends BaseFragment
             }
         });
 
-
-        //handle menu clicks the same way as you would
-        //in a regular activity
         mActivity.searchView.setOnMenuItemClickListener(new FloatingSearchView.OnMenuItemClickListener() {
             @Override
             public void onActionMenuItemSelected(MenuItem item) {
@@ -208,37 +205,6 @@ public class PlacesFragment extends BaseFragment
         adapterProvinces.notifyDataSetChanged();
     }
 
-//    public void setSliderPlace(ArrayList<Bitmap> arrImg, SliderPlaceDTO.Place[] arrPlace) {
-//        viewpager = mRootView.findViewById(R.id.viewpagerPlace);
-//        indicator = mRootView.findViewById(R.id.indicatorPlace);
-//        arrImgSliderPlace = new ArrayList<>();
-//        arrImgSliderPlace.addAll(arrImg);
-//        adapterSliderPlace = new SliderPlaceAdapter(getActivity(), arrImgSliderPlace, arrPlace);
-//        viewpager.setAdapter(adapterSliderPlace);
-//        viewpager.setPageTransformer(true, new ZoomOutTranformer());
-//        indicator.setViewPager(viewpager);
-//        currentPage = 0;
-//        numPage = arrImg.size();
-//        final Handler handler = new Handler();
-//        final Runnable update = new Runnable() {
-//            public void run() {
-//                currentPage = viewpager.getCurrentItem() + 1;
-//                if (currentPage == numPage) {
-//                    currentPage = 0;
-//                }
-//                viewpager.setCurrentItem(currentPage++, true);
-//            }
-//        };
-//        task = new TimerTask() {
-//            @Override
-//            public void run() {
-//                handler.post(update);
-//            }
-//        };
-//        timer = new Timer();    //This will create a new Thread
-//        timer.schedule(task, DELAY_MS, PERIOD_MS);
-//    }
-
     @Override
     public boolean onActivityBackPress() {
         if (!mActivity.searchView.setSearchFocused(false)) {
@@ -255,6 +221,7 @@ public class PlacesFragment extends BaseFragment
     public void setSliderPlace(AllSliderPlace data) {
         viewpager = mRootView.findViewById(R.id.viewpagerPlace);
         indicator = mRootView.findViewById(R.id.indicatorPlace);
+        viewpager.setScrollDurationFactor(1500);
         adapterSliderPlace = new SliderPlaceAdapter(getActivity(), data);
         viewpager.setAdapter(adapterSliderPlace);
         viewpager.setPageTransformer(true, new ZoomOutTranformer());
@@ -268,7 +235,8 @@ public class PlacesFragment extends BaseFragment
                 if (currentPage == numPage) {
                     currentPage = 0;
                 }
-                viewpager.setCurrentItem(currentPage++, true);
+                Log.e("status", currentPage+"");
+                viewpager.setCurrentItem(currentPage--, true);
             }
         };
         task = new TimerTask() {
@@ -277,8 +245,40 @@ public class PlacesFragment extends BaseFragment
                 handler.post(update);
             }
         };
-        timer = new Timer();    //This will create a new Thread
-        timer.schedule(task, DELAY_MS, PERIOD_MS);
+        timer = new Timer();
+        timer.schedule(task, DELAY_MS);
+        viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (timer != null) {
+                    timer.cancel();
+                    timer.purge();
+                    timer = null;
+                    timer = new Timer();
+                    if (task != null) {
+                        task.cancel();
+                        task = null;
+                        task = new TimerTask() {
+                            @Override
+                            public void run() {
+                                handler.post(update);
+                            }
+                        };
+                    }
+                    timer.schedule(task, DELAY_MS);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override

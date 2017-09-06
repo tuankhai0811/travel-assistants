@@ -23,14 +23,7 @@ import java.util.ArrayList;
 public class SliderPlaceAdapter extends PagerAdapter {
     private Activity context;
     private ArrayList<Bitmap> arrImage;
-    //    private SliderPlaceDTO.Place[] arrPlace;
     private AllSliderPlace data;
-
-//    public SliderPlaceAdapter(FragmentActivity context, ArrayList<Bitmap> arrImgSliderPlace, SliderPlaceDTO.Place[] arrSliderPlace) {
-//        this.context = context;
-//        this.arrImage = arrImgSliderPlace;
-//        this.arrPlace = arrSliderPlace;
-//    }
 
     public SliderPlaceAdapter(FragmentActivity activity, AllSliderPlace data) {
         this.context = activity;
@@ -62,22 +55,9 @@ public class SliderPlaceAdapter extends PagerAdapter {
         View item = LayoutInflater.from(context).inflate(R.layout.item_slider_place, null);
         ImageView imageView = item.findViewById(R.id.img_item_slider_place);
         TextView textView = item.findViewById(R.id.txt_item_name_slider_place);
-//        textView.setText(arrPlace[position].long_name);
         textView.setText(data.listSliderPlace[position].name);
         imageView.setImageBitmap(arrImage.get(position));
         view.addView(item, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         return item;
     }
-
-//    public void addItem() {
-//        mSize++;
-//        notifyDataSetChanged();
-//    }
-//
-//    public void removeItem() {
-//        mSize--;
-//        mSize = mSize < 0 ? 0 : mSize;
-//
-//        notifyDataSetChanged();
-//    }
 }
