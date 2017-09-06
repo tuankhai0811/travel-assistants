@@ -26,8 +26,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  */
 
 public class RequestService {
-    //public static String BASE_URL = "http://192.168.0.117/";
-    public static String BASE_URL = "http://192.168.1.18/";
+    public static String BASE_URL = "http://192.168.0.117/";
+    //public static String BASE_URL = "http://192.168.1.18/";
     private Retrofit retrofit = null;
 
     public Retrofit getClient(String baseUrl) {

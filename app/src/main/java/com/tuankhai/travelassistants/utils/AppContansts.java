@@ -14,6 +14,7 @@ public class AppContansts {
     public static final String INTENT_TYPE = "com.tuankhai.travelassistants.intent.type";
     public static final String INTENT_NAME = "com.tuankhai.travelassistants.intent.name";
     public static final String INTENT_DATA = "com.tuankhai.travelassistants.intent.data";
+    public static final String INTENT_IMAGE = "com.tuankhai.travelassistants.intent.image";
 
     public static final int INTENT_TYPE_PROVINCE = 1;
 

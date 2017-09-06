@@ -34,16 +34,13 @@
 
     <style name="Theme.Slider.Sliderable" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">@color/global_black</item>
-        <item name="android:textColorSecondary">@color/gray_70</item>
-        <item name="android:divider">@color/divider</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <!-- These values must be set for this mechanism to work -->
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--<item name="android:statusBarColor">@color/colorPrimary</item>-->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
     <style name="ActionBarThemeOverlay" parent="">

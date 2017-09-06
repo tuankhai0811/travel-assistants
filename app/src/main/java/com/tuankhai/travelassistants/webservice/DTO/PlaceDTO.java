@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.webservice.DTO;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 
@@ -146,6 +147,11 @@ public final class PlaceDTO {
                     e.printStackTrace();
                 }
             }
+        }
+
+        public String getName() {
+            if (this.long_name.length() < R.integer.length_name) return long_name;
+            return short_name;
         }
     }
 }

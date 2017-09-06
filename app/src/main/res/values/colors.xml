@@ -26,8 +26,13 @@
     <color name="random_20">#66BB6A</color>
     
     <color name="gray_70">#AA424242</color>
+    <color name="gray_80">#CC424242</color>
+    <color name="gray_50">#80424242</color>
     <color name="gray_30">#50424242</color>
     <color name="gray_10">#10424242</color>
+    <color name="white_70">#AAFFFFFF</color>
+    <color name="colorPrimary_70">#7003A9F4</color>
+
 
     <color name="global_transform">#00ffffff</color>
     <color name="global_white">#FFFFFFFF</color>
