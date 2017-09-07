@@ -122,10 +122,10 @@ public class DetailPlaceActivity extends AppCompatActivity {
     private void initCollapsingToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ((TextView) findViewById(R.id.txt_title)).setText(data.getName());
+        ((TextView) findViewById(R.id.txt_title)).setText("");
         final CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("");
+        collapsingToolbar.setTitle(data.getName());
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.setExpanded(true);
 
@@ -142,7 +142,7 @@ public class DetailPlaceActivity extends AppCompatActivity {
                     collapsingToolbar.setTitle(data.getName());
                     isShow = true;
                 } else if (isShow) {
-                    collapsingToolbar.setTitle("");
+                    collapsingToolbar.setTitle(data.getName());
                     isShow = false;
                 }
             }

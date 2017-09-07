@@ -51,4 +51,10 @@
 
     <style name="ActionBarPopupThemeOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MyExpandedTitle" parent="Base.TextAppearance.AppCompat.Title">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/global_white</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 </resources>

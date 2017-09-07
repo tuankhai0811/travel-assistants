@@ -17,6 +17,7 @@
         <RelativeLayout
             android:id="@+id/layout_item_place"
             android:layout_width="match_parent"
+            android:background="@drawable/bg_place_global_16_10"
             android:layout_height="@dimen/height_layout_item_place_table">
 
             <ImageView

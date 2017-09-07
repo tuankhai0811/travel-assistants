@@ -22,14 +22,9 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:expandedTitleTextAppearance="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:expandedTitleTextAppearance="@style/MyExpandedTitle"
             app:scrimAnimationDuration="600">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_place_global_16_10">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -62,6 +57,7 @@
                         android:layout_marginBottom="40dp"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:visibility="gone"
                         android:paddingBottom="7dp"
                         android:paddingLeft="40dp"
                         android:paddingRight="30dp"
@@ -72,7 +68,6 @@
                         android:textStyle="bold" />
 
                 </FrameLayout>
-            </RelativeLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
