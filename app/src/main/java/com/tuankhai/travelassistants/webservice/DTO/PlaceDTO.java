@@ -31,41 +31,41 @@ public final class PlaceDTO {
     }
 
     public static final class Place implements Serializable {
-        public final long _id;
+        public long _id;
         public final String id;
-        public final String long_name;
-        public final String short_name;
-        public final long rating;
-        public final String address;
-        public final String province_name;
-        public final String province_id;
-        public final String phone;
-        public final String postal_code;
-        public final long location_lat;
-        public final long location_lng;
-        public final String icon;
-        public final String logo_3_4;
-        public final String logo_4_3;
-        public final String logo_16_9;
-        public final String opening_hours;
-        public final String photos;
-        public final String website;
-        public final long type_sea;
-        public final long type_attractions;
-        public final long type_entertainment;
-        public final long type_cultural;
-        public final long type_spring;
-        public final long type_summer;
-        public final long type_autumn;
-        public final long type_winter;
-        public final String description;
-        public final String hotels;
-        public final String restaurants;
-        public final String foods;
-        public final String game;
-        public final String created_at;
-        public final String updated_at;
-        public final ArrayList<String> arrImage;
+        public String long_name;
+        public String short_name;
+        public long rating;
+        public String address;
+        public String province_name;
+        public String province_id;
+        public String phone;
+        public String postal_code;
+        public long location_lat;
+        public long location_lng;
+        public String icon;
+        public String logo_3_4;
+        public String logo_4_3;
+        public String logo_16_9;
+        public String opening_hours;
+        public String photos;
+        public String website;
+        public long type_sea;
+        public long type_attractions;
+        public long type_entertainment;
+        public long type_cultural;
+        public long type_spring;
+        public long type_summer;
+        public long type_autumn;
+        public long type_winter;
+        public String description;
+        public String hotels;
+        public String restaurants;
+        public String foods;
+        public String game;
+        public String created_at;
+        public String updated_at;
+        public ArrayList<String> arrImage;
 
         @JsonCreator
         public Place(@JsonProperty("_id") long _id,

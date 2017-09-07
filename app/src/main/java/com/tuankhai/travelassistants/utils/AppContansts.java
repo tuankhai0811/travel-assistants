@@ -16,7 +16,16 @@ public class AppContansts {
     public static final String INTENT_DATA = "com.tuankhai.travelassistants.intent.data";
     public static final String INTENT_IMAGE = "com.tuankhai.travelassistants.intent.image";
 
+    public static final int INTENT_TYPE_NORMAL = 0;
     public static final int INTENT_TYPE_PROVINCE = 1;
+    public static final int INTENT_TYPE_SEA = 2;
+    public static final int INTENT_TYPE_ATTRACTIONS = 3;
+    public static final int INTENT_TYPE_CULTURAL = 4;
+    public static final int INTENT_TYPE_ENTERTAINMENT = 5;
+    public static final int INTENT_TYPE_SPRING = 6;
+    public static final int INTENT_TYPE_SUMMER = 7;
+    public static final int INTENT_TYPE_AUTUMN = 8;
+    public static final int INTENT_TYPE_WINNER = 9;
 
     public static String URL_IMAGE = RequestService.BASE_URL + "TravelAssistants/public/image/";
     public static String IMAGE_EXTENSION = ".jpg";

@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.tuankhai.floatingsearchview.main.FloatingSearchView;
@@ -25,9 +27,9 @@ import com.tuankhai.travelassistants.activity.ListPlaceActivity;
 import com.tuankhai.travelassistants.adapter.ProvinceAdapter;
 import com.tuankhai.travelassistants.adapter.SliderPlaceAdapter;
 import com.tuankhai.travelassistants.fragment.controller.PlacesController;
-import com.tuankhai.travelassistants.model.AllSliderPlace;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
+import com.tuankhai.travelassistants.webservice.DTO.SliderPlaceDTO;
 import com.tuankhai.viewpagertransformers.ZoomOutTranformer;
 
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ import java.util.TimerTask;
 
 public class PlacesFragment extends BaseFragment
         implements AppBarLayout.OnOffsetChangedListener,
-        ProvinceAdapter.LayoutProvinceItemListener {
+        ProvinceAdapter.LayoutProvinceItemListener{
     protected String TAG = "";
     protected BaseActivity mActivity;
     public View mRootView;
@@ -56,6 +58,9 @@ public class PlacesFragment extends BaseFragment
     SliderPlaceAdapter adapterSliderPlace;
     LoopViewPager viewpager;
     CircleIndicator indicator;
+
+    FrameLayout layoutSpring, layoutSummer, layoutAutumn, layoutWinter;
+    LinearLayout layoutSea, layoutAttractions, layoutCultural, layoutEntertainment;
 
     private String mLastQuery = "";
 
@@ -81,12 +86,83 @@ public class PlacesFragment extends BaseFragment
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.places_activity, container, false);
             addControls();
+            addEvents();
             placesController = new PlacesController(this);
             placesController.getAllProvince();
             placesController.getSliderPlace();
         }
         //getChildFragmentManager().beginTransaction().replace(R.id.checkout_right_view, mRightFragment).commit();
         return mRootView;
+    }
+
+    private void addEvents() {
+        layoutSpring = mRootView.findViewById(R.id.layout_type_spring);
+        layoutSummer = mRootView.findViewById(R.id.layout_type_summer);
+        layoutAutumn = mRootView.findViewById(R.id.layout_type_autumn);
+        layoutWinter = mRootView.findViewById(R.id.layout_type_winter);
+
+        layoutSea = mRootView.findViewById(R.id.layout_type_sea);
+        layoutAttractions = mRootView.findViewById(R.id.layout_type_attractions);
+        layoutCultural = mRootView.findViewById(R.id.layout_type_cultural);
+        layoutEntertainment = mRootView.findViewById(R.id.layout_type_entertainment);
+
+        layoutSpring.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onTypeClick(view, AppContansts.INTENT_TYPE_SPRING);
+            }
+        });
+
+        layoutSummer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onTypeClick(view, AppContansts.INTENT_TYPE_SUMMER);
+            }
+        });
+
+        layoutAutumn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onTypeClick(view, AppContansts.INTENT_TYPE_AUTUMN);
+            }
+        });
+
+        layoutWinter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onTypeClick(view, AppContansts.INTENT_TYPE_WINNER);
+            }
+        });
+
+        layoutSea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onTypeClick(view, AppContansts.INTENT_TYPE_SEA);
+            }
+        });
+
+
+        layoutAttractions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onTypeClick(view, AppContansts.INTENT_TYPE_ATTRACTIONS);
+            }
+        });
+
+
+        layoutEntertainment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onTypeClick(view, AppContansts.INTENT_TYPE_ENTERTAINMENT);
+            }
+        });
+
+        layoutCultural.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onTypeClick(view, AppContansts.INTENT_TYPE_CULTURAL);
+            }
+        });
     }
 
     @Override
@@ -218,7 +294,7 @@ public class PlacesFragment extends BaseFragment
         mActivity.searchView.setTranslationY(verticalOffset);
     }
 
-    public void setSliderPlace(AllSliderPlace data) {
+    public void setSliderPlace(SliderPlaceDTO data) {
         viewpager = mRootView.findViewById(R.id.viewpagerPlace);
         indicator = mRootView.findViewById(R.id.indicatorPlace);
         viewpager.setScrollDurationFactor(1500);
@@ -227,7 +303,7 @@ public class PlacesFragment extends BaseFragment
         viewpager.setPageTransformer(true, new ZoomOutTranformer());
         indicator.setViewPager(viewpager);
         currentPage = 0;
-        numPage = data.listSliderPlace.length;
+        numPage = data.places.length;
         final Handler handler = new Handler();
         final Runnable update = new Runnable() {
             public void run() {
@@ -288,4 +364,12 @@ public class PlacesFragment extends BaseFragment
         intent.putExtra(AppContansts.INTENT_DATA, item);
         startActivity(intent);
     }
+
+    public void onTypeClick(View view, int type){
+        Intent intent = new Intent(getContext(), ListPlaceActivity.class);
+        intent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_NORMAL);
+        intent.putExtra(AppContansts.INTENT_DATA, type);
+        startActivity(intent);
+    }
+
 }

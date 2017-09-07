@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.model.AllSliderPlace;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
@@ -99,38 +98,16 @@ public class SplashScreenActivity extends AppCompatActivity {
         protected void onPostExecute(ArrayList<Bitmap> bitmaps) {
             super.onPostExecute(bitmaps);
             if (bitmaps.size() == 0) return;
-//            saveSliderPlace(bitmaps, sliderPlaceDTO.places);
             if (bitmaps.size() != sliderPlaceDTO.places.length) return;
             int size = bitmaps.size();
-            AllSliderPlace.SliderPlace[] list = new AllSliderPlace.SliderPlace[size];
             for (int i = 0; i < size; i++) {
-                list[i] = new AllSliderPlace.SliderPlace(
-                        sliderPlaceDTO.places[i].id,
-                        sliderPlaceDTO.places[i].long_name,
-                        Utils.encodeToBase64(bitmaps.get(i)));
+                sliderPlaceDTO.places[i].codeImage = Utils.encodeToBase64(bitmaps.get(i));
             }
-            AllSliderPlace data = new AllSliderPlace(list);
-            Utils.saveSliderPlace(SplashScreenActivity.this, data);
+            Utils.saveSliderPlace(SplashScreenActivity.this, sliderPlaceDTO);
             Intent intent = new Intent(SplashScreenActivity.this, BaseActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
     }
 
-    private void saveSliderPlace(ArrayList<Bitmap> bitmaps, SliderPlaceDTO.Place[] places) {
-        if (bitmaps.size() != places.length) return;
-        int size = bitmaps.size();
-        AllSliderPlace.SliderPlace[] list = new AllSliderPlace.SliderPlace[size];
-        for (int i = 0; i < size; i++) {
-            list[i] = new AllSliderPlace.SliderPlace(
-                    places[i].id,
-                    places[i].long_name,
-                    Utils.encodeToBase64(bitmaps.get(i)));
-        }
-        AllSliderPlace data = new AllSliderPlace(list);
-        Utils.saveSliderPlace(this, data);
-        Intent intent = new Intent(SplashScreenActivity.this, BaseActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 }

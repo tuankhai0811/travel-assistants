@@ -85,6 +85,7 @@
                     android:weightSum="2">
 
                     <LinearLayout
+                        android:id="@+id/layout_type_sea"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/height_divider_view_2"
@@ -113,7 +114,7 @@
                                     style="@style/text_type_travel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Du lịch biển" />
+                                    android:text="@string/type_sea" />
                             </LinearLayout>
 
                         </RelativeLayout>
@@ -121,6 +122,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_type_attractions"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/height_divider_view_2"
@@ -149,7 +151,7 @@
                                     style="@style/text_type_travel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Thắng cảnh" />
+                                    android:text="@string/type_attractions" />
                             </LinearLayout>
 
                         </RelativeLayout>
@@ -169,6 +171,7 @@
                     android:weightSum="2">
 
                     <LinearLayout
+                        android:id="@+id/layout_type_cultural"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/height_divider_view_2"
@@ -197,7 +200,7 @@
                                     style="@style/text_type_travel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Văn hóa" />
+                                    android:text="@string/type_cultural" />
                             </LinearLayout>
 
                         </RelativeLayout>
@@ -205,6 +208,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_type_entertainment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/height_divider_view_2"
@@ -233,7 +237,7 @@
                                     style="@style/text_type_travel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Giải trí" />
+                                    android:text="@string/type_entertainment" />
                             </LinearLayout>
 
                         </RelativeLayout>
@@ -255,6 +259,7 @@
                 android:orientation="vertical">
 
                 <FrameLayout
+                    android:id="@+id/layout_type_spring"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_image_type_travel_2">
 
@@ -279,7 +284,7 @@
                             style="@style/text_type_travel_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Mùa xuân" />
+                            android:text="@string/type_spring" />
 
                     </LinearLayout>
                 </FrameLayout>
@@ -289,6 +294,7 @@
                     android:layout_height="@dimen/height_divider_view" />
 
                 <FrameLayout
+                    android:id="@+id/layout_type_summer"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_image_type_travel_2">
 
@@ -313,7 +319,7 @@
                             style="@style/text_type_travel_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Mùa hè" />
+                            android:text="@string/type_summer" />
 
                     </LinearLayout>
                 </FrameLayout>
@@ -323,6 +329,7 @@
                     android:layout_height="@dimen/height_divider_view" />
 
                 <FrameLayout
+                    android:id="@+id/layout_type_autumn"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_image_type_travel_2">
 
@@ -347,7 +354,7 @@
                             style="@style/text_type_travel_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Mùa thu" />
+                            android:text="@string/type_autumn" />
 
                     </LinearLayout>
                 </FrameLayout>
@@ -357,6 +364,7 @@
                     android:layout_height="@dimen/height_divider_view" />
 
                 <FrameLayout
+                    android:id="@+id/layout_type_winter"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_image_type_travel_2">
 
@@ -381,7 +389,7 @@
                             style="@style/text_type_travel_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Mùa đông" />
+                            android:text="@string/type_winner" />
 
                     </LinearLayout>
                 </FrameLayout>

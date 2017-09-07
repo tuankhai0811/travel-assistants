@@ -42,6 +42,46 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
             case AppContansts.INTENT_TYPE_PROVINCE:
                 progressProvince();
                 break;
+            case AppContansts.INTENT_TYPE_NORMAL:
+                progressNormal();
+        }
+    }
+
+    private void progressNormal() {
+        int type = getIntent().getIntExtra(AppContansts.INTENT_DATA, 0);
+        switch (type){
+            case AppContansts.INTENT_TYPE_SEA:
+                setTitle(getResources().getString(R.string.type_sea));
+                placeController.getList(AppContansts.INTENT_TYPE_SEA);
+                break;
+            case AppContansts.INTENT_TYPE_ATTRACTIONS:
+                setTitle(getResources().getString(R.string.type_attractions));
+                placeController.getList(AppContansts.INTENT_TYPE_ATTRACTIONS);
+                break;
+            case AppContansts.INTENT_TYPE_ENTERTAINMENT:
+                setTitle(getResources().getString(R.string.type_entertainment));
+                placeController.getList(AppContansts.INTENT_TYPE_ENTERTAINMENT);
+                break;
+            case AppContansts.INTENT_TYPE_CULTURAL:
+                setTitle(getResources().getString(R.string.type_cultural));
+                placeController.getList(AppContansts.INTENT_TYPE_CULTURAL);
+                break;
+            case AppContansts.INTENT_TYPE_SPRING:
+                setTitle(getResources().getString(R.string.type_spring));
+                placeController.getList(AppContansts.INTENT_TYPE_SPRING);
+                break;
+            case AppContansts.INTENT_TYPE_SUMMER:
+                setTitle(getResources().getString(R.string.type_summer));
+                placeController.getList(AppContansts.INTENT_TYPE_SUMMER);
+                break;
+            case AppContansts.INTENT_TYPE_AUTUMN:
+                setTitle(getResources().getString(R.string.type_autumn));
+                placeController.getList(AppContansts.INTENT_TYPE_AUTUMN);
+                break;
+            case AppContansts.INTENT_TYPE_WINNER:
+                setTitle(getResources().getString(R.string.type_winner));
+                placeController.getList(AppContansts.INTENT_TYPE_WINNER);
+                break;
         }
     }
 

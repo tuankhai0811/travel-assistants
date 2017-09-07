@@ -5,9 +5,9 @@ import android.view.View;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.BaseActivity;
 import com.tuankhai.travelassistants.fragment.PlacesFragment;
-import com.tuankhai.travelassistants.model.AllSliderPlace;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
+import com.tuankhai.travelassistants.webservice.DTO.SliderPlaceDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.travelassistants.webservice.request.GetListProvinceRequest;
@@ -47,7 +47,7 @@ public class PlacesController {
     }
 
     public void getSliderPlace() {
-        AllSliderPlace data = Utils.getSliderPlace(mActivity);
+        SliderPlaceDTO data = Utils.getSliderPlace(mActivity);
         if (data != null)
             placesFragment.setSliderPlace(data);
 
