@@ -1,12 +1,9 @@
 package com.tuankhai.travelassistants.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,55 +14,30 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.tuankhai.floatingsearchview.main.FloatingSearchView;
-import com.tuankhai.loopingviewpager.CircleIndicator;
-import com.tuankhai.loopingviewpager.LoopViewPager;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.BaseActivity;
-import com.tuankhai.travelassistants.activity.ListPlaceActivity;
-import com.tuankhai.travelassistants.adapter.ProvinceAdapter;
-import com.tuankhai.travelassistants.adapter.SliderPlaceAdapter;
+import com.tuankhai.travelassistants.adapter.FragmentPlaceMainAdapter;
+import com.tuankhai.travelassistants.adapter.decoration.GridSpacingItemDecoration;
 import com.tuankhai.travelassistants.fragment.controller.PlacesController;
-import com.tuankhai.travelassistants.model.AllSliderPlace;
-import com.tuankhai.travelassistants.utils.AppContansts;
-import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
-import com.tuankhai.viewpagertransformers.ZoomOutTranformer;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Timer;
-import java.util.TimerTask;
+import com.tuankhai.travelassistants.utils.Utils;
 
 /**
  * Created by Khai on 31/08/2017.
  */
 
 public class PlacesFragment extends BaseFragment
-        implements AppBarLayout.OnOffsetChangedListener,
-        ProvinceAdapter.LayoutProvinceItemListener {
+        implements AppBarLayout.OnOffsetChangedListener {
     protected String TAG = "";
     protected BaseActivity mActivity;
     public View mRootView;
     protected PlacesController placesController;
     BaseFragmentCallbacks callbacks;
 
-    RecyclerView lvProvince;
-    RecyclerView.LayoutManager layoutManagerProvince;
-    ArrayList<ProvinceDTO.Province> arrProvinces;
-    ProvinceAdapter adapterProvinces;
-
-    SliderPlaceAdapter adapterSliderPlace;
-    LoopViewPager viewpager;
-    CircleIndicator indicator;
-
     private String mLastQuery = "";
 
-    //auto swipe
-    int currentPage;
-    int numPage;
-    Timer timer;
-    TimerTask task;
-    final long DELAY_MS = 5000;
-    final long PERIOD_MS = 5000;
+    RecyclerView lvMain;
+    FragmentPlaceMainAdapter adapterMain;
+    RecyclerView.LayoutManager layoutManagerMain;
 
     public static PlacesFragment newInstance(BaseActivity activity) {
         PlacesFragment fragment = new PlacesFragment();
@@ -82,8 +54,12 @@ public class PlacesFragment extends BaseFragment
             mRootView = inflater.inflate(R.layout.places_activity, container, false);
             addControls();
             placesController = new PlacesController(this);
-            placesController.getAllProvince();
-            placesController.getSliderPlace();
+
+            adapterMain = new FragmentPlaceMainAdapter(mActivity);
+            layoutManagerMain = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            lvMain.addItemDecoration(new GridSpacingItemDecoration(1, Utils.dpToPx(mActivity, getResources().getInteger(R.integer.spacingItemDecoration)), false));
+            lvMain.setLayoutManager(layoutManagerMain);
+            lvMain.setAdapter(adapterMain);
         }
         //getChildFragmentManager().beginTransaction().replace(R.id.checkout_right_view, mRightFragment).commit();
         return mRootView;
@@ -168,12 +144,8 @@ public class PlacesFragment extends BaseFragment
     private void addControls() {
         attachSearchViewActivityDrawer(mActivity.searchView);
         mActivity.appBarLayout.addOnOffsetChangedListener(this);
-        lvProvince = mRootView.findViewById(R.id.lv_province);
-        arrProvinces = new ArrayList<>();
-        layoutManagerProvince = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        adapterProvinces = new ProvinceAdapter(mActivity, arrProvinces, this);
-        lvProvince.setLayoutManager(layoutManagerProvince);
-        lvProvince.setAdapter(adapterProvinces);
+
+        lvMain = mRootView.findViewById(R.id.lv_fragment_place);
     }
 
     protected void attachSearchViewActivityDrawer(FloatingSearchView searchView) {
@@ -199,12 +171,6 @@ public class PlacesFragment extends BaseFragment
         callbacks = null;
     }
 
-    public void setAllProvince(ProvinceDTO allProvince) {
-        arrProvinces.clear();
-        arrProvinces.addAll(Arrays.asList(allProvince.provinces));
-        adapterProvinces.notifyDataSetChanged();
-    }
-
     @Override
     public boolean onActivityBackPress() {
         if (!mActivity.searchView.setSearchFocused(false)) {
@@ -218,74 +184,4 @@ public class PlacesFragment extends BaseFragment
         mActivity.searchView.setTranslationY(verticalOffset);
     }
 
-    public void setSliderPlace(AllSliderPlace data) {
-        viewpager = mRootView.findViewById(R.id.viewpagerPlace);
-        indicator = mRootView.findViewById(R.id.indicatorPlace);
-        viewpager.setScrollDurationFactor(1500);
-        adapterSliderPlace = new SliderPlaceAdapter(getActivity(), data);
-        viewpager.setAdapter(adapterSliderPlace);
-        viewpager.setPageTransformer(true, new ZoomOutTranformer());
-        indicator.setViewPager(viewpager);
-        currentPage = 0;
-        numPage = data.listSliderPlace.length;
-        final Handler handler = new Handler();
-        final Runnable update = new Runnable() {
-            public void run() {
-                currentPage = viewpager.getCurrentItem() + 1;
-                if (currentPage == numPage) {
-                    currentPage = 0;
-                }
-                Log.e("status", currentPage+"");
-                viewpager.setCurrentItem(currentPage--, true);
-            }
-        };
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(update);
-            }
-        };
-        timer = new Timer();
-        timer.schedule(task, DELAY_MS);
-        viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (timer != null) {
-                    timer.cancel();
-                    timer.purge();
-                    timer = null;
-                    timer = new Timer();
-                    if (task != null) {
-                        task.cancel();
-                        task = null;
-                        task = new TimerTask() {
-                            @Override
-                            public void run() {
-                                handler.post(update);
-                            }
-                        };
-                    }
-                    timer.schedule(task, DELAY_MS);
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-    }
-
-    @Override
-    public void onProvinceClick(View view, ProvinceDTO.Province item) {
-        Intent intent = new Intent(getContext(), ListPlaceActivity.class);
-        intent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_PROVINCE);
-        intent.putExtra(AppContansts.INTENT_DATA, item);
-        startActivity(intent);
-    }
 }

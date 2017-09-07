@@ -13,6 +13,7 @@ import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Khai on 31/08/2017.
@@ -21,12 +22,12 @@ import java.util.ArrayList;
 public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.ProvinceViewHolder> {
 
     private Activity context;
-    private ArrayList<ProvinceDTO.Province> lists;
+    private List<ProvinceDTO.Province> lists;
     private ArrayList<Integer> backgrounds;
 
     LayoutProvinceItemListener itemListener;
 
-    public ProvinceAdapter(Activity context, ArrayList<ProvinceDTO.Province> lists, LayoutProvinceItemListener listener) {
+    public ProvinceAdapter(Activity context, List<ProvinceDTO.Province> lists, LayoutProvinceItemListener listener) {
         this.context = context;
         this.lists = lists;
         this.itemListener = listener;

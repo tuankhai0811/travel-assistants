@@ -2,7 +2,6 @@ package com.tuankhai.travelassistants.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,7 @@ public class SliderPlaceAdapter extends PagerAdapter {
     private ArrayList<Bitmap> arrImage;
     private AllSliderPlace data;
 
-    public SliderPlaceAdapter(FragmentActivity activity, AllSliderPlace data) {
+    public SliderPlaceAdapter(Activity activity, AllSliderPlace data) {
         this.context = activity;
         this.data = data;
         arrImage = new ArrayList<>();

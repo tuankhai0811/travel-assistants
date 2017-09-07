@@ -2,4 +2,5 @@
 <resources>
     <integer name="rippleColor">0x03A9F4</integer>
     <integer name="length_name">22</integer>
+    <integer name="spacingItemDecoration">2</integer>
 </resources>

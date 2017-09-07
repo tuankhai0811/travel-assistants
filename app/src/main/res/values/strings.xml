@@ -5,4 +5,13 @@
 
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+
+    <string name="type_sea">Du lịch biển</string>
+    <string name="type_attractions">Thắng cảnh</string>
+    <string name="type_entertaiment">Văn hóa</string>
+    <string name="type_cultural">Vui chơi</string>
+    <string name="type_spring">Mùa xuân</string>
+    <string name="type_summer">Mùa hè</string>
+    <string name="type_autumn">Mùa thu</string>
+    <string name="type_winter">Mùa đông</string>
 </resources>
