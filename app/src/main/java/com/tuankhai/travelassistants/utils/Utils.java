@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import android.util.Log;
 import android.util.TypedValue;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -84,7 +83,6 @@ public class Utils {
         SharedPreferences preferences = context.getSharedPreferences(AppContansts.SHAREDPRE_FILE, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = preferences.getString(AppContansts.SHAREDPRE_SLIDERPLACE, "");
-        Log.e("status", json);
         if (Utils.isEmptyString(json)) return null;
         return gson.fromJson(json, SliderPlaceDTO.class);
     }

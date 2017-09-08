@@ -311,7 +311,6 @@ public class PlacesFragment extends BaseFragment
                 if (currentPage == numPage) {
                     currentPage = 0;
                 }
-                Log.e("status", currentPage+"");
                 viewpager.setCurrentItem(currentPage--, true);
             }
         };

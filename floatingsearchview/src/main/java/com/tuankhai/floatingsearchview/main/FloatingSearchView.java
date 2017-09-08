@@ -549,16 +549,13 @@ public class FloatingSearchView extends FrameLayout {
             public void onClick(View v) {
 
                 if (isSearchBarFocused()) {
-                    Log.e("status", "if");
                     setSearchFocusedInternal(false);
                 } else {
-                    Log.e("status", "else");
                     switch (mLeftActionMode) {
                         case LEFT_ACTION_MODE_SHOW_HAMBURGER:
                             if (mLeftMenuClickListener != null) {
                                 mLeftMenuClickListener.onClick(mLeftAction);
                             } else {
-                                Log.e("status", "open");
                                 toggleLeftMenu();
                             }
                             break;
@@ -744,10 +741,8 @@ public class FloatingSearchView extends FrameLayout {
 
     private void toggleLeftMenu() {
         if (mMenuOpen) {
-            Log.e("status", "menuclose");
             closeMenu(true);
         } else {
-            Log.e("status", "menupoen");
             openMenu(true);
         }
     }
@@ -780,7 +775,6 @@ public class FloatingSearchView extends FrameLayout {
         mMenuOpen = true;
         openMenuDrawable(mMenuBtnDrawable, withAnim);
         if (mOnMenuClickListener != null) {
-            Log.e("status", "open 2");
             mOnMenuClickListener.onMenuOpened();
         }
     }

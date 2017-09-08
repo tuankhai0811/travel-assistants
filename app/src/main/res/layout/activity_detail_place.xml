@@ -22,52 +22,57 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:expandedTitleTextAppearance="@style/MyExpandedTitle"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:scrimAnimationDuration="600">
 
-                <FrameLayout
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_place_global_16_10"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax">
+
+                <com.tuankhai.loopingviewpager.LoopViewPager
+                    android:id="@+id/viewpagerImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_image"
                     android:fitsSystemWindows="true"
-                    app:layout_collapseMode="parallax">
+                    app:layout_collapseMode="parallax" />
 
-                    <com.tuankhai.loopingviewpager.LoopViewPager
-                        android:id="@+id/viewpagerImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fitsSystemWindows="true"
-                        app:layout_collapseMode="parallax" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_image" />
 
-                    <com.tuankhai.loopingviewpager.CircleIndicator
-                        android:id="@+id/indicatorImage"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_gravity="bottom|right"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginRight="40dp"
-                        android:gravity="bottom|right" />
+                <com.tuankhai.loopingviewpager.CircleIndicator
+                    android:id="@+id/indicatorImage"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="40dp"
+                    android:gravity="bottom|right" />
 
-                    <TextView
-                        android:id="@+id/txt_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="40dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:visibility="gone"
-                        android:paddingBottom="7dp"
-                        android:paddingLeft="40dp"
-                        android:paddingRight="30dp"
-                        android:paddingTop="7dp"
-                        android:text="Khu du lịch Suối Tiên"
-                        android:textColor="@color/global_white"
-                        android:textSize="26sp"
-                        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txt_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="40dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingBottom="7dp"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="7dp"
+                    android:text="Khu du lịch Suối Tiên"
+                    android:textColor="@color/global_white"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
-                </FrameLayout>
+            </FrameLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

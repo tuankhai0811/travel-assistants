@@ -90,7 +90,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                     System.out.println(e);
                 }
             }
-            Log.e("status", arrImg.size() + "");
             return arrImg;
         }
 
