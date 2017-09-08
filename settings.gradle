@@ -1,1 +1,1 @@
-include ':app', ':loopingviewpager', ':floatingsearchview', ':viewpagertransformers', ':ripple', ':slideractivity'
+include ':app', ':loopingviewpager', ':floatingsearchview', ':viewpagertransformers', ':ripple', ':slideractivity', ':likebutton'

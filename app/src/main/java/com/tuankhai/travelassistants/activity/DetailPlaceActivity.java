@@ -1,5 +1,6 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,9 +10,14 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.tuankhai.likebutton.LikeButton;
+import com.tuankhai.likebutton.OnAnimationEndListener;
+import com.tuankhai.likebutton.OnLikeListener;
 import com.tuankhai.loopingviewpager.CircleIndicator;
 import com.tuankhai.loopingviewpager.LoopViewPager;
 import com.tuankhai.slideractivity.Slider;
@@ -27,7 +33,10 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class DetailPlaceActivity extends AppCompatActivity {
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+public class DetailPlaceActivity extends AppCompatActivity implements OnLikeListener, OnAnimationEndListener {
     PlaceDTO.Place data;
     Toolbar toolbar;
     SliderConfig mConfig;
@@ -35,6 +44,8 @@ public class DetailPlaceActivity extends AppCompatActivity {
     SliderImageAdapter adapterImage;
     LoopViewPager viewpager;
     CircleIndicator indicator;
+
+    LikeButton likeButton;
 
     int currentPage;
     int numPage;
@@ -56,6 +67,29 @@ public class DetailPlaceActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
         initSliderImage(data.arrImage);
+
+        addControls();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath(getString(R.string.font_boto_regular))
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    private void addControls() {
+        likeButton = (LikeButton) findViewById(R.id.heart_button);
+        likeButton.setOnLikeListener(this);
+        likeButton.setOnAnimationEndListener(this);
     }
 
     private void initSliderImage(ArrayList<String> array) {
@@ -173,6 +207,20 @@ public class DetailPlaceActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void liked(LikeButton likeButton) {
+        Toast.makeText(this, "Liked!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void unLiked(LikeButton likeButton) {
+        Toast.makeText(this, "Disliked!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override public void onAnimationEnd(LikeButton likeButton) {
+        Log.d("status", "Animation End for %s" + likeButton);
     }
 
 //    class GetImageSlider extends AsyncTask<Void, Void, ArrayList<Bitmap>> {

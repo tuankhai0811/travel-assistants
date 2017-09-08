@@ -34,6 +34,10 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -45,20 +49,42 @@ dependencies {
     compile project(path: ':viewpagertransformers')
     compile project(path: ':ripple')
     compile project(path: ':slideractivity')
+    compile project(path: ':likebutton')
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:support-compat:26.+'
     compile 'com.android.support:design:26.+'
     compile 'com.google.android.gms:play-services-location:11.0.4'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     compile 'com.android.support:recyclerview-v7:26.+'
+    //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-jackson:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //Glide
     compile 'com.github.bumptech.glide:glide:3.8.0'
+    //Authentication
+    compile 'com.google.firebase:firebase-auth:11.0.4'
+    compile 'com.google.android.gms:play-services-auth:11.0.4'
+    //circle imageview
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    //Facebook sdk
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     testCompile 'junit:junit:4.12'
 }
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.0'
+            }
+        }
+    }
+}
+
 
 
 

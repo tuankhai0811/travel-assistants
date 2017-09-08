@@ -1,24 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp"
-    android:background="@color/colorPrimaryDark"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="190dp">
+    android:layout_height="190dp"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
 
-    <ImageView
-        android:src="@drawable/bg_attractions_travel"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:layout_height="0dp" />
-    <TextView
-        android:id="@+id/tv_email"
-        android:textColor="@color/global_white"
-        android:textSize="18sp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:id="@+id/nav_header_logout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_attractions_travel" />
+
+        <TextView
+            android:id="@+id/txt_login_nav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:padding="5dp"
+            android:text="LOGIN"
+            android:textColor="@color/global_white"
+            android:textSize="18sp" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_header_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|center_horizontal"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="7dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/img_photo_nav"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/bg_image"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="0dp" />
+
+        <TextView
+            android:id="@+id/txt_name_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/global_white"
+            android:text="TextView"
+            android:textSize="22sp" />
+    </LinearLayout>
 </LinearLayout>

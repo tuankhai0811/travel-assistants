@@ -1,5 +1,6 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,6 +23,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
@@ -30,6 +34,21 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         getAllProvince();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath(getString(R.string.font_boto_regular))
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     public void getAllProvince() {

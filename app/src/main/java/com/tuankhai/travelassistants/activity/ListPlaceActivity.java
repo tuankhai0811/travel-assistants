@@ -1,5 +1,6 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,9 @@ import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter.LayoutListPlaceItemListener {
     ListPlaceController placeController;
@@ -45,6 +49,21 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
             case AppContansts.INTENT_TYPE_NORMAL:
                 progressNormal();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath(getString(R.string.font_boto_regular))
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     private void progressNormal() {

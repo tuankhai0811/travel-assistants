@@ -1,6 +1,8 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -14,9 +16,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.BaseController;
@@ -26,6 +33,7 @@ import com.tuankhai.travelassistants.fragment.BaseFragmentCallbacks;
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -44,35 +52,57 @@ public class BaseActivity extends AppCompatActivity
     public FrameLayout searchviewLayout;
     public FloatingSearchView searchView;
 
+    private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+    NavigationView navigationView;
+    View header;
+    TextView txtLogin, txtName;
+    ImageView imgPhoto;
+    LinearLayout layoutLogin;
+    FrameLayout layoutLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main);
-        addControls();
         initNavigationDrawer();
+        addControls();
+        addEvents();
 
         mBaseController.addPlaceFragment();
     }
 
+    private void addEvents() {
+
+    }
+
     private void addControls() {
         TAG = this.getClass().getName().toString();
+
+        header = navigationView.getHeaderView(0);
+
         mBaseController = new BaseController(this);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         searchviewLayout = (FrameLayout) findViewById(R.id.layout_search_view);
         searchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBar);
+
+        txtLogin = header.findViewById(R.id.txt_login_nav);
+        imgPhoto = header.findViewById(R.id.img_photo_nav);
+        txtName = header.findViewById(R.id.txt_name_nav);
+        layoutLogin = header.findViewById(R.id.nav_header_login);
+        layoutLogout = header.findViewById(R.id.nav_header_logout);
+        layoutLogin.setVisibility(View.GONE);
+        layoutLogout.setVisibility(View.VISIBLE);
     }
 
     private void initNavigationDrawer() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        View header = navigationView.getHeaderView(0);
-        TextView tv_email = (TextView) header.findViewById(R.id.tv_email);
-        tv_email.setText("raj.amalw@learn2crack.com");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
@@ -91,6 +121,7 @@ public class BaseActivity extends AppCompatActivity
         actionBarDrawerToggle.syncState();
     }
 
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
@@ -108,7 +139,9 @@ public class BaseActivity extends AppCompatActivity
                 drawerLayout.closeDrawers();
                 break;
             case R.id.logout:
-                finish();
+                Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
 
         }
         return true;
@@ -122,6 +155,20 @@ public class BaseActivity extends AppCompatActivity
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+        currentUser = mAuth.getCurrentUser();
+        updateNavUI(currentUser);
+    }
+
+    private void updateNavUI(FirebaseUser currentUser) {
+        if (currentUser == null) {
+            layoutLogin.setVisibility(View.GONE);
+            layoutLogin.setVisibility(View.VISIBLE);
+        } else {
+            layoutLogout.setVisibility(View.GONE);
+            layoutLogin.setVisibility(View.VISIBLE);
+            txtName.setText(currentUser.getDisplayName());
+            Glide.with(this).load(Uri.parse(currentUser.getPhotoUrl().toString())).asBitmap().into(imgPhoto);
+        }
     }
 
     @Override
@@ -130,6 +177,11 @@ public class BaseActivity extends AppCompatActivity
         if (callback != null) {
             callback.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Travel Assistants</string>
+    <string name="facebook_app_id">118711962110697</string>
+    <string name="fb_login_protocol_scheme">fb118711962110697</string>
+
     <string name="font_boto_regular">fonts/Roboto-Light.ttf</string>
 
 
