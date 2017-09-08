@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,14 +21,13 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/img_photo_login"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:src="@drawable/bg_image"
-                app:civ_border_width="0dp"
-                app:civ_border_color="#FF000000"/>
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="0dp" />
 
             <TextView
                 android:id="@+id/txt_name_login"
@@ -37,8 +35,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="5dp"
-                android:textSize="22sp"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textSize="22sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,26 +73,47 @@
             android:orientation="vertical">
 
             <Button
-                fontPath="fonts/Roboto-Medium.ttf"
                 android:id="@+id/btn_sign_in_login"
+                fontPath="fonts/Roboto-Medium.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:textAllCaps="false"
-                android:text="Sign in with Google"
                 android:background="@drawable/btn_google_signin_light_normal_xxhdpi"
+                android:text="Sign in with Google"
+                android:textAllCaps="false"
                 android:visibility="visible" />
 
 
             <Button
-                fontPath="fonts/Roboto-Medium.ttf"
                 android:id="@+id/btn_sign_out_login"
+                fontPath="fonts/Roboto-Medium.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:textAllCaps="false"
-                android:text="Sign out"
                 android:background="@drawable/btn_google_signin_light_normal_xxhdpi"
+                android:text="Sign out"
+                android:textAllCaps="false"
                 android:visibility="visible" />
 
+
+            <FrameLayout
+                android:id="@+id/FrameLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp" >
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/btn_sign_in_login_facebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_sign_in_login_facebook_real"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="#416BC1"
+                    android:text="FaceBook"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffff"/>
+            </FrameLayout>
         </LinearLayout>
 
     </RelativeLayout>
