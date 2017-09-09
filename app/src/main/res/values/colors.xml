@@ -33,8 +33,10 @@
     <color name="white_70">#AAFFFFFF</color>
     <color name="colorPrimary_70">#7003A9F4</color>
 
+    <color name="color_facebook">#416BC1</color>
 
     <color name="global_transform">#00ffffff</color>
     <color name="global_white">#FFFFFFFF</color>
     <color name="global_black">#000000</color>
+    <color name="color_google">#f44336</color>
 </resources>

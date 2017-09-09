@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "457605976695-tkgs2mrs4e3s5h3b1hk75u1md6p5ju3r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tuankhai.travelassistants",
+            "certificate_hash": "71c2a9a253e2b0a64c8f757b9e05d9fda96b9ab3"
+          }
+        },
+        {
           "client_id": "457605976695-he08pgqtjeinmtn9m56n2ps092l9ruco.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

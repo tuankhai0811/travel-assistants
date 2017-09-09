@@ -123,7 +123,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
             Utils.saveSliderPlace(SplashScreenActivity.this, sliderPlaceDTO);
             Intent intent = new Intent(SplashScreenActivity.this, BaseActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
     }
