@@ -271,7 +271,7 @@ public class LoginActivity extends FragmentActivity implements
         hideProgressDialog();
         if (user != null) {
             txtName.setText(user.getDisplayName());
-            Glide.with(this).load(user.getPhotoUrl()).asBitmap().into(imgPhoto);
+            Glide.with(this).load(user.getPhotoUrl()).into(imgPhoto);
             Log.e("status", user.getPhotoUrl().toString());
 //            Log.e("status", user.getPhoneNumber());
             layoutUser.setVisibility(View.VISIBLE);

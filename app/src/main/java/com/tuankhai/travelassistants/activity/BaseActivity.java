@@ -174,7 +174,7 @@ public class BaseActivity extends AppCompatActivity
             layoutLogout.setVisibility(View.GONE);
             layoutLogin.setVisibility(View.VISIBLE);
             txtName.setText(currentUser.getDisplayName());
-            Glide.with(this).load(Uri.parse(currentUser.getPhotoUrl().toString())).asBitmap().into(imgPhoto);
+            Glide.with(this).load(Uri.parse(currentUser.getPhotoUrl().toString())).into(imgPhoto);
         }
     }
 
