@@ -14,8 +14,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,8 +32,7 @@ import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.BaseController;
 import com.tuankhai.travelassistants.fragment.BaseFragment;
 import com.tuankhai.travelassistants.fragment.BaseFragmentCallbacks;
-
-import java.util.List;
+import com.tuankhai.travelassistants.utils.AppContansts;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -52,6 +53,7 @@ public class BaseActivity extends AppCompatActivity
     public AppBarLayout appBarLayout;
     public FrameLayout searchviewLayout;
     public FloatingSearchView searchView;
+    private String mLastQuery = "";
 
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -75,7 +77,7 @@ public class BaseActivity extends AppCompatActivity
     }
 
     private void addEvents() {
-
+        setupSearchBar();
     }
 
     private void addControls() {
@@ -84,8 +86,6 @@ public class BaseActivity extends AppCompatActivity
         header = navigationView.getHeaderView(0);
 
         mBaseController = new BaseController(this);
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
         searchviewLayout = (FrameLayout) findViewById(R.id.layout_search_view);
         searchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBar);
@@ -97,6 +97,87 @@ public class BaseActivity extends AppCompatActivity
         layoutLogout = header.findViewById(R.id.nav_header_logout);
         layoutLogin.setVisibility(View.GONE);
         layoutLogout.setVisibility(View.VISIBLE);
+    }
+
+    private void setupSearchBar() {
+        searchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
+
+            @Override
+            public void onSearchTextChanged(String oldQuery, final String newQuery) {
+
+                if (!oldQuery.equals("") && newQuery.equals("")) {
+                    searchView.hideProgress();
+                } else {
+                    searchView.showProgress();
+                }
+                Log.e(TAG, "onSearchTextChanged()");
+            }
+        });
+
+        searchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
+
+            @Override
+            public void onSearchAction(String query) {
+                searchView.hideProgress();
+                mLastQuery = query;
+                Log.e(TAG, "onSearchAction()");
+            }
+        });
+
+        searchView.setOnFocusChangeListener(new FloatingSearchView.OnFocusChangeListener() {
+            @Override
+            public void onFocus() {
+                mBaseController.addSearchFragment();
+                Log.e(TAG, "onFocus()");
+            }
+
+            @Override
+            public void onFocusCleared() {
+                searchView.setSearchBarTitle(mLastQuery);
+                searchView.hideProgress();
+                Log.e(TAG, "onFocusCleared()");
+            }
+        });
+
+        searchView.setOnMenuItemClickListener(new FloatingSearchView.OnMenuItemClickListener() {
+            @Override
+            public void onActionMenuItemSelected(MenuItem item) {
+                if (item.getItemId() == R.id.action_change_colors) {
+
+//                    mIsDarkSearchTheme = true;
+//
+//                    //demonstrate setting colors for items
+//                    mActivity.searchView.setBackgroundColor(Color.parseColor("#787878"));
+//                    mActivity.searchView.setHintTextColor(Color.parseColor("#e9e9e9"));
+//                    mActivity.searchView.setActionMenuOverflowColor(Color.parseColor("#e9e9e9"));
+//                    mActivity.searchView.setMenuItemIconColor(Color.parseColor("#e9e9e9"));
+//                    mActivity.searchView.setLeftActionIconColor(Color.parseColor("#e9e9e9"));
+//                    mActivity.searchView.setClearBtnColor(Color.parseColor("#e9e9e9"));
+//                    mActivity.searchView.setLeftActionIconColor(Color.parseColor("#e9e9e9"));
+                } else {
+                    Toast.makeText(getApplicationContext(), item.getTitle(),
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        searchView.setOnBackSearchButtonListener(new FloatingSearchView.onBackSearchButtonListener() {
+            @Override
+            public void onBackClick() {
+                BaseFragment currentFragment = (BaseFragment) fragmentManager.findFragmentByTag(AppContansts.KEY_SEARCH_FRAGMENT);
+                if (currentFragment != null) {
+                    mBaseController.addPlaceFragment();
+                }
+            }
+        });
+
+        searchView.setOnHomeActionClickListener(new FloatingSearchView.OnHomeActionClickListener() {
+            @Override
+            public void onHomeClicked() {
+                Log.e(TAG, "onHomeClicked()");
+            }
+        });
     }
 
     private void initNavigationDrawer() {
@@ -129,11 +210,11 @@ public class BaseActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.home:
-                Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
+                mBaseController.addPlaceFragment();
                 drawerLayout.closeDrawers();
                 break;
             case R.id.settings:
-                Toast.makeText(getApplicationContext(), "Settings", Toast.LENGTH_SHORT).show();
+                mBaseController.addSearchFragment();
                 break;
             case R.id.trash:
                 Toast.makeText(getApplicationContext(), "Trash", Toast.LENGTH_SHORT).show();
@@ -179,6 +260,19 @@ public class BaseActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        searchView.mSearchInput.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager imm = (InputMethodManager) getSystemService(
+                        Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(searchView.mSearchInput.getWindowToken(), 0);
+            }
+        }, 10);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (callback != null) {
@@ -193,12 +287,24 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        List fragments = getSupportFragmentManager().getFragments();
-        BaseFragment currentFragment = (BaseFragment) fragments.get(fragments.size() - 1);
-
-        if (!currentFragment.onActivityBackPress()) {
-            super.onBackPressed();
+//        List fragments = getSupportFragmentManager().getFragments();
+//        BaseFragment currentFragment = (BaseFragment) fragments.get(fragments.size() - 1);
+        if (searchView.isSearchBarFocused()) {
+            searchView.clearSearchFocus();
         }
+        BaseFragment currentFragment = (BaseFragment) fragmentManager.findFragmentByTag(AppContansts.KEY_SEARCH_FRAGMENT);
+        if (currentFragment != null) {
+            mBaseController.addPlaceFragment();
+            return;
+        }
+        super.onBackPressed();
+//        else {
+//            List fragments = getSupportFragmentManager().getFragments();
+//            currentFragment = (BaseFragment) fragments.get(fragments.size() - 1);
+//        }
+//        if (!currentFragment.onActivityBackPress()) {
+//            super.onBackPressed();
+//        }
     }
 
     public void setCallback(BaseActivityCallback callback) {

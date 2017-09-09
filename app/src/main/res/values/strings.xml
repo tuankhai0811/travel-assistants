@@ -17,4 +17,6 @@
     <string name="type_summer">Mùa hè</string>
     <string name="type_autumn">Mùa thu</string>
     <string name="type_winner">Mùa đông</string>
+    <string name="txt_title_activity_login">Đăng nhập</string>
+
 </resources>

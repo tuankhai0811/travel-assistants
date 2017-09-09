@@ -220,7 +220,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnLikeList
     }
 
     @Override public void onAnimationEnd(LikeButton likeButton) {
-        Log.d("status", "Animation End for %s" + likeButton);
+        Log.e("status", "Animation End for %s" + likeButton);
     }
 
 //    class GetImageSlider extends AsyncTask<Void, Void, ArrayList<Bitmap>> {

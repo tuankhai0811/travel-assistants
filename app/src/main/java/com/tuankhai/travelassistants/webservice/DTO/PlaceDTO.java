@@ -18,15 +18,15 @@ import java.util.ArrayList;
 
 public final class PlaceDTO {
     public final String status;
-    public final Place place[];
+    public final Place places[];
     public final String message;
 
     @JsonCreator
     public PlaceDTO(@JsonProperty("status") String status,
-                    @JsonProperty("result") Place[] place,
+                    @JsonProperty("result") Place[] places,
                     @JsonProperty("message") String message) {
         this.status = status;
-        this.place = place;
+        this.places = places;
         this.message = message;
     }
 

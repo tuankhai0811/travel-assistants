@@ -7,16 +7,14 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.tuankhai.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.loopingviewpager.CircleIndicator;
@@ -28,8 +26,8 @@ import com.tuankhai.travelassistants.adapter.ProvinceAdapter;
 import com.tuankhai.travelassistants.adapter.SliderPlaceAdapter;
 import com.tuankhai.travelassistants.fragment.controller.PlacesController;
 import com.tuankhai.travelassistants.utils.AppContansts;
+import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
-import com.tuankhai.travelassistants.webservice.DTO.SliderPlaceDTO;
 import com.tuankhai.viewpagertransformers.ZoomOutTranformer;
 
 import java.util.ArrayList;
@@ -44,9 +42,7 @@ import java.util.TimerTask;
 public class PlacesFragment extends BaseFragment
         implements AppBarLayout.OnOffsetChangedListener,
         ProvinceAdapter.LayoutProvinceItemListener{
-    protected String TAG = "";
     protected BaseActivity mActivity;
-    public View mRootView;
     protected PlacesController placesController;
     BaseFragmentCallbacks callbacks;
 
@@ -61,8 +57,6 @@ public class PlacesFragment extends BaseFragment
 
     FrameLayout layoutSpring, layoutSummer, layoutAutumn, layoutWinter;
     LinearLayout layoutSea, layoutAttractions, layoutCultural, layoutEntertainment;
-
-    private String mLastQuery = "";
 
     //auto swipe
     int currentPage;
@@ -91,7 +85,7 @@ public class PlacesFragment extends BaseFragment
             placesController.getAllProvince();
             placesController.getSliderPlace();
         }
-        //getChildFragmentManager().beginTransaction().replace(R.id.checkout_right_view, mRightFragment).commit();
+        mActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         return mRootView;
     }
 
@@ -168,77 +162,6 @@ public class PlacesFragment extends BaseFragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupSearchBar();
-    }
-
-    private void setupSearchBar() {
-        mActivity.searchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
-
-            @Override
-            public void onSearchTextChanged(String oldQuery, final String newQuery) {
-
-                if (!oldQuery.equals("") && newQuery.equals("")) {
-                    mActivity.searchView.hideProgress();
-                } else {
-                    mActivity.searchView.showProgress();
-                }
-                Log.d(TAG, "onSearchTextChanged()");
-            }
-        });
-
-        mActivity.searchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
-
-            @Override
-            public void onSearchAction(String query) {
-                mActivity.searchView.hideProgress();
-                mLastQuery = query;
-                Log.d(TAG, "onSearchAction()");
-            }
-        });
-
-        mActivity.searchView.setOnFocusChangeListener(new FloatingSearchView.OnFocusChangeListener() {
-            @Override
-            public void onFocus() {
-                Log.d(TAG, "onFocus()");
-            }
-
-            @Override
-            public void onFocusCleared() {
-                mActivity.searchView.setSearchBarTitle(mLastQuery);
-                mActivity.searchView.hideProgress();
-                Log.d(TAG, "onFocusCleared()");
-            }
-        });
-
-        mActivity.searchView.setOnMenuItemClickListener(new FloatingSearchView.OnMenuItemClickListener() {
-            @Override
-            public void onActionMenuItemSelected(MenuItem item) {
-                if (item.getItemId() == R.id.action_change_colors) {
-
-//                    mIsDarkSearchTheme = true;
-//
-//                    //demonstrate setting colors for items
-//                    mActivity.searchView.setBackgroundColor(Color.parseColor("#787878"));
-//                    mActivity.searchView.setHintTextColor(Color.parseColor("#e9e9e9"));
-//                    mActivity.searchView.setActionMenuOverflowColor(Color.parseColor("#e9e9e9"));
-//                    mActivity.searchView.setMenuItemIconColor(Color.parseColor("#e9e9e9"));
-//                    mActivity.searchView.setLeftActionIconColor(Color.parseColor("#e9e9e9"));
-//                    mActivity.searchView.setClearBtnColor(Color.parseColor("#e9e9e9"));
-//                    mActivity.searchView.setLeftActionIconColor(Color.parseColor("#e9e9e9"));
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), item.getTitle(),
-                            Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-        mActivity.searchView.setOnHomeActionClickListener(new FloatingSearchView.OnHomeActionClickListener() {
-            @Override
-            public void onHomeClicked() {
-                Log.d(TAG, "onHomeClicked()");
-            }
-        });
     }
 
     private void addControls() {
@@ -283,10 +206,11 @@ public class PlacesFragment extends BaseFragment
 
     @Override
     public boolean onActivityBackPress() {
-        if (!mActivity.searchView.setSearchFocused(false)) {
-            return false;
+        if (mActivity.searchView.isSearchBarFocused()) {
+            mActivity.searchView.clearSearchFocus();
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -294,7 +218,7 @@ public class PlacesFragment extends BaseFragment
         mActivity.searchView.setTranslationY(verticalOffset);
     }
 
-    public void setSliderPlace(SliderPlaceDTO data) {
+    public void setSliderPlace(PlaceDTO data) {
         viewpager = mRootView.findViewById(R.id.viewpagerPlace);
         indicator = mRootView.findViewById(R.id.indicatorPlace);
         viewpager.setScrollDurationFactor(1500);

@@ -1,16 +1,10 @@
 package com.tuankhai.travelassistants.fragment.controller;
 
-import android.view.View;
-
-import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.BaseActivity;
 import com.tuankhai.travelassistants.fragment.PlacesFragment;
 import com.tuankhai.travelassistants.utils.Utils;
+import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
-import com.tuankhai.travelassistants.webservice.DTO.SliderPlaceDTO;
-import com.tuankhai.travelassistants.webservice.main.MyCallback;
-import com.tuankhai.travelassistants.webservice.main.RequestService;
-import com.tuankhai.travelassistants.webservice.request.GetListProvinceRequest;
 
 /**
  * Created by Khai on 31/08/2017.
@@ -29,42 +23,27 @@ public class PlacesController {
         ProvinceDTO data = Utils.getAllProvince(mActivity);
         if (data != null)
             placesFragment.setAllProvince(data);
-        final View progress = placesFragment.mRootView.findViewById(R.id.progressBar_loading_list_province);
-        progress.setVisibility(View.VISIBLE);
-        new RequestService().load(new GetListProvinceRequest("key"), false, new MyCallback() {
-            @Override
-            public void onSuccess(Object response) {
-                super.onSuccess(response);
-                progress.setVisibility(View.GONE);
-                placesFragment.setAllProvince((ProvinceDTO) response);
-            }
-
-            @Override
-            public void onFailure(Object error) {
-                super.onFailure(error);
-            }
-        }, ProvinceDTO.class);
-    }
-
-    public void getSliderPlace() {
-        SliderPlaceDTO data = Utils.getSliderPlace(mActivity);
-        if (data != null)
-            placesFragment.setSliderPlace(data);
-
-//        final View progress = placesFragment.mRootView.findViewById(R.id.progressBar_loading_slider_place);
+//        final View progress = placesFragment.mRootView.findViewById(R.id.progressBar_loading_list_province);
 //        progress.setVisibility(View.VISIBLE);
-//        new RequestService().load(new GetSliderPlaceRequest(), false, new MyCallback() {
+//        new RequestService().load(new GetListProvinceRequest("key"), false, new MyCallback() {
 //            @Override
 //            public void onSuccess(Object response) {
 //                super.onSuccess(response);
-//                new GetImageSlider((SliderPlaceDTO) response, progress).execute();
+//                progress.setVisibility(View.GONE);
+//                placesFragment.setAllProvince((ProvinceDTO) response);
 //            }
 //
 //            @Override
 //            public void onFailure(Object error) {
 //                super.onFailure(error);
 //            }
-//        }, SliderPlaceDTO.class);
+//        }, ProvinceDTO.class);
+    }
+
+    public void getSliderPlace() {
+        PlaceDTO data = Utils.getSliderPlace(mActivity);
+        if (data != null)
+            placesFragment.setSliderPlace(data);
     }
 
 //    class GetImageSlider extends AsyncTask<Void, Void, ArrayList<Bitmap>> {

@@ -11,8 +11,8 @@ import android.util.TypedValue;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
-import com.tuankhai.travelassistants.webservice.DTO.SliderPlaceDTO;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -70,7 +70,7 @@ public class Utils {
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
     }
 
-    public static void saveSliderPlace(Context context, SliderPlaceDTO data) {
+    public static void saveSliderPlace(Context context, PlaceDTO data) {
         SharedPreferences preferences = context.getSharedPreferences(AppContansts.SHAREDPRE_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         Gson gson = new Gson();
@@ -79,12 +79,12 @@ public class Utils {
         editor.commit();
     }
 
-    public static SliderPlaceDTO getSliderPlace(Context context) {
+    public static PlaceDTO getSliderPlace(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(AppContansts.SHAREDPRE_FILE, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = preferences.getString(AppContansts.SHAREDPRE_SLIDERPLACE, "");
         if (Utils.isEmptyString(json)) return null;
-        return gson.fromJson(json, SliderPlaceDTO.class);
+        return gson.fromJson(json, PlaceDTO.class);
     }
 
     public static boolean isEmptyString(String string) {

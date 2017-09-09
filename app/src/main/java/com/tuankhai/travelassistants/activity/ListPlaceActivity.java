@@ -133,7 +133,7 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
 
     public void setListPlace(PlaceDTO response) {
         arrPlace.clear();
-        arrPlace.addAll(Arrays.asList(response.place));
+        arrPlace.addAll(Arrays.asList(response.places));
         placeAdapter.notifyDataSetChanged();
     }
 

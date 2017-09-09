@@ -26,6 +26,8 @@ public class AppContansts {
     public static final int INTENT_TYPE_SUMMER = 7;
     public static final int INTENT_TYPE_AUTUMN = 8;
     public static final int INTENT_TYPE_WINNER = 9;
+    public static final String KEY_SEARCH_FRAGMENT = "com.tuankhai.travelassistants.fragment.searchplace";
+    public static final String KEY_PLACE_FRAGMENT = "com.tuankhai.travelassistants.fragment.place";
 
     public static String URL_IMAGE = RequestService.BASE_URL + "TravelAssistants/public/image/";
     public static String IMAGE_EXTENSION = ".jpg";

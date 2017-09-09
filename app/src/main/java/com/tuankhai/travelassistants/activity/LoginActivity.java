@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -40,11 +42,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.webservice.DTO.UserDTO;
+import com.tuankhai.travelassistants.webservice.main.MyCallback;
+import com.tuankhai.travelassistants.webservice.main.RequestService;
+import com.tuankhai.travelassistants.webservice.request.AddUserRequest;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class LoginActivity extends FragmentActivity implements
+public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
@@ -54,6 +60,8 @@ public class LoginActivity extends FragmentActivity implements
     private FirebaseAuth mAuth;
     private GoogleApiClient mGoogleApiClient;
     private CallbackManager mCallbackManager;
+
+    Toolbar toolbar;
 
     TextView txtName;
     ImageView imgPhoto;
@@ -88,27 +96,27 @@ public class LoginActivity extends FragmentActivity implements
         btnFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                Log.e(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 // App code
             }
 
             @Override
             public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
+                Log.e(TAG, "facebook:onCancel");
                 // App code
             }
 
             @Override
             public void onError(FacebookException exception) {
-                Log.d(TAG, "facebook:onError", exception);
+                Log.e(TAG, "facebook:onError", exception);
                 // App code
             }
         });
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
+        Log.e(TAG, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
@@ -117,12 +125,12 @@ public class LoginActivity extends FragmentActivity implements
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
+                            Log.e(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Log.e(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed!",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
@@ -148,16 +156,16 @@ public class LoginActivity extends FragmentActivity implements
     }
 
     private void addControls() {
-        txtName = findViewById(R.id.txt_name_login);
-        imgPhoto = findViewById(R.id.img_photo_login);
-        btnSignInG = findViewById(R.id.btn_sign_in_google);
-        btnSignInF = findViewById(R.id.btn_sign_in_facebook);
-        btnSignOut = findViewById(R.id.btn_sign_out);
-        btnFacebook = findViewById(R.id.btn_sign_in_login_facebook);
-        layoutUser = findViewById(R.id.layout_login_user);
-        layoutLogo = findViewById(R.id.layout_login_logo);
-        layoutSignin = findViewById(R.id.layout_login_login);
-        layoutSignout = findViewById(R.id.layout_login_signout);
+        txtName = (TextView) findViewById(R.id.txt_name_login);
+        imgPhoto = (ImageView) findViewById(R.id.img_photo_login);
+        btnSignInG = (TextView) findViewById(R.id.btn_sign_in_google);
+        btnSignInF = (TextView) findViewById(R.id.btn_sign_in_facebook);
+        btnSignOut = (TextView) findViewById(R.id.btn_sign_out);
+        btnFacebook = (LoginButton) findViewById(R.id.btn_sign_in_login_facebook);
+        layoutUser = (LinearLayout) findViewById(R.id.layout_login_user);
+        layoutLogo = (LinearLayout) findViewById(R.id.layout_login_logo);
+        layoutSignin = (FrameLayout) findViewById(R.id.layout_login_login);
+        layoutSignout = (FrameLayout) findViewById(R.id.layout_login_signout);
 
         layoutLogo.setVisibility(View.VISIBLE);
         layoutUser.setVisibility(View.GONE);
@@ -170,6 +178,20 @@ public class LoginActivity extends FragmentActivity implements
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Sign in...");
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getString(R.string.txt_title_activity_login));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -204,7 +226,7 @@ public class LoginActivity extends FragmentActivity implements
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        Log.e(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         showProgressDialog();
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -214,12 +236,12 @@ public class LoginActivity extends FragmentActivity implements
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
+                            Log.e(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Log.e(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
@@ -268,7 +290,6 @@ public class LoginActivity extends FragmentActivity implements
     }
 
     private void updateUI(FirebaseUser user) {
-        hideProgressDialog();
         if (user != null) {
             txtName.setText(user.getDisplayName());
             Glide.with(this).load(user.getPhotoUrl()).into(imgPhoto);
@@ -278,11 +299,27 @@ public class LoginActivity extends FragmentActivity implements
             layoutLogo.setVisibility(View.GONE);
             layoutSignout.setVisibility(View.VISIBLE);
             layoutSignin.setVisibility(View.GONE);
+            new RequestService().load(new AddUserRequest("", user.getUid(), user.getEmail(), user.getDisplayName()),
+                    false,
+                    new MyCallback() {
+                        @Override
+                        public void onSuccess(Object response) {
+                            super.onSuccess(response);
+                            hideProgressDialog();
+                        }
+
+                        @Override
+                        public void onFailure(Object error) {
+                            super.onFailure(error);
+                            hideProgressDialog();
+                        }
+                    }, UserDTO.class);
         } else {
             layoutLogo.setVisibility(View.VISIBLE);
             layoutUser.setVisibility(View.GONE);
             layoutSignout.setVisibility(View.GONE);
             layoutSignin.setVisibility(View.VISIBLE);
+            hideProgressDialog();
         }
     }
 
@@ -293,7 +330,7 @@ public class LoginActivity extends FragmentActivity implements
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        Log.e(TAG, "onConnectionFailed:" + connectionResult);
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 

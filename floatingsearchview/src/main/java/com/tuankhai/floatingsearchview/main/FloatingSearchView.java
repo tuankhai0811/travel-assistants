@@ -32,7 +32,6 @@ import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -114,7 +113,7 @@ public class FloatingSearchView extends FrameLayout {
 
     private CardView mQuerySection;
     private OnSearchListener mSearchListener;
-    private SearchInputView mSearchInput;
+    public SearchInputView mSearchInput;
     private int mQueryTextSize;
     private boolean mCloseSearchOnSofteKeyboardDismiss;
     private String mTitleText;
@@ -152,6 +151,11 @@ public class FloatingSearchView extends FrameLayout {
 
     private View mDivider;
     private int mDividerColor;
+    private onBackSearchButtonListener mOnBackSearchButtonListener;
+
+    public void setOnBackSearchButtonListener(onBackSearchButtonListener listener) {
+        this.mOnBackSearchButtonListener = listener;
+    }
 
     private OnClearSearchActionListener mOnClearSearchActionListener;
 
@@ -304,8 +308,8 @@ public class FloatingSearchView extends FrameLayout {
         mClearButton = findViewById(R.id.clear_btn);
         mSearchInput = findViewById(R.id.search_bar_text);
         mSearchInputParent = findViewById(R.id.search_input_parent);
-        mLeftAction =  findViewById(R.id.left_action);
-        mSearchProgress =  findViewById(R.id.search_bar_search_progress);
+        mLeftAction = findViewById(R.id.left_action);
+        mSearchProgress = findViewById(R.id.search_bar_search_progress);
         initDrawables();
         mClearButton.setImageDrawable(mIconClear);
         mMenuView = findViewById(R.id.menu_view);
@@ -459,7 +463,9 @@ public class FloatingSearchView extends FrameLayout {
                 if (mOnClearSearchActionListener != null) {
                     mOnClearSearchActionListener.onClearSearchClicked();
                 }
+                Util.showSoftKeyboard(getContext(), mSearchInput);
             }
+
         });
 
         mSearchInput.addTextChangedListener(new TextWatcher() {
@@ -540,7 +546,27 @@ public class FloatingSearchView extends FrameLayout {
                 } else {
                     setSearchText(getQuery());
                 }
-                setSearchFocusedInternal(false);
+                //setSearchFocusedInternal(false);
+//                mMainLayout.requestFocus();
+                if (mDimBackground) {
+                    fadeOutBackground();
+                }
+//                handleOnVisibleMenuItemsWidthChanged(0);//this must be called before  mMenuView.hideIfRoomItems(...)
+//                mMenuView.showIfRoomItems(true);
+//                transitionOutLeftSection(true);
+//                mClearButton.setVisibility(View.GONE);
+                if (mHostActivity != null) {
+                    Util.closeSoftKeyboard(mHostActivity);
+                }
+                if (mIsTitleSet) {
+                    mSkipTextChangeEvent = true;
+                    mSearchInput.setText(mTitleText);
+                }
+                mSearchInput.setLongClickable(false);
+//                if (mFocusChangeListener != null) {
+//                    mFocusChangeListener.onFocusCleared();
+//                }
+                mSearchInput.setSelection(mSearchInput.length());
             }
         });
 
@@ -1026,7 +1052,12 @@ public class FloatingSearchView extends FrameLayout {
             if (mFocusChangeListener != null) {
                 mFocusChangeListener.onFocusCleared();
             }
+            mOnBackSearchButtonListener.onBackClick();
         }
+    }
+
+    public interface onBackSearchButtonListener {
+        void onBackClick();
     }
 
     private void changeIcon(ImageView imageView, Drawable newIcon, boolean withAnim) {
