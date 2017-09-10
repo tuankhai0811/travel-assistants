@@ -39,4 +39,5 @@
     <color name="global_white">#FFFFFFFF</color>
     <color name="global_black">#000000</color>
     <color name="color_google">#f44336</color>
+    <color name="colorFloatButton">#E91E63</color>
 </resources>

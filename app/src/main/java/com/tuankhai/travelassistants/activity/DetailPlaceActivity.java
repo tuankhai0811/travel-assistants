@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.tuankhai.likebutton.LikeButton;
 import com.tuankhai.likebutton.OnAnimationEndListener;
 import com.tuankhai.likebutton.OnLikeListener;
@@ -27,6 +28,7 @@ import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
+import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.viewpagertransformers.ZoomOutTranformer;
@@ -40,6 +42,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DetailPlaceActivity extends AppCompatActivity implements OnLikeListener, OnAnimationEndListener {
     PlaceDTO.Place data;
+    PlaceGoogleDTO dataGoogle;
     Toolbar toolbar;
     SliderConfig mConfig;
 
@@ -62,7 +65,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnLikeList
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
-        data = (PlaceDTO.Place) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
+        getData();
         setContentView(R.layout.activity_detail_place);
         initCollapsingToolbar();
         initSlider();
@@ -72,11 +75,19 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnLikeList
 
         addControls();
 
-        new RequestService().getPlace("ChIJ91ByD0opdTERd-0ZV693rxU", new MyCallback() {
+    }
+
+    private void getData() {
+        data = (PlaceDTO.Place) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
+        new RequestService().getPlace(data.place_id, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);
-                Log.e("status", response.toString());
+                PlaceGoogleDTO result = (PlaceGoogleDTO) response;
+                Gson gson = new Gson();
+                Log.e("status",gson.toJson(response));
+//                if (((PlaceGoogleDTO) response).status.equals(RequestService.RESULT_OK))
+//                    dataGoogle = (PlaceGoogleDTO) response;
             }
         });
     }

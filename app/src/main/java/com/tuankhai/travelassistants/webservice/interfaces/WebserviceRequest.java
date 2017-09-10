@@ -1,7 +1,5 @@
 package com.tuankhai.travelassistants.webservice.interfaces;
 
-import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
-
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -38,7 +36,7 @@ public interface WebserviceRequest {
 //    );
 
     @GET("maps/api/place/details/json")
-    Call<PlaceGoogleDTO> getPlace(@Query("placeid") String placeID,
+    Call<ResponseBody> getPlace(@Query("placeid") String placeID,
                                       @Query("key") String key
     );
 }

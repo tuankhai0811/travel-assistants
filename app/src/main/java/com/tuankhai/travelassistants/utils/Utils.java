@@ -92,6 +92,13 @@ public class Utils {
         return false;
     }
 
+    public static boolean checkNull(Object object) {
+        if (object == null) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Converting dp to pixel
      */

@@ -89,15 +89,18 @@
 
     <include layout="@layout/content_main_detail_place" />
 
-    <com.tuankhai.likebutton.LikeButton
-        android:id="@+id/heart_button"
+
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:icon_size="22dp"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/colorFloatButton"
+        android:backgroundTintMode="src_over"
+        android:src="@drawable/float_schedule_button"
+        app:borderWidth="0dp"
+        app:elevation="10dp"
+        app:fabSize="normal"
         app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|right|end"
-        app:anim_scale_factor="3"
-        app:icon_type="heart" />
-
+        app:layout_anchorGravity="bottom|right|end" />
 
 </android.support.design.widget.CoordinatorLayout>

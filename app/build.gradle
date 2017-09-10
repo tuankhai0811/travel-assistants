@@ -12,9 +12,6 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
     productFlavors {
         // Define separate dev and prod product flavors.
         dev {

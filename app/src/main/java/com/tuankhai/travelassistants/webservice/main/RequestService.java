@@ -28,6 +28,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class RequestService {
     public static String BASE_URL = "http://travelassistants.webstarterz.com/";
+    public static String RESULT_OK = "OK";
     //public static String BASE_URL = "http://192.168.0.117/";
     //public static String BASE_URL = "http://192.168.1.31/";
     private Retrofit retrofit = null;
@@ -35,7 +36,7 @@ public class RequestService {
     public static String GOOGLE_URL = "https://maps.googleapis.com/";
     public static String API_KEY = "AIzaSyDAPRe0tK-LZ0dS-ecmkkJ6u_oibJcd8Pg";
 
-    public Retrofit getClient(String baseUrl) {
+    private Retrofit getClient(String baseUrl) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -49,7 +50,7 @@ public class RequestService {
         return retrofit;
     }
 
-    public Retrofit getClient() {
+    private Retrofit getClient() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -64,14 +65,18 @@ public class RequestService {
     }
 
     public void getPlace(String placeID, final MyCallback callback){
-        getClient().create(WebserviceRequest.class).getPlace(placeID, API_KEY).enqueue(new Callback<PlaceGoogleDTO>() {
+        getClient().create(WebserviceRequest.class).getPlace(placeID, API_KEY).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<PlaceGoogleDTO> call, Response<PlaceGoogleDTO> response) {
-                callback.onSuccess(response);
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    callback.onSuccess(Utils.readValue(response.body().bytes(), PlaceGoogleDTO.class));
+                } catch (IOException e) {
+                    Log.e(getClass().toString(), "Data err");
+                }
             }
 
             @Override
-            public void onFailure(Call<PlaceGoogleDTO> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e(getClass().toString(), "onFailure");
             }
         });
@@ -144,7 +149,7 @@ public class RequestService {
                 });
     }
 
-    public String path(String[] path, int position) {
+    private String path(String[] path, int position) {
         if (path != null)
             return position < path.length ? (path[position] + "") : "";
         else
