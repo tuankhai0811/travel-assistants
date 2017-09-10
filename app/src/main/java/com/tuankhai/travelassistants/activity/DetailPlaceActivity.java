@@ -27,6 +27,8 @@ import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
+import com.tuankhai.travelassistants.webservice.main.MyCallback;
+import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.viewpagertransformers.ZoomOutTranformer;
 
 import java.util.ArrayList;
@@ -69,6 +71,14 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnLikeList
         initSliderImage(data.arrImage);
 
         addControls();
+
+        new RequestService().getPlace("ChIJ91ByD0opdTERd-0ZV693rxU", new MyCallback() {
+            @Override
+            public void onSuccess(Object response) {
+                super.onSuccess(response);
+                Log.e("status", response.toString());
+            }
+        });
     }
 
     @Override
@@ -219,7 +229,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnLikeList
         Toast.makeText(this, "Disliked!", Toast.LENGTH_SHORT).show();
     }
 
-    @Override public void onAnimationEnd(LikeButton likeButton) {
+    @Override
+    public void onAnimationEnd(LikeButton likeButton) {
         Log.e("status", "Animation End for %s" + likeButton);
     }
 

@@ -3,6 +3,7 @@ package com.tuankhai.travelassistants.webservice.main;
 import android.util.Log;
 
 import com.tuankhai.travelassistants.utils.Utils;
+import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
 import com.tuankhai.travelassistants.webservice.interfaces.UploadserviceRequest;
 import com.tuankhai.travelassistants.webservice.interfaces.WebserviceRequest;
 
@@ -26,10 +27,13 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  */
 
 public class RequestService {
-    //public static String BASE_URL = "http://travelassistants.webstarterz.com/";
+    public static String BASE_URL = "http://travelassistants.webstarterz.com/";
     //public static String BASE_URL = "http://192.168.0.117/";
-    public static String BASE_URL = "http://192.168.1.31/";
+    //public static String BASE_URL = "http://192.168.1.31/";
     private Retrofit retrofit = null;
+
+    public static String GOOGLE_URL = "https://maps.googleapis.com/";
+    public static String API_KEY = "AIzaSyDAPRe0tK-LZ0dS-ecmkkJ6u_oibJcd8Pg";
 
     public Retrofit getClient(String baseUrl) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -43,6 +47,34 @@ public class RequestService {
                 .client(httpClient.build())
                 .build();
         return retrofit;
+    }
+
+    public Retrofit getClient() {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(GOOGLE_URL)
+                .addConverterFactory(JacksonConverterFactory.create())
+                .client(httpClient.build())
+                .build();
+        return retrofit;
+    }
+
+    public void getPlace(String placeID, final MyCallback callback){
+        getClient().create(WebserviceRequest.class).getPlace(placeID, API_KEY).enqueue(new Callback<PlaceGoogleDTO>() {
+            @Override
+            public void onResponse(Call<PlaceGoogleDTO> call, Response<PlaceGoogleDTO> response) {
+                callback.onSuccess(response);
+            }
+
+            @Override
+            public void onFailure(Call<PlaceGoogleDTO> call, Throwable t) {
+                Log.e(getClass().toString(), "onFailure");
+            }
+        });
     }
 
     public void load(BasicRequest mainDTO,

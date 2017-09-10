@@ -31,18 +31,19 @@ public final class PlaceDTO {
     }
 
     public static final class Place implements Serializable {
-        public long _id;
+        public String _id;
         public final String id;
+        public String place_id;
         public String long_name;
         public String short_name;
-        public long rating;
+        public String rating;
         public String address;
         public String province_name;
         public String province_id;
         public String phone;
         public String postal_code;
-        public long location_lat;
-        public long location_lng;
+        public String location_lat;
+        public String location_lng;
         public String icon;
         public String logo_3_4;
         public String logo_4_3;
@@ -50,14 +51,15 @@ public final class PlaceDTO {
         public String opening_hours;
         public String photos;
         public String website;
-        public long type_sea;
-        public long type_attractions;
-        public long type_entertainment;
-        public long type_cultural;
-        public long type_spring;
-        public long type_summer;
-        public long type_autumn;
-        public long type_winter;
+        public String type_sea;
+        public String type_attractions;
+        public String type_entertainment;
+        public String type_cultural;
+        public String type_spring;
+        public String type_summer;
+        public String type_autumn;
+        public String type_winter;
+        public String type_food;
         public String description;
         public String hotels;
         public String restaurants;
@@ -68,18 +70,19 @@ public final class PlaceDTO {
         public ArrayList<String> arrImage;
 
         @JsonCreator
-        public Place(@JsonProperty("_id") long _id,
+        public Place(@JsonProperty("_id") String _id,
                      @JsonProperty("id") String id,
+                     @JsonProperty("place_id") String place_id,
                      @JsonProperty("long_name") String long_name,
                      @JsonProperty("short_name") String short_name,
-                     @JsonProperty("rating") long rating,
+                     @JsonProperty("rating") String rating,
                      @JsonProperty("address") String address,
                      @JsonProperty("province_name") String province_name,
                      @JsonProperty("province_id") String province_id,
                      @JsonProperty("phone") String phone,
                      @JsonProperty("postal_code") String postal_code,
-                     @JsonProperty("location_lat") long location_lat,
-                     @JsonProperty("location_lng") long location_lng,
+                     @JsonProperty("location_lat") String location_lat,
+                     @JsonProperty("location_lng") String location_lng,
                      @JsonProperty("icon") String icon,
                      @JsonProperty("logo_3_4") String logo_3_4,
                      @JsonProperty("logo_4_3") String logo_4_3,
@@ -87,14 +90,15 @@ public final class PlaceDTO {
                      @JsonProperty("opening_hours") String opening_hours,
                      @JsonProperty("photos") String photos,
                      @JsonProperty("website") String website,
-                     @JsonProperty("type_sea") long type_sea,
-                     @JsonProperty("type_attractions") long type_attractions,
-                     @JsonProperty("type_entertainment") long type_entertainment,
-                     @JsonProperty("type_cultural") long type_cultural,
-                     @JsonProperty("type_spring") long type_spring,
-                     @JsonProperty("type_summer") long type_summer,
-                     @JsonProperty("type_autumn") long type_autumn,
-                     @JsonProperty("type_winter") long type_winter,
+                     @JsonProperty("type_sea") String type_sea,
+                     @JsonProperty("type_attractions") String type_attractions,
+                     @JsonProperty("type_entertainment") String type_entertainment,
+                     @JsonProperty("type_cultural") String type_cultural,
+                     @JsonProperty("type_spring") String type_spring,
+                     @JsonProperty("type_summer") String type_summer,
+                     @JsonProperty("type_autumn") String type_autumn,
+                     @JsonProperty("type_winter") String type_winter,
+                     @JsonProperty("type_food") String type_food,
                      @JsonProperty("description") String description,
                      @JsonProperty("hotels") String hotels,
                      @JsonProperty("restaurants") String restaurants,
@@ -104,6 +108,7 @@ public final class PlaceDTO {
                      @JsonProperty("updated_at") String updated_at) {
             this._id = _id;
             this.id = id;
+            this.place_id = place_id;
             this.long_name = long_name;
             this.short_name = short_name;
             this.rating = rating;
@@ -129,6 +134,7 @@ public final class PlaceDTO {
             this.type_summer = type_summer;
             this.type_autumn = type_autumn;
             this.type_winter = type_winter;
+            this.type_food = type_food;
             this.description = description;
             this.hotels = hotels;
             this.restaurants = restaurants;
