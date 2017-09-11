@@ -36,7 +36,18 @@ public interface WebserviceRequest {
 //    );
 
     @GET("maps/api/place/details/json")
-    Call<ResponseBody> getPlace(@Query("placeid") String placeID,
-                                      @Query("key") String key
+    Call<ResponseBody> getPlace(
+            @Query("placeid") String placeID,
+            @Query("key") String key
     );
+
+    @GET("maps/api/place/nearbysearch/json?")
+    Call<ResponseBody> getNearFood(
+            @Query("location") String location,
+            @Query("radius") String radius,
+            @Query("type") String type,
+            @Query("keyword") String keyword,
+            @Query("key") String key
+    );
+
 }

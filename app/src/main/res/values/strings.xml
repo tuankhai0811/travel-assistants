@@ -4,6 +4,7 @@
     <string name="fb_login_protocol_scheme">fb118711962110697</string>
 
     <string name="font_boto_regular">fonts/Roboto-Light.ttf</string>
+    <string name="font_boto_bold">fonts/Roboto-Bold.ttf</string>
 
 
     <string name="drawer_open">Open</string>
@@ -18,5 +19,9 @@
     <string name="type_autumn">Mùa thu</string>
     <string name="type_winner">Mùa đông</string>
     <string name="txt_title_activity_login">Đăng nhập</string>
+    <string name="txt_review">Đánh giá</string>
+    <string name="top_hotel">Khách sạn gần đây</string>
+    <string name="view_all">Tất cả</string>
+    <string name="top_restaurent">Quán ăn gần đây</string>
 
 </resources>

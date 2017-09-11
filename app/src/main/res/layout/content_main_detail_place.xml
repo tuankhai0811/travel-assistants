@@ -12,11 +12,12 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:scrollbars="none"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,37 +25,114 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
                 <com.tuankhai.likebutton.LikeButton
                     android:id="@+id/heart_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:icon_size="56dp"
                     app:anim_scale_factor="3"
+                    app:icon_size="56dp"
                     app:icon_type="heart" />
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:textColor="@color/black"
-                android:text="aaaaaaaaaaaaaaa"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:textColor="@color/black"
-                android:text="aaaaaaaaaaaaaaa"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:textColor="@color/black"
-                android:text="aaaaaaaaaaaaaaa"/>
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_layout_detail">
 
-            <TextView
+                <com.tuankhai.ratingbar.MaterialRatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/Widget.MaterialRatingBar.RatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-3dp"
+                    android:layout_marginRight="-3dp"
+                    android:isIndicator="true"
+                    android:maxHeight="28dp"
+                    android:minHeight="28dp"
+                    android:progressBackgroundTint="@color/colorPrimary"
+                    android:rating="0"
+                    app:mrb_progressTint="@color/colorPrimary"
+                    app:mrb_secondaryProgressTint="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/txt_num_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text=""
+                    android:textColor="@color/grey"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_list_food"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:textColor="@color/black"
-                android:text="aaaaaaaaaaaaaaa"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_layout_detail">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="@string/top_restaurent"
+                        android:textAllCaps="false"
+                        android:textColor="@color/grey"
+                        android:textSize="17sp" />
+
+                    <com.tuankhai.ripple.MaterialRippleLayout
+                        android:id="@+id/layout_more_food"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        app:kt_rippleColor="@color/grey_10"
+                        app:kt_rippleDuration="10"
+                        app:kt_rippleHover="true">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="2dp"
+                                android:text="@string/view_all"
+                                android:textAllCaps="false"
+                                android:textColor="@color/grey"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="fill_parent"
+                                android:layout_gravity="center"
+                                android:paddingTop="1dp"
+                                app:srcCompat="@drawable/ic_arrow_button" />
+                        </LinearLayout>
+                    </com.tuankhai.ripple.MaterialRippleLayout>
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/lv_food"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

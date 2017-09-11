@@ -1,4 +1,4 @@
-package com.tuankhai.travelassistants.fragment;
+package com.tuankhai.travelassistants.fragment.interfaces;
 
 import com.tuankhai.floatingsearchview.main.FloatingSearchView;
 

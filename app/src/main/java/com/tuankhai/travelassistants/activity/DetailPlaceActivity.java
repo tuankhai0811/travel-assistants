@@ -1,6 +1,7 @@
 package com.tuankhai.travelassistants.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,48 +10,75 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.tuankhai.likebutton.LikeButton;
 import com.tuankhai.likebutton.OnAnimationEndListener;
 import com.tuankhai.likebutton.OnLikeListener;
 import com.tuankhai.loopingviewpager.CircleIndicator;
 import com.tuankhai.loopingviewpager.LoopViewPager;
+import com.tuankhai.ratingbar.MaterialRatingBar;
 import com.tuankhai.slideractivity.Slider;
 import com.tuankhai.slideractivity.model.SliderConfig;
 import com.tuankhai.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.adapter.PlaceNearAdapter;
 import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
+import com.tuankhai.travelassistants.adapter.decoration.SpacingItemDecorationHorizontal;
 import com.tuankhai.travelassistants.utils.AppContansts;
+import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
+import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.viewpagertransformers.ZoomOutTranformer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class DetailPlaceActivity extends AppCompatActivity implements OnLikeListener, OnAnimationEndListener {
+public class DetailPlaceActivity extends AppCompatActivity implements View.OnClickListener, OnLikeListener, OnAnimationEndListener {
     PlaceDTO.Place data;
     PlaceGoogleDTO dataGoogle;
+    PlaceNearDTO dataNearFood, dataNearHotel;
     Toolbar toolbar;
     SliderConfig mConfig;
 
+    //Slider Image
     SliderImageAdapter adapterImage;
     LoopViewPager viewpager;
     CircleIndicator indicator;
 
+    //Recycleview Hotel
+    RecyclerView lvHotel;
+    ArrayList<PlaceNearDTO.Result> arrHotel;
+    RecyclerView.LayoutManager layoutManagerHotel;
+    PlaceNearAdapter adapterHotel;
+
+    //Recycleview Food
+    RecyclerView lvFood;
+    ArrayList<PlaceNearDTO.Result> arrFood;
+    RecyclerView.LayoutManager layoutManagerFood;
+    PlaceNearAdapter adapterFood;
+    LinearLayout layoutFood;
+
+
     LikeButton likeButton;
+    MaterialRatingBar ratingBar;
+    TextView txtCountReview;
 
     int currentPage;
     int numPage;
@@ -77,17 +105,47 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnLikeList
 
     }
 
+    private void addControls() {
+        likeButton = (LikeButton) findViewById(R.id.heart_button);
+        likeButton.setOnLikeListener(this);
+        likeButton.setOnAnimationEndListener(this);
+    }
+
     private void getData() {
         data = (PlaceDTO.Place) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
         new RequestService().getPlace(data.place_id, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);
-                PlaceGoogleDTO result = (PlaceGoogleDTO) response;
-                Gson gson = new Gson();
-                Log.e("status",gson.toJson(response));
-//                if (((PlaceGoogleDTO) response).status.equals(RequestService.RESULT_OK))
-//                    dataGoogle = (PlaceGoogleDTO) response;
+                dataGoogle = (PlaceGoogleDTO) response;
+                addControlsPlaceGoogle();
+            }
+        });
+        new RequestService().nearPlaceFood(data.location_lat, data.location_lng, new MyCallback() {
+            @Override
+            public void onSuccess(Object response) {
+                super.onSuccess(response);
+                dataNearFood = (PlaceNearDTO) response;
+                addControlsFood();
+            }
+        });
+    }
+
+    private void addControlsFood() {
+        layoutFood = (LinearLayout) findViewById(R.id.layout_list_food);
+        layoutFood.setVisibility(View.VISIBLE);
+        lvFood = (RecyclerView) findViewById(R.id.lv_food);
+        layoutManagerFood = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        adapterFood = new PlaceNearAdapter(this, Arrays.asList(dataNearFood.results), null);
+        lvFood.setLayoutManager(layoutManagerFood);
+        lvFood.addItemDecoration(new SpacingItemDecorationHorizontal(Utils.dpToPx(this, 10)));
+        lvFood.setAdapter(adapterFood);
+        findViewById(R.id.layout_more_food).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailPlaceActivity.this, ListPlaceNearActivity.class);
+                intent.putExtra(AppContansts.INTENT_DATA, dataNearFood);
+                startActivity(intent);
             }
         });
     }
@@ -107,10 +165,16 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnLikeList
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    private void addControls() {
-        likeButton = (LikeButton) findViewById(R.id.heart_button);
-        likeButton.setOnLikeListener(this);
-        likeButton.setOnAnimationEndListener(this);
+    private void addControlsPlaceGoogle() {
+        ratingBar = (MaterialRatingBar) findViewById(R.id.ratingBar);
+        ratingBar.invalidate();
+        ratingBar.setMax(5);
+        ratingBar.setNumStars(5);
+        ratingBar.setStepSize(0.1f);
+        ratingBar.setRating(dataGoogle.getRating() + 0.2f);
+
+        txtCountReview = (TextView) findViewById(R.id.txt_num_comment);
+        txtCountReview.setText(dataGoogle.countReviews() + " " + getString(R.string.txt_review));
     }
 
     private void initSliderImage(ArrayList<String> array) {
@@ -243,6 +307,13 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnLikeList
     @Override
     public void onAnimationEnd(LikeButton likeButton) {
         Log.e("status", "Animation End for %s" + likeButton);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+        }
     }
 
 //    class GetImageSlider extends AsyncTask<Void, Void, ArrayList<Bitmap>> {

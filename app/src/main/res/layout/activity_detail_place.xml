@@ -91,15 +91,14 @@
 
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_add_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:backgroundTint="@color/colorFloatButton"
-        android:backgroundTintMode="src_over"
         android:src="@drawable/float_schedule_button"
         app:borderWidth="0dp"
-        app:elevation="10dp"
-        app:fabSize="normal"
+        app:elevation="6dp"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
 

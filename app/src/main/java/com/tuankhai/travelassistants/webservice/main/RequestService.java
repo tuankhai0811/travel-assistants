@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
+import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.interfaces.UploadserviceRequest;
 import com.tuankhai.travelassistants.webservice.interfaces.WebserviceRequest;
 
@@ -33,8 +34,12 @@ public class RequestService {
     //public static String BASE_URL = "http://192.168.1.31/";
     private Retrofit retrofit = null;
 
-    public static String GOOGLE_URL = "https://maps.googleapis.com/";
-    public static String API_KEY = "AIzaSyDAPRe0tK-LZ0dS-ecmkkJ6u_oibJcd8Pg";
+    static String GOOGLE_URL = "https://maps.googleapis.com/";
+    static String API_KEY = "AIzaSyDAPRe0tK-LZ0dS-ecmkkJ6u_oibJcd8Pg";
+    static String KEY_FOOD = "restaurant";
+    static String TYPE_FOOD = "food";
+    static String RADIUS = "1500";
+    static String MAX_WIDTH = "800";
 
     private Retrofit getClient(String baseUrl) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -64,22 +69,49 @@ public class RequestService {
         return retrofit;
     }
 
-    public void getPlace(String placeID, final MyCallback callback){
-        getClient().create(WebserviceRequest.class).getPlace(placeID, API_KEY).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    callback.onSuccess(Utils.readValue(response.body().bytes(), PlaceGoogleDTO.class));
-                } catch (IOException e) {
-                    Log.e(getClass().toString(), "Data err");
-                }
-            }
+    public static String getImage(String reference) {
+        String result = GOOGLE_URL + "maps/api/place/photo?maxwidth=" + MAX_WIDTH + "&photoreference=" + reference + "&key=" + API_KEY;
+        return result;
+    }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e(getClass().toString(), "onFailure");
-            }
-        });
+    public void nearPlaceFood(String lat, String lng, final MyCallback callback) {
+        getClient().create(WebserviceRequest.class)
+                .getNearFood(lat + "," + lng, RADIUS, TYPE_FOOD, KEY_FOOD, API_KEY)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            callback.onSuccess(Utils.readValue(response.body().bytes(), PlaceNearDTO.class));
+                        } catch (IOException e) {
+                            Log.e(getClass().toString(), "Data err");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e(getClass().toString(), "onFailure");
+                    }
+                });
+    }
+
+    public void getPlace(String placeID, final MyCallback callback) {
+        getClient().create(WebserviceRequest.class)
+                .getPlace(placeID, API_KEY)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            callback.onSuccess(Utils.readValue(response.body().bytes(), PlaceGoogleDTO.class));
+                        } catch (IOException e) {
+                            Log.e(getClass().toString(), "Data err");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e(getClass().toString(), "onFailure");
+                    }
+                });
     }
 
     public void load(BasicRequest mainDTO,
@@ -155,4 +187,6 @@ public class RequestService {
         else
             return "";
     }
+
+
 }

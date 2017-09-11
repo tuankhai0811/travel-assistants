@@ -31,7 +31,7 @@ import com.tuankhai.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.BaseController;
 import com.tuankhai.travelassistants.fragment.BaseFragment;
-import com.tuankhai.travelassistants.fragment.BaseFragmentCallbacks;
+import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 import com.tuankhai.travelassistants.utils.AppContansts;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;

@@ -16,7 +16,7 @@ public final class PlaceGoogleDTO {
     public PlaceGoogleDTO(
             @JsonProperty("html_attributions") String[] html_attributions,
             @JsonProperty("result") Result result,
-            @JsonProperty("status") String status){
+            @JsonProperty("status") String status) {
         this.html_attributions = html_attributions;
         this.result = result;
         this.status = status;
@@ -36,13 +36,13 @@ public final class PlaceGoogleDTO {
         public final Opening_hours opening_hours;
         public final Photo photos[];
         public final String place_id;
-        public final double rating;
+        public final String rating;
         public final String reference;
         public final Review reviews[];
         public final String scope;
         public final String[] types;
         public final String url;
-        public final long utc_offset;
+        public final String utc_offset;
         public final String vicinity;
         public final String website;
 
@@ -60,15 +60,15 @@ public final class PlaceGoogleDTO {
                 @JsonProperty("opening_hours") Opening_hours opening_hours,
                 @JsonProperty("photos") Photo[] photos,
                 @JsonProperty("place_id") String place_id,
-                @JsonProperty("rating") double rating,
+                @JsonProperty("rating") String rating,
                 @JsonProperty("reference") String reference,
                 @JsonProperty("reviews") Review[] reviews,
                 @JsonProperty("scope") String scope,
                 @JsonProperty("types") String[] types,
                 @JsonProperty("url") String url,
-                @JsonProperty("utc_offset") long utc_offset,
+                @JsonProperty("utc_offset") String utc_offset,
                 @JsonProperty("vicinity") String vicinity,
-                @JsonProperty("website") String website){
+                @JsonProperty("website") String website) {
             this.address_components = address_components;
             this.adr_address = adr_address;
             this.formatted_address = formatted_address;
@@ -101,7 +101,7 @@ public final class PlaceGoogleDTO {
             public Address_component(
                     @JsonProperty("long_name") String long_name,
                     @JsonProperty("short_name") String short_name,
-                    @JsonProperty("types") String[] types){
+                    @JsonProperty("types") String[] types) {
                 this.long_name = long_name;
                 this.short_name = short_name;
                 this.types = types;
@@ -115,19 +115,19 @@ public final class PlaceGoogleDTO {
             @JsonCreator
             public Geometry(
                     @JsonProperty("location") Location location,
-                    @JsonProperty("viewport") Viewport viewport){
+                    @JsonProperty("viewport") Viewport viewport) {
                 this.location = location;
                 this.viewport = viewport;
             }
 
             public static final class Location {
-                public final double lat;
-                public final double lng;
+                public final String lat;
+                public final String lng;
 
                 @JsonCreator
                 public Location(
-                        @JsonProperty("lat") double lat,
-                        @JsonProperty("lng") double lng){
+                        @JsonProperty("lat") String lat,
+                        @JsonProperty("lng") String lng) {
                     this.lat = lat;
                     this.lng = lng;
                 }
@@ -140,32 +140,32 @@ public final class PlaceGoogleDTO {
                 @JsonCreator
                 public Viewport(
                         @JsonProperty("northeast") Northeast northeast,
-                        @JsonProperty("southwest") Southwest southwest){
+                        @JsonProperty("southwest") Southwest southwest) {
                     this.northeast = northeast;
                     this.southwest = southwest;
                 }
 
                 public static final class Northeast {
-                    public final double lat;
-                    public final double lng;
+                    public final String lat;
+                    public final String lng;
 
                     @JsonCreator
                     public Northeast(
-                            @JsonProperty("lat") double lat,
-                            @JsonProperty("lng") double lng){
+                            @JsonProperty("lat") String lat,
+                            @JsonProperty("lng") String lng) {
                         this.lat = lat;
                         this.lng = lng;
                     }
                 }
 
                 public static final class Southwest {
-                    public final double lat;
-                    public final double lng;
+                    public final String lat;
+                    public final String lng;
 
                     @JsonCreator
                     public Southwest(
-                            @JsonProperty("lat") double lat,
-                            @JsonProperty("lng") double lng){
+                            @JsonProperty("lat") String lat,
+                            @JsonProperty("lng") String lng) {
                         this.lat = lat;
                         this.lng = lng;
                     }
@@ -182,7 +182,7 @@ public final class PlaceGoogleDTO {
             public Opening_hours(
                     @JsonProperty("open_now") boolean open_now,
                     @JsonProperty("periods") Period[] periods,
-                    @JsonProperty("weekday_text") String[] weekday_text){
+                    @JsonProperty("weekday_text") String[] weekday_text) {
                 this.open_now = open_now;
                 this.periods = periods;
                 this.weekday_text = weekday_text;
@@ -195,32 +195,32 @@ public final class PlaceGoogleDTO {
                 @JsonCreator
                 public Period(
                         @JsonProperty("close") Close close,
-                        @JsonProperty("open") Open open){
+                        @JsonProperty("open") Open open) {
                     this.close = close;
                     this.open = open;
                 }
 
                 public static final class Close {
-                    public final long day;
+                    public final String day;
                     public final String time;
 
                     @JsonCreator
                     public Close(
-                            @JsonProperty("day") long day,
-                            @JsonProperty("time") String time){
+                            @JsonProperty("day") String day,
+                            @JsonProperty("time") String time) {
                         this.day = day;
                         this.time = time;
                     }
                 }
 
                 public static final class Open {
-                    public final long day;
+                    public final String day;
                     public final String time;
 
                     @JsonCreator
                     public Open(
-                            @JsonProperty("day") long day,
-                            @JsonProperty("time") String time){
+                            @JsonProperty("day") String day,
+                            @JsonProperty("time") String time) {
                         this.day = day;
                         this.time = time;
                     }
@@ -229,17 +229,17 @@ public final class PlaceGoogleDTO {
         }
 
         public static final class Photo {
-            public final long height;
+            public final String height;
             public final String[] html_attributions;
             public final String photo_reference;
-            public final long width;
+            public final String width;
 
             @JsonCreator
             public Photo(
-                    @JsonProperty("height") long height,
+                    @JsonProperty("height") String height,
                     @JsonProperty("html_attributions") String[] html_attributions,
                     @JsonProperty("photo_reference") String photo_reference,
-                    @JsonProperty("width") long width){
+                    @JsonProperty("width") String width) {
                 this.height = height;
                 this.html_attributions = html_attributions;
                 this.photo_reference = photo_reference;
@@ -252,10 +252,10 @@ public final class PlaceGoogleDTO {
             public final String author_url;
             public final String language;
             public final String profile_photo_url;
-            public final long rating;
+            public final String rating;
             public final String relative_time_description;
             public final String text;
-            public final long time;
+            public final String time;
 
             @JsonCreator
             public Review(
@@ -263,9 +263,9 @@ public final class PlaceGoogleDTO {
                     @JsonProperty("author_url") String author_url,
                     @JsonProperty("language") String language,
                     @JsonProperty("profile_photo_url") String profile_photo_url,
-                    @JsonProperty("rating") long rating,
+                    @JsonProperty("rating") String rating,
                     @JsonProperty("relative_time_description") String relative_time_description,
-                    @JsonProperty("text") String text, @JsonProperty("time") long time){
+                    @JsonProperty("text") String text, @JsonProperty("time") String time) {
                 this.author_name = author_name;
                 this.author_url = author_url;
                 this.language = language;
@@ -276,5 +276,15 @@ public final class PlaceGoogleDTO {
                 this.time = time;
             }
         }
+    }
+
+    public float getRating() {
+        if (result == null) return 0.0f;
+        return Float.parseFloat(result.rating);
+    }
+
+    public int countReviews() {
+        if (result == null) return 0;
+        return result.reviews.length;
     }
 }

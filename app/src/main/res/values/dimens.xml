@@ -21,4 +21,8 @@
     <dimen name="search_view_inset">5dp</dimen>
     <dimen name="height_toolbar">66dp</dimen>
     <dimen name="height_layout_item_place_table">250dp</dimen>
+    <dimen name="height_layout_item_place_near">150dp</dimen>
+    <dimen name="width_layout_item_place_near">200dp</dimen>
+    <dimen name="margin_layout_detail">10dp</dimen>
+    <dimen name="height_image_item_place">100dp</dimen>
 </resources>

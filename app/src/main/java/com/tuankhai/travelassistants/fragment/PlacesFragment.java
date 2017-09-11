@@ -25,6 +25,7 @@ import com.tuankhai.travelassistants.activity.ListPlaceActivity;
 import com.tuankhai.travelassistants.adapter.ProvinceAdapter;
 import com.tuankhai.travelassistants.adapter.SliderPlaceAdapter;
 import com.tuankhai.travelassistants.fragment.controller.PlacesController;
+import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;

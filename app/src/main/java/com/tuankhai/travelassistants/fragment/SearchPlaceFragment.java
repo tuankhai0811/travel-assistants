@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.tuankhai.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.BaseActivity;
+import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 
 public class SearchPlaceFragment extends BaseFragment implements AppBarLayout.OnOffsetChangedListener{
     BaseActivity mActivity;
