@@ -1,6 +1,7 @@
 package com.tuankhai.travelassistants.adapter;
 
 import android.app.Activity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tuankhai.ratingbar.MaterialRatingBar;
-import com.tuankhai.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
@@ -27,6 +27,7 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private final int VIEW_TYPE_LOADING = 1;
     Activity context;
     List<PlaceNearDTO.Result> arrPlace;
+    RecyclerView mRecyclerView;
 
     LayoutListPlaceNearItemListener itemListener;
     private OnLoadMoreListener mOnLoadMoreListener;
@@ -65,21 +66,29 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        return new PlaceNearViewHolder(
-                MaterialRippleLayout.on(inflater.inflate(R.layout.item_place_near_liner, viewGroup, false))
-                        .rippleOverlay(true)
-                        .rippleAlpha(0.2f)
-                        .rippleColor(R.integer.rippleColor)
-                        .rippleHover(true)
-                        .create()
-        );
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+//        final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+//        return new PlaceNearViewHolder(
+//                MaterialRippleLayout.on(inflater.inflate(R.layout.item_place_near_liner, viewGroup, false))
+//                        .rippleOverlay(true)
+//                        .rippleAlpha(0.2f)
+//                        .rippleColor(R.integer.rippleColor)
+//                        .rippleHover(true)
+//                        .create()
+//        );
+        if (viewType == VIEW_TYPE_ITEM) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_place_near_liner, viewGroup, false);
+            return new PlaceNearViewHolder(view);
+        } else if (viewType == VIEW_TYPE_LOADING) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_progressbar, viewGroup, false);
+            return new LoadingViewHolder(view);
+        }
+        return null;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return super.getItemViewType(position);
+        return arrPlace.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
     @Override
@@ -97,7 +106,11 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemCount() {
-        return arrPlace.size();
+        return arrPlace == null ? 0 : arrPlace.size();
+    }
+
+    public void setLoaded() {
+        isLoading = false;
     }
 
     static class LoadingViewHolder extends RecyclerView.ViewHolder {
