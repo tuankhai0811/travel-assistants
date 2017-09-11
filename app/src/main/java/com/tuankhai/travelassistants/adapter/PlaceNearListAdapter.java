@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,11 +22,23 @@ import java.util.List;
  * Created by Khai on 11/09/2017.
  */
 
-public class PlaceNearListAdapter extends RecyclerView.Adapter<PlaceNearListAdapter.PlaceNearViewHolder> {
+public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
     Activity context;
     List<PlaceNearDTO.Result> arrPlace;
 
     LayoutListPlaceNearItemListener itemListener;
+    private OnLoadMoreListener mOnLoadMoreListener;
+
+    private boolean isLoading;
+    private int visibleThreshold = 5;
+    private int lastVisibleItem,
+            totalItemCount;
+
+    public void setOnLoadMoreListener(OnLoadMoreListener mOnLoadMoreListener) {
+        this.mOnLoadMoreListener = mOnLoadMoreListener;
+    }
 
     public PlaceNearListAdapter(Activity context, List<PlaceNearDTO.Result> arrPlace, LayoutListPlaceNearItemListener listener) {
         this.context = context;
@@ -33,8 +46,26 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<PlaceNearListAdap
         this.itemListener = listener;
     }
 
+    public PlaceNearListAdapter(){
+        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                totalItemCount = linearLayoutManager.getItemCount();
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+                if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                    if (mOnLoadMoreListener != null) {
+                        mOnLoadMoreListener.onLoadMore();
+                    }
+                    isLoading = true;
+                }
+            }
+        });
+    }
+
     @Override
-    public PlaceNearViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         return new PlaceNearViewHolder(
                 MaterialRippleLayout.on(inflater.inflate(R.layout.item_place_near_liner, viewGroup, false))
@@ -47,14 +78,19 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<PlaceNearListAdap
     }
 
     @Override
-    public void onBindViewHolder(PlaceNearViewHolder placeViewHolder, int i) {
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         PlaceNearDTO.Result item = arrPlace.get(i);
-        placeViewHolder.txtName.setText(item.name);
-        placeViewHolder.ratingBar.invalidate();
-        placeViewHolder.ratingBar.setMax(5);
-        placeViewHolder.ratingBar.setNumStars(5);
-        placeViewHolder.ratingBar.setStepSize(0.1f);
-        placeViewHolder.ratingBar.setRating(item.getRaring() + 0.1f);
+        viewHolder.txtName.setText(item.name);
+        viewHolder.ratingBar.invalidate();
+        viewHolder.ratingBar.setMax(5);
+        viewHolder.ratingBar.setNumStars(5);
+        viewHolder.ratingBar.setStepSize(0.1f);
+        viewHolder.ratingBar.setRating(item.getRaring() + 0.1f);
         if (item.photos != null && item.photos.length > 0)
             Glide.with(context).load(RequestService.getImage(item.photos[0].photo_reference)).into(placeViewHolder.imageView);
     }
@@ -62,6 +98,14 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<PlaceNearListAdap
     @Override
     public int getItemCount() {
         return arrPlace.size();
+    }
+
+    static class LoadingViewHolder extends RecyclerView.ViewHolder {
+        public ProgressBar progressBar;
+        public LoadingViewHolder(View itemView) {
+            super(itemView);
+            progressBar = itemView.findViewById(R.id.progressBar);
+        }
     }
 
     public class PlaceNearViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -85,5 +129,9 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<PlaceNearListAdap
 
     public interface LayoutListPlaceNearItemListener {
         void onItemPlaceNearClick(View view, PlaceNearDTO.Result item);
+    }
+
+    public interface OnLoadMoreListener {
+        void onLoadMore();
     }
 }
