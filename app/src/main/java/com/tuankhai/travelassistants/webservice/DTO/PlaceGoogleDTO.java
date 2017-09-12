@@ -2,6 +2,9 @@ package com.tuankhai.travelassistants.webservice.DTO;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tuankhai.travelassistants.webservice.main.RequestService;
+
+import java.util.ArrayList;
 
 /**
  * Created by tuank on 10/09/2017.
@@ -287,4 +290,29 @@ public final class PlaceGoogleDTO {
         if (result == null) return 0;
         return result.reviews.length;
     }
+
+    public String getLocationLat() {
+        if (result == null) return "0";
+        return result.geometry.location.lat;
+    }
+
+    public String getLocationLng() {
+        if (result == null) return "0";
+        return result.geometry.location.lng;
+    }
+
+    public ArrayList<String> getImage() {
+        ArrayList<String> arrImage = new ArrayList<>();
+        if (result == null || result.photos == null || result.photos.length == 0) return arrImage;
+        for (int i = 0; i < result.photos.length; i++) {
+            arrImage.add(RequestService.getImage(result.photos[i].photo_reference));
+        }
+        return arrImage;
+    }
+
+    public int getSizeReview() {
+        if (result == null || result.reviews == null) return 0;
+        return result.reviews.length;
+    }
+
 }

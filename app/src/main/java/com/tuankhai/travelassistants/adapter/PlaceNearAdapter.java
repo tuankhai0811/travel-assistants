@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.ratingbar.MaterialRatingBar;
 import com.tuankhai.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.R;
@@ -55,8 +56,14 @@ public class PlaceNearAdapter extends RecyclerView.Adapter<PlaceNearAdapter.Plac
         placeViewHolder.ratingBar.setNumStars(5);
         placeViewHolder.ratingBar.setStepSize(0.1f);
         placeViewHolder.ratingBar.setRating(item.getRaring() + 0.1f);
-        if (item.photos != null && item.photos.length > 0)
-            Glide.with(context).load(RequestService.getImage(item.photos[0].photo_reference)).into(placeViewHolder.imageView);
+        if (item.photos != null && item.photos.length > 0) {
+            Glide.with(context)
+                    .load(RequestService.getImage(item.photos[0].photo_reference))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(placeViewHolder.imageView);
+        } else {
+            placeViewHolder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.bg_place_global_4_3));
+        }
     }
 
     @Override

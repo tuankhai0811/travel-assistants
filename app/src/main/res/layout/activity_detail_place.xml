@@ -29,7 +29,6 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_place_global_16_10"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax">
 
@@ -42,8 +41,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_image" />
+                    android:layout_height="match_parent" />
 
                 <com.tuankhai.loopingviewpager.CircleIndicator
                     android:id="@+id/indicatorImage"

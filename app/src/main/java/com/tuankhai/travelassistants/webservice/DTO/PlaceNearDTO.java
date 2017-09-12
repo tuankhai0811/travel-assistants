@@ -22,7 +22,7 @@ public final class PlaceNearDTO implements Serializable {
             @JsonProperty("results") Result[] results,
             @JsonProperty("status") String status) {
         this.html_attributions = html_attributions;
-        this.next_page_token = next_page_token;
+        this.next_page_token = next_page_token != null ? next_page_token : "";
         this.results = results;
         this.status = status;
     }

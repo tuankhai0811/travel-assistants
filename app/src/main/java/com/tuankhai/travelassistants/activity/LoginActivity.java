@@ -299,7 +299,14 @@ public class LoginActivity extends AppCompatActivity implements
             layoutLogo.setVisibility(View.GONE);
             layoutSignout.setVisibility(View.VISIBLE);
             layoutSignin.setVisibility(View.GONE);
-            new RequestService().load(new AddUserRequest("", user.getUid(), user.getEmail(), user.getDisplayName()),
+            Log.e("status", user.getPhotoUrl().toString());
+            new RequestService().load(
+                    new AddUserRequest(
+                            "",
+                            user.getUid(),
+                            user.getEmail(),
+                            user.getDisplayName(),
+                            user.getPhotoUrl().toString()),
                     false,
                     new MyCallback() {
                         @Override

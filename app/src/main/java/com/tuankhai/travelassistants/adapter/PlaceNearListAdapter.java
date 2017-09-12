@@ -11,7 +11,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.ratingbar.MaterialRatingBar;
+import com.tuankhai.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
@@ -33,21 +35,22 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private OnLoadMoreListener mOnLoadMoreListener;
 
     private boolean isLoading;
-    private int visibleThreshold = 5;
-    private int lastVisibleItem,
-            totalItemCount;
+    private int visibleThreshold = 1;
+    private int lastVisibleItem, totalItemCount;
 
     public void setOnLoadMoreListener(OnLoadMoreListener mOnLoadMoreListener) {
         this.mOnLoadMoreListener = mOnLoadMoreListener;
     }
 
-    public PlaceNearListAdapter(Activity context, List<PlaceNearDTO.Result> arrPlace, LayoutListPlaceNearItemListener listener) {
-        this.context = context;
-        this.arrPlace = arrPlace;
-        this.itemListener = listener;
+    public void setOnItemClickListener(LayoutListPlaceNearItemListener onItemClickListener) {
+        this.itemListener = onItemClickListener;
     }
 
-    public PlaceNearListAdapter(){
+    public PlaceNearListAdapter(Activity context, RecyclerView recyclerView, List<PlaceNearDTO.Result> arrPlace) {
+        this.context = context;
+        this.arrPlace = arrPlace;
+        this.mRecyclerView = recyclerView;
+
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -67,18 +70,18 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-//        final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-//        return new PlaceNearViewHolder(
-//                MaterialRippleLayout.on(inflater.inflate(R.layout.item_place_near_liner, viewGroup, false))
-//                        .rippleOverlay(true)
-//                        .rippleAlpha(0.2f)
-//                        .rippleColor(R.integer.rippleColor)
-//                        .rippleHover(true)
-//                        .create()
-//        );
         if (viewType == VIEW_TYPE_ITEM) {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_place_near_liner, viewGroup, false);
-            return new PlaceNearViewHolder(view);
+            final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+            return new PlaceNearViewHolder(
+                    MaterialRippleLayout.on(inflater.inflate(R.layout.item_place_near_liner, viewGroup, false))
+                            .rippleOverlay(true)
+                            .rippleAlpha(0.2f)
+                            .rippleColor(R.integer.rippleColor)
+                            .rippleHover(true)
+                            .create()
+            );
+//            View view = LayoutInflater.from(context).inflate(R.layout.item_place_near_liner, viewGroup, false);
+//            return new PlaceNearViewHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_progressbar, viewGroup, false);
             return new LoadingViewHolder(view);
@@ -92,16 +95,31 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
-        PlaceNearDTO.Result item = arrPlace.get(i);
-        viewHolder.txtName.setText(item.name);
-        viewHolder.ratingBar.invalidate();
-        viewHolder.ratingBar.setMax(5);
-        viewHolder.ratingBar.setNumStars(5);
-        viewHolder.ratingBar.setStepSize(0.1f);
-        viewHolder.ratingBar.setRating(item.getRaring() + 0.1f);
-        if (item.photos != null && item.photos.length > 0)
-            Glide.with(context).load(RequestService.getImage(item.photos[0].photo_reference)).into(placeViewHolder.imageView);
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        if (getItemViewType(position) == VIEW_TYPE_ITEM) {
+            PlaceNearViewHolder holder = (PlaceNearViewHolder) viewHolder;
+//            Glide.clear(holder.imageView);
+//            holder.setIsRecyclable(false);
+            PlaceNearDTO.Result item = arrPlace.get(position);
+            holder.txtName.setText(item.name);
+            holder.ratingBar.invalidate();
+            holder.ratingBar.setMax(5);
+            holder.ratingBar.setNumStars(5);
+            holder.ratingBar.setStepSize(0.1f);
+            holder.ratingBar.setRating(item.getRaring() + 0.1f);
+            if (item.photos != null && item.photos.length > 0) {
+                Glide.with(context)
+                        .load(RequestService.getImage(item.photos[0].photo_reference))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(holder.imageView);
+            } else {
+                holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.bg_place_global_4_3));
+            }
+
+        } else {
+            ((LoadingViewHolder) viewHolder).progressBar.setIndeterminate(true);
+        }
+
     }
 
     @Override
@@ -115,6 +133,7 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     static class LoadingViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
+
         public LoadingViewHolder(View itemView) {
             super(itemView);
             progressBar = itemView.findViewById(R.id.progressBar);

@@ -31,6 +31,7 @@ import com.tuankhai.slideractivity.model.SliderConfig;
 import com.tuankhai.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.adapter.PlaceNearAdapter;
+import com.tuankhai.travelassistants.adapter.ReviewsAdapter;
 import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.SpacingItemDecorationHorizontal;
 import com.tuankhai.travelassistants.utils.AppContansts;
@@ -67,6 +68,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     ArrayList<PlaceNearDTO.Result> arrHotel;
     RecyclerView.LayoutManager layoutManagerHotel;
     PlaceNearAdapter adapterHotel;
+    LinearLayout layoutHotel;
 
     //Recycleview Food
     RecyclerView lvFood;
@@ -74,6 +76,12 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     RecyclerView.LayoutManager layoutManagerFood;
     PlaceNearAdapter adapterFood;
     LinearLayout layoutFood;
+
+    //Reviews
+    RecyclerView lvReview;
+    ArrayList<PlaceGoogleDTO.Result.Review> arrReview;
+    RecyclerView.LayoutManager layoutManagerReview;
+    ReviewsAdapter adapterReviews;
 
 
     LikeButton likeButton;
@@ -119,14 +127,26 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 super.onSuccess(response);
                 dataGoogle = (PlaceGoogleDTO) response;
                 addControlsPlaceGoogle();
+                initSliderImageGoogle();
             }
         });
-        new RequestService().nearPlaceFood(data.location_lat, data.location_lng, new MyCallback() {
+        new RequestService().nearPlace(RequestService.TYPE_PLACE_FOOD, data.location_lat, data.location_lng, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);
                 dataNearFood = (PlaceNearDTO) response;
-                addControlsFood();
+                if (dataNearFood.results != null && dataNearFood.results.length > 0)
+                    addControlsFood();
+            }
+        });
+
+        new RequestService().nearPlace(RequestService.TYPE_PLACE_HOTEL, data.location_lat, data.location_lng, new MyCallback() {
+            @Override
+            public void onSuccess(Object response) {
+                super.onSuccess(response);
+                dataNearHotel = (PlaceNearDTO) response;
+                if (dataNearHotel.results != null && dataNearHotel.results.length > 0)
+                    addControlsHotel();
             }
         });
     }
@@ -135,6 +155,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         layoutFood = (LinearLayout) findViewById(R.id.layout_list_food);
         layoutFood.setVisibility(View.VISIBLE);
         lvFood = (RecyclerView) findViewById(R.id.lv_food);
+        lvFood.setNestedScrollingEnabled(false);
         layoutManagerFood = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         adapterFood = new PlaceNearAdapter(this, Arrays.asList(dataNearFood.results), null);
         lvFood.setLayoutManager(layoutManagerFood);
@@ -145,6 +166,32 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
             public void onClick(View view) {
                 Intent intent = new Intent(DetailPlaceActivity.this, ListPlaceNearActivity.class);
                 intent.putExtra(AppContansts.INTENT_DATA, dataNearFood);
+                intent.putExtra(AppContansts.INTENT_DATA1, dataGoogle.getLocationLat());
+                intent.putExtra(AppContansts.INTENT_DATA2, dataGoogle.getLocationLng());
+                intent.putExtra(AppContansts.INTENT_DATA3, RequestService.TYPE_PLACE_FOOD);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void addControlsHotel() {
+        layoutHotel = (LinearLayout) findViewById(R.id.layout_list_hotel);
+        layoutHotel.setVisibility(View.VISIBLE);
+        lvHotel = (RecyclerView) findViewById(R.id.lv_hotel);
+        lvHotel.setNestedScrollingEnabled(false);
+        layoutManagerHotel = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        adapterHotel = new PlaceNearAdapter(this, Arrays.asList(dataNearHotel.results), null);
+        lvHotel.setLayoutManager(layoutManagerHotel);
+        lvHotel.addItemDecoration(new SpacingItemDecorationHorizontal(Utils.dpToPx(this, 10)));
+        lvHotel.setAdapter(adapterHotel);
+        findViewById(R.id.layout_more_hotel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailPlaceActivity.this, ListPlaceNearActivity.class);
+                intent.putExtra(AppContansts.INTENT_DATA, dataNearHotel);
+                intent.putExtra(AppContansts.INTENT_DATA1, dataGoogle.getLocationLat());
+                intent.putExtra(AppContansts.INTENT_DATA2, dataGoogle.getLocationLng());
+                intent.putExtra(AppContansts.INTENT_DATA3, RequestService.TYPE_PLACE_HOTEL);
                 startActivity(intent);
             }
         });
@@ -171,13 +218,24 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         ratingBar.setMax(5);
         ratingBar.setNumStars(5);
         ratingBar.setStepSize(0.1f);
-        ratingBar.setRating(dataGoogle.getRating() + 0.2f);
+        ratingBar.setRating(dataGoogle.getRating());
 
         txtCountReview = (TextView) findViewById(R.id.txt_num_comment);
         txtCountReview.setText(dataGoogle.countReviews() + " " + getString(R.string.txt_review));
+
+        findViewById(R.id.layout_content_reviews).setVisibility(View.VISIBLE);
+        ((TextView) findViewById(R.id.num_comment)).setText(dataGoogle.getSizeReview() + "");
+        ((TextView) findViewById(R.id.txt_rating_view)).setText(dataGoogle.getRating() + "");
+        MaterialRatingBar ratingBarView = (MaterialRatingBar) findViewById(R.id.ratingBarView);
+        ratingBarView.invalidate();
+        ratingBarView.setMax(5);
+        ratingBarView.setNumStars(5);
+        ratingBarView.setStepSize(0.1f);
+        ratingBarView.setRating(dataGoogle.getRating());
     }
 
     private void initSliderImage(ArrayList<String> array) {
+        if (array.size() == 0) return;
         viewpager = (LoopViewPager) findViewById(R.id.viewpagerImage);
         viewpager.setScrollDurationFactor(1500);
         adapterImage = new SliderImageAdapter(this, array);
@@ -186,6 +244,70 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
         currentPage = 0;
         numPage = array.size();
+        final Handler handler = new Handler();
+        final Runnable update = new Runnable() {
+            public void run() {
+                currentPage = viewpager.getCurrentItem() + 1;
+                if (currentPage == numPage) {
+                    currentPage = 0;
+                }
+                viewpager.setCurrentItem(currentPage++, true);
+            }
+        };
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        };
+        timer = new Timer();
+        timer.schedule(task, DELAY_MS);
+        viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (timer != null) {
+                    timer.cancel();
+                    timer.purge();
+                    timer = null;
+                    timer = new Timer();
+                    if (task != null) {
+                        task.cancel();
+                        task = null;
+                        task = new TimerTask() {
+                            @Override
+                            public void run() {
+                                handler.post(update);
+                            }
+                        };
+                    }
+                    timer.schedule(task, DELAY_MS);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private void initSliderImageGoogle() {
+
+        if (data.arrImage.size() > 0) return;
+        ArrayList<String> arrayImage = dataGoogle.getImage();
+        viewpager = (LoopViewPager) findViewById(R.id.viewpagerImage);
+        viewpager.setScrollDurationFactor(1500);
+        adapterImage = new SliderImageAdapter(this, arrayImage);
+        viewpager.setPageTransformer(true, new ZoomOutTranformer());
+        viewpager.setAdapter(adapterImage);
+
+        currentPage = 0;
+        numPage = arrayImage.size();
         final Handler handler = new Handler();
         final Runnable update = new Runnable() {
             public void run() {

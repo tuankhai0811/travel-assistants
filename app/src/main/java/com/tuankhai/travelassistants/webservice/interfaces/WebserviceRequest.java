@@ -47,6 +47,7 @@ public interface WebserviceRequest {
             @Query("radius") String radius,
             @Query("type") String type,
             @Query("keyword") String keyword,
+            @Query("pagetoken") String pagetoken,
             @Query("key") String key
     );
 

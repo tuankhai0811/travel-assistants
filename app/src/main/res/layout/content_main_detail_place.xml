@@ -70,6 +70,7 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
+
             <LinearLayout
                 android:id="@+id/layout_list_food"
                 android:layout_width="match_parent"
@@ -133,6 +134,72 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_list_hotel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_layout_detail">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="@string/top_hotel"
+                        android:textAllCaps="false"
+                        android:textColor="@color/grey"
+                        android:textSize="17sp" />
+
+                    <com.tuankhai.ripple.MaterialRippleLayout
+                        android:id="@+id/layout_more_hotel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        app:kt_rippleColor="@color/grey_10"
+                        app:kt_rippleDuration="10"
+                        app:kt_rippleHover="true">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="2dp"
+                                android:text="@string/view_all"
+                                android:textAllCaps="false"
+                                android:textColor="@color/grey"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="fill_parent"
+                                android:layout_gravity="center"
+                                android:paddingTop="1dp"
+                                app:srcCompat="@drawable/ic_arrow_button" />
+                        </LinearLayout>
+                    </com.tuankhai.ripple.MaterialRippleLayout>
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/lv_hotel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <include layout="@layout/content_reviews" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

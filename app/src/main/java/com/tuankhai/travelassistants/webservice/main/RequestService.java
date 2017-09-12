@@ -34,11 +34,16 @@ public class RequestService {
     //public static String BASE_URL = "http://192.168.1.31/";
     private Retrofit retrofit = null;
 
+    public static int TYPE_PLACE_FOOD = 0;
+    public static int TYPE_PLACE_HOTEL = 1;
     static String GOOGLE_URL = "https://maps.googleapis.com/";
-    static String API_KEY = "AIzaSyDAPRe0tK-LZ0dS-ecmkkJ6u_oibJcd8Pg";
+    //static String API_KEY = "AIzaSyDAPRe0tK-LZ0dS-ecmkkJ6u_oibJcd8Pg";
+    static String API_KEY = "AIzaSyBu7xN_K7RcHcGgU5lkwJ7qODxfxOHwHdM";
     static String KEY_FOOD = "restaurant";
+    static String KEY_HOTEL = "hotel";
     static String TYPE_FOOD = "food";
-    static String RADIUS = "1500";
+    static String TYPE_HOTEL = "lodging";
+    static String RADIUS = "1000";
     static String MAX_WIDTH = "800";
 
     private Retrofit getClient(String baseUrl) {
@@ -74,9 +79,47 @@ public class RequestService {
         return result;
     }
 
-    public void nearPlaceFood(String lat, String lng, final MyCallback callback) {
+    public void nearPlace(int typeplace, String lat, String lng, String pagetoken, final MyCallback callback) {
+        String type;
+        String key;
+        if (typeplace == TYPE_PLACE_FOOD) {
+            type = TYPE_FOOD;
+            key = KEY_FOOD;
+        } else {
+            type = TYPE_HOTEL;
+            key = KEY_HOTEL;
+        }
         getClient().create(WebserviceRequest.class)
-                .getNearFood(lat + "," + lng, RADIUS, TYPE_FOOD, KEY_FOOD, API_KEY)
+                .getNearFood(lat + "," + lng, RADIUS, type, key, pagetoken, API_KEY)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            callback.onSuccess(Utils.readValue(response.body().bytes(), PlaceNearDTO.class));
+                        } catch (IOException e) {
+                            Log.e(getClass().toString(), "Data err");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e(getClass().toString(), "onFailure");
+                    }
+                });
+    }
+
+    public void nearPlace(int typeplace, String lat, String lng, final MyCallback callback) {
+        String type;
+        String key;
+        if (typeplace == TYPE_PLACE_FOOD) {
+            type = TYPE_FOOD;
+            key = KEY_FOOD;
+        } else {
+            type = TYPE_HOTEL;
+            key = KEY_HOTEL;
+        }
+        getClient().create(WebserviceRequest.class)
+                .getNearFood(lat + "," + lng, RADIUS, type, key, "", API_KEY)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

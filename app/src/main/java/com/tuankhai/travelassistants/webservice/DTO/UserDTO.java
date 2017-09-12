@@ -16,7 +16,7 @@ public final class UserDTO {
     public UserDTO(
             @JsonProperty("status") String status,
             @JsonProperty("result") Result result,
-            @JsonProperty("message") String message){
+            @JsonProperty("message") String message) {
         this.status = status;
         this.result = result;
         this.message = message;
@@ -29,7 +29,7 @@ public final class UserDTO {
         @JsonCreator
         public Result(
                 @JsonProperty("original") Original original,
-                @JsonProperty("headers") Headers headers){
+                @JsonProperty("headers") Headers headers) {
             this.original = original;
             this.headers = headers;
         }
@@ -38,6 +38,7 @@ public final class UserDTO {
             public final long id;
             public final String name;
             public final String email;
+            public final String profile_photo_url;
             public final String updated_at;
             public final String created_at;
 
@@ -46,11 +47,13 @@ public final class UserDTO {
                     @JsonProperty("id") long id,
                     @JsonProperty("name") String name,
                     @JsonProperty("email") String email,
+                    @JsonProperty("profile_photo_url") String profile_photo_url,
                     @JsonProperty("updated_at") String updated_at,
-                    @JsonProperty("created_at") String created_at){
+                    @JsonProperty("created_at") String created_at) {
                 this.id = id;
                 this.name = name;
                 this.email = email;
+                this.profile_photo_url = profile_photo_url;
                 this.updated_at = updated_at;
                 this.created_at = created_at;
             }
@@ -59,7 +62,7 @@ public final class UserDTO {
         public static final class Headers {
 
             @JsonCreator
-            public Headers(){
+            public Headers() {
             }
         }
     }

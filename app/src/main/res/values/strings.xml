@@ -23,5 +23,6 @@
     <string name="top_hotel">Khách sạn gần đây</string>
     <string name="view_all">Tất cả</string>
     <string name="top_restaurent">Quán ăn gần đây</string>
+    <string name="rating_here">Đánh giá địa điểm này</string>
 
 </resources>

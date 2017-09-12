@@ -47,6 +47,7 @@ public class SliderImageAdapter extends PagerAdapter {
         if (arrImage.size() == 0) return null;
         View item = LayoutInflater.from(context).inflate(R.layout.item_slider_image, null);
         ImageView imageView = item.findViewById(R.id.img_item_slider_place);
+        imageView.setBackgroundColor(context.getResources().getColor(R.color.grey));
         Glide.with(context)
                 .load(arrImage.get(position))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

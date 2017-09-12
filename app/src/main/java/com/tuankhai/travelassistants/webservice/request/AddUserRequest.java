@@ -1,5 +1,6 @@
 package com.tuankhai.travelassistants.webservice.request;
 
+import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.main.BasicRequest;
 
 import java.util.HashMap;
@@ -16,12 +17,14 @@ public class AddUserRequest extends BasicRequest {
     String id;
     String name;
     String email;
+    String url_photo;
 
-    public AddUserRequest(String key, String id, String email, String name) {
+    public AddUserRequest(String key, String id, String email, String name, String url_photo) {
         this.key = key;
         this.id = id;
         this.email = email;
         this.name = name;
+        this.url_photo = Utils.isEmptyString(url_photo) ? "" : url_photo;
     }
 
     @Override
@@ -31,6 +34,7 @@ public class AddUserRequest extends BasicRequest {
         params.put("id", id);
         params.put("email", email);
         params.put("name", name);
+        params.put("profile_photo_url", url_photo);
         return params;
     }
 
