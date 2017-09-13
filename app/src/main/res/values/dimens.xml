@@ -56,4 +56,5 @@
     <dimen name="width_60dp">60dp</dimen>
     <dimen name="height_42dp">42dp</dimen>
     <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="size_32dp">32dp</dimen>
 </resources>

@@ -70,6 +70,24 @@
                     android:textStyle="bold"
                     android:visibility="gone" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:gravity="right"
+                    android:orientation="horizontal"
+                    android:paddingRight="@dimen/padding_20dp"
+                    android:visibility="visible">
+
+                    <com.tuankhai.likebutton.LikeButton
+                        android:id="@+id/heart_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        app:anim_scale_factor="3"
+                        app:icon_size="@dimen/size_32dp"
+                        app:icon_type="heart" />
+                </LinearLayout>
+
             </FrameLayout>
 
             <android.support.v7.widget.Toolbar
@@ -79,7 +97,7 @@
                 android:background="@color/transparent"
                 android:theme="@style/ActionBarThemeOverlay"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ActionBarPopupThemeOverlay" />
+                app:popupTheme="@style/ActionBarPopupThemeOverlay"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

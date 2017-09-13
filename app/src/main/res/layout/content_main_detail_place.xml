@@ -26,20 +26,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
-
-                <com.tuankhai.likebutton.LikeButton
-                    android:id="@+id/heart_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:anim_scale_factor="3"
-                    app:icon_size="56dp"
-                    app:icon_type="heart" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/margin_layout_detail">
