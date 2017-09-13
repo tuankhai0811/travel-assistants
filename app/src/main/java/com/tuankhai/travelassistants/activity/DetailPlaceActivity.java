@@ -246,6 +246,9 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         lvReview.setLayoutManager(layoutManagerReview);
         lvReview.setAdapter(adapterReviews);
 
+        ((TextView) findViewById(R.id.num_comment)).setText(arrReview.size() + "");
+        txtCountReview.setText(dataGoogle.countReviews() + " " + getString(R.string.txt_review));
+
         ratingBarSelect = (MaterialRatingBar) findViewById(R.id.ratingBarSelect);
         ratingBarSelect.setMax(5);
         ratingBarSelect.setNumStars(5);
@@ -334,10 +337,9 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         ratingBar.setRating(dataGoogle.getRating());
 
         txtCountReview = (TextView) findViewById(R.id.txt_num_comment);
-        txtCountReview.setText(dataGoogle.countReviews() + " " + getString(R.string.txt_review));
 
         findViewById(R.id.layout_content_reviews).setVisibility(View.VISIBLE);
-        ((TextView) findViewById(R.id.num_comment)).setText(dataGoogle.getSizeReview() + "");
+//        ((TextView) findViewById(R.id.num_comment)).setText(dataGoogle.getSizeReview() + "");
         ((TextView) findViewById(R.id.txt_rating_view)).setText(dataGoogle.getRating() + "");
         MaterialRatingBar ratingBarView = (MaterialRatingBar) findViewById(R.id.ratingBarView);
         ratingBarView.invalidate();
