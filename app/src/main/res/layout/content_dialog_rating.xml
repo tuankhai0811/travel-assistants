@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_50dp"
+    android:layout_marginLeft="@dimen/margin_20dp"
+    android:layout_marginRight="@dimen/margin_20dp"
+    android:layout_marginTop="@dimen/margin_50dp"
+    app:cardBackgroundColor="@color/global_white"
+    app:cardCornerRadius="@dimen/padding_3dp"
+    app:cardElevation="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/height_350dp"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/padding_10dp">
+
+            <TextView
+                android:id="@+id/txt_title_dialog_rating"
+                fontPath="@string/font_boto_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_rating"
+                android:textAllCaps="false"
+                android:textColor="@color/global_black"
+                android:textSize="@dimen/size_18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_10dp">
+
+            <TextView
+                android:id="@+id/txt_rating_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_10dp"
+                android:text="Tốt"
+                android:textAllCaps="false"
+                android:textColor="@color/global_black"
+                android:textSize="@dimen/size_18sp" />
+
+            <com.tuankhai.ratingbar.MaterialRatingBar
+                android:id="@+id/ratingBarSelectDialog"
+                style="@style/Widget.MaterialRatingBar.RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-3dp"
+                android:layout_marginRight="-3dp"
+                android:max="5"
+                android:maxHeight="@dimen/height_32dp"
+                android:minHeight="@dimen/height_32dp"
+                android:progressBackgroundTint="@color/random_2"
+                android:rating="0"
+                android:stepSize="1"
+                app:mrb_progressTint="@color/random_2"
+                app:mrb_secondaryProgressTint="@color/random_2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/txt_comment_dialog_review"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_220dp"
+                android:background="@drawable/bg_multiedittext"
+                android:gravity="start"
+                android:hint="@string/hint_review"
+                android:inputType="textMultiLine"
+                android:maxLines="100"
+                android:padding="@dimen/padding_10dp"
+                android:textAlignment="gravity"
+                android:textAllCaps="false"
+                android:textColor="@color/global_black"
+                android:textColorHint="@color/grey_80"
+                android:textSize="@dimen/size_16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="@dimen/width_60dp"
+                android:layout_height="@dimen/height_32dp"
+                android:background="@drawable/bg_btn_dialog"
+                android:text="@string/btn_cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_16sp" />
+
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_width="@dimen/width_60dp"
+                android:layout_height="@dimen/height_32dp"
+                android:layout_marginLeft="@dimen/margin_20dp"
+                android:background="@drawable/bg_btn_dialog"
+                android:text="@string/btn_send"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

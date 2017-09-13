@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="@dimen/padding_10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,26 +18,28 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_user"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="@dimen/width_46dp"
+                android:layout_height="@dimen/width_46dp"
                 app:civ_border_color="@color/global_white"
                 app:civ_border_width="0dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical"
-            android:paddingLeft="10dp">
+            android:paddingLeft="@dimen/padding_10dp">
 
             <TextView
                 android:id="@+id/txt_name"
+                fontPath="@string/font_boto_bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Khai Tran"
                 android:textAllCaps="false"
                 android:textColor="@color/global_black"
-                android:textSize="16sp" />
+                android:textSize="@dimen/size_16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,8 +54,8 @@
                     android:layout_marginLeft="-3dp"
                     android:layout_marginRight="-3dp"
                     android:isIndicator="true"
-                    android:maxHeight="18dp"
-                    android:minHeight="18dp"
+                    android:maxHeight="@dimen/height_18dp"
+                    android:minHeight="@dimen/height_18dp"
                     android:progressBackgroundTint="@color/colorPrimary"
                     android:progressTint="@color/colorPrimary"
                     android:rating="0"
@@ -65,11 +67,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="@dimen/padding_10dp"
                     android:text="1 thang truoc"
                     android:textAllCaps="false"
                     android:textColor="@color/grey_80"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/size_14sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -82,7 +84,13 @@
         <TextView
             android:id="@+id/txt_comment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/padding_10dp"
+            android:paddingLeft="@dimen/padding_23dp"
+            android:paddingTop="@dimen/padding_10dp"
+            android:textAllCaps="false"
+            android:textColor="@color/global_black"
+            android:textSize="@dimen/size_16sp" />
     </LinearLayout>
 
 </LinearLayout>

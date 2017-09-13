@@ -37,6 +37,7 @@ public class RequestService {
     public static int TYPE_PLACE_FOOD = 0;
     public static int TYPE_PLACE_HOTEL = 1;
     static String GOOGLE_URL = "https://maps.googleapis.com/";
+    static String LANGUAGE = "vi";
     //static String API_KEY = "AIzaSyDAPRe0tK-LZ0dS-ecmkkJ6u_oibJcd8Pg";
     static String API_KEY = "AIzaSyBu7xN_K7RcHcGgU5lkwJ7qODxfxOHwHdM";
     static String KEY_FOOD = "restaurant";
@@ -90,7 +91,7 @@ public class RequestService {
             key = KEY_HOTEL;
         }
         getClient().create(WebserviceRequest.class)
-                .getNearFood(lat + "," + lng, RADIUS, type, key, pagetoken, API_KEY)
+                .getNearFood(lat + "," + lng, RADIUS, type, key, LANGUAGE, pagetoken, API_KEY)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -119,7 +120,7 @@ public class RequestService {
             key = KEY_HOTEL;
         }
         getClient().create(WebserviceRequest.class)
-                .getNearFood(lat + "," + lng, RADIUS, type, key, "", API_KEY)
+                .getNearFood(lat + "," + lng, RADIUS, type, key, LANGUAGE, "", API_KEY)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -139,7 +140,7 @@ public class RequestService {
 
     public void getPlace(String placeID, final MyCallback callback) {
         getClient().create(WebserviceRequest.class)
-                .getPlace(placeID, API_KEY)
+                .getPlace(placeID, LANGUAGE, API_KEY)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

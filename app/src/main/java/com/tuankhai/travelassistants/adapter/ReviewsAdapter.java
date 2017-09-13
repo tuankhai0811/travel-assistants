@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tuankhai.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
 
 import java.util.ArrayList;
@@ -31,15 +32,21 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
 
     @Override
     public ReviewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new ReviewHolder(context.getLayoutInflater().inflate(R.layout.item_reviews, viewGroup));
+        return new ReviewHolder(context.getLayoutInflater().inflate(R.layout.item_reviews, null));
     }
 
     @Override
     public void onBindViewHolder(ReviewHolder reviewHolder, int i) {
         PlaceGoogleDTO.Result.Review item = arrReviews.get(i);
         reviewHolder.txtName.setText(item.author_name);
-        reviewHolder.txtTime.setText(item.relative_time_description);
+        if (Utils.isEmptyString(item.relative_time_description)) {
+            String time = Utils.getDescriptionTime(item.time);
+            reviewHolder.txtTime.setText(time);
+        } else {
+            reviewHolder.txtTime.setText(item.relative_time_description);
+        }
         reviewHolder.txtContent.setText(item.text);
+        reviewHolder.ratingBar.setRating(item.getRating());
         Glide.with(context).load(Uri.parse(item.profile_photo_url)).asBitmap().into(reviewHolder.imgView);
     }
 
@@ -60,6 +67,11 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
             txtContent = itemView.findViewById(R.id.txt_comment);
             ratingBar = itemView.findViewById(R.id.ratingBar);
             imgView = itemView.findViewById(R.id.img_user);
+
+            ratingBar.invalidate();
+            ratingBar.setMax(5);
+            ratingBar.setNumStars(5);
+            ratingBar.setStepSize(0.1f);
         }
     }
 }

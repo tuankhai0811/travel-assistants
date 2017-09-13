@@ -1,6 +1,8 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -16,10 +18,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.likebutton.LikeButton;
 import com.tuankhai.likebutton.OnAnimationEndListener;
 import com.tuankhai.likebutton.OnLikeListener;
@@ -39,20 +46,30 @@ import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
+import com.tuankhai.travelassistants.webservice.DTO.ReviewDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
+import com.tuankhai.travelassistants.webservice.request.AddReviewRequest;
+import com.tuankhai.travelassistants.webservice.request.GetReviewRequest;
 import com.tuankhai.viewpagertransformers.ZoomOutTranformer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class DetailPlaceActivity extends AppCompatActivity implements View.OnClickListener, OnLikeListener, OnAnimationEndListener {
+public class DetailPlaceActivity extends AppCompatActivity implements View.OnClickListener, OnLikeListener
+        , OnAnimationEndListener, MaterialRatingBar.OnRatingChangeListener {
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+
     PlaceDTO.Place data;
+    ReviewDTO reviewDTO;
     PlaceGoogleDTO dataGoogle;
     PlaceNearDTO dataNearFood, dataNearHotel;
     Toolbar toolbar;
@@ -78,10 +95,18 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     LinearLayout layoutFood;
 
     //Reviews
+    MaterialRatingBar ratingBarSelect;
     RecyclerView lvReview;
     ArrayList<PlaceGoogleDTO.Result.Review> arrReview;
     RecyclerView.LayoutManager layoutManagerReview;
     ReviewsAdapter adapterReviews;
+
+    //Dialog Review
+    Dialog dialogReview;
+    MaterialRatingBar ratingBarSelectDialog;
+    EditText txt_comment_dialog;
+    TextView txtRatingDialog;
+    Button btnCancel, btnSend;
 
 
     LikeButton likeButton;
@@ -98,11 +123,13 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
-        getData();
         setContentView(R.layout.activity_detail_place);
+        getData();
         initCollapsingToolbar();
         initSlider();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -113,6 +140,11 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     private void addControls() {
         likeButton = (LikeButton) findViewById(R.id.heart_button);
         likeButton.setOnLikeListener(this);
@@ -121,6 +153,21 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
     private void getData() {
         data = (PlaceDTO.Place) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
+        new RequestService().load(new GetReviewRequest("", data.id), false, new MyCallback() {
+            @Override
+            public void onSuccess(Object response) {
+                super.onSuccess(response);
+                reviewDTO = (ReviewDTO) response;
+                if (arrReview == null) {
+                    arrReview = new ArrayList<>();
+                    arrReview.addAll(Arrays.asList(reviewDTO.result));
+                } else {
+                    arrReview.addAll(Arrays.asList(reviewDTO.result));
+                    refreshReview();
+                }
+
+            }
+        }, ReviewDTO.class);
         new RequestService().getPlace(data.place_id, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
@@ -128,6 +175,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 dataGoogle = (PlaceGoogleDTO) response;
                 addControlsPlaceGoogle();
                 initSliderImageGoogle();
+                initReviews();
+                initDialogReviews();
             }
         });
         new RequestService().nearPlace(RequestService.TYPE_PLACE_FOOD, data.location_lat, data.location_lng, new MyCallback() {
@@ -149,6 +198,70 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                     addControlsHotel();
             }
         });
+    }
+
+    private void initDialogReviews() {
+        dialogReview = new Dialog(this);
+        dialogReview.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogReview.setContentView(R.layout.content_dialog_rating);
+        dialogReview.setCanceledOnTouchOutside(false);
+        dialogReview.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                ratingBarSelect.setRating(0f);
+            }
+        });
+        dialogReview.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        txt_comment_dialog = dialogReview.findViewById(R.id.txt_comment_dialog_review);
+        txtRatingDialog = dialogReview.findViewById(R.id.txt_rating_dialog);
+        btnCancel = dialogReview.findViewById(R.id.btn_cancel);
+        btnSend = dialogReview.findViewById(R.id.btn_send);
+        btnCancel.setOnClickListener(this);
+        btnSend.setOnClickListener(this);
+        ratingBarSelectDialog = dialogReview.findViewById(R.id.ratingBarSelectDialog);
+        ratingBarSelectDialog.setMax(5);
+        ratingBarSelectDialog.setNumStars(5);
+        ratingBarSelectDialog.setStepSize(1f);
+        ratingBarSelectDialog.setRating(0f);
+        ratingBarSelectDialog.setOnRatingChangeListener(this);
+    }
+
+    private void initReviews() {
+
+        if (arrReview == null) {
+            arrReview = new ArrayList<>();
+            arrReview.addAll(dataGoogle.getReviews());
+        } else {
+            arrReview.addAll(dataGoogle.getReviews());
+            refreshReview();
+        }
+    }
+
+    private void refreshReview() {
+        lvReview = (RecyclerView) findViewById(R.id.lv_reviews);
+        lvReview.setNestedScrollingEnabled(false);
+        layoutManagerReview = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        Collections.sort(arrReview);
+        adapterReviews = new ReviewsAdapter(this, arrReview);
+        lvReview.setLayoutManager(layoutManagerReview);
+        lvReview.setAdapter(adapterReviews);
+
+        ratingBarSelect = (MaterialRatingBar) findViewById(R.id.ratingBarSelect);
+        ratingBarSelect.setMax(5);
+        ratingBarSelect.setNumStars(5);
+        ratingBarSelect.setStepSize(1f);
+        ratingBarSelect.setRating(0f);
+        ratingBarSelect.setOnRatingChangeListener(this);
+        if (currentUser == null) {
+            return;
+        }
+        for (int i = 0; i < arrReview.size(); i++) {
+            if (currentUser.getEmail().equals(arrReview.get(i).email)) {
+                ratingBarSelect.setOnRatingChangeListener(null);
+                ratingBarSelect.setRating(arrReview.get(i).getRating());
+                ratingBarSelect.setIsIndicator(true);
+            }
+        }
     }
 
     private void addControlsFood() {
@@ -434,7 +547,104 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_cancel:
+                ratingBarSelect.setRating(0f);
+                dialogReview.dismiss();
+                break;
+            case R.id.btn_send:
+                ratingBarSelect.setIsIndicator(true);
+                ratingBarSelect.setOnRatingChangeListener(null);
+                userReview();
+                break;
+        }
+    }
 
+    private void userReview() {
+        new RequestService().load(
+                new AddReviewRequest("",
+                        currentUser.getDisplayName().toString(),
+                        currentUser.getEmail().toString(),
+                        currentUser.getPhotoUrl().toString(),
+                        data.id.toString(),
+                        String.valueOf(ratingBarSelectDialog.getRating()),
+                        txt_comment_dialog.getText().toString(),
+                        String.valueOf(new Date().getTime())),
+                false,
+                new MyCallback() {
+                    @Override
+                    public void onSuccess(Object response) {
+                        super.onSuccess(response);
+                        dialogReview.dismiss();
+                        new RequestService().load(new GetReviewRequest("", data.id), false, new MyCallback() {
+                            @Override
+                            public void onSuccess(Object response) {
+                                super.onSuccess(response);
+                                reviewDTO = (ReviewDTO) response;
+                                if (arrReview == null) {
+                                    arrReview = new ArrayList<>();
+                                    arrReview.addAll(Arrays.asList(reviewDTO.result));
+                                } else {
+                                    arrReview.addAll(Arrays.asList(reviewDTO.result));
+                                    refreshReview();
+                                }
+
+                            }
+                        }, ReviewDTO.class);
+                    }
+                }, PlaceGoogleDTO.Result.Review.class);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (dialogReview.isShowing()) {
+            ratingBarSelect.setRating(0f);
+            dialogReview.dismiss();
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onRatingChanged(MaterialRatingBar ratingBar, float rating) {
+        if (rating == 0f) return;
+        switch (ratingBar.getId()) {
+            case R.id.ratingBarSelect:
+                if (currentUser == null) {
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    ratingBarSelect.setRating(0f);
+                } else {
+                    ratingBarSelectDialog.setRating(rating);
+                    setStatusDialog(rating);
+                    dialogReview.show();
+                }
+                break;
+            case R.id.ratingBarSelectDialog:
+                ratingBarSelect.setRating(rating);
+                setStatusDialog(rating);
+                break;
+        }
+    }
+
+    private void setStatusDialog(float rating) {
+        switch ((int) rating) {
+            case 0:
+                txtRatingDialog.setText("Ghét!");
+                break;
+            case 1:
+                txtRatingDialog.setText("Ghét!");
+                break;
+            case 2:
+                txtRatingDialog.setText("Không thích!");
+                break;
+            case 3:
+                txtRatingDialog.setText("Tạm được!");
+                break;
+            case 4:
+                txtRatingDialog.setText("Thích!");
+                break;
+            case 5:
+                txtRatingDialog.setText("Rất thích!");
+                break;
         }
     }
 

@@ -24,5 +24,9 @@
     <string name="view_all">Tất cả</string>
     <string name="top_restaurent">Quán ăn gần đây</string>
     <string name="rating_here">Đánh giá địa điểm này</string>
+    <string name="title_rating">Đánh giá</string>
+    <string name="hint_review">Cảm nhận của bạn về nơi đây!</string>
+    <string name="btn_cancel">Đóng</string>
+    <string name="btn_send">Gửi</string>
 
 </resources>

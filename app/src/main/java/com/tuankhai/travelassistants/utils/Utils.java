@@ -16,6 +16,7 @@ import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Created by Khai on 31/08/2017.
@@ -105,5 +106,90 @@ public class Utils {
     public static int dpToPx(Context context, int dp) {
         Resources r = context.getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    public static String getDescriptionTime(String time) {
+        long current = new Date().getTime();
+        long change = current - Long.parseLong(time);
+        long value = (long) change / 60000;
+        if (value < 1) {
+            return "vài giây trước";
+        } else if (value < 2) {
+            return "một phút trước";
+        } else if (value < 3) {
+            return "2 phút trước";
+        } else if (value < 4) {
+            return "3 phút trước";
+        } else if (value < 6) {
+            return "5 phút trước";
+        } else if (value < 11) {
+            return "10 phút trước";
+        } else if (value < 31) {
+            return "30 phút trước";
+        }
+
+        long hours = (long) value / 60000;
+        if (hours < 1) {
+            return "trong giờ trước";
+        } else if (hours < 2) {
+            return "một giờ trước";
+        } else if (hours < 3) {
+            return "2 giờ trước";
+        } else if (hours < 4) {
+            return "3 giờ trước";
+        } else if (hours < 6) {
+            return "5 giờ trước";
+        } else if (hours < 11) {
+            return "10 giờ trước";
+        }
+
+        long days = (long) hours / 24;
+        if (days < 1) {
+            return "hôm qua";
+        } else if (days < 2) {
+            return "một ngày trước";
+        } else if (days < 3) {
+            return "2 ngày trước";
+        } else if (days < 4) {
+            return "3 ngày trước";
+        } else if (days < 6) {
+            return "5 ngày trước";
+        }
+
+        long week = (long) days / 7;
+        if (week < 1) {
+            return "tuần trước";
+        } else if (week < 2) {
+            return "một tuần trước";
+        } else if (week < 3) {
+            return "2 tuần trước";
+        } else if (week < 4) {
+            return "3 tuần trước";
+        }
+
+        long month = (long) week / 4;
+        if (month < 1) {
+            return "tháng trước";
+        } else if (month < 2) {
+            return "một tháng trước";
+        } else if (month < 3) {
+            return "2 tháng trước";
+        } else if (month < 4) {
+            return "3 tháng trước";
+        } else if (month < 6) {
+            return "5 tháng trước";
+        } else if (month < 11) {
+            return "10 tháng trước";
+        }
+
+        long year = (long) month / 12;
+        if (year < 1) {
+            return "năm trước";
+        } else if (year < 2) {
+            return "một năm trước";
+        } else if (year < 3) {
+            return "2 năm trước";
+        }
+        return "lâu lắm rồi";
     }
 }

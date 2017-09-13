@@ -1,10 +1,14 @@
 package com.tuankhai.travelassistants.webservice.DTO;
 
+import android.support.annotation.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by tuank on 10/09/2017.
@@ -250,11 +254,13 @@ public final class PlaceGoogleDTO {
             }
         }
 
-        public static final class Review {
+        public static final class Review implements Comparable<Review> {
             public final String author_name;
+            public String email;
             public final String author_url;
             public final String language;
             public final String profile_photo_url;
+            public final String id_place;
             public final String rating;
             public final String relative_time_description;
             public final String text;
@@ -263,20 +269,33 @@ public final class PlaceGoogleDTO {
             @JsonCreator
             public Review(
                     @JsonProperty("author_name") String author_name,
+                    @JsonProperty("email") String email,
                     @JsonProperty("author_url") String author_url,
                     @JsonProperty("language") String language,
                     @JsonProperty("profile_photo_url") String profile_photo_url,
+                    @JsonProperty("id_place") String id_place,
                     @JsonProperty("rating") String rating,
                     @JsonProperty("relative_time_description") String relative_time_description,
                     @JsonProperty("text") String text, @JsonProperty("time") String time) {
                 this.author_name = author_name;
+                this.email = email;
                 this.author_url = author_url;
                 this.language = language;
                 this.profile_photo_url = profile_photo_url;
                 this.rating = rating;
+                this.id_place = id_place;
                 this.relative_time_description = relative_time_description;
                 this.text = text;
                 this.time = time;
+            }
+
+            public float getRating() {
+                return Float.parseFloat(rating);
+            }
+
+            @Override
+            public int compareTo(@NonNull Review review) {
+                return review.time.compareTo(this.time);
             }
         }
     }
@@ -315,4 +334,12 @@ public final class PlaceGoogleDTO {
         return result.reviews.length;
     }
 
+    public List<Result.Review> getReviews() {
+        List<Result.Review> array = new ArrayList<>();
+        if (result == null || result.reviews == null) {
+            return array;
+        } else {
+            return Arrays.asList(result.reviews);
+        }
+    }
 }

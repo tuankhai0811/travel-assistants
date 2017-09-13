@@ -38,6 +38,7 @@ public interface WebserviceRequest {
     @GET("maps/api/place/details/json")
     Call<ResponseBody> getPlace(
             @Query("placeid") String placeID,
+            @Query("language") String language,
             @Query("key") String key
     );
 
@@ -47,6 +48,7 @@ public interface WebserviceRequest {
             @Query("radius") String radius,
             @Query("type") String type,
             @Query("keyword") String keyword,
+            @Query("language") String language,
             @Query("pagetoken") String pagetoken,
             @Query("key") String key
     );

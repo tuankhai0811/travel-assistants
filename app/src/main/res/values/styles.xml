@@ -58,4 +58,19 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="MyTextViewReview" parent="">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/grey_80</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MyProgressBarReview" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_marginLeft">@dimen/margin_4dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:max">100</item>
+        <item name="android:progress">25</item>
+        <item name="android:progressBackgroundTint">@color/transparent</item>
+        <item name="android:progressTint">@color/colorPrimary</item>
+    </style>
+
 </resources>
