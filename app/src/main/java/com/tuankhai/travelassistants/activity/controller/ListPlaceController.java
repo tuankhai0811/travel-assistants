@@ -3,17 +3,20 @@ package com.tuankhai.travelassistants.activity.controller;
 import android.util.Log;
 
 import com.tuankhai.travelassistants.activity.ListPlaceActivity;
+import com.tuankhai.travelassistants.webservice.DTO.FavoriteDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.travelassistants.webservice.request.FindPlaceByProvinceRequest;
 import com.tuankhai.travelassistants.webservice.request.FindPlaceByTypeRequest;
+import com.tuankhai.travelassistants.webservice.request.GetFavoriteRequest;
 
 /**
  * Created by tuank on 04/09/2017.
  */
 
 public class ListPlaceController {
+
     ListPlaceActivity mActivity;
 
     public ListPlaceController(ListPlaceActivity activity) {
@@ -29,7 +32,7 @@ public class ListPlaceController {
                     onFailure("response is null");
                     return;
                 }
-                mActivity.setListPlace((PlaceDTO) response);
+                mActivity.setListPlace(((PlaceDTO) response).places);
             }
 
             @Override
@@ -49,7 +52,7 @@ public class ListPlaceController {
                     onFailure("response is null");
                     return;
                 }
-                mActivity.setListPlace((PlaceDTO) response);
+                mActivity.setListPlace(((PlaceDTO) response).places);
             }
 
             @Override
@@ -58,5 +61,15 @@ public class ListPlaceController {
                 Log.e("RequestService", error.toString());
             }
         }, PlaceDTO.class);
+    }
+
+    public void getFavorite() {
+        new RequestService().load(new GetFavoriteRequest("", mActivity.currentUser.getEmail()), false, new MyCallback() {
+            @Override
+            public void onSuccess(Object response) {
+                super.onSuccess(response);
+                mActivity.setListPlace(((FavoriteDTO) response).result);
+            }
+        }, FavoriteDTO.class);
     }
 }

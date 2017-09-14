@@ -25,7 +25,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,14 +44,19 @@ import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.SpacingItemDecorationHorizontal;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
+import com.tuankhai.travelassistants.webservice.DTO.CheckDTO;
+import com.tuankhai.travelassistants.webservice.DTO.FavoriteDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.DTO.ReviewDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
+import com.tuankhai.travelassistants.webservice.request.AddFavoriteRequest;
 import com.tuankhai.travelassistants.webservice.request.AddReviewRequest;
+import com.tuankhai.travelassistants.webservice.request.CheckFavoriteRequest;
 import com.tuankhai.travelassistants.webservice.request.GetReviewRequest;
+import com.tuankhai.travelassistants.webservice.request.RemoveFavoriteRequest;
 import com.tuankhai.viewpagertransformers.ZoomOutTranformer;
 
 import java.util.ArrayList;
@@ -152,6 +156,38 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         likeButton = (LikeButton) findViewById(R.id.heart_button);
         likeButton.setOnLikeListener(this);
         likeButton.setOnAnimationEndListener(this);
+    }
+
+    private void refreshFavorite() {
+        if (currentUser == null) {
+            setLiked(false);
+        } else {
+            new RequestService().load(new CheckFavoriteRequest("", data.id, currentUser.getEmail()), false, new MyCallback() {
+                @Override
+                public void onSuccess(Object response) {
+                    super.onSuccess(response);
+                    CheckDTO result = (CheckDTO) response;
+                    Log.e("status", result.result + "");
+                    if (result.result) {
+                        setLiked(true);
+                    } else {
+                        setLiked(false);
+                    }
+                }
+            }, CheckDTO.class);
+        }
+    }
+
+    public void setLiked(boolean flag) {
+        if (flag) {
+            likeButton.setOnLikeListener(null);
+            likeButton.setLiked(true);
+            likeButton.setOnLikeListener(this);
+        } else {
+            likeButton.setOnLikeListener(null);
+            likeButton.setLiked(false);
+            likeButton.setOnLikeListener(this);
+        }
     }
 
     private void getData() {
@@ -324,6 +360,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+        refreshFavorite();
     }
 
     @Override
@@ -535,20 +572,50 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
-    public void liked(LikeButton likeButton) {
-        Snackbar snackbar = Snackbar.make(findViewById(R.id.main_content), "Like", BaseTransientBottomBar.LENGTH_LONG);
-        snackbar.setAction("View", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(DetailPlaceActivity.this, "view", Toast.LENGTH_SHORT).show();
-            }
-        });
-        snackbar.show();
+    public void liked(final LikeButton likeButton) {
+        likeButton.setEnabled(false);
+        if (currentUser == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.putExtra(AppContansts.INTENT_DATA, REQUEST_LOGIN);
+            startActivityForResult(intent, REQUEST_LOGIN);
+        } else {
+            new RequestService().load(new AddFavoriteRequest("", data.id, currentUser.getEmail()), false, new MyCallback() {
+                @Override
+                public void onSuccess(Object response) {
+                    super.onSuccess(response);
+                    likeButton.setEnabled(true);
+                    Snackbar snackbar = Snackbar.make(findViewById(R.id.main_content), getString(R.string.add_favorite), BaseTransientBottomBar.LENGTH_LONG);
+                    snackbar.setAction("View", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(DetailPlaceActivity.this, ListPlaceActivity.class);
+                            intent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_FAVORITE);
+                            startActivity(intent);
+                        }
+                    });
+                    snackbar.show();
+                }
+            }, FavoriteDTO.class);
+        }
     }
 
     @Override
-    public void unLiked(LikeButton likeButton) {
-        Snackbar.make(findViewById(R.id.main_content), "Unlike", BaseTransientBottomBar.LENGTH_LONG).show();
+    public void unLiked(final LikeButton likeButton) {
+        likeButton.setEnabled(false);
+        if (currentUser == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.putExtra(AppContansts.INTENT_DATA, REQUEST_LOGIN);
+            startActivityForResult(intent, REQUEST_LOGIN);
+        } else {
+            new RequestService().load(new RemoveFavoriteRequest("", data.id, currentUser.getEmail()), false, new MyCallback() {
+                @Override
+                public void onSuccess(Object response) {
+                    super.onSuccess(response);
+                    likeButton.setEnabled(true);
+                    Snackbar.make(findViewById(R.id.main_content), getString(R.string.remove_favorite), BaseTransientBottomBar.LENGTH_LONG).show();
+                }
+            }, FavoriteDTO.class);
+        }
     }
 
     @Override
@@ -608,7 +675,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onBackPressed() {
-        if (dialogReview.isShowing()) {
+        if (dialogReview != null & dialogReview.isShowing()) {
             ratingBarSelect.setRating(0f);
             dialogReview.dismiss();
         }
@@ -646,6 +713,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 case REQUEST_LOGIN:
                     currentUser = mAuth.getCurrentUser();
                     refreshReview();
+                    refreshFavorite();
                     break;
             }
         }

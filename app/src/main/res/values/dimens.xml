@@ -20,7 +20,7 @@
     <dimen name="height_image_type_travel_2">230dp</dimen>
     <dimen name="search_view_inset">5dp</dimen>
     <dimen name="height_toolbar">66dp</dimen>
-    <dimen name="height_layout_item_place_table">250dp</dimen>
+    <dimen name="height_layout_item_place_table">220dp</dimen>
     <dimen name="height_layout_item_place_near">150dp</dimen>
     <dimen name="width_layout_item_place_near">200dp</dimen>
     <dimen name="margin_layout_detail">10dp</dimen>
@@ -58,4 +58,7 @@
     <dimen name="margin_10dp">10dp</dimen>
     <dimen name="size_32dp">32dp</dimen>
     <dimen name="size_38dp">38dp</dimen>
+    <dimen name="width_swipe_item">80dp</dimen>
+    <dimen name="size_20sp">20sp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
 </resources>

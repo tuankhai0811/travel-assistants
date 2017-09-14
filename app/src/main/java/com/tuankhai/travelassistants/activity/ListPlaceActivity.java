@@ -10,9 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.ListPlaceController;
 import com.tuankhai.travelassistants.adapter.PlaceAdapter;
+import com.tuankhai.travelassistants.adapter.PlaceAdapterSwipe;
 import com.tuankhai.travelassistants.adapter.decoration.GridSpacingItemDecoration;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
@@ -26,17 +29,25 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter.LayoutListPlaceItemListener {
+
+    public static final int REQUEST_LOGIN = DetailPlaceActivity.REQUEST_LOGIN;
+
+    public FirebaseAuth mAuth;
+    public FirebaseUser currentUser;
+
     ListPlaceController placeController;
     int type;
 
     ArrayList<PlaceDTO.Place> arrPlace;
     RecyclerView lvPlace;
     RecyclerView.LayoutManager layoutManager;
-    PlaceAdapter placeAdapter;
+    PlaceAdapterSwipe placeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
         placeController = new ListPlaceController(this);
         setContentView(R.layout.activity_list_place);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -48,7 +59,21 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
                 break;
             case AppContansts.INTENT_TYPE_NORMAL:
                 progressNormal();
+                break;
+            case AppContansts.INTENT_TYPE_FAVORITE:
+                progressFavorite();
+                break;
         }
+    }
+
+    private void progressFavorite() {
+        if (currentUser == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.putExtra(AppContansts.INTENT_DATA, REQUEST_LOGIN);
+            startActivityForResult(intent, REQUEST_LOGIN);
+        }
+        setTitle(getString(R.string.title_favorite));
+        placeController.getFavorite();
     }
 
     @Override
@@ -62,13 +87,23 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_OK) {
+            if (requestCode == REQUEST_LOGIN) {
+                currentUser = mAuth.getCurrentUser();
+            }
+        }
+    }
+
+    @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     private void progressNormal() {
         int type = getIntent().getIntExtra(AppContansts.INTENT_DATA, 0);
-        switch (type){
+        switch (type) {
             case AppContansts.INTENT_TYPE_SEA:
                 setTitle(getResources().getString(R.string.type_sea));
                 placeController.getList(AppContansts.INTENT_TYPE_SEA);
@@ -118,9 +153,9 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
         lvPlace = (RecyclerView) findViewById(R.id.lv_place);
         arrPlace = new ArrayList<>();
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        placeAdapter = new PlaceAdapter(this, arrPlace, this);
+        placeAdapter = new PlaceAdapterSwipe(this, arrPlace, this);
         lvPlace.setLayoutManager(layoutManager);
-        lvPlace.addItemDecoration(new GridSpacingItemDecoration(1, Utils.dpToPx(this, 0), true));
+        lvPlace.addItemDecoration(new GridSpacingItemDecoration(1, Utils.dpToPx(this, 10), true));
         lvPlace.setItemAnimator(new DefaultItemAnimator());
         lvPlace.setAdapter(placeAdapter);
     }
@@ -131,9 +166,9 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
         placeController.getListPlace(item.id);
     }
 
-    public void setListPlace(PlaceDTO response) {
+    public void setListPlace(PlaceDTO.Place[] response) {
         arrPlace.clear();
-        arrPlace.addAll(Arrays.asList(response.places));
+        arrPlace.addAll(Arrays.asList(response));
         placeAdapter.notifyDataSetChanged();
     }
 

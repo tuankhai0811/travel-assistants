@@ -247,10 +247,10 @@ public class BaseActivity extends AppCompatActivity
         updateNavUI(currentUser);
     }
 
-    private void updateNavUI(FirebaseUser currentUser) {
-        if (currentUser == null) {
+    private void updateNavUI(FirebaseUser mUser) {
+        if (mUser == null) {
             layoutLogin.setVisibility(View.GONE);
-            layoutLogin.setVisibility(View.VISIBLE);
+            layoutLogout.setVisibility(View.VISIBLE);
         } else {
             layoutLogout.setVisibility(View.GONE);
             layoutLogin.setVisibility(View.VISIBLE);

@@ -28,5 +28,8 @@
     <string name="hint_review">Cảm nhận của bạn về nơi đây!</string>
     <string name="btn_cancel">Đóng</string>
     <string name="btn_send">Gửi</string>
+    <string name="remove_favorite">Đã xóa khỏi danh sách yêu thích</string>
+    <string name="add_favorite">Đã thêm vào yêu thích</string>
+    <string name="title_favorite">Địa điểm yêu thích</string>
 
 </resources>
