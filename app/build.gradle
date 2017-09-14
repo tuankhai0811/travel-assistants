@@ -65,6 +65,7 @@ dependencies {
     compile project(path: ':slideractivity')
     compile project(path: ':likebutton')
     compile project(path: ':ratingbar')
+    compile project(path: ':swipelayout')
     //Multidex
     //font
     //Recycleview

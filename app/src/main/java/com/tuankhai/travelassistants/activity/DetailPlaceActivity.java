@@ -9,7 +9,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -67,6 +69,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         , OnAnimationEndListener, MaterialRatingBar.OnRatingChangeListener {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    public static final int REQUEST_LOGIN = 234;
 
     PlaceDTO.Place data;
     ReviewDTO reviewDTO;
@@ -533,12 +536,19 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void liked(LikeButton likeButton) {
-        Toast.makeText(this, "Liked!", Toast.LENGTH_SHORT).show();
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.main_content), "Like", BaseTransientBottomBar.LENGTH_LONG);
+        snackbar.setAction("View", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(DetailPlaceActivity.this, "view", Toast.LENGTH_SHORT).show();
+            }
+        });
+        snackbar.show();
     }
 
     @Override
     public void unLiked(LikeButton likeButton) {
-        Toast.makeText(this, "Disliked!", Toast.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(R.id.main_content), "Unlike", BaseTransientBottomBar.LENGTH_LONG).show();
     }
 
     @Override
@@ -612,7 +622,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
             case R.id.ratingBarSelect:
                 if (currentUser == null) {
                     Intent intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
+                    intent.putExtra(AppContansts.INTENT_DATA, REQUEST_LOGIN);
+                    startActivityForResult(intent, REQUEST_LOGIN);
                     ratingBarSelect.setRating(0f);
                 } else {
                     ratingBarSelectDialog.setRating(rating);
@@ -624,6 +635,19 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 ratingBarSelect.setRating(rating);
                 setStatusDialog(rating);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_LOGIN:
+                    currentUser = mAuth.getCurrentUser();
+                    refreshReview();
+                    break;
+            }
         }
     }
 

@@ -42,6 +42,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.UserDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
@@ -72,9 +73,12 @@ public class LoginActivity extends AppCompatActivity implements
 
     ProgressDialog progressDialog;
 
+    int request_code;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        request_code = getIntent().getIntExtra(AppContansts.INTENT_DATA, 0);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
         addControls();
@@ -321,6 +325,10 @@ public class LoginActivity extends AppCompatActivity implements
                             hideProgressDialog();
                         }
                     }, UserDTO.class);
+            if (request_code == DetailPlaceActivity.REQUEST_LOGIN){
+                setResult(RESULT_OK);
+                finish();
+            }
         } else {
             layoutLogo.setVisibility(View.VISIBLE);
             layoutUser.setVisibility(View.GONE);
