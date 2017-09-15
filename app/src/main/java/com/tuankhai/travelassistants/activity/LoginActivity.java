@@ -297,13 +297,11 @@ public class LoginActivity extends AppCompatActivity implements
         if (user != null) {
             txtName.setText(user.getDisplayName());
             Glide.with(this).load(user.getPhotoUrl()).into(imgPhoto);
-            Log.e("status", user.getPhotoUrl().toString());
 //            Log.e("status", user.getPhoneNumber());
             layoutUser.setVisibility(View.VISIBLE);
             layoutLogo.setVisibility(View.GONE);
             layoutSignout.setVisibility(View.VISIBLE);
             layoutSignin.setVisibility(View.GONE);
-            Log.e("status", user.getPhotoUrl().toString());
             new RequestService().load(
                     new AddUserRequest(
                             "",

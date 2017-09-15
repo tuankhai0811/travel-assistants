@@ -63,7 +63,6 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
     @Override
     public void onLoadMore() {
         if (Utils.isEmptyString(data.next_page_token)) return;
-        Log.e("status", "Load More");
         arrPlace.add(null);
         adapter.notifyItemInserted(arrPlace.size() - 1);
         new Handler().postDelayed(new Runnable() {

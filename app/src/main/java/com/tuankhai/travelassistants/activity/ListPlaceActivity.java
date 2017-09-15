@@ -36,7 +36,7 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
     public FirebaseUser currentUser;
 
     ListPlaceController placeController;
-    int type;
+    public int type;
 
     ArrayList<PlaceDTO.Place> arrPlace;
     RecyclerView lvPlace;

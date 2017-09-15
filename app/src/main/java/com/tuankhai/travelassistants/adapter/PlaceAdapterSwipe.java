@@ -133,8 +133,10 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
                             public void onSuccess(Object response) {
                                 super.onSuccess(response);
                                 likeButton.setEnabled(true);
-                                arrPlace.remove(getAdapterPosition());
-                                notifyItemRemoved(getAdapterPosition());
+                                if (context.type == AppContansts.INTENT_TYPE_FAVORITE) {
+                                    arrPlace.remove(getAdapterPosition());
+                                    notifyItemRemoved(getAdapterPosition());
+                                }
 //                                Toast.makeText(context, context.getString(R.string.remove_favorite), Toast.LENGTH_SHORT).show();
                             }
                         }, FavoriteDTO.class);

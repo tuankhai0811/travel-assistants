@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 import com.tuankhai.likebutton.LikeButton;
 import com.tuankhai.likebutton.OnAnimationEndListener;
 import com.tuankhai.likebutton.OnLikeListener;
@@ -55,6 +56,7 @@ import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.travelassistants.webservice.request.AddFavoriteRequest;
 import com.tuankhai.travelassistants.webservice.request.AddReviewRequest;
 import com.tuankhai.travelassistants.webservice.request.CheckFavoriteRequest;
+import com.tuankhai.travelassistants.webservice.request.EditPlaceRequest;
 import com.tuankhai.travelassistants.webservice.request.GetReviewRequest;
 import com.tuankhai.travelassistants.webservice.request.RemoveFavoriteRequest;
 import com.tuankhai.viewpagertransformers.ZoomOutTranformer;
@@ -119,6 +121,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     LikeButton likeButton;
     MaterialRatingBar ratingBar;
     TextView txtCountReview;
+    MaterialRatingBar ratingBarView;
 
     int currentPage;
     int numPage;
@@ -167,7 +170,6 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 public void onSuccess(Object response) {
                     super.onSuccess(response);
                     CheckDTO result = (CheckDTO) response;
-                    Log.e("status", result.result + "");
                     if (result.result) {
                         setLiked(true);
                     } else {
@@ -276,6 +278,47 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    private void refreshRating() {
+        int count = arrReview.size();
+        float sum = 0;
+        for (PlaceGoogleDTO.Result.Review item : arrReview) {
+            sum += item.getRating();
+        }
+        float result = (float) ((int) ((float) (sum / count) * 10)) / 10;
+        ((TextView) findViewById(R.id.txt_rating_view)).setText(result + "");
+        ratingBar.setRating(result);
+        ratingBarView.setRating(result);
+
+        Log.e("status", ""+
+                data.id+
+                String.valueOf(result)+
+                dataGoogle.result.formatted_address+
+                dataGoogle.result.formatted_phone_number+
+                dataGoogle.getLocationLat()+
+                dataGoogle.getLocationLng()+
+                new Gson().toJson(dataGoogle.result.opening_hours)+
+                dataGoogle.result.website);
+        new RequestService().load(
+                new EditPlaceRequest(
+                        "",
+                        data.id,
+                        String.valueOf(result),
+                        dataGoogle.result.formatted_address,
+                        dataGoogle.result.formatted_phone_number,
+                        dataGoogle.getLocationLat(),
+                        dataGoogle.getLocationLng(),
+                        new Gson().toJson(dataGoogle.result.opening_hours),
+                        dataGoogle.result.website),
+                false,
+                new MyCallback() {
+                    @Override
+                    public void onSuccess(Object response) {
+                        super.onSuccess(response);
+                        Log.e("status", new Gson().toJson(response));
+                    }
+                }, CheckDTO.class);
+    }
+
     private void refreshReview() {
         lvReview = (RecyclerView) findViewById(R.id.lv_reviews);
         lvReview.setNestedScrollingEnabled(false);
@@ -304,6 +347,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 ratingBarSelect.setIsIndicator(true);
             }
         }
+
+        refreshRating();
     }
 
     private void addControlsFood() {
@@ -381,7 +426,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.layout_content_reviews).setVisibility(View.VISIBLE);
 //        ((TextView) findViewById(R.id.num_comment)).setText(dataGoogle.getSizeReview() + "");
         ((TextView) findViewById(R.id.txt_rating_view)).setText(dataGoogle.getRating() + "");
-        MaterialRatingBar ratingBarView = (MaterialRatingBar) findViewById(R.id.ratingBarView);
+        ratingBarView = (MaterialRatingBar) findViewById(R.id.ratingBarView);
         ratingBarView.invalidate();
         ratingBarView.setMax(5);
         ratingBarView.setNumStars(5);
@@ -573,12 +618,12 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void liked(final LikeButton likeButton) {
-        likeButton.setEnabled(false);
         if (currentUser == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             intent.putExtra(AppContansts.INTENT_DATA, REQUEST_LOGIN);
             startActivityForResult(intent, REQUEST_LOGIN);
         } else {
+            likeButton.setEnabled(false);
             new RequestService().load(new AddFavoriteRequest("", data.id, currentUser.getEmail()), false, new MyCallback() {
                 @Override
                 public void onSuccess(Object response) {
@@ -620,7 +665,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onAnimationEnd(LikeButton likeButton) {
-        Log.e("status", "Animation End for %s" + likeButton);
+//        Log.e("status", "Animation End for %s" + likeButton);
     }
 
     @Override
@@ -716,6 +761,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                     refreshFavorite();
                     break;
             }
+        } else {
+
         }
     }
 

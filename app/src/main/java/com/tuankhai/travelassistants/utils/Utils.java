@@ -100,6 +100,13 @@ public class Utils {
         return true;
     }
 
+    public static String checkStringNull(String string) {
+        if (string == null) {
+            return "";
+        }
+        return string;
+    }
+
     /**
      * Converting dp to pixel
      */
