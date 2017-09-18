@@ -46,7 +46,7 @@ public class RequestService {
     static String TYPE_HOTEL = "lodging";
     static String RADIUS = "1000";
     static String MAX_WIDTH = "800";
-    static String ZOOM = "10";
+    static String ZOOM = "12";
     static String WIDTH = "800";
     static String HEIGHT = "350";
 

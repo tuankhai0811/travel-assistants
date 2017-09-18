@@ -33,6 +33,15 @@
         <item name="android:windowDisablePreview">true</item>
     </style>
 
+    <style name="AppTheme.NoActionBarMaps">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="colorPrimary">@color/global_black</item>
+        <item name="colorPrimaryDark">@color/global_black</item>
+        <item name="colorControlNormal">@color/global_white</item>
+    </style>
+
     <style name="Theme.Slider.Sliderable" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>

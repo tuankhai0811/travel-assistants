@@ -50,7 +50,9 @@
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.ListPlaceNearActivity" />
-        <activity android:name=".activity.MapsActivity"></activity>
+        <activity
+            android:name=".activity.MapsActivity"
+            android:theme="@style/AppTheme.NoActionBarMaps" />
     </application>
 
 </manifest>

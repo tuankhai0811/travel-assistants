@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.tuankhai.travelassistants.R;
@@ -41,6 +41,7 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
         arrPlace = new ArrayList<>();
         arrPlace.addAll(Arrays.asList(data.results));
         setContentView(R.layout.activity_list_place_near);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         addControls();
     }
@@ -58,6 +59,15 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
     @Override
     public void onItemPlaceNearClick(View view, PlaceNearDTO.Result item) {
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
