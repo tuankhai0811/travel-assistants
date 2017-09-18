@@ -10,7 +10,7 @@ import java.util.Map;
  */
 
 public class AddReviewRequest extends BasicRequest {
-    public final static String GET_ORD_DETAILS = "TravelAssistants/public/Review/add/user";
+    public final String URL = "TravelAssistants/public/Review/add/user";
 
     String key;
     String author_name;
@@ -55,6 +55,6 @@ public class AddReviewRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return GET_ORD_DETAILS.split("/");
+        return URL.split("/");
     }
 }

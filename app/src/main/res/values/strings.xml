@@ -31,5 +31,7 @@
     <string name="remove_favorite">Đã xóa khỏi danh sách yêu thích</string>
     <string name="add_favorite">Đã thêm vào yêu thích</string>
     <string name="title_favorite">Địa điểm yêu thích</string>
+    <string name="rating">Đánh giá</string>
+    <string name="information">Thông tin chi tiết</string>
 
 </resources>

@@ -53,17 +53,6 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         type = getIntent().getIntExtra(AppContansts.INTENT_TYPE, 0);
         init();
-        switch (type) {
-            case AppContansts.INTENT_TYPE_PROVINCE:
-                progressProvince();
-                break;
-            case AppContansts.INTENT_TYPE_NORMAL:
-                progressNormal();
-                break;
-            case AppContansts.INTENT_TYPE_FAVORITE:
-                progressFavorite();
-                break;
-        }
     }
 
     private void progressFavorite() {
@@ -89,9 +78,10 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_LOGIN) {
                 currentUser = mAuth.getCurrentUser();
+                init();
             }
         }
     }
@@ -158,6 +148,18 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
         lvPlace.addItemDecoration(new GridSpacingItemDecoration(1, Utils.dpToPx(this, 10), true));
         lvPlace.setItemAnimator(new DefaultItemAnimator());
         lvPlace.setAdapter(placeAdapter);
+
+        switch (type) {
+            case AppContansts.INTENT_TYPE_PROVINCE:
+                progressProvince();
+                break;
+            case AppContansts.INTENT_TYPE_NORMAL:
+                progressNormal();
+                break;
+            case AppContansts.INTENT_TYPE_FAVORITE:
+                progressFavorite();
+                break;
+        }
     }
 
     private void progressProvince() {

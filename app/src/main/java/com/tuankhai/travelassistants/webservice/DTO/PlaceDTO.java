@@ -2,7 +2,6 @@ package com.tuankhai.travelassistants.webservice.DTO;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 
@@ -155,8 +154,18 @@ public final class PlaceDTO {
             }
         }
 
+        public String getLocationLat() {
+            if (location_lat == null) return "0";
+            return location_lat;
+        }
+
+        public String getLocationLng() {
+            if (location_lng == null) return "0";
+            return location_lng;
+        }
+
         public String getName() {
-            if (this.long_name.length() < R.integer.length_name) return long_name;
+            if (this.long_name.length() < 22) return long_name;
             return short_name;
         }
     }

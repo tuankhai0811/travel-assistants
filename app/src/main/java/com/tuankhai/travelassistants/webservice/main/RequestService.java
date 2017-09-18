@@ -46,6 +46,9 @@ public class RequestService {
     static String TYPE_HOTEL = "lodging";
     static String RADIUS = "1000";
     static String MAX_WIDTH = "800";
+    static String ZOOM = "10";
+    static String WIDTH = "800";
+    static String HEIGHT = "350";
 
     private Retrofit getClient(String baseUrl) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -77,6 +80,18 @@ public class RequestService {
 
     public static String getImage(String reference) {
         String result = GOOGLE_URL + "maps/api/place/photo?maxwidth=" + MAX_WIDTH + "&photoreference=" + reference + "&key=" + API_KEY;
+        return result;
+    }
+
+    public static String getImageStaticMaps(String lat, String lng) {
+        String result = GOOGLE_URL
+                + "maps/api/staticmap?center="
+                + lat + "," + lng
+                + "&zoom=" + ZOOM
+                + "&size=" + WIDTH + "x" + HEIGHT
+                + "&maptype=roadmap"
+                + "&markers=color:red%7Clabel:TA%7C" + lat + "," + lng
+                + "&key=" + API_KEY;
         return result;
     }
 
@@ -127,7 +142,7 @@ public class RequestService {
                         try {
                             callback.onSuccess(Utils.readValue(response.body().bytes(), PlaceNearDTO.class));
                         } catch (IOException e) {
-                            Log.e(getClass().toString(), "Data err");
+                            Log.e(getClass().toString(), "Data err: nearPlace");
                         }
                     }
 
@@ -147,7 +162,7 @@ public class RequestService {
                         try {
                             callback.onSuccess(Utils.readValue(response.body().bytes(), PlaceGoogleDTO.class));
                         } catch (IOException e) {
-                            Log.e(getClass().toString(), "Data err");
+                            Log.e(getClass().toString(), "Data err: getPlace");
                         }
                     }
 
@@ -158,7 +173,7 @@ public class RequestService {
                 });
     }
 
-    public void load(BasicRequest mainDTO,
+    public void load(final BasicRequest mainDTO,
                      boolean isShowLoading,
                      final MyCallback callback,
                      final Class returnClass) {
@@ -172,7 +187,7 @@ public class RequestService {
                         try {
                             callback.onSuccess(Utils.readValue(response.body().bytes(), returnClass));
                         } catch (IOException e) {
-                            Log.e(getClass().toString(), "Data err");
+                            Log.e(getClass().toString(), "Data err: " + mainDTO.URL);
                         }
                     }
 

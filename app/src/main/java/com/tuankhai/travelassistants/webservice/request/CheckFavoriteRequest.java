@@ -10,7 +10,7 @@ import java.util.Map;
  */
 
 public class CheckFavoriteRequest extends BasicRequest {
-    public final static String GET_ORD_DETAILS = "TravelAssistants/public/Favorite/check/id";
+    public final String URL = "TravelAssistants/public/Favorite/check/id";
 
     String key;
     String idPlace;
@@ -33,6 +33,6 @@ public class CheckFavoriteRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return GET_ORD_DETAILS.split("/");
+        return URL.split("/");
     }
 }

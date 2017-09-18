@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,9 +24,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
@@ -194,6 +197,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
     private void getData() {
         data = (PlaceDTO.Place) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
+        initInformation();
+        initStaticMaps();
         new RequestService().load(new GetReviewRequest("", data.id), false, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
@@ -239,6 +244,26 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                     addControlsHotel();
             }
         });
+    }
+
+    private void initInformation() {
+        ((TextView) findViewById(R.id.txt_address)).setText(data.address);
+        if (!Utils.isEmptyString(data.phone)) {
+            findViewById(R.id.layout_tel).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.txt_tel)).setText(data.phone);
+            findViewById(R.id.txt_tel).setOnClickListener(this);
+        }
+        if (!Utils.isEmptyString(data.website)) {
+            findViewById(R.id.layout_website).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.txt_website)).setText(data.website);
+            findViewById(R.id.txt_website).setOnClickListener(this);
+        }
+    }
+
+    private void initStaticMaps() {
+        findViewById(R.id.layout_static_maps).setVisibility(View.VISIBLE);
+        ImageView imgStaticMaps = (ImageView) findViewById(R.id.img_static_maps);
+        Glide.with(this).load(RequestService.getImageStaticMaps(data.getLocationLat(), data.getLocationLng())).into(imgStaticMaps);
     }
 
     private void initDialogReviews() {
@@ -289,14 +314,14 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         ratingBar.setRating(result);
         ratingBarView.setRating(result);
 
-        Log.e("status", ""+
-                data.id+
-                String.valueOf(result)+
-                dataGoogle.result.formatted_address+
-                dataGoogle.result.formatted_phone_number+
-                dataGoogle.getLocationLat()+
-                dataGoogle.getLocationLng()+
-                new Gson().toJson(dataGoogle.result.opening_hours)+
+        Log.e("status", "" +
+                data.id +
+                String.valueOf(result) +
+                dataGoogle.result.formatted_address +
+                dataGoogle.result.formatted_phone_number +
+                dataGoogle.getLocationLat() +
+                dataGoogle.getLocationLng() +
+                new Gson().toJson(dataGoogle.result.opening_hours) +
                 dataGoogle.result.website);
         new RequestService().load(
                 new EditPlaceRequest(
@@ -679,6 +704,14 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 ratingBarSelect.setIsIndicator(true);
                 ratingBarSelect.setOnRatingChangeListener(null);
                 userReview();
+                break;
+            case R.id.txt_website:
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.website));
+                startActivity(intent);
+                break;
+            case R.id.txt_tel:
+                Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + data.phone));
+                startActivity(i);
                 break;
         }
     }

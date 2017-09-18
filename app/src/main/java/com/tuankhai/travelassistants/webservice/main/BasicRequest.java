@@ -7,6 +7,7 @@ import java.util.Map;
  */
 
 public class BasicRequest {
+    public final String URL = "";
 
     public Map<String, Object> params() {
         return null;

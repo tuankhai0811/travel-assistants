@@ -10,7 +10,7 @@ import java.util.Map;
  */
 
 public class GetReviewRequest extends BasicRequest {
-    public final static String GET_ORD_DETAILS = "TravelAssistants/public/Review/get/id";
+    public final String URL = "TravelAssistants/public/Review/get/id";
 
     String key;
     String id_place;
@@ -30,6 +30,6 @@ public class GetReviewRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return GET_ORD_DETAILS.split("/");
+        return URL.split("/");
     }
 }

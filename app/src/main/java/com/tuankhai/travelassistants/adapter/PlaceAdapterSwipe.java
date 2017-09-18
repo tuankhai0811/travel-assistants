@@ -96,13 +96,13 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
 
         @Override
         public void liked(final LikeButton likeButton) {
-            likeButton.setEnabled(false);
             if (currentUser == null) {
                 Intent intent = new Intent(context, LoginActivity.class);
                 intent.putExtra(AppContansts.INTENT_DATA, ListPlaceActivity.REQUEST_LOGIN);
                 context.startActivityForResult(intent, ListPlaceActivity.REQUEST_LOGIN);
                 setLiked(false);
             } else {
+                likeButton.setEnabled(false);
                 new RequestService().load(
                         new AddFavoriteRequest("", arrPlace.get(getAdapterPosition()).id, currentUser.getEmail()),
                         false,

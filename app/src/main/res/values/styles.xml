@@ -73,4 +73,6 @@
         <item name="android:progressTint">@color/colorPrimary</item>
     </style>
 
+    <style name="MyTitleDetail">aa</style>
+
 </resources>

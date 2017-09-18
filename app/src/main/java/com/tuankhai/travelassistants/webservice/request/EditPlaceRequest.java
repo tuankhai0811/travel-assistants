@@ -11,7 +11,7 @@ import java.util.Map;
  */
 
 public class EditPlaceRequest extends BasicRequest {
-    public final static String GET_ORD_DETAILS = "TravelAssistants/public/Place/edit/all";
+    public final String URL = "TravelAssistants/public/Place/edit/all";
 
     String key;
     String id;
@@ -61,6 +61,6 @@ public class EditPlaceRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return GET_ORD_DETAILS.split("/");
+        return URL.split("/");
     }
 }

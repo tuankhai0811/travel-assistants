@@ -26,34 +26,237 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/margin_layout_detail">
+                android:orientation="vertical">
 
-                <com.tuankhai.ratingbar.MaterialRatingBar
-                    android:id="@+id/ratingBar"
-                    style="@style/Widget.MaterialRatingBar.RatingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="-3dp"
-                    android:layout_marginRight="-3dp"
-                    android:isIndicator="true"
-                    android:maxHeight="28dp"
-                    android:minHeight="28dp"
-                    android:progressBackgroundTint="@color/colorPrimary"
-                    android:rating="0"
-                    app:mrb_progressTint="@color/colorPrimary"
-                    app:mrb_secondaryProgressTint="@color/colorPrimary" />
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="@dimen/padding_10dp"-->
+                <!--android:paddingTop="@dimen/padding_10dp"-->
+                <!--android:text="@string/rating"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/grey"-->
+                <!--android:textSize="@dimen/size_16sp"-->
+                <!--android:textStyle="normal" />-->
 
-                <TextView
-                    android:id="@+id/txt_num_comment"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:text=""
-                    android:textColor="@color/grey"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/padding_10dp"
+                    android:paddingLeft="@dimen/padding_10dp"
+                    android:paddingTop="@dimen/padding_15dp">
+
+                    <com.tuankhai.ratingbar.MaterialRatingBar
+                        android:id="@+id/ratingBar"
+                        style="@style/Widget.MaterialRatingBar.RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_marginRight="-3dp"
+                        android:isIndicator="true"
+                        android:maxHeight="28dp"
+                        android:minHeight="28dp"
+                        android:progressBackgroundTint="@color/colorPrimary"
+                        android:rating="0"
+                        app:mrb_progressTint="@color/colorPrimary"
+                        app:mrb_secondaryProgressTint="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/txt_num_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text=""
+                        android:textColor="@color/grey"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/padding_10dp"
+                android:paddingLeft="@dimen/padding_10dp"
+                android:text="@string/information"
+                android:textAllCaps="false"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/size_16sp"
+                android:textStyle="normal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dilivers_view"
+                    android:background="@color/grey_50" />
+
+                <FrameLayout
+                    android:id="@+id/layout_static_maps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/img_static_maps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height_150dp"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/bg_autumn" />
+
+                    <ImageView
+                        android:layout_width="@dimen/width_80dp"
+                        android:layout_height="@dimen/height_30dp"
+                        android:layout_gravity="left|bottom"
+                        android:padding="@dimen/padding_5dp"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/logo_google" />
+
+                    <ImageView
+                        android:layout_width="@dimen/width_40dp"
+                        android:layout_height="@dimen/height_40dp"
+                        android:layout_gravity="right|top"
+                        android:layout_margin="@dimen/margin_10dp"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/ic_gps" />
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dilivers_view"
+                    android:background="@color/grey_50" />
+
+                <LinearLayout
+                    android:id="@+id/layout_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/padding_15dp"
+                        android:paddingLeft="@dimen/padding_10dp"
+                        android:paddingTop="@dimen/padding_15dp">
+
+                        <ImageView
+                            android:id="@+id/imageAddress"
+                            android:layout_width="@dimen/height_24dp"
+                            android:layout_height="@dimen/height_24dp"
+                            app:srcCompat="@drawable/ic_location" />
+
+                        <TextView
+                            android:id="@+id/txt_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/padding_10dp"
+                            android:paddingRight="@dimen/padding_10dp"
+                            android:text=""
+                            android:textAllCaps="false"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/size_16sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dilivers_view"
+                        android:background="@color/grey_50" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_website"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/padding_15dp"
+                        android:paddingLeft="@dimen/padding_10dp"
+                        android:paddingTop="@dimen/padding_15dp">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="@dimen/height_24dp"
+                            android:layout_height="@dimen/height_24dp"
+                            app:srcCompat="@drawable/ic_website" />
+
+                        <TextView
+                            android:id="@+id/txt_website"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/padding_10dp"
+                            android:text="http://news.zing.vn"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/size_16sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dilivers_view"
+                        android:background="@color/grey_50" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_tel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/padding_15dp"
+                        android:paddingLeft="@dimen/padding_10dp"
+                        android:paddingTop="@dimen/padding_15dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/height_24dp"
+                            android:layout_height="@dimen/height_24dp"
+                            app:srcCompat="@drawable/ic_tel" />
+
+                        <TextView
+                            android:id="@+id/txt_tel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/padding_10dp"
+                            android:text="+84987075305"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/size_16sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dilivers_view"
+                        android:background="@color/grey_50" />
+                </LinearLayout>
+
             </LinearLayout>
 
 
