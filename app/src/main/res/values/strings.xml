@@ -2,6 +2,7 @@
     <string name="app_name">Travel Assistants</string>
     <string name="facebook_app_id">118711962110697</string>
     <string name="fb_login_protocol_scheme">fb118711962110697</string>
+    <string name="api_maps">AIzaSyAfmqshBC86K-CHGjrr_Unt21QJDOnc5xA</string>
 
     <string name="font_boto_regular">fonts/Roboto-Light.ttf</string>
     <string name="font_boto_bold">fonts/Roboto-Bold.ttf</string>
