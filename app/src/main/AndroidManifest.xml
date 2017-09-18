@@ -49,7 +49,8 @@
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ListPlaceNearActivity"></activity>
+        <activity android:name=".activity.ListPlaceNearActivity" />
+        <activity android:name=".activity.MapsActivity"></activity>
     </application>
 
 </manifest>

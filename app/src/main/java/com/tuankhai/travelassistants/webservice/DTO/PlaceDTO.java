@@ -168,5 +168,12 @@ public final class PlaceDTO {
             if (this.long_name.length() < 22) return long_name;
             return short_name;
         }
+
+        public String getAddress(){
+            if (Utils.isEmptyString(this.address)){
+                return "";
+            }
+            return this.address;
+        }
     }
 }

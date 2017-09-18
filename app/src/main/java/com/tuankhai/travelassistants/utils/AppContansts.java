@@ -17,6 +17,8 @@ public class AppContansts {
     public static final String INTENT_DATA1 = "com.tuankhai.travelassistants.intent.data1";
     public static final String INTENT_DATA2 = "com.tuankhai.travelassistants.intent.data2";
     public static final String INTENT_DATA3 = "com.tuankhai.travelassistants.intent.data3";
+    public static final String INTENT_DATA_LAT = "com.tuankhai.travelassistants.intent.lat";
+    public static final String INTENT_DATA_LNG = "com.tuankhai.travelassistants.intent.lng";
     public static final String INTENT_IMAGE = "com.tuankhai.travelassistants.intent.image";
 
     public static final int INTENT_TYPE_NORMAL = 0;
