@@ -42,14 +42,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ListPlaceActivity" />
+        <activity
+            android:name=".activity.ListPlaceActivity"
+            android:hardwareAccelerated="true"
+            android:largeHeap="false"
+            android:theme="@style/Theme.Slider.Sliderable.ListPlace" />
         <activity
             android:name=".activity.DetailPlaceActivity"
             android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ListPlaceNearActivity" />
+        <activity
+            android:name=".activity.ListPlaceNearActivity"
+            android:hardwareAccelerated="true"
+            android:largeHeap="false"
+            android:theme="@style/Theme.Slider.Sliderable.ListPlace" />
         <activity
             android:name=".activity.MapsActivity"
             android:theme="@style/AppTheme.NoActionBarMaps" />

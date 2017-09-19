@@ -2,16 +2,22 @@ package com.tuankhai.travelassistants.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.tuankhai.slideractivity.Slider;
+import com.tuankhai.slideractivity.model.SliderConfig;
+import com.tuankhai.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.ListPlaceController;
 import com.tuankhai.travelassistants.adapter.PlaceAdapter;
@@ -49,10 +55,32 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         placeController = new ListPlaceController(this);
+
         setContentView(R.layout.activity_list_place);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        initSlider();
+
         type = getIntent().getIntExtra(AppContansts.INTENT_TYPE, 0);
         init();
+    }
+
+    private void initSlider() {
+        SliderConfig mConfig = new SliderConfig.Builder()
+                .primaryColor(getResources().getColor(R.color.colorPrimary))
+                .secondaryColor(getResources().getColor(R.color.global_black))
+                .position(SliderPosition.LEFT)
+                .sensitivity(1f)
+                .scrimColor(Color.BLACK)
+                .scrimStartAlpha(0.8f)
+                .scrimEndAlpha(0f)
+                .velocityThreshold(2400)
+                .distanceThreshold(0.2f)
+                .edge(true)
+                .edgeSize(0.2f)
+                .build();
+        Slider.attach(this, mConfig);
     }
 
     private void progressFavorite() {
@@ -65,6 +93,10 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
         placeController.getFavorite();
     }
 
+    public void setTitle(String title){
+        ((TextView) findViewById(R.id.txt_title)).setText(title);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -73,6 +105,7 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+        getData();
     }
 
     @Override
@@ -81,10 +114,11 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_LOGIN) {
                 currentUser = mAuth.getCurrentUser();
-                init();
+                getData();
             }
         }
     }
+
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -149,6 +183,10 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
         lvPlace.setItemAnimator(new DefaultItemAnimator());
         lvPlace.setAdapter(placeAdapter);
 
+        getData();
+    }
+
+    private void getData() {
         switch (type) {
             case AppContansts.INTENT_TYPE_PROVINCE:
                 progressProvince();

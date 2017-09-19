@@ -1,5 +1,6 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.tuankhai.slideractivity.Slider;
+import com.tuankhai.slideractivity.model.SliderConfig;
+import com.tuankhai.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.utils.AppContansts;
 
@@ -33,6 +37,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
 
+        initSlider();
+
         name = getIntent().getStringExtra(AppContansts.INTENT_NAME);
         location_lat = Double.parseDouble(getIntent().getStringExtra(AppContansts.INTENT_DATA_LAT));
         location_lng = Double.parseDouble(getIntent().getStringExtra(AppContansts.INTENT_DATA_LNG));
@@ -40,6 +46,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    private void initSlider() {
+        SliderConfig mConfig = new SliderConfig.Builder()
+                .primaryColor(getResources().getColor(R.color.colorPrimary))
+                .secondaryColor(getResources().getColor(R.color.global_black))
+                .position(SliderPosition.LEFT)
+                .sensitivity(1f)
+                .scrimColor(Color.BLACK)
+                .scrimStartAlpha(0.8f)
+                .scrimEndAlpha(0f)
+                .velocityThreshold(2400)
+                .distanceThreshold(0.2f)
+                .edge(true)
+                .edgeSize(0.2f)
+                .build();
+        Slider.attach(this, mConfig);
     }
 
     @Override
@@ -57,6 +80,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.addMarker(new MarkerOptions().position(location)
                 .title(name)).showInfoWindow();
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+        googleMap.getUiSettings().setMapToolbarEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 14f));
     }
 }

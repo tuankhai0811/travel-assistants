@@ -72,4 +72,6 @@
     <dimen name="width_50dp">50dp</dimen>
     <dimen name="width_40dp">40dp</dimen>
     <dimen name="margin_28dp">28dp</dimen>
+    <dimen name="margin_15dp">15dp</dimen>
+    <dimen name="height_80dp">80dp</dimen>
 </resources>

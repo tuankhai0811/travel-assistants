@@ -1,19 +1,26 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,13 +32,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.BaseController;
 import com.tuankhai.travelassistants.fragment.BaseFragment;
+import com.tuankhai.travelassistants.fragment.SearchPlaceFragment;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
+import com.tuankhai.travelassistants.location.LocationHelper;
 import com.tuankhai.travelassistants.utils.AppContansts;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -39,7 +50,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        BaseFragmentCallbacks {
+        SearchPlaceFragment.ItemTypeSearchOnClickListener,
+        BaseFragmentCallbacks, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        ActivityCompat.OnRequestPermissionsResultCallback {
     protected String TAG = "";
 
     public BaseActivityCallback callback;
@@ -64,16 +78,37 @@ public class BaseActivity extends AppCompatActivity
     LinearLayout layoutLogin;
     FrameLayout layoutLogout;
 
+    //Location
+    private Location mLastLocation;
+    double latitude;
+    double longitude;
+
+    LocationHelper locationHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main);
         initNavigationDrawer();
+        initPermissions();
+        initLocation();
         addControls();
         addEvents();
 
         mBaseController.addPlaceFragment();
+    }
+
+    private void initLocation() {
+        if (locationHelper.checkPlayServices()) {
+            // Building the GoogleApi client
+            locationHelper.buildGoogleApiClient();
+        }
+    }
+
+    private void initPermissions() {
+        locationHelper = new LocationHelper(this);
+        locationHelper.checkpermission();
     }
 
     private void addEvents() {
@@ -213,12 +248,15 @@ public class BaseActivity extends AppCompatActivity
                 mBaseController.addPlaceFragment();
                 drawerLayout.closeDrawers();
                 break;
-            case R.id.settings:
-                mBaseController.addSearchFragment();
+            case R.id.nav_menu_favorite:
+                Intent intentFavorite = new Intent(this, ListPlaceActivity.class);
+                intentFavorite.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_FAVORITE);
+                startActivity(intentFavorite);
+                drawerLayout.closeDrawers();
                 break;
             case R.id.trash:
                 Toast.makeText(getApplicationContext(), "Trash", Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawers();
+                mBaseController.addSearchFragment();
                 break;
             case R.id.logout:
                 Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
@@ -245,6 +283,7 @@ public class BaseActivity extends AppCompatActivity
         );
         currentUser = mAuth.getCurrentUser();
         updateNavUI(currentUser);
+        locationHelper.checkPlayServices();
     }
 
     private void updateNavUI(FirebaseUser mUser) {
@@ -278,6 +317,7 @@ public class BaseActivity extends AppCompatActivity
         if (callback != null) {
             callback.onActivityResult(requestCode, resultCode, data);
         }
+        locationHelper.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -316,7 +356,100 @@ public class BaseActivity extends AppCompatActivity
         searchView.attachNavigationDrawerToMenuButton(drawerLayout);
     }
 
+    @Override
+    public void TypeAtmClick() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "granted", Toast.LENGTH_SHORT).show();
+        } else {
+            mLastLocation=locationHelper.getLocation();
+
+            if (mLastLocation != null) {
+                latitude = mLastLocation.getLatitude();
+                longitude = mLastLocation.getLongitude();
+                getAddress();
+
+            } else {
+
+                if(btnProceed.isEnabled())
+                    btnProceed.setEnabled(false);
+
+                showToast("Couldn't get the location. Make sure location is enabled on the device");
+            }
+        }
+    }
+
+    @Override
+    public void TypeRestaurantClick() {
+
+    }
+
+    @Override
+    public void TypeHotelClick() {
+
+    }
+
+    /**
+     * Google api callback methods
+     */
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = "
+                + result.getErrorCode());
+    }
+
+    @Override
+    public void onConnected(Bundle arg0) {
+        // Once connected with google api, get the location
+        mLastLocation = locationHelper.getLocation();
+    }
+
+    @Override
+    public void onConnectionSuspended(int arg0) {
+        locationHelper.connectApiClient();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        // redirects to utils
+        locationHelper.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
     public interface BaseActivityCallback {
         void onActivityResult(int requestCode, int resultCode, Intent data);
+    }
+
+    public String getAddress() {
+        Address locationAddress;
+        locationAddress = locationHelper.getAddress(latitude, longitude);
+        if (locationAddress != null) {
+            String address = locationAddress.getAddressLine(0);
+            String address1 = locationAddress.getAddressLine(1);
+            String city = locationAddress.getLocality();
+            String state = locationAddress.getAdminArea();
+            String country = locationAddress.getCountryName();
+            String postalCode = locationAddress.getPostalCode();
+            String currentLocation;
+            if (!TextUtils.isEmpty(address)) {
+                currentLocation = address;
+                if (!TextUtils.isEmpty(address1))
+                    currentLocation += "\n" + address1;
+                if (!TextUtils.isEmpty(city)) {
+                    currentLocation += "\n" + city;
+                    if (!TextUtils.isEmpty(postalCode))
+                        currentLocation += " - " + postalCode;
+                } else {
+                    if (!TextUtils.isEmpty(postalCode))
+                        currentLocation += "\n" + postalCode;
+                }
+                if (!TextUtils.isEmpty(state))
+                    currentLocation += "\n" + state;
+                if (!TextUtils.isEmpty(country))
+                    currentLocation += "\n" + country;
+                return currentLocation;
+            }
+        }
+        return "Something went wrong";
     }
 }

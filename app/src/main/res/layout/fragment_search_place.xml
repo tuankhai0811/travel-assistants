@@ -5,9 +5,136 @@
     tools:context="com.tuankhai.travelassistants.fragment.SearchPlaceFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="OK" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/grey_70"
+                android:layout_height="@dimen/dilivers_view"/>
+            <LinearLayout
+                android:id="@+id/layout_atm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_margin="@dimen/margin_20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/height_80dp"
+                    android:layout_height="@dimen/height_80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_place_global_16_10" />
+                <TextView
+                    android:textSize="@dimen/size_16sp"
+                    android:textColor="@color/global_black"
+                    android:textAllCaps="false"
+                    android:text="ATM"
+                    android:layout_marginLeft="@dimen/margin_20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/grey_70"
+                android:layout_height="@dimen/dilivers_view"/>
+            <LinearLayout
+                android:id="@+id/layout_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_margin="@dimen/margin_20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/height_80dp"
+                    android:layout_height="@dimen/height_80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_place_global_16_10" />
+                <TextView
+                    android:textSize="@dimen/size_16sp"
+                    android:textColor="@color/global_black"
+                    android:textAllCaps="false"
+                    android:text="Nhà hàng"
+                    android:layout_marginLeft="@dimen/margin_20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/grey_70"
+                android:layout_height="@dimen/dilivers_view"/>
+            <LinearLayout
+                android:id="@+id/layout_hotel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_margin="@dimen/margin_20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/height_80dp"
+                    android:layout_height="@dimen/height_80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_place_global_16_10" />
+                <TextView
+                    android:textSize="@dimen/size_16sp"
+                    android:textColor="@color/global_black"
+                    android:textAllCaps="false"
+                    android:text="Khách sạn"
+                    android:layout_marginLeft="@dimen/margin_20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/grey_70"
+                android:layout_height="@dimen/dilivers_view"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_margin="@dimen/margin_20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/height_80dp"
+                    android:layout_height="@dimen/height_80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_place_global_16_10" />
+                <TextView
+                    android:textSize="@dimen/size_16sp"
+                    android:textColor="@color/global_black"
+                    android:textAllCaps="false"
+                    android:text="ATM"
+                    android:layout_marginLeft="@dimen/margin_20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>

@@ -1,13 +1,21 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import com.tuankhai.slideractivity.Slider;
+import com.tuankhai.slideractivity.model.SliderConfig;
+import com.tuankhai.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.adapter.PlaceNearListAdapter;
 import com.tuankhai.travelassistants.utils.AppContansts;
@@ -19,12 +27,17 @@ import com.tuankhai.travelassistants.webservice.main.RequestService;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNearListAdapter.LayoutListPlaceNearItemListener
         , PlaceNearListAdapter.OnLoadMoreListener {
 
     PlaceNearDTO data;
     String lat, lng;
+    public Location location;
     int type;
+    String title;
 
     RecyclerView lvPlace;
     ArrayList<PlaceNearDTO.Result> arrPlace;
@@ -34,16 +47,91 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         data = (PlaceNearDTO) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
         lat = getIntent().getStringExtra(AppContansts.INTENT_DATA1);
         lng = getIntent().getStringExtra(AppContansts.INTENT_DATA2);
         type = getIntent().getIntExtra(AppContansts.INTENT_DATA3, 0);
+        location = new Location("Position");
+        location.setLatitude(Double.parseDouble(lat));
+        location.setLongitude(Double.parseDouble(lng));
+        if (type == RequestService.TYPE_PLACE_FOOD) {
+            title = getString(R.string.top_restaurent);
+        } else {
+            title = getString(R.string.top_hotel);
+        }
         arrPlace = new ArrayList<>();
         arrPlace.addAll(Arrays.asList(data.results));
-        setContentView(R.layout.activity_list_place_near);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        setContentView(R.layout.activity_list_place_near);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((TextView) findViewById(R.id.txt_title)).setText(title);
+
+        initSlider();
+        initCollapsingToolbar();
         addControls();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath(getString(R.string.font_boto_regular))
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+    }
+
+    private void initCollapsingToolbar() {
+//        getSupportActionBar().setTitle(title);
+//        final CollapsingToolbarLayout collapsingToolbar =
+//                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+//        collapsingToolbar.setTitle(title);
+//        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+//        appBarLayout.setExpanded(true);
+
+//        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+//            boolean isShow = false;
+//            int scrollRange = -1;
+//
+//            @Override
+//            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+//                if (scrollRange == -1) {
+//                    scrollRange = appBarLayout.getTotalScrollRange();
+//                }
+//                if (scrollRange + verticalOffset == 0) {
+//                    collapsingToolbar.setTitle(title);
+//                    isShow = true;
+//                } else if (isShow) {
+//                    collapsingToolbar.setTitle(title);
+//                    isShow = false;
+//                }
+//            }
+//        });
+    }
+
+    private void initSlider() {
+        SliderConfig mConfig = new SliderConfig.Builder()
+                .primaryColor(getResources().getColor(R.color.colorPrimary))
+                .secondaryColor(getResources().getColor(R.color.global_black))
+                .position(SliderPosition.LEFT)
+                .sensitivity(1f)
+                .scrimColor(Color.BLACK)
+                .scrimStartAlpha(0.8f)
+                .scrimEndAlpha(0f)
+                .velocityThreshold(2400)
+                .distanceThreshold(0.2f)
+                .edge(true)
+                .edgeSize(0.2f)
+                .build();
+        Slider.attach(this, mConfig);
     }
 
     private void addControls() {

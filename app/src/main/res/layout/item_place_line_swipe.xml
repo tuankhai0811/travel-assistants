@@ -98,7 +98,7 @@
             android:paddingRight="@dimen/padding_10dp"
             android:text="Khu du lịch Suối tiên"
             android:textColor="@color/global_black"
-            android:textSize="@dimen/size_20sp" />
+            android:textSize="@dimen/size_18sp" />
 
         <com.tuankhai.ratingbar.MaterialRatingBar
             android:id="@+id/ratingBar"

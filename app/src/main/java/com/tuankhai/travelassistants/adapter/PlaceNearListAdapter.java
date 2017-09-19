@@ -1,6 +1,6 @@
 package com.tuankhai.travelassistants.adapter;
 
-import android.app.Activity;
+import android.location.Location;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.ratingbar.MaterialRatingBar;
 import com.tuankhai.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.ListPlaceNearActivity;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 
@@ -27,9 +28,10 @@ import java.util.List;
 public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
-    Activity context;
+    ListPlaceNearActivity context;
     List<PlaceNearDTO.Result> arrPlace;
     RecyclerView mRecyclerView;
+    Location location;
 
     LayoutListPlaceNearItemListener itemListener;
     private OnLoadMoreListener mOnLoadMoreListener;
@@ -46,10 +48,11 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.itemListener = onItemClickListener;
     }
 
-    public PlaceNearListAdapter(Activity context, RecyclerView recyclerView, List<PlaceNearDTO.Result> arrPlace) {
+    public PlaceNearListAdapter(ListPlaceNearActivity context, RecyclerView recyclerView, List<PlaceNearDTO.Result> arrPlace) {
         this.context = context;
         this.arrPlace = arrPlace;
         this.mRecyclerView = recyclerView;
+        this.location = context.location;
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -101,12 +104,21 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
 //            Glide.clear(holder.imageView);
 //            holder.setIsRecyclable(false);
             PlaceNearDTO.Result item = arrPlace.get(position);
+            Location mLocation = new Location("Place");
+            mLocation.setLongitude(Double.parseDouble(item.geometry.location.lng));
+            mLocation.setLatitude(Double.parseDouble(item.geometry.location.lat));
             holder.txtName.setText(item.name);
             holder.ratingBar.invalidate();
             holder.ratingBar.setMax(5);
             holder.ratingBar.setNumStars(5);
             holder.ratingBar.setStepSize(0.1f);
             holder.ratingBar.setRating(item.getRaring() + 0.1f);
+            double distance = ((double) Math.round(mLocation.distanceTo(location) / 100)) / 10;
+            if (distance == 0) {
+                holder.txtDistance.setText(mLocation.distanceTo(location) + " m");
+            } else {
+                holder.txtDistance.setText(distance + " km");
+            }
             if (item.photos != null && item.photos.length > 0) {
                 Glide.with(context)
                         .load(RequestService.getImage(item.photos[0].photo_reference))
@@ -141,13 +153,14 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public class PlaceNearViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView txtName;
+        TextView txtName, txtDistance;
         ImageView imageView;
         MaterialRatingBar ratingBar;
 
         public PlaceNearViewHolder(View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txt_name);
+            txtDistance = itemView.findViewById(R.id.txt_distance);
             imageView = itemView.findViewById(R.id.img_place);
             ratingBar = itemView.findViewById(R.id.ratingBar);
             itemView.setOnClickListener(this);

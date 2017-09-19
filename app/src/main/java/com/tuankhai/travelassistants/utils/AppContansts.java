@@ -32,8 +32,14 @@ public class AppContansts {
     public static final int INTENT_TYPE_AUTUMN = 8;
     public static final int INTENT_TYPE_WINNER = 9;
     public static final int INTENT_TYPE_FAVORITE = 10;
+    public static final int INTENT_TYPE_ATM = 11;
+    public static final int INTENT_TYPE_RESTAURANT = 12;
+    public static final int INTENT_TYPE_HOTEL = 13;
     public static final String KEY_SEARCH_FRAGMENT = "com.tuankhai.travelassistants.fragment.searchplace";
     public static final String KEY_PLACE_FRAGMENT = "com.tuankhai.travelassistants.fragment.place";
+    public static final int PERMISSIONS_REQUEST_LOCATION = 543;
+    public static final int REQUEST_CHECK_SETTINGS = 2000;
+    public static final int PLAY_SERVICES_REQUEST = 1000;
 
     public static String URL_IMAGE = RequestService.BASE_URL + "TravelAssistants/public/image/";
     public static String IMAGE_EXTENSION = ".jpg";

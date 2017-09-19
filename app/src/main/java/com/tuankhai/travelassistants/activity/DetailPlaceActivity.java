@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -120,10 +121,14 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     TextView txtRatingDialog;
     Button btnCancel, btnSend;
 
+    ProgressBar progressBar1;
+    ProgressBar progressBar2;
+    ProgressBar progressBar3;
+    ProgressBar progressBar4;
+    ProgressBar progressBar5;
 
     LikeButton likeButton;
     MaterialRatingBar ratingBar;
-    TextView txtCountReview;
     MaterialRatingBar ratingBarView;
 
     int currentPage;
@@ -197,6 +202,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
     private void getData() {
         data = (PlaceDTO.Place) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
+        initProgress();
         initInformation();
         initStaticMaps();
         new RequestService().load(new GetReviewRequest("", data.id), false, new MyCallback() {
@@ -211,7 +217,6 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                     arrReview.addAll(Arrays.asList(reviewDTO.result));
                     refreshReview();
                 }
-
             }
         }, ReviewDTO.class);
         new RequestService().getPlace(data.place_id, new MyCallback() {
@@ -244,6 +249,20 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                     addControlsHotel();
             }
         });
+    }
+
+    private void initProgress() {
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_1);
+        progressBar2 = (ProgressBar) findViewById(R.id.progressBar_2);
+        progressBar3 = (ProgressBar) findViewById(R.id.progressBar_3);
+        progressBar4 = (ProgressBar) findViewById(R.id.progressBar_4);
+        progressBar5 = (ProgressBar) findViewById(R.id.progressBar_5);
+
+        progressBar1.setMax(100);
+        progressBar2.setMax(100);
+        progressBar3.setMax(100);
+        progressBar4.setMax(100);
+        progressBar5.setMax(100);
     }
 
     private void initInformation() {
@@ -301,8 +320,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
             arrReview.addAll(dataGoogle.getReviews());
         } else {
             arrReview.addAll(dataGoogle.getReviews());
-            refreshReview();
         }
+        refreshReview();
     }
 
     private void refreshRating() {
@@ -346,7 +365,44 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 }, CheckDTO.class);
     }
 
+    public void refreshProgressBar() {
+        Log.e("status", "refress");
+        int size = arrReview.size();
+        for (int k = 1; k < 6; k++) {
+            int count = 0;
+            for (int i = 0; i < size; i++) {
+                if ((int) arrReview.get(i).getRating() == k) {
+                    count++;
+                }
+            }
+            Log.e("status", count + "");
+            switch (k) {
+                case 1:
+                    Double progress1 = (double) count / (double) size;
+                    progressBar1.setProgress((int) (progress1 * 100));
+                    break;
+                case 2:
+                    Double progress2 = (double) count / (double) size;
+                    progressBar2.setProgress((int) (progress2 * 100));
+                    break;
+                case 3:
+                    Double progress3 = (double) count / (double) size;
+                    progressBar3.setProgress((int) (progress3 * 100));
+                    break;
+                case 4:
+                    Double progress4 = (double) count / (double) size;
+                    progressBar4.setProgress((int) (progress4 * 100));
+                    break;
+                case 5:
+                    Double progress5 = (double) count / (double) size;
+                    progressBar5.setProgress((int) (progress5 * 100));
+                    break;
+            }
+        }
+    }
+
     private void refreshReview() {
+        Log.e("status","refresh review");
         lvReview = (RecyclerView) findViewById(R.id.lv_reviews);
         lvReview.setNestedScrollingEnabled(false);
         layoutManagerReview = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -356,7 +412,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         lvReview.setAdapter(adapterReviews);
 
         ((TextView) findViewById(R.id.num_comment)).setText(arrReview.size() + "");
-        txtCountReview.setText(dataGoogle.countReviews() + " " + getString(R.string.txt_review));
+        ((TextView) findViewById(R.id.txt_num_comment)).setText(arrReview.size() + " " + getString(R.string.txt_review));
 
         ratingBarSelect = (MaterialRatingBar) findViewById(R.id.ratingBarSelect);
         ratingBarSelect.setMax(5);
@@ -364,6 +420,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         ratingBarSelect.setStepSize(1f);
         ratingBarSelect.setRating(0f);
         ratingBarSelect.setOnRatingChangeListener(this);
+        refreshProgressBar();
         if (currentUser == null) {
             return;
         }
@@ -374,7 +431,6 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 ratingBarSelect.setIsIndicator(true);
             }
         }
-
         refreshRating();
     }
 
@@ -432,6 +488,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+        findViewById(R.id.layout_static_maps).setOnClickListener(this);
+        findViewById(R.id.layout_address).setOnClickListener(this);
         refreshFavorite();
     }
 
@@ -447,8 +505,6 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         ratingBar.setNumStars(5);
         ratingBar.setStepSize(0.1f);
         ratingBar.setRating(dataGoogle.getRating());
-
-        txtCountReview = (TextView) findViewById(R.id.txt_num_comment);
 
         findViewById(R.id.layout_content_reviews).setVisibility(View.VISIBLE);
 //        ((TextView) findViewById(R.id.num_comment)).setText(dataGoogle.getSizeReview() + "");
@@ -627,9 +683,9 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 .scrimStartAlpha(0.8f)
                 .scrimEndAlpha(0f)
                 .velocityThreshold(2400)
-                .distanceThreshold(0.4f)
+                .distanceThreshold(0.2f)
                 .edge(true)
-                .edgeSize(0.4f)
+                .edgeSize(0.2f)
                 .build();
         Slider.attach(this, mConfig);
     }
@@ -717,6 +773,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.layout_address:
             case R.id.layout_static_maps:
+                findViewById(R.id.layout_static_maps).setOnClickListener(null);
+                findViewById(R.id.layout_address).setOnClickListener(null);
                 Intent mapsIntent = new Intent(this, MapsActivity.class);
                 mapsIntent.putExtra(AppContansts.INTENT_NAME, data.getName());
                 mapsIntent.putExtra(AppContansts.INTENT_DATA_LAT, data.getLocationLat());
