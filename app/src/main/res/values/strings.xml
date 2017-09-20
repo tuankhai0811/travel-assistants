@@ -37,12 +37,14 @@
     <string name="information">Thông tin chi tiết</string>
     <string name="message_enable_location">Couldn\'t get the location. Make sure location is enabled on the device</string>
     <string name="action_ok">OK</string>
-    <string name="top_drinks">Quán nước</string>
+    <string name="top_drinks">Quán nước gần đây</string>
     <string name="atm">Cây ATM</string>
     <string name="drinks">Quán nước</string>
     <string name="restaurant">Nhà hàng</string>
     <string name="hotel">Khách sạn</string>
     <string name="gas_station">Cây xăng</string>
     <string name="hospital">Bệnh viện</string>
+    <string name="top_hospital">Bệnh viện gần đây</string>
+    <string name="top_gas_station">Cây xăng gần đây</string>
 
 </resources>

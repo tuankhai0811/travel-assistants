@@ -12,6 +12,8 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.tuankhai.travelassistants.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -186,7 +188,8 @@ public class PermissionUtils {
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(current_activity)
                 .setMessage(message)
-                .setPositiveButton("Ok", okListener)
+                .setTitle(current_activity.getString(R.string.app_name))
+                .setPositiveButton("OK", okListener)
                 .setNegativeButton("Cancel", okListener)
                 .create()
                 .show();

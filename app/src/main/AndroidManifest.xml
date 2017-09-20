@@ -62,6 +62,7 @@
             android:name=".activity.ListPlaceNearActivity"
             android:hardwareAccelerated="true"
             android:largeHeap="false"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.Slider.Sliderable.ListPlace" />
         <activity
             android:name=".activity.MapsActivity"

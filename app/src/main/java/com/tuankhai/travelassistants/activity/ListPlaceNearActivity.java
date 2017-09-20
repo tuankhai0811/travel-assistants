@@ -83,8 +83,17 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
                 case AppContansts.INTENT_TYPE_HOTEL:
                     title = getString(R.string.top_hotel);
                     break;
-                case AppContansts.INTENT_TYPE_RESTAURANT:
+                case AppContansts.INTENT_TYPE_FOOD:
                     title = getString(R.string.top_restaurent);
+                    break;
+                case AppContansts.INTENT_TYPE_HOSPITAL:
+                    title = getString(R.string.top_hospital);
+                    break;
+                case AppContansts.INTENT_TYPE_GAS_STATION:
+                    title = getString(R.string.top_gas_station);
+                    break;
+                case AppContansts.INTENT_TYPE_DRINK:
+                    title = getString(R.string.top_drinks);
                     break;
             }
             setTitle(title);
@@ -99,6 +108,16 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
             });
         }
     }
+
+    public void progressDistance(ArrayList<PlaceNearDTO.Result> list){
+        for (PlaceNearDTO.Result item:list){
+            if (item.distance == 0) continue;
+            Location mLocation = new Location("Place");
+            mLocation.setLatitude(Double.parseDouble(item.geometry.location.lat));
+            mLocation.setLongitude(Double.parseDouble(item.geometry.location.lng));
+            item.distance = mLocation.distanceTo(location);
+        }
+    };
 
     public void setTitle(String mTitle) {
         ((TextView) findViewById(R.id.txt_title)).setText(mTitle);
@@ -209,6 +228,7 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
                         arrPlace.remove(arrPlace.size() - 1);
                         int index = arrPlace.size();
                         arrPlace.addAll(Arrays.asList(data.results));
+                        progressDistance(arrPlace);
                         adapter.notifyItemInserted(index);
                         adapter.setLoaded();
                     }

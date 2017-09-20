@@ -42,7 +42,7 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
 
     // Google client to interact with Google API
 
-    private GoogleApiClient mGoogleApiClient;
+    public GoogleApiClient mGoogleApiClient;
 
     // list of permissions
 
@@ -99,8 +99,11 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
      */
 
     public Location getLocation() {
-
         if (isPermissionGranted()) {
+            if (mGoogleApiClient == null) {
+                buildGoogleApiClient();
+                return null;
+            }
             try {
                 mLastLocation = LocationServices.FusedLocationApi
                         .getLastLocation(mGoogleApiClient);
@@ -176,7 +179,7 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
      */
 
     public void buildGoogleApiClient() {
-        if (mGoogleApiClient != null) return;
+//        if (mGoogleApiClient != null) return;
         mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) current_activity)
                 .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) current_activity)

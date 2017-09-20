@@ -39,13 +39,21 @@ public class RequestService {
     static String LANGUAGE = "vi";
     //static String API_KEY = "AIzaSyDAPRe0tK-LZ0dS-ecmkkJ6u_oibJcd8Pg";
     static String API_KEY = "AIzaSyBu7xN_K7RcHcGgU5lkwJ7qODxfxOHwHdM";
-    static String KEY_FOOD = "restaurant";
-    static String KEY_HOTEL = "hotel";
-    static String KEY_ATM = "atm";
-    static String TYPE_FOOD = "food";
+    static String KEY_FOOD = "";
+    static String KEY_HOTEL = "";
+    static String KEY_ATM = "";
+    static String KEY_DRINK = "";
+    static String KEY_GAS_STATION = "";
+    static String KEY_HOSPITAL = "";
+    static String TYPE_FOOD = "restaurant";
     static String TYPE_HOTEL = "lodging";
     static String TYPE_ATM = "atm";
-    static String RADIUS = "1000";
+    static String TYPE_DRINK = "cafe";
+    static String TYPE_GAS_STATION = "gas_station";
+    static String TYPE_HOSPITAL = "hospital";
+    static String RADIUS = "1500";
+    static String RADIUS_GAS_STATION = "3000";
+    static String RADIUS_ATM = "2000";
     static String MAX_WIDTH = "800";
     static String ZOOM = "12";
     static String WIDTH = "800";
@@ -80,7 +88,9 @@ public class RequestService {
     }
 
     public static String getImage(String reference) {
-        String result = GOOGLE_URL + "maps/api/place/photo?maxwidth=" + MAX_WIDTH + "&photoreference=" + reference + "&key=" + API_KEY;
+        String result = GOOGLE_URL
+                + "maps/api/place/photo?maxwidth=" + MAX_WIDTH + "&photoreference="
+                + reference + "&key=" + API_KEY;
         return result;
     }
 
@@ -99,6 +109,7 @@ public class RequestService {
     public void nearPlace(int typeplace, String lat, String lng, String pagetoken, final MyCallback callback) {
         String type = "";
         String key = "";
+        String radius = RADIUS;
         switch (typeplace) {
             case AppContansts.INTENT_TYPE_FOOD:
                 type = TYPE_FOOD;
@@ -109,11 +120,27 @@ public class RequestService {
                 key = KEY_HOTEL;
                 break;
             case AppContansts.INTENT_TYPE_ATM:
+                radius = RADIUS_ATM;
                 type = TYPE_ATM;
                 key = KEY_ATM;
+                break;
+            case AppContansts.INTENT_TYPE_DRINK:
+                type = TYPE_DRINK;
+                key = KEY_DRINK;
+                break;
+            case AppContansts.INTENT_TYPE_GAS_STATION:
+                radius = RADIUS_GAS_STATION;
+                type = TYPE_GAS_STATION;
+                key = KEY_GAS_STATION;
+                break;
+            case AppContansts.INTENT_TYPE_HOSPITAL:
+                radius = RADIUS_GAS_STATION;
+                type = TYPE_HOSPITAL;
+                key = KEY_HOSPITAL;
+                break;
         }
         getClient().create(WebserviceRequest.class)
-                .getNearFood(lat + "," + lng, RADIUS, type, key, LANGUAGE, pagetoken, API_KEY)
+                .getNearFood(lat + "," + lng, radius, type, key, LANGUAGE, pagetoken, API_KEY)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -134,6 +161,7 @@ public class RequestService {
     public void nearPlace(int typeplace, String lat, String lng, final MyCallback callback) {
         String type = "";
         String key = "";
+        String radius = RADIUS;
         switch (typeplace) {
             case AppContansts.INTENT_TYPE_FOOD:
                 type = TYPE_FOOD;
@@ -144,11 +172,27 @@ public class RequestService {
                 key = KEY_HOTEL;
                 break;
             case AppContansts.INTENT_TYPE_ATM:
+                radius = RADIUS_ATM;
                 type = TYPE_ATM;
                 key = KEY_ATM;
+                break;
+            case AppContansts.INTENT_TYPE_DRINK:
+                type = TYPE_DRINK;
+                key = KEY_DRINK;
+                break;
+            case AppContansts.INTENT_TYPE_GAS_STATION:
+                radius = RADIUS_GAS_STATION;
+                type = TYPE_GAS_STATION;
+                key = KEY_GAS_STATION;
+                break;
+            case AppContansts.INTENT_TYPE_HOSPITAL:
+                radius = RADIUS_GAS_STATION;
+                type = TYPE_HOSPITAL;
+                key = KEY_HOSPITAL;
+                break;
         }
         getClient().create(WebserviceRequest.class)
-                .getNearFood(lat + "," + lng, RADIUS, type, key, LANGUAGE, "", API_KEY)
+                .getNearFood(lat + "," + lng, radius, type, key, LANGUAGE, "", API_KEY)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

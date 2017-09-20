@@ -394,6 +394,9 @@
                     </LinearLayout>
                 </FrameLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_divider_view" />
 
             </LinearLayout>
 

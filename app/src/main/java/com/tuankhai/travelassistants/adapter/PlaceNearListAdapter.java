@@ -104,20 +104,30 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
 //            Glide.clear(holder.imageView);
 //            holder.setIsRecyclable(false);
             PlaceNearDTO.Result item = arrPlace.get(position);
-            Location mLocation = new Location("Place");
-            mLocation.setLongitude(Double.parseDouble(item.geometry.location.lng));
-            mLocation.setLatitude(Double.parseDouble(item.geometry.location.lat));
             holder.txtName.setText(item.name);
             holder.ratingBar.invalidate();
             holder.ratingBar.setMax(5);
             holder.ratingBar.setNumStars(5);
             holder.ratingBar.setStepSize(0.1f);
             holder.ratingBar.setRating(item.getRaring() + 0.1f);
-            double distance = ((double) Math.round(mLocation.distanceTo(location) / 100)) / 10;
-            if (distance == 0) {
-                holder.txtDistance.setText(mLocation.distanceTo(location) + " m");
+            if (item.distance == 0) {
+                Location mLocation = new Location("Place");
+                mLocation.setLongitude(Double.parseDouble(item.geometry.location.lng));
+                mLocation.setLatitude(Double.parseDouble(item.geometry.location.lat));
+                arrPlace.get(position).distance = mLocation.distanceTo(location);
+                double distance = ((double) Math.round(mLocation.distanceTo(location) / 100)) / 10;
+                if (distance == 0) {
+                    holder.txtDistance.setText(Math.round(mLocation.distanceTo(location)) + " m");
+                } else {
+                    holder.txtDistance.setText(distance + " km");
+                }
             } else {
-                holder.txtDistance.setText(distance + " km");
+                double distance = ((double) Math.round(item.distance / 100)) / 10;
+                if (distance == 0) {
+                    holder.txtDistance.setText(Math.round(item.distance) + " m");
+                } else {
+                    holder.txtDistance.setText(distance + " km");
+                }
             }
             if (item.photos != null && item.photos.length > 0) {
                 Glide.with(context)

@@ -19,6 +19,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -94,10 +95,11 @@ public class BaseActivity extends AppCompatActivity
     }
 
     private boolean initLocation() {
+        if (locationHelper.mGoogleApiClient == null || !locationHelper.mGoogleApiClient.isConnecting()) {
+            locationHelper.buildGoogleApiClient();
+        }
         if (locationHelper.checkpermission()) {
             if (locationHelper.checkPlayServices()) {
-                // Building the GoogleApi client
-                locationHelper.buildGoogleApiClient();
                 return true;
             }
         }
@@ -265,7 +267,9 @@ public class BaseActivity extends AppCompatActivity
             case R.id.nav_menu_favorite:
                 if (currentUser == null) {
                     Intent intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
+                    intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
+                    startActivityForResult(intent, AppContansts.REQUEST_LOGIN);
+                    drawerLayout.closeDrawers();
                     return false;
                 }
                 Intent intentFavorite = new Intent(this, ListPlaceActivity.class);
@@ -295,6 +299,7 @@ public class BaseActivity extends AppCompatActivity
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
+        unCheckItemMenu(navigationView.getMenu());
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath(getString(R.string.font_boto_regular))
                 .setFontAttrId(R.attr.fontPath)
@@ -302,7 +307,19 @@ public class BaseActivity extends AppCompatActivity
         );
         currentUser = mAuth.getCurrentUser();
         updateNavUI(currentUser);
-        locationHelper.checkPlayServices();
+    }
+
+    private void unCheckItemMenu(Menu menu) {
+        int size = menu.size();
+        for (int i = 0; i < size; i++) {
+            final MenuItem item = menu.getItem(i);
+            if (item.hasSubMenu()) {
+                // Un check sub menu items
+                unCheckItemMenu(item.getSubMenu());
+            } else {
+                item.setChecked(false);
+            }
+        }
     }
 
     private void updateNavUI(FirebaseUser mUser) {
@@ -370,13 +387,7 @@ public class BaseActivity extends AppCompatActivity
         this.callback = callback;
     }
 
-    @Override
-    public void onAttachSearchViewToDrawer(FloatingSearchView searchView) {
-        searchView.attachNavigationDrawerToMenuButton(drawerLayout);
-    }
-
-    @Override
-    public void TypeAtmClick() {
+    public void gotoListNearPlace(int type){
         if (locationHelper.checkpermission()) {
             Location location = locationHelper.getLocation();
             if (location == null) {
@@ -385,7 +396,7 @@ public class BaseActivity extends AppCompatActivity
                 Intent intent = new Intent(this, ListPlaceNearActivity.class);
                 intent.putExtra(AppContansts.INTENT_DATA1, locationHelper.getLatitude());
                 intent.putExtra(AppContansts.INTENT_DATA2, locationHelper.getLongitude());
-                intent.putExtra(AppContansts.INTENT_DATA3, AppContansts.INTENT_TYPE_ATM);
+                intent.putExtra(AppContansts.INTENT_DATA3, type);
                 startActivity(intent);
                 Log.e("status", locationHelper.mLastLocation.getLatitude() + "," + locationHelper.mLastLocation.getLongitude());
             }
@@ -393,13 +404,38 @@ public class BaseActivity extends AppCompatActivity
     }
 
     @Override
-    public void TypeRestaurantClick() {
+    public void onAttachSearchViewToDrawer(FloatingSearchView searchView) {
+        searchView.attachNavigationDrawerToMenuButton(drawerLayout);
+    }
 
+    @Override
+    public void TypeAtmClick() {
+        gotoListNearPlace(AppContansts.INTENT_TYPE_ATM);
+    }
+
+    @Override
+    public void TypeRestaurantClick() {
+        gotoListNearPlace(AppContansts.INTENT_TYPE_FOOD);
     }
 
     @Override
     public void TypeHotelClick() {
+        gotoListNearPlace(AppContansts.INTENT_TYPE_HOTEL);
+    }
 
+    @Override
+    public void TypeGasStationClick() {
+        gotoListNearPlace(AppContansts.INTENT_TYPE_GAS_STATION);
+    }
+
+    @Override
+    public void TypeDrinksClick() {
+        gotoListNearPlace(AppContansts.INTENT_TYPE_DRINK);
+    }
+
+    @Override
+    public void TypeHospitalClick() {
+        gotoListNearPlace(AppContansts.INTENT_TYPE_HOSPITAL);
     }
 
     /**

@@ -20,7 +20,7 @@ public class SearchPlaceFragment extends BaseFragment implements AppBarLayout.On
 
     BaseFragmentCallbacks callbacks;
 
-    LinearLayout layoutAtm, layoutRestaurant, layoutHotel;
+    LinearLayout layoutAtm, layoutRestaurant, layoutHotel, layoutDrinks, layoutHospital, layoutGasStation;
 
     ItemTypeSearchOnClickListener itemListener;
 
@@ -62,6 +62,9 @@ public class SearchPlaceFragment extends BaseFragment implements AppBarLayout.On
         layoutAtm.setOnClickListener(this);
         layoutRestaurant.setOnClickListener(this);
         layoutHotel.setOnClickListener(this);
+        layoutGasStation.setOnClickListener(this);
+        layoutHospital.setOnClickListener(this);
+        layoutDrinks.setOnClickListener(this);
     }
 
     private void addControls() {
@@ -69,6 +72,9 @@ public class SearchPlaceFragment extends BaseFragment implements AppBarLayout.On
         layoutAtm = mRootView.findViewById(R.id.layout_atm);
         layoutRestaurant = mRootView.findViewById(R.id.layout_restaurant);
         layoutHotel = mRootView.findViewById(R.id.layout_hotel);
+        layoutDrinks = mRootView.findViewById(R.id.layout_drinks);
+        layoutHospital = mRootView.findViewById(R.id.layout_hospital);
+        layoutGasStation = mRootView.findViewById(R.id.layout_gas_station);
     }
 
     @Override
@@ -113,16 +119,22 @@ public class SearchPlaceFragment extends BaseFragment implements AppBarLayout.On
         if (itemListener == null) return;
         switch (view.getId()) {
             case R.id.layout_atm:
-                layoutAtm.setOnClickListener(null);
                 itemListener.TypeAtmClick();
                 break;
             case R.id.layout_restaurant:
-                layoutRestaurant.setOnClickListener(null);
                 itemListener.TypeRestaurantClick();
                 break;
             case R.id.layout_hotel:
-                layoutHotel.setOnClickListener(null);
                 itemListener.TypeHotelClick();
+                break;
+            case R.id.layout_gas_station:
+                itemListener.TypeGasStationClick();
+                break;
+            case R.id.layout_drinks:
+                itemListener.TypeDrinksClick();
+                break;
+            case R.id.layout_hospital:
+                itemListener.TypeHospitalClick();
                 break;
         }
     }
@@ -139,5 +151,11 @@ public class SearchPlaceFragment extends BaseFragment implements AppBarLayout.On
         void TypeRestaurantClick();
 
         void TypeHotelClick();
+
+        void TypeGasStationClick();
+
+        void TypeDrinksClick();
+
+        void TypeHospitalClick();
     }
 }

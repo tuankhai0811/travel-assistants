@@ -323,7 +323,7 @@ public class LoginActivity extends AppCompatActivity implements
                             hideProgressDialog();
                         }
                     }, UserDTO.class);
-            if (request_code == DetailPlaceActivity.REQUEST_LOGIN){
+            if (request_code == AppContansts.REQUEST_LOGIN){
                 setResult(RESULT_OK);
                 finish();
             }

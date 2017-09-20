@@ -34,9 +34,9 @@ import java.util.Arrays;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter.LayoutListPlaceItemListener {
+import static com.tuankhai.travelassistants.utils.AppContansts.REQUEST_LOGIN;
 
-    public static final int REQUEST_LOGIN = DetailPlaceActivity.REQUEST_LOGIN;
+public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter.LayoutListPlaceItemListener {
 
     public FirebaseAuth mAuth;
     public FirebaseUser currentUser;
@@ -86,7 +86,7 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
     private void progressFavorite() {
         if (currentUser == null) {
             Intent intent = new Intent(this, LoginActivity.class);
-            intent.putExtra(AppContansts.INTENT_DATA, REQUEST_LOGIN);
+            intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
             startActivityForResult(intent, REQUEST_LOGIN);
         }
         setTitle(getString(R.string.title_favorite));

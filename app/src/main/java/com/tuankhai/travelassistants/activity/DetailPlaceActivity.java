@@ -79,7 +79,6 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         , OnAnimationEndListener, MaterialRatingBar.OnRatingChangeListener {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    public static final int REQUEST_LOGIN = 234;
 
     PlaceDTO.Place data;
     ReviewDTO reviewDTO;
@@ -703,8 +702,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     public void liked(final LikeButton likeButton) {
         if (currentUser == null) {
             Intent intent = new Intent(this, LoginActivity.class);
-            intent.putExtra(AppContansts.INTENT_DATA, REQUEST_LOGIN);
-            startActivityForResult(intent, REQUEST_LOGIN);
+            intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
+            startActivityForResult(intent, AppContansts.REQUEST_LOGIN);
         } else {
             likeButton.setEnabled(false);
             new RequestService().load(new AddFavoriteRequest("", data.id, currentUser.getEmail()), false, new MyCallback() {
@@ -732,8 +731,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         likeButton.setEnabled(false);
         if (currentUser == null) {
             Intent intent = new Intent(this, LoginActivity.class);
-            intent.putExtra(AppContansts.INTENT_DATA, REQUEST_LOGIN);
-            startActivityForResult(intent, REQUEST_LOGIN);
+            intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
+            startActivityForResult(intent, AppContansts.REQUEST_LOGIN);
         } else {
             new RequestService().load(new RemoveFavoriteRequest("", data.id, currentUser.getEmail()), false, new MyCallback() {
                 @Override
@@ -835,8 +834,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
             case R.id.ratingBarSelect:
                 if (currentUser == null) {
                     Intent intent = new Intent(this, LoginActivity.class);
-                    intent.putExtra(AppContansts.INTENT_DATA, REQUEST_LOGIN);
-                    startActivityForResult(intent, REQUEST_LOGIN);
+                    intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
+                    startActivityForResult(intent, AppContansts.REQUEST_LOGIN);
                     ratingBarSelect.setRating(0f);
                 } else {
                     ratingBarSelectDialog.setRating(rating);
@@ -856,7 +855,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case REQUEST_LOGIN:
+                case AppContansts.REQUEST_LOGIN:
                     currentUser = mAuth.getCurrentUser();
                     refreshReview();
                     refreshFavorite();

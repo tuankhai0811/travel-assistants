@@ -98,8 +98,8 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
         public void liked(final LikeButton likeButton) {
             if (currentUser == null) {
                 Intent intent = new Intent(context, LoginActivity.class);
-                intent.putExtra(AppContansts.INTENT_DATA, ListPlaceActivity.REQUEST_LOGIN);
-                context.startActivityForResult(intent, ListPlaceActivity.REQUEST_LOGIN);
+                intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
+                context.startActivityForResult(intent, AppContansts.REQUEST_LOGIN);
                 setLiked(false);
             } else {
                 likeButton.setEnabled(false);
@@ -122,8 +122,8 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
             likeButton.setEnabled(false);
             if (currentUser == null) {
                 Intent intent = new Intent(context, LoginActivity.class);
-                intent.putExtra(AppContansts.INTENT_DATA, ListPlaceActivity.REQUEST_LOGIN);
-                context.startActivityForResult(intent, ListPlaceActivity.REQUEST_LOGIN);
+                intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
+                context.startActivityForResult(intent, AppContansts.REQUEST_LOGIN);
             } else {
                 new RequestService().load(
                         new RemoveFavoriteRequest("", arrPlace.get(getAdapterPosition()).id, currentUser.getEmail()),
