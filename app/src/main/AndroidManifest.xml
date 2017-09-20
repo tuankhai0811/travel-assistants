@@ -15,6 +15,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -32,6 +33,7 @@
             android:name=".activity.BaseActivity"
             android:hardwareAccelerated="false"
             android:largeHeap="true"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SplashScreenActivity"
@@ -46,12 +48,15 @@
             android:name=".activity.ListPlaceActivity"
             android:hardwareAccelerated="true"
             android:largeHeap="false"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.Slider.Sliderable.ListPlace" />
         <activity
             android:name=".activity.DetailPlaceActivity"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.LoginActivity"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ListPlaceNearActivity"
@@ -60,6 +65,7 @@
             android:theme="@style/Theme.Slider.Sliderable.ListPlace" />
         <activity
             android:name=".activity.MapsActivity"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBarMaps" />
     </application>
 

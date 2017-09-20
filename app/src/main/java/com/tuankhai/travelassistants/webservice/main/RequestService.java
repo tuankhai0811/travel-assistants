@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.webservice.main;
 
 import android.util.Log;
 
+import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
@@ -34,16 +35,16 @@ public class RequestService {
     //public static String BASE_URL = "http://192.168.1.31/";
     private Retrofit retrofit = null;
 
-    public static int TYPE_PLACE_FOOD = 0;
-    public static int TYPE_PLACE_HOTEL = 1;
     static String GOOGLE_URL = "https://maps.googleapis.com/";
     static String LANGUAGE = "vi";
     //static String API_KEY = "AIzaSyDAPRe0tK-LZ0dS-ecmkkJ6u_oibJcd8Pg";
     static String API_KEY = "AIzaSyBu7xN_K7RcHcGgU5lkwJ7qODxfxOHwHdM";
     static String KEY_FOOD = "restaurant";
     static String KEY_HOTEL = "hotel";
+    static String KEY_ATM = "atm";
     static String TYPE_FOOD = "food";
     static String TYPE_HOTEL = "lodging";
+    static String TYPE_ATM = "atm";
     static String RADIUS = "1000";
     static String MAX_WIDTH = "800";
     static String ZOOM = "12";
@@ -96,14 +97,20 @@ public class RequestService {
     }
 
     public void nearPlace(int typeplace, String lat, String lng, String pagetoken, final MyCallback callback) {
-        String type;
-        String key;
-        if (typeplace == TYPE_PLACE_FOOD) {
-            type = TYPE_FOOD;
-            key = KEY_FOOD;
-        } else {
-            type = TYPE_HOTEL;
-            key = KEY_HOTEL;
+        String type = "";
+        String key = "";
+        switch (typeplace) {
+            case AppContansts.INTENT_TYPE_FOOD:
+                type = TYPE_FOOD;
+                key = KEY_FOOD;
+                break;
+            case AppContansts.INTENT_TYPE_HOTEL:
+                type = TYPE_HOTEL;
+                key = KEY_HOTEL;
+                break;
+            case AppContansts.INTENT_TYPE_ATM:
+                type = TYPE_ATM;
+                key = KEY_ATM;
         }
         getClient().create(WebserviceRequest.class)
                 .getNearFood(lat + "," + lng, RADIUS, type, key, LANGUAGE, pagetoken, API_KEY)
@@ -125,14 +132,20 @@ public class RequestService {
     }
 
     public void nearPlace(int typeplace, String lat, String lng, final MyCallback callback) {
-        String type;
-        String key;
-        if (typeplace == TYPE_PLACE_FOOD) {
-            type = TYPE_FOOD;
-            key = KEY_FOOD;
-        } else {
-            type = TYPE_HOTEL;
-            key = KEY_HOTEL;
+        String type = "";
+        String key = "";
+        switch (typeplace) {
+            case AppContansts.INTENT_TYPE_FOOD:
+                type = TYPE_FOOD;
+                key = KEY_FOOD;
+                break;
+            case AppContansts.INTENT_TYPE_HOTEL:
+                type = TYPE_HOTEL;
+                key = KEY_HOTEL;
+                break;
+            case AppContansts.INTENT_TYPE_ATM:
+                type = TYPE_ATM;
+                key = KEY_ATM;
         }
         getClient().create(WebserviceRequest.class)
                 .getNearFood(lat + "," + lng, RADIUS, type, key, LANGUAGE, "", API_KEY)

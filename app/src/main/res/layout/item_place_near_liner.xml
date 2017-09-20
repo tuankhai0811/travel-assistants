@@ -38,7 +38,9 @@
                 android:id="@+id/txt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ldjsfkijsdgi"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text=""
                 android:textAllCaps="false"
                 android:textColor="@color/global_black"
                 android:textSize="16sp" />

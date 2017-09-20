@@ -24,6 +24,7 @@
     <string name="top_hotel">Khách sạn gần đây</string>
     <string name="view_all">Tất cả</string>
     <string name="top_restaurent">Quán ăn gần đây</string>
+    <string name="top_atm">ATM gần đây</string>
     <string name="rating_here">Đánh giá địa điểm này</string>
     <string name="title_rating">Đánh giá</string>
     <string name="hint_review">Cảm nhận của bạn về nơi đây!</string>
@@ -34,5 +35,14 @@
     <string name="title_favorite">Địa điểm yêu thích</string>
     <string name="rating">Đánh giá</string>
     <string name="information">Thông tin chi tiết</string>
+    <string name="message_enable_location">Couldn\'t get the location. Make sure location is enabled on the device</string>
+    <string name="action_ok">OK</string>
+    <string name="top_drinks">Quán nước</string>
+    <string name="atm">Cây ATM</string>
+    <string name="drinks">Quán nước</string>
+    <string name="restaurant">Nhà hàng</string>
+    <string name="hotel">Khách sạn</string>
+    <string name="gas_station">Cây xăng</string>
+    <string name="hospital">Bệnh viện</string>
 
 </resources>

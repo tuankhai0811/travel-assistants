@@ -74,4 +74,6 @@
     <dimen name="margin_28dp">28dp</dimen>
     <dimen name="margin_15dp">15dp</dimen>
     <dimen name="height_80dp">80dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_40dp">40dp</dimen>
 </resources>

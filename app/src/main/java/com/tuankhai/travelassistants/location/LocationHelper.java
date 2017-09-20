@@ -38,7 +38,7 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
 
     private boolean isPermissionGranted;
 
-    private Location mLastLocation;
+    public Location mLastLocation;
 
     // Google client to interact with Google API
 
@@ -112,9 +112,17 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
         return null;
     }
 
+    public String getLatitude() {
+        return mLastLocation.getLatitude() + "";
+    }
+
+    public String getLongitude() {
+        return mLastLocation.getLongitude() + "";
+    }
+
     public String getAddress() {
         Location location = getLocation();
-        if (location == null) return "";
+        if (location == null) return "null";
         Address locationAddress = getAddress(location.getLatitude(), location.getLongitude());
         if (locationAddress != null) {
             String address = locationAddress.getAddressLine(0);
@@ -159,9 +167,7 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
-
     }
 
 
@@ -170,6 +176,7 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
      */
 
     public void buildGoogleApiClient() {
+        if (mGoogleApiClient != null) return;
         mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) current_activity)
                 .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) current_activity)

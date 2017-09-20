@@ -41,8 +41,8 @@ import java.util.TimerTask;
  */
 
 public class PlacesFragment extends BaseFragment
-        implements AppBarLayout.OnOffsetChangedListener,
-        ProvinceAdapter.LayoutProvinceItemListener{
+        implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener,
+        ProvinceAdapter.LayoutProvinceItemListener {
     protected BaseActivity mActivity;
     protected PlacesController placesController;
     BaseFragmentCallbacks callbacks;
@@ -81,7 +81,7 @@ public class PlacesFragment extends BaseFragment
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.places_activity, container, false);
             addControls();
-            addEvents();
+            //addEvents();
             placesController = new PlacesController(this);
             placesController.getAllProvince();
             placesController.getSliderPlace();
@@ -90,74 +90,66 @@ public class PlacesFragment extends BaseFragment
         return mRootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        addEvents();
+    }
+
     private void addEvents() {
-        layoutSpring = mRootView.findViewById(R.id.layout_type_spring);
-        layoutSummer = mRootView.findViewById(R.id.layout_type_summer);
-        layoutAutumn = mRootView.findViewById(R.id.layout_type_autumn);
-        layoutWinter = mRootView.findViewById(R.id.layout_type_winter);
+        layoutSpring.setOnClickListener(this);
+        layoutSummer.setOnClickListener(this);
+        layoutAutumn.setOnClickListener(this);
+        layoutWinter.setOnClickListener(this);
+        layoutSea.setOnClickListener(this);
+        layoutAttractions.setOnClickListener(this);
+        layoutEntertainment.setOnClickListener(this);
+        layoutCultural.setOnClickListener(this);
+    }
 
-        layoutSea = mRootView.findViewById(R.id.layout_type_sea);
-        layoutAttractions = mRootView.findViewById(R.id.layout_type_attractions);
-        layoutCultural = mRootView.findViewById(R.id.layout_type_cultural);
-        layoutEntertainment = mRootView.findViewById(R.id.layout_type_entertainment);
-
-        layoutSpring.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.layout_type_spring:
+                layoutSpring.setOnClickListener(null);
                 onTypeClick(view, AppContansts.INTENT_TYPE_SPRING);
-            }
-        });
+                break;
 
-        layoutSummer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            case R.id.layout_type_summer:
+                layoutSummer.setOnClickListener(null);
                 onTypeClick(view, AppContansts.INTENT_TYPE_SUMMER);
-            }
-        });
+                break;
 
-        layoutAutumn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            case R.id.layout_type_autumn:
+                layoutAutumn.setOnClickListener(null);
                 onTypeClick(view, AppContansts.INTENT_TYPE_AUTUMN);
-            }
-        });
+                break;
 
-        layoutWinter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            case R.id.layout_type_winter:
+                layoutWinter.setOnClickListener(null);
                 onTypeClick(view, AppContansts.INTENT_TYPE_WINNER);
-            }
-        });
+                break;
 
-        layoutSea.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            case R.id.layout_type_sea:
+                layoutSea.setOnClickListener(null);
                 onTypeClick(view, AppContansts.INTENT_TYPE_SEA);
-            }
-        });
+                break;
 
-
-        layoutAttractions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            case R.id.layout_type_attractions:
+                layoutAttractions.setOnClickListener(null);
                 onTypeClick(view, AppContansts.INTENT_TYPE_ATTRACTIONS);
-            }
-        });
+                break;
 
-
-        layoutEntertainment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            case R.id.layout_type_entertainment:
+                layoutEntertainment.setOnClickListener(null);
                 onTypeClick(view, AppContansts.INTENT_TYPE_ENTERTAINMENT);
-            }
-        });
+                break;
 
-        layoutCultural.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            case R.id.layout_type_cultural:
+                layoutCultural.setOnClickListener(null);
                 onTypeClick(view, AppContansts.INTENT_TYPE_CULTURAL);
-            }
-        });
+                break;
+        }
     }
 
     @Override
@@ -174,6 +166,16 @@ public class PlacesFragment extends BaseFragment
         adapterProvinces = new ProvinceAdapter(mActivity, arrProvinces, this);
         lvProvince.setLayoutManager(layoutManagerProvince);
         lvProvince.setAdapter(adapterProvinces);
+
+        layoutSpring = mRootView.findViewById(R.id.layout_type_spring);
+        layoutSummer = mRootView.findViewById(R.id.layout_type_summer);
+        layoutAutumn = mRootView.findViewById(R.id.layout_type_autumn);
+        layoutWinter = mRootView.findViewById(R.id.layout_type_winter);
+
+        layoutSea = mRootView.findViewById(R.id.layout_type_sea);
+        layoutAttractions = mRootView.findViewById(R.id.layout_type_attractions);
+        layoutCultural = mRootView.findViewById(R.id.layout_type_cultural);
+        layoutEntertainment = mRootView.findViewById(R.id.layout_type_entertainment);
     }
 
     protected void attachSearchViewActivityDrawer(FloatingSearchView searchView) {
@@ -289,7 +291,7 @@ public class PlacesFragment extends BaseFragment
         startActivity(intent);
     }
 
-    public void onTypeClick(View view, int type){
+    public void onTypeClick(View view, int type) {
         Intent intent = new Intent(getContext(), ListPlaceActivity.class);
         intent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_NORMAL);
         intent.putExtra(AppContansts.INTENT_DATA, type);

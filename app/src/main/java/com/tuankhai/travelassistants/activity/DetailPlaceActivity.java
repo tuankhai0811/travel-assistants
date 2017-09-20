@@ -230,7 +230,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 initDialogReviews();
             }
         });
-        new RequestService().nearPlace(RequestService.TYPE_PLACE_FOOD, data.location_lat, data.location_lng, new MyCallback() {
+        new RequestService().nearPlace(AppContansts.INTENT_TYPE_FOOD, data.location_lat, data.location_lng, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);
@@ -240,7 +240,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
-        new RequestService().nearPlace(RequestService.TYPE_PLACE_HOTEL, data.location_lat, data.location_lng, new MyCallback() {
+        new RequestService().nearPlace(AppContansts.INTENT_TYPE_HOTEL, data.location_lat, data.location_lng, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);
@@ -451,7 +451,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 intent.putExtra(AppContansts.INTENT_DATA, dataNearFood);
                 intent.putExtra(AppContansts.INTENT_DATA1, dataGoogle.getLocationLat());
                 intent.putExtra(AppContansts.INTENT_DATA2, dataGoogle.getLocationLng());
-                intent.putExtra(AppContansts.INTENT_DATA3, RequestService.TYPE_PLACE_FOOD);
+                intent.putExtra(AppContansts.INTENT_DATA3, AppContansts.INTENT_TYPE_FOOD);
                 startActivity(intent);
             }
         });
@@ -474,7 +474,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 intent.putExtra(AppContansts.INTENT_DATA, dataNearHotel);
                 intent.putExtra(AppContansts.INTENT_DATA1, dataGoogle.getLocationLat());
                 intent.putExtra(AppContansts.INTENT_DATA2, dataGoogle.getLocationLng());
-                intent.putExtra(AppContansts.INTENT_DATA3, RequestService.TYPE_PLACE_HOTEL);
+                intent.putExtra(AppContansts.INTENT_DATA3, AppContansts.INTENT_TYPE_HOTEL);
                 startActivity(intent);
             }
         });

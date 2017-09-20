@@ -82,6 +82,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
         googleMap.getUiSettings().setMapToolbarEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 14f));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 13f));
     }
 }

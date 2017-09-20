@@ -1,8 +1,8 @@
 package com.tuankhai.travelassistants.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Address;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,9 +15,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,11 +76,8 @@ public class BaseActivity extends AppCompatActivity
     FrameLayout layoutLogout;
 
     //Location
-    private Location mLastLocation;
-    double latitude;
-    double longitude;
-
     LocationHelper locationHelper;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +85,7 @@ public class BaseActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main);
         initNavigationDrawer();
-        initPermissions();
+        initGPS();
         //initLocation();
         addControls();
         addEvents();
@@ -101,14 +98,24 @@ public class BaseActivity extends AppCompatActivity
             if (locationHelper.checkPlayServices()) {
                 // Building the GoogleApi client
                 locationHelper.buildGoogleApiClient();
+                return true;
             }
-            return true;
         }
         return false;
     }
 
-    private void initPermissions() {
+    private void initGPS() {
         locationHelper = new LocationHelper(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.message_enable_location));
+        builder.setTitle(getString(R.string.app_name));
+        builder.setPositiveButton(getString(R.string.action_ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog = builder.create();
     }
 
     private void addEvents() {
@@ -162,6 +169,7 @@ public class BaseActivity extends AppCompatActivity
         searchView.setOnFocusChangeListener(new FloatingSearchView.OnFocusChangeListener() {
             @Override
             public void onFocus() {
+                initLocation();
                 mBaseController.addSearchFragment();
                 Log.e(TAG, "onFocus()");
             }
@@ -222,18 +230,24 @@ public class BaseActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
+        ActionBarDrawerToggle actionBarDrawerToggle =
+                new ActionBarDrawerToggle(
+                        this,
+                        drawerLayout,
+                        toolbar,
+                        R.string.drawer_open,
+                        R.string.drawer_close) {
 
-            @Override
-            public void onDrawerClosed(View v) {
-                super.onDrawerClosed(v);
-            }
+                    @Override
+                    public void onDrawerClosed(View v) {
+                        super.onDrawerClosed(v);
+                    }
 
-            @Override
-            public void onDrawerOpened(View v) {
-                super.onDrawerOpened(v);
-            }
-        };
+                    @Override
+                    public void onDrawerOpened(View v) {
+                        super.onDrawerOpened(v);
+                    }
+                };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }
@@ -249,6 +263,11 @@ public class BaseActivity extends AppCompatActivity
                 drawerLayout.closeDrawers();
                 break;
             case R.id.nav_menu_favorite:
+                if (currentUser == null) {
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    return false;
+                }
                 Intent intentFavorite = new Intent(this, ListPlaceActivity.class);
                 intentFavorite.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_FAVORITE);
                 startActivity(intentFavorite);
@@ -358,28 +377,19 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public void TypeAtmClick() {
-        if (initLocation()) {
-            Toast.makeText(this, locationHelper.getAddress(), Toast.LENGTH_SHORT).show();
+        if (locationHelper.checkpermission()) {
+            Location location = locationHelper.getLocation();
+            if (location == null) {
+                alertDialog.show();
+            } else {
+                Intent intent = new Intent(this, ListPlaceNearActivity.class);
+                intent.putExtra(AppContansts.INTENT_DATA1, locationHelper.getLatitude());
+                intent.putExtra(AppContansts.INTENT_DATA2, locationHelper.getLongitude());
+                intent.putExtra(AppContansts.INTENT_DATA3, AppContansts.INTENT_TYPE_ATM);
+                startActivity(intent);
+                Log.e("status", locationHelper.mLastLocation.getLatitude() + "," + locationHelper.mLastLocation.getLongitude());
+            }
         }
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-//                == PackageManager.PERMISSION_GRANTED) {
-//            Toast.makeText(this, "granted", Toast.LENGTH_SHORT).show();
-//        } else {
-//            mLastLocation=locationHelper.getLocation();
-//
-//            if (mLastLocation != null) {
-//                latitude = mLastLocation.getLatitude();
-//                longitude = mLastLocation.getLongitude();
-//                getAddress();
-//
-//            } else {
-//
-//                if(btnProceed.isEnabled())
-//                    btnProceed.setEnabled(false);
-//
-//                showToast("Couldn't get the location. Make sure location is enabled on the device");
-//            }
-//        }
     }
 
     @Override
@@ -404,7 +414,7 @@ public class BaseActivity extends AppCompatActivity
     @Override
     public void onConnected(Bundle arg0) {
         // Once connected with google api, get the location
-        mLastLocation = locationHelper.getLocation();
+        locationHelper.getLocation();
     }
 
     @Override
@@ -421,38 +431,5 @@ public class BaseActivity extends AppCompatActivity
 
     public interface BaseActivityCallback {
         void onActivityResult(int requestCode, int resultCode, Intent data);
-    }
-
-    public String getAddress() {
-        Address locationAddress;
-        locationAddress = locationHelper.getAddress(latitude, longitude);
-        if (locationAddress != null) {
-            String address = locationAddress.getAddressLine(0);
-            String address1 = locationAddress.getAddressLine(1);
-            String city = locationAddress.getLocality();
-            String state = locationAddress.getAdminArea();
-            String country = locationAddress.getCountryName();
-            String postalCode = locationAddress.getPostalCode();
-            String currentLocation;
-            if (!TextUtils.isEmpty(address)) {
-                currentLocation = address;
-                if (!TextUtils.isEmpty(address1))
-                    currentLocation += "\n" + address1;
-                if (!TextUtils.isEmpty(city)) {
-                    currentLocation += "\n" + city;
-                    if (!TextUtils.isEmpty(postalCode))
-                        currentLocation += " - " + postalCode;
-                } else {
-                    if (!TextUtils.isEmpty(postalCode))
-                        currentLocation += "\n" + postalCode;
-                }
-                if (!TextUtils.isEmpty(state))
-                    currentLocation += "\n" + state;
-                if (!TextUtils.isEmpty(country))
-                    currentLocation += "\n" + country;
-                return currentLocation;
-            }
-        }
-        return "Something went wrong";
     }
 }

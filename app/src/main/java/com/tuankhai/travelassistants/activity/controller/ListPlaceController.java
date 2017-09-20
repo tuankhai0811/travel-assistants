@@ -1,8 +1,10 @@
 package com.tuankhai.travelassistants.activity.controller;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.tuankhai.travelassistants.activity.ListPlaceActivity;
+import com.tuankhai.travelassistants.activity.LoginActivity;
 import com.tuankhai.travelassistants.webservice.DTO.FavoriteDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
@@ -64,6 +66,11 @@ public class ListPlaceController {
     }
 
     public void getFavorite() {
+        if (mActivity.currentUser == null) {
+            Intent intent = new Intent(mActivity, LoginActivity.class);
+            mActivity.startActivity(intent);
+            return;
+        }
         new RequestService().load(new GetFavoriteRequest("", mActivity.currentUser.getEmail()), false, new MyCallback() {
             @Override
             public void onSuccess(Object response) {

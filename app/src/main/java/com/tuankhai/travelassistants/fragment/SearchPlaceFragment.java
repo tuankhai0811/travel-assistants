@@ -52,7 +52,7 @@ public class SearchPlaceFragment extends BaseFragment implements AppBarLayout.On
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.fragment_search_place, container, false);
             addControls();
-            addEvents();
+            //addEvents();
         }
         mActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         return mRootView;
@@ -113,15 +113,24 @@ public class SearchPlaceFragment extends BaseFragment implements AppBarLayout.On
         if (itemListener == null) return;
         switch (view.getId()) {
             case R.id.layout_atm:
+                layoutAtm.setOnClickListener(null);
                 itemListener.TypeAtmClick();
                 break;
             case R.id.layout_restaurant:
+                layoutRestaurant.setOnClickListener(null);
                 itemListener.TypeRestaurantClick();
                 break;
             case R.id.layout_hotel:
+                layoutHotel.setOnClickListener(null);
                 itemListener.TypeHotelClick();
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        addEvents();
     }
 
     public interface ItemTypeSearchOnClickListener {

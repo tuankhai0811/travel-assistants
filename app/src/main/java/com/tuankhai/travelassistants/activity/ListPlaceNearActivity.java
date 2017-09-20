@@ -55,23 +55,53 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
         location = new Location("Position");
         location.setLatitude(Double.parseDouble(lat));
         location.setLongitude(Double.parseDouble(lng));
-        if (type == RequestService.TYPE_PLACE_FOOD) {
-            title = getString(R.string.top_restaurent);
-        } else {
-            title = getString(R.string.top_hotel);
-        }
         arrPlace = new ArrayList<>();
-        arrPlace.addAll(Arrays.asList(data.results));
 
         setContentView(R.layout.activity_list_place_near);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((TextView) findViewById(R.id.txt_title)).setText(title);
 
         initSlider();
         initCollapsingToolbar();
         addControls();
+
+        if (data != null) {
+            if (type == AppContansts.INTENT_TYPE_FOOD) {
+                title = getString(R.string.top_restaurent);
+            } else {
+                title = getString(R.string.top_hotel);
+            }
+            setTitle(title);
+            arrPlace.addAll(Arrays.asList(data.results));
+            adapter.notifyDataSetChanged();
+        } else {
+            switch (type) {
+                case AppContansts.INTENT_TYPE_ATM:
+                    title = getString(R.string.top_atm);
+                    break;
+                case AppContansts.INTENT_TYPE_HOTEL:
+                    title = getString(R.string.top_hotel);
+                    break;
+                case AppContansts.INTENT_TYPE_RESTAURANT:
+                    title = getString(R.string.top_restaurent);
+                    break;
+            }
+            setTitle(title);
+            new RequestService().nearPlace(type, lat, lng, new MyCallback() {
+                @Override
+                public void onSuccess(Object response) {
+                    data = (PlaceNearDTO) response;
+                    arrPlace.addAll(Arrays.asList(data.results));
+                    adapter.notifyDataSetChanged();
+                    super.onSuccess(response);
+                }
+            });
+        }
+    }
+
+    public void setTitle(String mTitle) {
+        ((TextView) findViewById(R.id.txt_title)).setText(mTitle);
     }
 
     @Override
@@ -161,8 +191,13 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
     @Override
     public void onLoadMore() {
         if (Utils.isEmptyString(data.next_page_token)) return;
-        arrPlace.add(null);
-        adapter.notifyItemInserted(arrPlace.size() - 1);
+        new Handler().postAtTime(new Runnable() {
+            @Override
+            public void run() {
+                arrPlace.add(null);
+                adapter.notifyItemInserted(arrPlace.size() - 1);
+            }
+        }, 0);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
