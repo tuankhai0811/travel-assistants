@@ -1,9 +1,7 @@
 package com.tuankhai.travelassistants.activity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Location;
 import android.net.Uri;
@@ -14,7 +12,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -92,23 +89,26 @@ public class BaseActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         initNavigationDrawer();
         initPermissions();
-        initLocation();
+        //initLocation();
         addControls();
         addEvents();
 
         mBaseController.addPlaceFragment();
     }
 
-    private void initLocation() {
-        if (locationHelper.checkPlayServices()) {
-            // Building the GoogleApi client
-            locationHelper.buildGoogleApiClient();
+    private boolean initLocation() {
+        if (locationHelper.checkpermission()) {
+            if (locationHelper.checkPlayServices()) {
+                // Building the GoogleApi client
+                locationHelper.buildGoogleApiClient();
+            }
+            return true;
         }
+        return false;
     }
 
     private void initPermissions() {
         locationHelper = new LocationHelper(this);
-        locationHelper.checkpermission();
     }
 
     private void addEvents() {
@@ -358,25 +358,28 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public void TypeAtmClick() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "granted", Toast.LENGTH_SHORT).show();
-        } else {
-            mLastLocation=locationHelper.getLocation();
-
-            if (mLastLocation != null) {
-                latitude = mLastLocation.getLatitude();
-                longitude = mLastLocation.getLongitude();
-                getAddress();
-
-            } else {
-
-                if(btnProceed.isEnabled())
-                    btnProceed.setEnabled(false);
-
-                showToast("Couldn't get the location. Make sure location is enabled on the device");
-            }
+        if (initLocation()) {
+            Toast.makeText(this, locationHelper.getAddress(), Toast.LENGTH_SHORT).show();
         }
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+//                == PackageManager.PERMISSION_GRANTED) {
+//            Toast.makeText(this, "granted", Toast.LENGTH_SHORT).show();
+//        } else {
+//            mLastLocation=locationHelper.getLocation();
+//
+//            if (mLastLocation != null) {
+//                latitude = mLastLocation.getLatitude();
+//                longitude = mLastLocation.getLongitude();
+//                getAddress();
+//
+//            } else {
+//
+//                if(btnProceed.isEnabled())
+//                    btnProceed.setEnabled(false);
+//
+//                showToast("Couldn't get the location. Make sure location is enabled on the device");
+//            }
+//        }
     }
 
     @Override
@@ -394,7 +397,7 @@ public class BaseActivity extends AppCompatActivity
      */
     @Override
     public void onConnectionFailed(ConnectionResult result) {
-        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = "
+        Log.e(TAG, "Connection failed: ConnectionResult.getErrorCode() = "
                 + result.getErrorCode());
     }
 

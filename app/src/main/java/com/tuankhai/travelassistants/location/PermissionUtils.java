@@ -35,8 +35,6 @@ public class PermissionUtils {
         this.current_activity = (Activity) context;
 
         permissionResultCallback = (PermissionResultCallback) context;
-
-
     }
 
     public PermissionUtils(Context context, PermissionResultCallback callback) {
@@ -57,7 +55,7 @@ public class PermissionUtils {
      * @param request_code
      */
 
-    public void check_permission(ArrayList<String> permissions, String dialog_content, int request_code) {
+    public boolean check_permission(ArrayList<String> permissions, String dialog_content, int request_code) {
         this.permission_list = permissions;
         this.dialog_content = dialog_content;
         this.req_code = request_code;
@@ -65,16 +63,18 @@ public class PermissionUtils {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkAndRequestPermissions(permissions, request_code)) {
                 permissionResultCallback.PermissionGranted(request_code);
-                Log.i("all permissions", "granted");
-                Log.i("proceed", "to callback");
+                Log.e("all permissions", "granted");
+                Log.e("proceed", "to callback");
+                return true;
             }
+            return false;
         } else {
             permissionResultCallback.PermissionGranted(request_code);
 
-            Log.i("all permissions", "granted");
-            Log.i("proceed", "to callback");
+            Log.e("all permissions", "granted");
+            Log.e("proceed", "to callback");
+            return true;
         }
-
     }
 
 
@@ -131,7 +131,7 @@ public class PermissionUtils {
                             if (ActivityCompat.shouldShowRequestPermissionRationale(current_activity, listPermissionsNeeded.get(i)))
                                 pending_permissions.add(listPermissionsNeeded.get(i));
                             else {
-                                Log.i("Go to settings", "and enable permissions");
+                                Log.e("Go to settings", "and enable permissions");
                                 permissionResultCallback.NeverAskAgain(req_code);
                                 Toast.makeText(current_activity, "Go to settings and enable permissions", Toast.LENGTH_LONG).show();
                                 return;
@@ -151,7 +151,7 @@ public class PermissionUtils {
                                                 check_permission(permission_list, dialog_content, req_code);
                                                 break;
                                             case DialogInterface.BUTTON_NEGATIVE:
-                                                Log.i("permisson", "not fully given");
+                                                Log.e("permisson", "not fully given");
                                                 if (permission_list.size() == pending_permissions.size())
                                                     permissionResultCallback.PermissionDenied(req_code);
                                                 else
@@ -164,8 +164,8 @@ public class PermissionUtils {
                                 });
 
                     } else {
-                        Log.i("all", "permissions granted");
-                        Log.i("proceed", "to next step");
+                        Log.e("all", "permissions granted");
+                        Log.e("proceed", "to next step");
                         permissionResultCallback.PermissionGranted(req_code);
 
                     }

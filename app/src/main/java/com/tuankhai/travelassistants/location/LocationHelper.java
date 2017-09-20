@@ -9,6 +9,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -60,15 +61,14 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
 
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-
     }
 
     /**
      * Method to check the availability of location permissions
      */
 
-    public void checkpermission() {
-        permissionUtils.check_permission(permissions, "Need GPS permission for getting your location", 1);
+    public boolean checkpermission() {
+        return permissionUtils.check_permission(permissions, "Need GPS permission for getting your location", 1);
     }
 
     private boolean isPermissionGranted() {
@@ -80,11 +80,8 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
      */
 
     public boolean checkPlayServices() {
-
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-
         int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(context);
-
         if (resultCode != ConnectionResult.SUCCESS) {
             if (googleApiAvailability.isUserResolvableError(resultCode)) {
                 googleApiAvailability.getErrorDialog(current_activity, resultCode,
@@ -104,22 +101,52 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
     public Location getLocation() {
 
         if (isPermissionGranted()) {
-
             try {
                 mLastLocation = LocationServices.FusedLocationApi
                         .getLastLocation(mGoogleApiClient);
-
                 return mLastLocation;
             } catch (SecurityException e) {
                 e.printStackTrace();
-
             }
-
         }
-
         return null;
-
     }
+
+    public String getAddress() {
+        Location location = getLocation();
+        if (location == null) return "";
+        Address locationAddress = getAddress(location.getLatitude(), location.getLongitude());
+        if (locationAddress != null) {
+            String address = locationAddress.getAddressLine(0);
+            String address1 = locationAddress.getAddressLine(1);
+            String city = locationAddress.getLocality();
+            String state = locationAddress.getAdminArea();
+            String country = locationAddress.getCountryName();
+            String postalCode = locationAddress.getPostalCode();
+            String currentLocation;
+            if (!TextUtils.isEmpty(address)) {
+                currentLocation = address;
+                if (!TextUtils.isEmpty(address1))
+                    currentLocation += "\n" + address1;
+                if (!TextUtils.isEmpty(city)) {
+                    currentLocation += "\n" + city;
+                    if (!TextUtils.isEmpty(postalCode))
+                        currentLocation += " - " + postalCode;
+                } else {
+                    if (!TextUtils.isEmpty(postalCode))
+                        currentLocation += "\n" + postalCode;
+                }
+                if (!TextUtils.isEmpty(state))
+                    currentLocation += "\n" + state;
+
+                if (!TextUtils.isEmpty(country))
+                    currentLocation += "\n" + country;
+                return currentLocation;
+            }
+        }
+        return "";
+    }
+
 
     public Address getAddress(double latitude, double longitude) {
         Geocoder geocoder;
@@ -129,7 +156,6 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
         try {
             addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
             return addresses.get(0);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -188,8 +214,6 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
                 }
             }
         });
-
-
     }
 
     /**
@@ -238,23 +262,23 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
 
     @Override
     public void PermissionGranted(int request_code) {
-        Log.i("PERMISSION", "GRANTED");
+        Log.e("PERMISSION", "GRANTED");
         isPermissionGranted = true;
     }
 
     @Override
     public void PartialPermissionGranted(int request_code, ArrayList<String> granted_permissions) {
-        Log.i("PERMISSION PARTIALLY", "GRANTED");
+        Log.e("PERMISSION PARTIALLY", "GRANTED");
     }
 
     @Override
     public void PermissionDenied(int request_code) {
-        Log.i("PERMISSION", "DENIED");
+        Log.e("PERMISSION", "DENIED");
     }
 
     @Override
     public void NeverAskAgain(int request_code) {
-        Log.i("PERMISSION", "NEVER ASK AGAIN");
+        Log.e("PERMISSION", "NEVER ASK AGAIN");
     }
 
 
