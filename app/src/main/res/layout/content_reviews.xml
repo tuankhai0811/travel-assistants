@@ -88,10 +88,10 @@
                     android:maxHeight="@dimen/height_22dp"
                     android:minHeight="@dimen/height_22dp"
                     android:progressBackgroundTint="@color/grey_70"
-                    android:progressTint="@color/grey_70"
+                    android:progressTint="@color/grey_50"
                     android:rating="0"
-                    app:mrb_progressTint="@color/grey_70"
-                    app:mrb_secondaryProgressTint="@color/grey_70" />
+                    app:mrb_progressTint="@color/grey_50"
+                    app:mrb_secondaryProgressTint="@color/grey_50" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                         android:paddingBottom="@dimen/padding_3dp"
                         android:paddingRight="@dimen/padding_3dp"
                         android:text="8"
-                        android:textColor="@color/grey_80"
+                        android:textColor="@color/grey_70"
                         android:textSize="@dimen/size_14sp" />
 
                     <ImageView

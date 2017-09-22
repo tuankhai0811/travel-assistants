@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.ratingbar.MaterialRatingBar;
-import com.tuankhai.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.ListPlaceNearActivity;
 import com.tuankhai.travelassistants.utils.MyCache;
@@ -79,17 +78,17 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
-            final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-            return new PlaceNearViewHolder(
-                    MaterialRippleLayout.on(inflater.inflate(R.layout.item_place_near_liner, viewGroup, false))
-                            .rippleOverlay(true)
-                            .rippleAlpha(0.2f)
-                            .rippleColor(R.integer.rippleColor)
-                            .rippleHover(true)
-                            .create()
-            );
-//            View view = LayoutInflater.from(context).inflate(R.layout.item_place_near_liner, viewGroup, false);
-//            return new PlaceNearViewHolder(view);
+//            final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+//            return new PlaceNearViewHolder(
+//                    MaterialRippleLayout.on(inflater.inflate(R.layout.item_place_near_liner, viewGroup, false))
+//                            .rippleOverlay(true)
+//                            .rippleAlpha(0.2f)
+//                            .rippleColor(R.integer.rippleColor)
+//                            .rippleHover(true)
+//                            .create()
+//            );
+            View view = LayoutInflater.from(context).inflate(R.layout.item_place_near_liner, viewGroup, false);
+            return new PlaceNearViewHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_progressbar, viewGroup, false);
             return new LoadingViewHolder(view);
