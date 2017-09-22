@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.DetailPlaceActivity;
 import com.tuankhai.travelassistants.utils.AppContansts;
@@ -54,7 +55,10 @@ public class SliderPlaceAdapter extends PagerAdapter {
         TextView textView = item.findViewById(R.id.txt_item_name_slider_place);
         textView.setText(data.places[position].long_name);
         String address = AppContansts.URL_IMAGE + data.places[position].id + AppContansts.IMAGE_RATIO_4_3;
-        Glide.with(context).load(Uri.parse(address)).into(imageView);
+        Glide.with(context)
+                .load(Uri.parse(address))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imageView);
         item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

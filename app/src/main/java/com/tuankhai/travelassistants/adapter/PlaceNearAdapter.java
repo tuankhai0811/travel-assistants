@@ -1,6 +1,8 @@
 package com.tuankhai.travelassistants.adapter;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +15,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.ratingbar.MaterialRatingBar;
 import com.tuankhai.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.utils.MyCache;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 
 import java.util.List;
+
+import static com.tuankhai.travelassistants.utils.MyCache.bg_place_global_4_3;
 
 /**
  * Created by Khai on 11/09/2017.
@@ -58,11 +63,17 @@ public class PlaceNearAdapter extends RecyclerView.Adapter<PlaceNearAdapter.Plac
         placeViewHolder.ratingBar.setRating(item.getRaring() + 0.1f);
         if (item.photos != null && item.photos.length > 0) {
             Glide.with(context)
-                    .load(RequestService.getImage(item.photos[0].photo_reference))
+                    .load(RequestService.getImageAdapterHorizontal(item.photos[0].photo_reference))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(placeViewHolder.imageView);
         } else {
-            placeViewHolder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.bg_place_global_4_3));
+            if (MyCache.getInstance().getBitmapFromMemCache(bg_place_global_4_3) == null) {
+                Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.bg_place_global_4_3);
+                MyCache.getInstance().addBitmapToMemoryCache(bg_place_global_4_3, image);
+                placeViewHolder.imageView.setImageBitmap(image);
+            } else {
+                placeViewHolder.imageView.setImageBitmap(MyCache.getInstance().getBitmapFromMemCache(bg_place_global_4_3));
+            }
         }
     }
 

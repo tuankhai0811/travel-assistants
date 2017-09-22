@@ -18,6 +18,7 @@ import com.tuankhai.slideractivity.model.SliderConfig;
 import com.tuankhai.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.adapter.PlaceNearListAdapter;
+import com.tuankhai.travelassistants.adapter.decoration.ListSpacingItemDecoration;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
@@ -109,15 +110,17 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
         }
     }
 
-    public void progressDistance(ArrayList<PlaceNearDTO.Result> list){
-        for (PlaceNearDTO.Result item:list){
+    public void progressDistance(ArrayList<PlaceNearDTO.Result> list) {
+        for (PlaceNearDTO.Result item : list) {
             if (item.distance == 0) continue;
             Location mLocation = new Location("Place");
             mLocation.setLatitude(Double.parseDouble(item.geometry.location.lat));
             mLocation.setLongitude(Double.parseDouble(item.geometry.location.lng));
             item.distance = mLocation.distanceTo(location);
         }
-    };
+    }
+
+    ;
 
     public void setTitle(String mTitle) {
         ((TextView) findViewById(R.id.txt_title)).setText(mTitle);
@@ -188,6 +191,7 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         lvPlace.setLayoutManager(layoutManager);
         adapter = new PlaceNearListAdapter(this, lvPlace, arrPlace);
+        lvPlace.addItemDecoration(new ListSpacingItemDecoration(Utils.dpToPx(this, 5)));
         lvPlace.setAdapter(adapter);
         adapter.setOnLoadMoreListener(this);
         adapter.setOnItemClickListener(this);

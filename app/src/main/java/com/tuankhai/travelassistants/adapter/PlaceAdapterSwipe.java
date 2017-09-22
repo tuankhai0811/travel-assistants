@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.likebutton.LikeButton;
 import com.tuankhai.likebutton.OnLikeListener;
@@ -179,7 +180,7 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
 
     @Override
     public PlaceViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        final LayoutInflater inflater = LayoutInflater.from(context);
         return new PlaceViewHolder(inflater.inflate(type, viewGroup, false));
 //        return new PlaceViewHolder(
 //                MaterialRippleLayout.on(inflater.inflate(type, viewGroup, false))
@@ -197,7 +198,10 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
         String url = AppContansts.URL_IMAGE + item.id + AppContansts.IMAGE_RATIO_16_9;
         viewHolder.txtName.setText(item.long_name);
         viewHolder.ratingBar.setRating(Float.parseFloat(item.rating));
-        Glide.with(context).load(url).into(viewHolder.imageView);
+        Glide.with(context)
+                .load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(viewHolder.imageView);
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
         viewHolder.swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override

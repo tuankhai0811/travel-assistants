@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.utils.AppContansts;
@@ -54,7 +55,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         PlaceDTO.Place item = arrPlace.get(i);
         String url = AppContansts.URL_IMAGE + item.id + AppContansts.IMAGE_RATIO_16_9;
         placeViewHolder.txtName.setText(item.long_name);
-        Glide.with(context).load(url).into(placeViewHolder.imageView);
+        Glide.with(context)
+                .load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(placeViewHolder.imageView);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.tuankhai.travelassistants.activity.controller;
 
+import android.util.Log;
+
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.BaseActivity;
 import com.tuankhai.travelassistants.fragment.BaseFragment;
@@ -24,8 +26,10 @@ public class BaseController {
     }
 
     public void addPlaceFragment() {
+        Log.e("status", "addPlaceFragment");
         mActivity.searchView.clearQuery();
         if (placesFragment == null) {
+            Log.e("status", "new PlaceFragment");
             placesFragment = PlacesFragment.newInstance(mActivity);
         }
         curFragment = placesFragment;
@@ -33,7 +37,9 @@ public class BaseController {
     }
 
     public void addSearchFragment() {
+        Log.e("status", "addSearchFragment");
         if (searchFragment == null) {
+            Log.e("status", "new PlaceFragment");
             searchFragment = SearchPlaceFragment.newInstance(mActivity);
         }
         curFragment = searchFragment;

@@ -26,11 +26,15 @@
     <color name="random_20">#66BB6A</color>
     
     <color name="grey">#212121</color>
-    <color name="grey_70">#AA424242</color>
-    <color name="grey_80">#cc424242</color>
-    <color name="grey_50">#80424242</color>
-    <color name="grey_30">#50424242</color>
-    <color name="grey_10">#10424242</color>
+    <color name="grey_70">#565656</color>
+    <color name="grey_80">#414141</color>
+    <color name="grey_50">#838383</color>
+    <color name="grey_30">#b3b3b3</color>
+    <color name="grey_10">#dcdcdc</color>
+    <color name="grey_transparent_70">#de585858</color>
+    <color name="grey_transparent_50">#aa585858</color>
+    <color name="grey_transparent_30">#77585858</color>
+    <color name="grey_transparent_10">#30585858</color>
     <color name="white_70">#AAFFFFFF</color>
     <color name="colorPrimary_70">#7003A9F4</color>
 

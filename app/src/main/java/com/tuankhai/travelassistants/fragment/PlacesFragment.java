@@ -285,14 +285,15 @@ public class PlacesFragment extends BaseFragment
 
     @Override
     public void onProvinceClick(View view, ProvinceDTO.Province item) {
-        Intent intent = new Intent(getContext(), ListPlaceActivity.class);
+        ///////
+        Intent intent = new Intent(mActivity, ListPlaceActivity.class);
         intent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_PROVINCE);
         intent.putExtra(AppContansts.INTENT_DATA, item);
         startActivity(intent);
     }
 
     public void onTypeClick(View view, int type) {
-        Intent intent = new Intent(getContext(), ListPlaceActivity.class);
+        Intent intent = new Intent(mActivity, ListPlaceActivity.class);
         intent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_NORMAL);
         intent.putExtra(AppContansts.INTENT_DATA, type);
         startActivity(intent);

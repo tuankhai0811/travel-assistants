@@ -40,6 +40,10 @@ public class Utils {
         return objectMapper;
     }
 
+    public static int getMaxSizeCache(){
+        return (int)(Runtime.getRuntime().maxMemory()/1024);
+    }
+
     public static void saveAllProvince(Context context, ProvinceDTO data) {
         SharedPreferences preferences = context.getSharedPreferences(AppContansts.SHAREDPRE_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

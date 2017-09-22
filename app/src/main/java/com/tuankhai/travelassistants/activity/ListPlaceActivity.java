@@ -22,7 +22,7 @@ import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.ListPlaceController;
 import com.tuankhai.travelassistants.adapter.PlaceAdapter;
 import com.tuankhai.travelassistants.adapter.PlaceAdapterSwipe;
-import com.tuankhai.travelassistants.adapter.decoration.GridSpacingItemDecoration;
+import com.tuankhai.travelassistants.adapter.decoration.ListSpacingItemDecoration;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
@@ -179,7 +179,7 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         placeAdapter = new PlaceAdapterSwipe(this, arrPlace, this);
         lvPlace.setLayoutManager(layoutManager);
-        lvPlace.addItemDecoration(new GridSpacingItemDecoration(1, Utils.dpToPx(this, 10), true));
+        lvPlace.addItemDecoration(new ListSpacingItemDecoration(Utils.dpToPx(this, 10)));
         lvPlace.setItemAnimator(new DefaultItemAnimator());
         lvPlace.setAdapter(placeAdapter);
 

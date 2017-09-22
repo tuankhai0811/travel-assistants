@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.utils.Utils;
@@ -47,7 +48,11 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
         }
         reviewHolder.txtContent.setText(item.text);
         reviewHolder.ratingBar.setRating(item.getRating());
-        Glide.with(context).load(Uri.parse(item.profile_photo_url)).asBitmap().into(reviewHolder.imgView);
+        Glide.with(context)
+                .load(Uri.parse(item.profile_photo_url))
+                .asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(reviewHolder.imgView);
     }
 
     @Override

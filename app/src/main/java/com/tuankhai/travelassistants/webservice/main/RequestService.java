@@ -54,10 +54,12 @@ public class RequestService {
     static String RADIUS = "1500";
     static String RADIUS_GAS_STATION = "3000";
     static String RADIUS_ATM = "2000";
-    static String MAX_WIDTH = "800";
+    static String MAX_WIDTH = "700";
+    static String MAX_WIDTH_IMAGE_ADAPTER = "200";
+    static String MAX_WIDTH_IMAGE_ADAPTER_HORIZONTAL = "300";
     static String ZOOM = "12";
-    static String WIDTH = "800";
-    static String HEIGHT = "350";
+    static String WIDTH = "700";
+    static String HEIGHT = "300";
 
     private Retrofit getClient(String baseUrl) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -90,6 +92,20 @@ public class RequestService {
     public static String getImage(String reference) {
         String result = GOOGLE_URL
                 + "maps/api/place/photo?maxwidth=" + MAX_WIDTH + "&photoreference="
+                + reference + "&key=" + API_KEY;
+        return result;
+    }
+
+    public static String getImageAdapter(String reference) {
+        String result = GOOGLE_URL
+                + "maps/api/place/photo?maxwidth=" + MAX_WIDTH_IMAGE_ADAPTER + "&photoreference="
+                + reference + "&key=" + API_KEY;
+        return result;
+    }
+
+    public static String getImageAdapterHorizontal(String reference) {
+        String result = GOOGLE_URL
+                + "maps/api/place/photo?maxwidth=" + MAX_WIDTH_IMAGE_ADAPTER_HORIZONTAL + "&photoreference="
                 + reference + "&key=" + API_KEY;
         return result;
     }

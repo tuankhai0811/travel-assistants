@@ -2,10 +2,10 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <gradient
-        android:centerX="0.8"
+        android:centerX="0.5"
         android:centerY="0.5"
         android:endColor="@color/global_transform"
         android:gradientRadius="100"
-        android:startColor="@color/grey_70"
+        android:startColor="@color/grey_transparent_70"
         android:type="linear" />
 </shape>
