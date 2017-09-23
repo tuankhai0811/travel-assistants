@@ -77,4 +77,7 @@
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_40dp">40dp</dimen>
     <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="width_logo">180dp</dimen>
+    <dimen name="height_logo">100dp</dimen>
+    <dimen name="padding_250dp">250dp</dimen>
 </resources>

@@ -46,5 +46,8 @@
     <string name="hospital">Bệnh viện</string>
     <string name="top_hospital">Bệnh viện gần đây</string>
     <string name="top_gas_station">Cây xăng gần đây</string>
+    <string name="no_place_near_hear">Không có địa điểm nào gần đây!</string>
+    <string name="no_favorite">Bạn chưa có địa điểm yêu thích nào!</string>
+    <string name="no_list_in_province">Danh sách chưa được cập nhật!</string>
 
 </resources>

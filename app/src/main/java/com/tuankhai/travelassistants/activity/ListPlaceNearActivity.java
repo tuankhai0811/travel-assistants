@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,7 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
     int type;
     String title;
 
+    SwipeRefreshLayout refreshLayout;
     RecyclerView lvPlace;
     ArrayList<PlaceNearDTO.Result> arrPlace;
     RecyclerView.LayoutManager layoutManager;
@@ -66,8 +68,10 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
         initSlider();
         initCollapsingToolbar();
         addControls();
+        addEvents();
 
         if (data != null) {
+            refreshLayout.setRefreshing(true);
             if (type == AppContansts.INTENT_TYPE_FOOD) {
                 title = getString(R.string.top_restaurent);
             } else {
@@ -76,7 +80,9 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
             setTitle(title);
             arrPlace.addAll(Arrays.asList(data.results));
             adapter.notifyDataSetChanged();
+            refreshLayout.setRefreshing(false);
         } else {
+            refreshLayout.setRefreshing(true);
             switch (type) {
                 case AppContansts.INTENT_TYPE_ATM:
                     title = getString(R.string.top_atm);
@@ -102,12 +108,28 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
                 @Override
                 public void onSuccess(Object response) {
                     data = (PlaceNearDTO) response;
+                    if (data.results == null || data.results.length == 0) {
+                        refreshLayout.setRefreshing(false);
+                        findViewById(R.id.layout_notify).setVisibility(View.VISIBLE);
+                        return;
+                    }
                     arrPlace.addAll(Arrays.asList(data.results));
                     adapter.notifyDataSetChanged();
+                    refreshLayout.setRefreshing(false);
                     super.onSuccess(response);
                 }
             });
         }
+    }
+
+    private void addEvents() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                refreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     public void progressDistance(ArrayList<PlaceNearDTO.Result> list) {
@@ -187,6 +209,7 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
     }
 
     private void addControls() {
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         lvPlace = (RecyclerView) findViewById(R.id.lv_place);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         lvPlace.setLayoutManager(layoutManager);

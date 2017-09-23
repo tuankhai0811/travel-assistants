@@ -93,7 +93,7 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
         placeController.getFavorite();
     }
 
-    public void setTitle(String title){
+    public void setTitle(String title) {
         ((TextView) findViewById(R.id.txt_title)).setText(title);
     }
 
@@ -207,9 +207,33 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
     }
 
     public void setListPlace(PlaceDTO.Place[] response) {
+        if (response == null || response.length == 0) {
+            showNotifyNullList();
+        } else {
+            hideNotifyNullList();
+        }
         arrPlace.clear();
         arrPlace.addAll(Arrays.asList(response));
         placeAdapter.notifyDataSetChanged();
+    }
+
+    public void showNotifyNullList() {
+        findViewById(R.id.layout_notify).setVisibility(View.VISIBLE);
+        switch (type) {
+            case AppContansts.INTENT_TYPE_FAVORITE:
+                ((TextView) findViewById(R.id.txt_notify)).setText(getString(R.string.no_favorite));
+                break;
+            case AppContansts.INTENT_TYPE_PROVINCE:
+                ((TextView) findViewById(R.id.txt_notify)).setText(getString(R.string.no_list_in_province));
+                break;
+            default:
+                ((TextView) findViewById(R.id.txt_notify)).setText(getString(R.string.no_list_in_province));
+                break;
+        }
+    }
+
+    public void hideNotifyNullList() {
+        findViewById(R.id.layout_notify).setVisibility(View.GONE);
     }
 
     @Override

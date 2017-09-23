@@ -40,8 +40,8 @@ public class Utils {
         return objectMapper;
     }
 
-    public static int getMaxSizeCache(){
-        return (int)(Runtime.getRuntime().maxMemory()/1024);
+    public static int getMaxSizeCache() {
+        return (int) (Runtime.getRuntime().maxMemory() / 1024);
     }
 
     public static void saveAllProvince(Context context, ProvinceDTO data) {
@@ -121,8 +121,8 @@ public class Utils {
 
     public static String getDescriptionTime(String time) {
         long current = new Date().getTime();
-        long change = current - Long.parseLong(time);
-        long value = (long) change / 60000;
+        long change = (current - Long.parseLong(time)) / 1000;
+        long value = (long) change / 60;
         if (value < 1) {
             return "vài giây trước";
         } else if (value < 2) {
@@ -139,7 +139,7 @@ public class Utils {
             return "30 phút trước";
         }
 
-        long hours = (long) value / 60000;
+        long hours = (long) value / 60;
         if (hours < 1) {
             return "trong giờ trước";
         } else if (hours < 2) {
@@ -163,13 +163,11 @@ public class Utils {
             return "2 ngày trước";
         } else if (days < 4) {
             return "3 ngày trước";
-        } else if (days < 6) {
-            return "5 ngày trước";
         }
 
         long week = (long) days / 7;
         if (week < 1) {
-            return "tuần trước";
+            return "trong tuần trước";
         } else if (week < 2) {
             return "một tuần trước";
         } else if (week < 3) {
@@ -180,7 +178,7 @@ public class Utils {
 
         long month = (long) week / 4;
         if (month < 1) {
-            return "tháng trước";
+            return "trong tháng trước";
         } else if (month < 2) {
             return "một tháng trước";
         } else if (month < 3) {
@@ -195,7 +193,7 @@ public class Utils {
 
         long year = (long) month / 12;
         if (year < 1) {
-            return "năm trước";
+            return "trong năm trước";
         } else if (year < 2) {
             return "một năm trước";
         } else if (year < 3) {
