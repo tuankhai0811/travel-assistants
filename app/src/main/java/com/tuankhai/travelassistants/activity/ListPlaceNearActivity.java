@@ -28,6 +28,8 @@ import com.tuankhai.travelassistants.webservice.main.RequestService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -78,7 +80,10 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
                 title = getString(R.string.top_hotel);
             }
             setTitle(title);
-            arrPlace.addAll(Arrays.asList(data.results));
+            List<PlaceNearDTO.Result> list = Arrays.asList(data.results);
+            progressDistance(list);
+            Collections.sort(list, PlaceNearDTO.Result.ComparatorDistance);
+            arrPlace.addAll(list);
             adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
         } else {
@@ -113,7 +118,10 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
                         findViewById(R.id.layout_notify).setVisibility(View.VISIBLE);
                         return;
                     }
-                    arrPlace.addAll(Arrays.asList(data.results));
+                    List<PlaceNearDTO.Result> list = Arrays.asList(data.results);
+                    progressDistance(list);
+                    Collections.sort(list, PlaceNearDTO.Result.ComparatorDistance);
+                    arrPlace.addAll(list);
                     adapter.notifyDataSetChanged();
                     refreshLayout.setRefreshing(false);
                     super.onSuccess(response);
@@ -126,6 +134,8 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                progressDistance(arrPlace);
+                Collections.sort(arrPlace, PlaceNearDTO.Result.ComparatorDistance);
                 adapter.notifyDataSetChanged();
                 refreshLayout.setRefreshing(false);
             }
@@ -142,7 +152,15 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
         }
     }
 
-    ;
+    public void progressDistance(List<PlaceNearDTO.Result> list) {
+        for (PlaceNearDTO.Result item : list) {
+            if (item.distance == 0) continue;
+            Location mLocation = new Location("Place");
+            mLocation.setLatitude(Double.parseDouble(item.geometry.location.lat));
+            mLocation.setLongitude(Double.parseDouble(item.geometry.location.lng));
+            item.distance = mLocation.distanceTo(location);
+        }
+    }
 
     public void setTitle(String mTitle) {
         ((TextView) findViewById(R.id.txt_title)).setText(mTitle);
@@ -254,8 +272,10 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
                         data = (PlaceNearDTO) response;
                         arrPlace.remove(arrPlace.size() - 1);
                         int index = arrPlace.size();
-                        arrPlace.addAll(Arrays.asList(data.results));
-                        progressDistance(arrPlace);
+                        List<PlaceNearDTO.Result> list = Arrays.asList(data.results);
+                        progressDistance(list);
+                        Collections.sort(list, PlaceNearDTO.Result.ComparatorDistance);
+                        arrPlace.addAll(list);
                         adapter.notifyItemInserted(index);
                         adapter.setLoaded();
                     }

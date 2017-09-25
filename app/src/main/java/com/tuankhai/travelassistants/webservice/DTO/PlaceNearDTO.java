@@ -1,11 +1,10 @@
 package com.tuankhai.travelassistants.webservice.DTO;
 
-import android.support.annotation.NonNull;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  * Created by Khai on 11/09/2017.
@@ -30,7 +29,7 @@ public final class PlaceNearDTO implements Serializable {
     }
 
 
-    public static final class Result implements Serializable, Comparable<Result> {
+    public static final class Result implements Serializable {
         public final Geometry geometry;
         public final String icon;
         public final String id;
@@ -73,13 +72,19 @@ public final class PlaceNearDTO implements Serializable {
             this.vicinity = vicinity;
         }
 
-        @Override
-        public int compareTo(@NonNull Result result) {
-            if (this.distance >= result.distance)
-                return 1;
-            else
-                return -1;
-        }
+        public static Comparator<Result> ComparatorDistance = new Comparator<Result>() {
+
+            public int compare(Result s1, Result s2) {
+                return s1.distance > s2.distance ? -1 : 1;
+            }
+        };
+
+        public static Comparator<Result> ComparatorRating = new Comparator<Result>() {
+
+            public int compare(Result s1, Result s2) {
+                return s1.getRaring() > s2.getRaring() ? 1 : -1;
+            }
+        };
 
         public static final class Geometry implements Serializable {
             public final Location location;
