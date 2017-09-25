@@ -75,7 +75,7 @@ public final class PlaceNearDTO implements Serializable {
         public static Comparator<Result> ComparatorDistance = new Comparator<Result>() {
 
             public int compare(Result s1, Result s2) {
-                return s1.distance > s2.distance ? -1 : 1;
+                return s1.distance > s2.distance ? 1 : -1;
             }
         };
 

@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import com.tuankhai.travelassistants.utils.MyCache;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.tuankhai.travelassistants.utils.MyCache.bg_place_global_4_3;
@@ -29,11 +32,12 @@ import static com.tuankhai.travelassistants.utils.MyCache.bg_place_global_4_3;
  * Created by Khai on 11/09/2017.
  */
 
-public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
     ListPlaceNearActivity context;
     List<PlaceNearDTO.Result> arrPlace;
+    List<PlaceNearDTO.Result> arrSearch;
     RecyclerView mRecyclerView;
     Location location;
 
@@ -160,6 +164,43 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void setLoaded() {
         isLoading = false;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final ArrayList<PlaceNearDTO.Result> results = new ArrayList<PlaceNearDTO.Result>();
+                if (arrSearch == null)
+                    arrSearch = arrPlace;
+                if (constraint != null) {
+                    if (arrSearch != null && arrSearch.size() > 0) {
+                        for (final PlaceNearDTO.Result g : arrSearch) {
+                            if (g.name.toLowerCase()
+                                    .contains(constraint.toString()))
+                                results.add(g);
+                        }
+                    }
+                    oReturn.values = results;
+                }
+                return oReturn;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,
+                                          FilterResults results) {
+                arrPlace = (ArrayList<PlaceNearDTO.Result>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+    public void clearTextFilter() {
+        arrPlace = arrSearch;
+        notifyDataSetChanged();
     }
 
     static class LoadingViewHolder extends RecyclerView.ViewHolder {

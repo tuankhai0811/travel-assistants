@@ -1,5 +1,6 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
@@ -9,7 +10,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -35,7 +40,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNearListAdapter.LayoutListPlaceNearItemListener
-        , PlaceNearListAdapter.OnLoadMoreListener {
+        , PlaceNearListAdapter.OnLoadMoreListener, SearchView.OnQueryTextListener {
 
     PlaceNearDTO data;
     String lat, lng;
@@ -45,9 +50,12 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
 
     SwipeRefreshLayout refreshLayout;
     RecyclerView lvPlace;
-    ArrayList<PlaceNearDTO.Result> arrPlace;
+    List<PlaceNearDTO.Result> arrPlace;
     RecyclerView.LayoutManager layoutManager;
     PlaceNearListAdapter adapter;
+
+    SearchView searchView;
+    String stringQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +152,7 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
 
     public void progressDistance(ArrayList<PlaceNearDTO.Result> list) {
         for (PlaceNearDTO.Result item : list) {
-            if (item.distance == 0) continue;
+            if (item.distance != 0) continue;
             Location mLocation = new Location("Place");
             mLocation.setLatitude(Double.parseDouble(item.geometry.location.lat));
             mLocation.setLongitude(Double.parseDouble(item.geometry.location.lng));
@@ -154,7 +162,7 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
 
     public void progressDistance(List<PlaceNearDTO.Result> list) {
         for (PlaceNearDTO.Result item : list) {
-            if (item.distance == 0) continue;
+            if (item.distance != 0) continue;
             Location mLocation = new Location("Place");
             mLocation.setLatitude(Double.parseDouble(item.geometry.location.lat));
             mLocation.setLongitude(Double.parseDouble(item.geometry.location.lng));
@@ -282,5 +290,37 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
                 });
             }
         }, 1000);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_list_near_place_activity, menu);
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView =
+                (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setQueryHint(getString(R.string.action_search));
+        searchView.setOnQueryTextListener(this);
+//        searchView.setSubmitButtonEnabled(true);
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        stringQuery = newText;
+        if (TextUtils.isEmpty(newText)) {
+            adapter.clearTextFilter();
+        } else {
+            adapter.getFilter().filter(newText);
+        }
+        return true;
     }
 }
