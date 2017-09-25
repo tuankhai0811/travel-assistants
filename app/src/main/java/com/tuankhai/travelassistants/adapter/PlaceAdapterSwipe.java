@@ -136,7 +136,7 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
                                 if (context.type == AppContansts.INTENT_TYPE_FAVORITE) {
                                     arrPlace.remove(getAdapterPosition());
                                     notifyItemRemoved(getAdapterPosition());
-                                    if (arrPlace.size() == 0){
+                                    if (arrPlace.size() == 0) {
                                         context.showNotifyNullList();
                                     }
                                 }

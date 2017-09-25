@@ -182,8 +182,6 @@ public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter
         lvPlace.addItemDecoration(new ListSpacingItemDecoration(Utils.dpToPx(this, 10)));
         lvPlace.setItemAnimator(new DefaultItemAnimator());
         lvPlace.setAdapter(placeAdapter);
-
-        getData();
     }
 
     private void getData() {
