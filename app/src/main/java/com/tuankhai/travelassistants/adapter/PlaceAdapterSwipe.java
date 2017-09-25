@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.likebutton.LikeButton;
 import com.tuankhai.likebutton.OnLikeListener;
 import com.tuankhai.ratingbar.MaterialRatingBar;
-import com.tuankhai.swipelayout.SimpleSwipeListener;
 import com.tuankhai.swipelayout.SwipeLayout;
 import com.tuankhai.swipelayout.adapter.RecyclerSwipeAdapter;
 import com.tuankhai.travelassistants.R;
@@ -63,12 +62,12 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
             likeButton = itemView.findViewById(R.id.heart_button);
             likeButton.setOnLikeListener(this);
             itemView.setOnClickListener(this);
-            swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
-                @Override
-                public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                    itemListener.onItemPlaceClick(layout, arrPlace.get(getAdapterPosition()));
-                }
-            });
+//            swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
+//                @Override
+//                public void onDoubleClick(SwipeLayout layout, boolean surface) {
+//                    itemListener.onItemPlaceClick(layout, arrPlace.get(getAdapterPosition()));
+//                }
+//            });
         }
 
         private void refreshFavorite() {
@@ -205,13 +204,7 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
                 .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.imageView);
-        viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-        viewHolder.swipeLayout.addSwipeListener(new SimpleSwipeListener() {
-            @Override
-            public void onOpen(SwipeLayout layout) {
-//                YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.trash));
-            }
-        });
+        viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         viewHolder.refreshFavorite();
         mItemManger.bind(viewHolder.itemView, position);
     }

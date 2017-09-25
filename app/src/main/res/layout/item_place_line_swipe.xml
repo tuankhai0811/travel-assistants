@@ -28,12 +28,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grey_30"
-                app:leftEdgeSwipeOffset="@dimen/width_swipe_item">
+                app:drag_edge="right"
+                app:show_mode="lay_down"
+                app:clickToClose="true">
 
                 <LinearLayout
-                    android:layout_width="@dimen/width_swipe_item"
+                    android:id="@+id/layout_swipe_menu_item"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="right"
                     android:background="@color/grey_30"
                     android:gravity="center">
 
@@ -41,26 +43,10 @@
                         android:id="@+id/heart_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         app:anim_scale_factor="3"
                         app:icon_size="@dimen/size_38dp"
                         app:icon_type="heart" />
                 </LinearLayout>
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:weightSum="2">-->
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="2" />-->
-
-                <!---->
-
-                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"

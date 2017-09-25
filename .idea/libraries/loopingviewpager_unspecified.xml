@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="loopingviewpager-unspecified">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/loopingviewpager/build/intermediates/bundles/default/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/loopingviewpager/build/intermediates/bundles/default/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
