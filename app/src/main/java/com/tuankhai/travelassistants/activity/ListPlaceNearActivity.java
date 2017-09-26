@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.activity;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -286,7 +288,7 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
                         arrPlace.addAll(list);
                         adapter.notifyItemInserted(index);
                         adapter.setLoaded();
-                        if (!TextUtils.isEmpty(stringQuery)){
+                        if (!TextUtils.isEmpty(stringQuery)) {
                             adapter.getFilter().filter(stringQuery);
                         }
                     }
@@ -309,6 +311,22 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
         return true;
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        Log.e("status", "click");
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, MapsActivity.class);
+                intent.putExtra(AppContansts.INTENT_TYPE, type);
+                intent.putExtra(AppContansts.INTENT_DATA_LAT, Double.parseDouble(lat));
+                intent.putExtra(AppContansts.INTENT_DATA_LNG, Double.parseDouble(lng));
+                intent.putExtra(AppContansts.INTENT_DATA, data);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

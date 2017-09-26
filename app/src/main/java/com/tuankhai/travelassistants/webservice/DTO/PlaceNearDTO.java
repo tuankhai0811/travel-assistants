@@ -72,6 +72,14 @@ public final class PlaceNearDTO implements Serializable {
             this.vicinity = vicinity;
         }
 
+        public Double getLat(){
+            return Double.parseDouble(this.geometry.location.lat);
+        }
+
+        public Double getLng(){
+            return Double.parseDouble(this.geometry.location.lng);
+        }
+
         public static Comparator<Result> ComparatorDistance = new Comparator<Result>() {
 
             public int compare(Result s1, Result s2) {
