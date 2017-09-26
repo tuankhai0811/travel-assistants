@@ -286,10 +286,13 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
                         arrPlace.addAll(list);
                         adapter.notifyItemInserted(index);
                         adapter.setLoaded();
+                        if (!TextUtils.isEmpty(stringQuery)){
+                            adapter.getFilter().filter(stringQuery);
+                        }
                     }
                 });
             }
-        }, 1000);
+        }, 500);
     }
 
     @Override
