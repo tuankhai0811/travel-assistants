@@ -401,7 +401,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void refreshReview() {
-        Log.e("status","refresh review");
+        Log.e("status", "refresh review");
         lvReview = (RecyclerView) findViewById(R.id.lv_reviews);
         lvReview.setNestedScrollingEnabled(false);
         layoutManagerReview = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -776,6 +776,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 findViewById(R.id.layout_address).setOnClickListener(null);
                 Intent mapsIntent = new Intent(this, MapsActivity.class);
                 mapsIntent.putExtra(AppContansts.INTENT_NAME, data.getName());
+                mapsIntent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_NORMAL);
                 mapsIntent.putExtra(AppContansts.INTENT_DATA_LAT, data.getLocationLat());
                 mapsIntent.putExtra(AppContansts.INTENT_DATA_LNG, data.getLocationLng());
                 startActivity(mapsIntent);

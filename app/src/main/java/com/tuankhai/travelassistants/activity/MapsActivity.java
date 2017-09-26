@@ -20,6 +20,8 @@ import com.tuankhai.travelassistants.utils.AppContansts;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    int type;
+
     double location_lat, location_lng;
     String name;
 
@@ -39,9 +41,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         initSlider();
 
+        type = getIntent().getIntExtra(AppContansts.INTENT_TYPE, 0);
         name = getIntent().getStringExtra(AppContansts.INTENT_NAME);
         location_lat = Double.parseDouble(getIntent().getStringExtra(AppContansts.INTENT_DATA_LAT));
         location_lng = Double.parseDouble(getIntent().getStringExtra(AppContansts.INTENT_DATA_LNG));
+
+        switch (type){
+            case AppContansts.INTENT_TYPE_ATM:
+                name = getString(R.string.top_atm);
+                break;
+            case AppContansts.INTENT_TYPE_FOOD:
+            case AppContansts.INTENT_TYPE_FOOD_GPS:
+                name = getString(R.string.top_restaurent);
+            case AppContansts.INTENT_TYPE_GAS_STATION:
+                name = getString(R.string.top_gas_station);
+                break;
+            case AppContansts.INTENT_TYPE_HOTEL:
+            case AppContansts.INTENT_TYPE_HOTEL_GPS:
+                name = getString(R.string.top_hotel);
+            case AppContansts.INTENT_TYPE_HOSPITAL:
+                name = getString(R.string.top_hospital);
+            case AppContansts.INTENT_TYPE_DRINK:
+                name = getString(R.string.top_drinks);
+                break;
+        }
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

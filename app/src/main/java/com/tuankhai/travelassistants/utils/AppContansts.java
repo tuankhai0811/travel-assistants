@@ -35,7 +35,9 @@ public class AppContansts {
     public static final int INTENT_TYPE_ATM = 11;
     public static final int INTENT_TYPE_DRINK = 12;
     public static final int INTENT_TYPE_HOTEL = 13;
+    public static final int INTENT_TYPE_HOTEL_GPS = 17;
     public static final int INTENT_TYPE_FOOD = 14;
+    public static final int INTENT_TYPE_FOOD_GPS = 18;
     public static final int INTENT_TYPE_GAS_STATION = 15;
     public static final int INTENT_TYPE_HOSPITAL = 16;
     public static final String KEY_SEARCH_FRAGMENT = "com.tuankhai.travelassistants.fragment.searchplace";
