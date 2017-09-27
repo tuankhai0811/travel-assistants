@@ -1,10 +1,17 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,13 +29,17 @@ import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import java.util.Arrays;
 import java.util.List;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity
+        implements OnMapReadyCallback,
+        GoogleMap.OnMyLocationButtonClickListener {
 
     int type;
 
     double location_lat, location_lng;
     String name;
     PlaceNearDTO data;
+
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +118,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-
+    public void onMapReady(final GoogleMap googleMap) {
+        mMap = googleMap;
         switch (type) {
             case AppContansts.INTENT_TYPE_ATM:
             case AppContansts.INTENT_TYPE_FOOD:
@@ -133,6 +144,33 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
             break;
         }
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(
+                        this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            googleMap.setMyLocationEnabled(true);
+            googleMap.setOnMyLocationButtonClickListener(this);
+            return;
+        }
+
+//        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+//        googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+//            @Override
+//            public boolean onMyLocationButtonClick() {
+//                LatLng loc = new LatLng(googleMap.getMyLocation().getLatitude(),googleMap.getMyLocation().getLongitude());
+//                googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+//                return true;
+//            }
+//        });
     }
 
     private void addLocation(GoogleMap googleMap, List<PlaceNearDTO.Result> results) {
@@ -145,6 +183,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
         googleMap.getUiSettings().setMapToolbarEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 13f));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 14f));
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        LocationManager mgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!mgr.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Toast.makeText(this, "GPS is disabled!", Toast.LENGTH_SHORT).show();
+        }
+        Log.e("status", "MyLocation button clicked");
+        return false;
     }
 }

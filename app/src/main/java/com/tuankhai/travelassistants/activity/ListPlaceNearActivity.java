@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -255,11 +254,20 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            case R.id.action_settings:
+                Intent intent = new Intent(this, MapsActivity.class);
+                intent.putExtra(AppContansts.INTENT_TYPE, type);
+                intent.putExtra(AppContansts.INTENT_DATA_LAT, lat);
+                intent.putExtra(AppContansts.INTENT_DATA_LNG, lng);
+                intent.putExtra(AppContansts.INTENT_DATA, data);
+                startActivity(intent);
+                break;
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override
@@ -311,22 +319,6 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
         return true;
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        Log.e("status", "click");
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent intent = new Intent(this, MapsActivity.class);
-                intent.putExtra(AppContansts.INTENT_TYPE, type);
-                intent.putExtra(AppContansts.INTENT_DATA_LAT, Double.parseDouble(lat));
-                intent.putExtra(AppContansts.INTENT_DATA_LNG, Double.parseDouble(lng));
-                intent.putExtra(AppContansts.INTENT_DATA, data);
-                startActivity(intent);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
