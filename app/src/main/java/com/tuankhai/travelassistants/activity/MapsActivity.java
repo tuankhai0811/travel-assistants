@@ -219,7 +219,7 @@ public class MapsActivity extends AppCompatActivity
         for (PlaceNearDTO.Result item : results) {
             LatLng location = new LatLng(item.getLat(), item.getLng());
             googleMap.addMarker(new MarkerOptions().position(location)
-                    .title(item.name)).showInfoWindow();
+                    .title(item.name));
         }
     }
 
