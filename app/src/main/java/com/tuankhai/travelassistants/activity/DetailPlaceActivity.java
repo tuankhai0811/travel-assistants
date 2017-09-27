@@ -24,12 +24,17 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
@@ -76,7 +81,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DetailPlaceActivity extends AppCompatActivity implements View.OnClickListener, OnLikeListener
-        , OnAnimationEndListener, MaterialRatingBar.OnRatingChangeListener {
+        , OnAnimationEndListener, MaterialRatingBar.OnRatingChangeListener, OnMapReadyCallback {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
@@ -84,6 +89,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     ReviewDTO reviewDTO;
     PlaceGoogleDTO dataGoogle;
     PlaceNearDTO dataNearFood, dataNearHotel;
+    LatLng location;
     Toolbar toolbar;
     SliderConfig mConfig;
 
@@ -129,6 +135,10 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     LikeButton likeButton;
     MaterialRatingBar ratingBar;
     MaterialRatingBar ratingBarView;
+
+    //Maps
+    MapView mapView;
+    GoogleMap mMap;
 
     int currentPage;
     int numPage;
@@ -201,6 +211,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
     private void getData() {
         data = (PlaceDTO.Place) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
+        location = new LatLng(Double.parseDouble(data.getLocationLat()),
+                Double.parseDouble(data.getLocationLng()));
         initProgress();
         initInformation();
         initStaticMaps();
@@ -282,8 +294,21 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
     private void initStaticMaps() {
         findViewById(R.id.layout_static_maps).setVisibility(View.VISIBLE);
-        ImageView imgStaticMaps = (ImageView) findViewById(R.id.img_static_maps);
-        Glide.with(this).load(RequestService.getImageStaticMaps(data.getLocationLat(), data.getLocationLng())).into(imgStaticMaps);
+//        ImageView imgStaticMaps = (ImageView) findViewById(R.id.img_static_maps);
+//        Glide.with(this).load(RequestService.getImageStaticMaps(data.getLocationLat(), data.getLocationLng())).into(imgStaticMaps);
+        mapView = (MapView) findViewById(R.id.lite_listrow_map);
+        mapView.onCreate(null);
+        mapView.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        MapsInitializer.initialize(getApplicationContext());
+        mMap = googleMap;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13f));
+        mMap.addMarker(new MarkerOptions().position(location));
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.getUiSettings().setCompassEnabled(true);
     }
 
     private void initDialogReviews() {

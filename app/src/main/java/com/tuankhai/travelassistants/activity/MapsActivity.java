@@ -1,16 +1,16 @@
 package com.tuankhai.travelassistants.activity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,15 +23,19 @@ import com.tuankhai.slideractivity.Slider;
 import com.tuankhai.slideractivity.model.SliderConfig;
 import com.tuankhai.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.location.LocationHelper;
 import com.tuankhai.travelassistants.utils.AppContansts;
+import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
+import com.tuankhai.travelassistants.webservice.main.MyCallback;
+import com.tuankhai.travelassistants.webservice.main.RequestService;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MapsActivity extends AppCompatActivity
-        implements OnMapReadyCallback,
-        GoogleMap.OnMyLocationButtonClickListener {
+        implements AdapterView.OnItemSelectedListener, OnMapReadyCallback,
+        ActivityCompat.OnRequestPermissionsResultCallback, View.OnClickListener {
 
     int type;
 
@@ -40,6 +44,7 @@ public class MapsActivity extends AppCompatActivity
     PlaceNearDTO data;
 
     private GoogleMap mMap;
+    private LocationHelper locationHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class MapsActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
+        getSupportActionBar().hide();
 
         initSlider();
 
@@ -106,6 +112,8 @@ public class MapsActivity extends AppCompatActivity
                 .edgeSize(0.2f)
                 .build();
         Slider.attach(this, mConfig);
+
+        locationHelper = new LocationHelper(this);
     }
 
     @Override
@@ -115,6 +123,24 @@ public class MapsActivity extends AppCompatActivity
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean checkReady() {
+        if (mMap == null) {
+            Toast.makeText(this, R.string.map_not_ready, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        addEvents();
+    }
+
+    private void addEvents() {
+        findViewById(R.id.img_back).setOnClickListener(this);
     }
 
     @Override
@@ -129,48 +155,64 @@ public class MapsActivity extends AppCompatActivity
             case AppContansts.INTENT_TYPE_HOTEL_GPS:
             case AppContansts.INTENT_TYPE_HOSPITAL:
             case AppContansts.INTENT_TYPE_DRINK: {
-                addLocation(googleMap, Arrays.asList(data.results));
+                addLocation(mMap, Arrays.asList(data.results));
             }
             break;
             case AppContansts.INTENT_TYPE_NORMAL:
             default: {
                 LatLng location = new LatLng(location_lat, location_lng);
-                googleMap.addMarker(new MarkerOptions().position(location)
+                mMap.addMarker(new MarkerOptions().position(location)
                         .title(name)).showInfoWindow();
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-                googleMap.getUiSettings().setMapToolbarEnabled(true);
-                googleMap.getUiSettings().setZoomControlsEnabled(true);
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 13f));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+                mMap.getUiSettings().setMapToolbarEnabled(true);
+                mMap.getUiSettings().setZoomControlsEnabled(true);
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 13f));
             }
             break;
         }
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(
-                        this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            googleMap.setMyLocationEnabled(true);
-            googleMap.setOnMyLocationButtonClickListener(this);
+        LatLng location = new LatLng(location_lat, location_lng);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+        mMap.getUiSettings().setMapToolbarEnabled(true);
+        mMap.getUiSettings().setCompassEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomGesturesEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setRotateGesturesEnabled(true);
+        mMap.setMaxZoomPreference(18.0f);
+        mMap.setMinZoomPreference(13.0f);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 14f));
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        } else {
+            locationHelper.checkpermission();
+        }
+        if (!Utils.isEmptyString(data.next_page_token)) {
+            getMoreData(data.next_page_token);
+        }
+    }
+
+    private void getMoreData(String token) {
+        new RequestService().nearPlace(type, String.valueOf(location_lat), String.valueOf(location_lng), token, new MyCallback() {
+            @Override
+            public void onSuccess(Object response) {
+                super.onSuccess(response);
+                PlaceNearDTO placeNearDTO = (PlaceNearDTO) response;
+                addLocation(mMap, Arrays.asList(placeNearDTO.results));
+                if (!Utils.isEmptyString(placeNearDTO.next_page_token)) {
+                    getMoreData(placeNearDTO.next_page_token);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-
-//        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-//        googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
-//            @Override
-//            public boolean onMyLocationButtonClick() {
-//                LatLng loc = new LatLng(googleMap.getMyLocation().getLatitude(),googleMap.getMyLocation().getLongitude());
-//                googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-//                return true;
-//            }
-//        });
+        mMap.setMyLocationEnabled(true);
     }
 
     private void addLocation(GoogleMap googleMap, List<PlaceNearDTO.Result> results) {
@@ -179,20 +221,24 @@ public class MapsActivity extends AppCompatActivity
             googleMap.addMarker(new MarkerOptions().position(location)
                     .title(item.name)).showInfoWindow();
         }
-        LatLng location = new LatLng(location_lat, location_lng);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-        googleMap.getUiSettings().setMapToolbarEnabled(true);
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 14f));
     }
 
     @Override
-    public boolean onMyLocationButtonClick() {
-        LocationManager mgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (!mgr.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Toast.makeText(this, "GPS is disabled!", Toast.LENGTH_SHORT).show();
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.img_back:
+                onBackPressed();
+                break;
         }
-        Log.e("status", "MyLocation button clicked");
-        return false;
     }
 }

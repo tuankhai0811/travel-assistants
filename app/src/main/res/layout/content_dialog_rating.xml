@@ -8,7 +8,7 @@
     android:layout_marginRight="@dimen/margin_20dp"
     android:layout_marginTop="@dimen/margin_50dp"
     app:cardBackgroundColor="@color/global_white"
-    app:cardCornerRadius="@dimen/padding_3dp"
+    app:cardCornerRadius="@dimen/padding_2dp"
     app:cardElevation="5dp">
 
     <LinearLayout
@@ -20,8 +20,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_10dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/txt_title_dialog_rating"
@@ -48,7 +47,7 @@
                 android:layout_marginBottom="@dimen/margin_10dp"
                 android:text="Tốt"
                 android:textAllCaps="false"
-                android:textColor="@color/global_black"
+                android:textColor="@color/random_2"
                 android:textSize="@dimen/size_18sp" />
 
             <com.tuankhai.ratingbar.MaterialRatingBar
@@ -77,7 +76,7 @@
             <EditText
                 android:id="@+id/txt_comment_dialog_review"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_220dp"
+                android:layout_height="@dimen/height_150dp"
                 android:background="@drawable/bg_multiedittext"
                 android:gravity="start"
                 android:hint="@string/hint_review"
@@ -99,23 +98,25 @@
             android:orientation="horizontal">
 
             <Button
+                fontPath="@string/font_boto_bold"
                 android:id="@+id/btn_cancel"
                 android:layout_width="@dimen/width_60dp"
                 android:layout_height="@dimen/height_32dp"
                 android:background="@drawable/bg_btn_dialog"
                 android:text="@string/btn_cancel"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
+                android:textAllCaps="true"
+                android:textColor="@color/global_black"
                 android:textSize="@dimen/size_16sp" />
 
             <Button
+                fontPath="@string/font_boto_bold"
                 android:id="@+id/btn_send"
                 android:layout_width="@dimen/width_60dp"
                 android:layout_height="@dimen/height_32dp"
                 android:layout_marginLeft="@dimen/margin_20dp"
                 android:background="@drawable/bg_btn_dialog"
                 android:text="@string/btn_send"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/size_16sp" />
         </LinearLayout>
