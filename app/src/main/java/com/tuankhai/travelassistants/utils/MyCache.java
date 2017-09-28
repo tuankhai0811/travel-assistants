@@ -12,6 +12,7 @@ public class MyCache {
     private static LruCache<String, Bitmap> imgCache;
 
     public static String bg_place_global_4_3 = "bg_place_global_4_3";
+    public static String icon_user_logo_review = "icon_user_logo";
 
 //    private static LruCache<String, BaseFragment> fragmentCache;
 

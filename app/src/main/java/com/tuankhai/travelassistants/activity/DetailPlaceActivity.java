@@ -288,7 +288,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
             ((TextView) findViewById(R.id.txt_website)).setText(data.website);
             findViewById(R.id.txt_website).setOnClickListener(this);
         }
-        findViewById(R.id.layout_static_maps).setOnClickListener(this);
+//        findViewById(R.id.layout_static_maps).setOnClickListener(this);
         findViewById(R.id.layout_address).setOnClickListener(this);
     }
 
@@ -795,17 +795,17 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
                 Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + data.phone));
                 startActivity(i);
                 break;
-            case R.id.layout_address:
-            case R.id.layout_static_maps:
-                findViewById(R.id.layout_static_maps).setOnClickListener(null);
-                findViewById(R.id.layout_address).setOnClickListener(null);
-                Intent mapsIntent = new Intent(this, MapsActivity.class);
-                mapsIntent.putExtra(AppContansts.INTENT_NAME, data.getName());
-                mapsIntent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_NORMAL);
-                mapsIntent.putExtra(AppContansts.INTENT_DATA_LAT, data.getLocationLat());
-                mapsIntent.putExtra(AppContansts.INTENT_DATA_LNG, data.getLocationLng());
-                startActivity(mapsIntent);
-                break;
+//            case R.id.layout_address:
+//            case R.id.layout_static_maps:
+//                findViewById(R.id.layout_static_maps).setOnClickListener(null);
+//                findViewById(R.id.layout_address).setOnClickListener(null);
+//                Intent mapsIntent = new Intent(this, MapsActivity.class);
+//                mapsIntent.putExtra(AppContansts.INTENT_NAME, data.getName());
+//                mapsIntent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_NORMAL);
+//                mapsIntent.putExtra(AppContansts.INTENT_DATA_LAT, data.getLocationLat());
+//                mapsIntent.putExtra(AppContansts.INTENT_DATA_LNG, data.getLocationLng());
+//                startActivity(mapsIntent);
+//                break;
         }
     }
 

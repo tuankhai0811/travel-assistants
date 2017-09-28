@@ -187,7 +187,7 @@ public class MapsActivity extends AppCompatActivity
         } else {
             locationHelper.checkpermission();
         }
-        if (!Utils.isEmptyString(data.next_page_token)) {
+        if (!(data == null || Utils.isEmptyString(data.next_page_token))) {
             getMoreData(data.next_page_token);
         }
     }

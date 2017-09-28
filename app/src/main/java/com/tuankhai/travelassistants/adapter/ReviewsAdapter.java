@@ -1,8 +1,11 @@
 package com.tuankhai.travelassistants.adapter;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,10 +15,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.utils.MyCache;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
 
 import java.util.ArrayList;
+
+import static com.tuankhai.travelassistants.utils.MyCache.icon_user_logo_review;
 
 /**
  * Created by Khai on 12/09/2017.
@@ -48,11 +54,23 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
         }
         reviewHolder.txtContent.setText(item.text);
         reviewHolder.ratingBar.setRating(item.getRating());
-        Glide.with(context)
-                .load(Uri.parse(item.profile_photo_url))
-                .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(reviewHolder.imgView);
+        Log.e("status",item.profile_photo_url+"");
+        if (!Utils.isEmptyString(item.profile_photo_url)){
+            Glide.with(context)
+                    .load(Uri.parse(item.profile_photo_url))
+                    .asBitmap()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(reviewHolder.imgView);
+        }else{
+            if (MyCache.getInstance().getBitmapFromMemCache(icon_user_logo_review) == null) {
+                Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_user_logo);
+                MyCache.getInstance().addBitmapToMemoryCache(icon_user_logo_review, image);
+                reviewHolder.imgView.setImageBitmap(image);
+            } else {
+                reviewHolder.imgView.setImageBitmap(MyCache.getInstance().getBitmapFromMemCache(icon_user_logo_review));
+            }
+        }
+
     }
 
     @Override

@@ -83,8 +83,8 @@ public class BaseActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
         initNavigationDrawer();
         initGPS();
         //initLocation();
