@@ -49,7 +49,7 @@
                     android:paddingLeft="@dimen/padding_10dp"
                     android:paddingTop="@dimen/padding_15dp">
 
-                    <com.tuankhai.ratingbar.MaterialRatingBar
+                    <com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar
                         android:id="@+id/ratingBar"
                         style="@style/Widget.MaterialRatingBar.RatingBar"
                         android:layout_width="wrap_content"
@@ -294,7 +294,7 @@
                         android:textColor="@color/grey"
                         android:textSize="17sp" />
 
-                    <com.tuankhai.ripple.MaterialRippleLayout
+                    <com.tuankhai.travelassistants.module.ripple.MaterialRippleLayout
                         android:id="@+id/layout_more_food"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -328,7 +328,7 @@
                                 android:paddingTop="1dp"
                                 app:srcCompat="@drawable/ic_arrow_button" />
                         </LinearLayout>
-                    </com.tuankhai.ripple.MaterialRippleLayout>
+                    </com.tuankhai.travelassistants.module.ripple.MaterialRippleLayout>
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
@@ -358,7 +358,7 @@
                         android:textColor="@color/grey"
                         android:textSize="17sp" />
 
-                    <com.tuankhai.ripple.MaterialRippleLayout
+                    <com.tuankhai.travelassistants.module.ripple.MaterialRippleLayout
                         android:id="@+id/layout_more_hotel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -392,7 +392,7 @@
                                 android:paddingTop="1dp"
                                 app:srcCompat="@drawable/ic_arrow_button" />
                         </LinearLayout>
-                    </com.tuankhai.ripple.MaterialRippleLayout>
+                    </com.tuankhai.travelassistants.module.ripple.MaterialRippleLayout>
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView

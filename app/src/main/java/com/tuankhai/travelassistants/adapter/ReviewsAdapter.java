@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.tuankhai.ratingbar.MaterialRatingBar;
+import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.utils.MyCache;
 import com.tuankhai.travelassistants.utils.Utils;

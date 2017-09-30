@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.tuankhai.ripple.MaterialRippleLayout;
+import com.tuankhai.travelassistants.module.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 

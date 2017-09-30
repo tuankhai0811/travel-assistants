@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.tuankhai.floatingsearchview.main.FloatingSearchView;
+import com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.BaseActivity;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;

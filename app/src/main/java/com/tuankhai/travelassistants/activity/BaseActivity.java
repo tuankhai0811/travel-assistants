@@ -34,7 +34,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.tuankhai.floatingsearchview.main.FloatingSearchView;
+import com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.BaseController;
 import com.tuankhai.travelassistants.fragment.BaseFragment;

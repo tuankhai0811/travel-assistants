@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FloatingSearchView">
+        <attr name="floatingSearch_searchBarWidth" format="dimension"/>
+        <attr name="floatingSearch_searchBarMarginTop" format="dimension"/>
+        <attr name="floatingSearch_searchBarMarginLeft" format="dimension"/>
+        <attr name="floatingSearch_searchBarMarginRight" format="dimension"/>
+        <attr name="floatingSearch_searchSuggestionTextSize" format="dimension"/>
+        <attr name="floatingSearch_searchInputTextSize" format="dimension"/>
+        <attr name="floatingSearch_showMenuAction" format="boolean"/>
+        <attr name="floatingSearch_dismissFocusOnItemSelection" format="boolean"/>
+        <attr name="floatingSearch_leftActionMode">
+            <enum name="showHamburger" value="1" />
+            <enum name="showSearch" value="2" />
+            <enum name="showHome" value="3" />
+            <enum name="noLeftAction" value="4" />
+        </attr>
+        <attr name="floatingSearch_showVoiceInput" format="boolean"/>
+        <attr name="floatingSearch_showSearchKey" format="boolean"/>
+        <attr name="floatingSearch_voiceRecHint" format="string"/>
+        <attr name="floatingSearch_searchHint" format="string"/>
+        <attr name="floatingSearch_dismissOnOutsideTouch" format="boolean"/>
+        <attr name="floatingSearch_showMoveSuggestionUp" format="boolean"/>
+        <attr name="floatingSearch_suggestionsListAnimDuration" format="integer"/>
+        <attr name="floatingSearch_hideOverflowMenuWhenFocused" format="boolean"/>
+        <attr name="floatingSearch_showOverFlowMenu" format="boolean"/>
+        <attr name="floatingSearch_close_search_on_keyboard_dismiss" format="boolean"/>
+        <attr name="floatingSearch_menu" format="reference"/>
+        <attr name="floatingSearch_leftActionColor" format="color"/>
+        <attr name="floatingSearch_viewTextColor" format="color"/>
+        <attr name="floatingSearch_viewSearchInputTextColor" format="color"/>
+        <attr name="floatingSearch_hintTextColor" format="color"/>
+        <attr name="floatingSearch_viewSuggestionItemTextColor" format="color"/>
+        <attr name="floatingSearch_menuItemIconColor" format="color"/>
+        <attr name="floatingSearch_actionMenuOverflowColor" format="color"/>
+        <attr name="floatingSearch_clearBtnColor" format="color"/>
+        <attr name="floatingSearch_backgroundColor" format="color"/>
+        <attr name="floatingSearch_dividerColor" format="color"/>
+        <attr name="floatingSearch_dimBackground" format="boolean"/>
+        <attr name="floatingSearch_suggestionRightIconColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="LikeButton">
+        <attr name="icon_type" format="string" />
+        <attr name="icon_size" format="dimension|reference"/>
+        <attr name="like_drawable" format="reference" />
+        <attr name="unlike_drawable" format="reference" />
+        <attr name="dots_primary_color" format="color|reference" />
+        <attr name="dots_secondary_color" format="color|reference" />
+        <attr name="circle_start_color" format="color|reference" />
+        <attr name="circle_end_color" format="color|reference" />
+        <attr name="liked" format="boolean"/>
+        <attr name="is_enabled" format="boolean"/>
+        <attr name="anim_scale_factor" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleIndicator">
+        <attr name="ci_width" format="dimension"/>
+        <attr name="ci_height" format="dimension"/>
+        <attr name="ci_margin" format="dimension"/>
+        <attr name="ci_animator" format="reference"/>
+        <attr name="ci_animator_reverse" format="reference"/>
+        <attr name="ci_drawable" format="reference"/>
+        <attr name="ci_drawable_unselected" format="reference"/>
+
+        <attr name="ci_orientation" format="enum">
+            <!-- Defines an horizontal widget. -->
+            <enum name="horizontal" value="0"/>
+            <!-- Defines a vertical widget. -->
+            <enum name="vertical" value="1"/>
+        </attr>
+
+        <attr name="ci_gravity">
+            <!-- Push object to the top of its container, not changing its size. -->
+            <flag name="top" value="0x30"/>
+            <!-- Push object to the bottom of its container, not changing its size. -->
+            <flag name="bottom" value="0x50"/>
+            <!-- Push object to the left of its container, not changing its size. -->
+            <flag name="left" value="0x03"/>
+            <!-- Push object to the right of its container, not changing its size. -->
+            <flag name="right" value="0x05"/>
+            <!-- Place object in the vertical center of its container, not changing its size. -->
+            <flag name="center_vertical" value="0x10"/>
+            <!-- Grow the vertical size of the object if needed so it completely fills its container. -->
+            <flag name="fill_vertical" value="0x70"/>
+            <!-- Place object in the horizontal center of its container, not changing its size. -->
+            <flag name="center_horizontal" value="0x01"/>
+            <!-- Grow the horizontal size of the object if needed so it completely fills its container. -->
+            <flag name="fill_horizontal" value="0x07"/>
+            <!-- Place the object in the center of its container in both the vertical and horizontal axis, not changing its size. -->
+            <flag name="center" value="0x11"/>
+            <!-- Grow the horizontal and vertical size of the object if needed so it completely fills its container. -->
+            <flag name="fill" value="0x77"/>
+            <!-- Additional option that can be set to have the top and/or bottom edges of
+            the child clipped to its container's bounds.
+            The clip will be based on the vertical gravity: a top gravity will clip the bottom
+            edge, a bottom gravity will clip the top edge, and neither will clip both edges. -->
+            <flag name="clip_vertical" value="0x80"/>
+            <!-- Additional option that can be set to have the left and/or right edges of
+            the child clipped to its container's bounds.
+            The clip will be based on the horizontal gravity: a left gravity will clip the right
+            edge, a right gravity will clip the left edge, and neither will clip both edges. -->
+            <flag name="clip_horizontal" value="0x08"/>
+            <!-- Push object to the beginning of its container, not changing its size. -->
+            <flag name="start" value="0x00800003"/>
+            <!-- Push object to the end of its container, not changing its size. -->
+            <flag name="end" value="0x00800005"/>
+        </attr>
+
+    </declare-styleable>
+
+    <declare-styleable name="MaterialRatingBar">
+        <attr name="mrb_progressTint" format="color|reference" />
+        <attr name="mrb_progressTintMode" format="enum">
+            <enum name="src_over" value="3" />
+            <enum name="src_in" value="5" />
+            <enum name="src_atop" value="9" />
+            <enum name="multiply" value="14" />
+            <enum name="screen" value="15" />
+            <enum name="add" value="16" />
+        </attr>
+        <attr name="mrb_secondaryProgressTint" format="color|reference" />
+        <attr name="mrb_secondaryProgressTintMode" format="enum">
+            <enum name="src_over" value="3" />
+            <enum name="src_in" value="5" />
+            <enum name="src_atop" value="9" />
+            <enum name="multiply" value="14" />
+            <enum name="screen" value="15" />
+            <enum name="add" value="16" />
+        </attr>
+        <attr name="mrb_progressBackgroundTint" format="color|reference" />
+        <attr name="mrb_progressBackgroundTintMode" format="enum">
+            <enum name="src_over" value="3" />
+            <enum name="src_in" value="5" />
+            <enum name="src_atop" value="9" />
+            <enum name="multiply" value="14" />
+            <enum name="screen" value="15" />
+            <enum name="add" value="16" />
+        </attr>
+        <attr name="mrb_indeterminateTint" format="color|reference" />
+        <attr name="mrb_indeterminateTintMode" format="enum">
+            <enum name="src_over" value="3" />
+            <enum name="src_in" value="5" />
+            <enum name="src_atop" value="9" />
+            <enum name="multiply" value="14" />
+            <enum name="screen" value="15" />
+            <enum name="add" value="16" />
+        </attr>
+    </declare-styleable>
+
+    //swipelayout
+    <declare-styleable name="SwipeLayout">
+        <attr name="drag_edge">
+            <flag name="left" value="1" />
+            <flag name="right" value="2" />
+            <flag name="top" value="4" />
+            <flag name="bottom" value="8" />
+        </attr>
+        <attr name="leftEdgeSwipeOffset" format="dimension" />
+        <attr name="rightEdgeSwipeOffset" format="dimension" />
+        <attr name="topEdgeSwipeOffset" format="dimension" />
+        <attr name="bottomEdgeSwipeOffset" format="dimension" />
+        <attr name="show_mode" format="enum">
+            <enum name="lay_down" value="0" />
+            <enum name="pull_out" value="1" />
+        </attr>
+        <attr name="clickToClose" format="boolean" />
+    </declare-styleable>
+</resources>

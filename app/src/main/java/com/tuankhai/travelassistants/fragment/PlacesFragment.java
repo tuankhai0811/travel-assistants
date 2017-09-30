@@ -16,9 +16,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.tuankhai.floatingsearchview.main.FloatingSearchView;
-import com.tuankhai.loopingviewpager.CircleIndicator;
-import com.tuankhai.loopingviewpager.LoopViewPager;
+import com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView;
+import com.tuankhai.travelassistants.module.loopingviewpager.CircleIndicator;
+import com.tuankhai.travelassistants.module.loopingviewpager.LoopViewPager;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.BaseActivity;
 import com.tuankhai.travelassistants.activity.ListPlaceActivity;
@@ -29,7 +29,7 @@ import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
-import com.tuankhai.viewpagertransformers.ZoomOutTranformer;
+import com.tuankhai.travelassistants.module.viewpagertransformers.ZoomOutTranformer;
 
 import java.util.ArrayList;
 import java.util.Arrays;

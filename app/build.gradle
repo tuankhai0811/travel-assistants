@@ -57,19 +57,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    //My library
-    compile project(path: ':loopingviewpager')
-    compile project(path: ':floatingsearchview')
-    compile project(path: ':viewpagertransformers')
-    compile project(path: ':ripple')
-    compile project(path: ':slideractivity')
-    compile project(path: ':likebutton')
-    compile project(path: ':ratingbar')
-    compile project(path: ':swipelayout')
-
-
-
-
 
     //Authentication
     compile 'com.google.firebase:firebase-auth:11.4.0'
@@ -79,6 +66,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:11.4.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:26.+'
+    compile 'com.android.support:percent:26.+'
     //Multidex
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:appcompat-v7:26.+'

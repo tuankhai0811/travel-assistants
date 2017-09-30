@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.tuankhai.slideractivity.Slider;
-import com.tuankhai.slideractivity.model.SliderConfig;
-import com.tuankhai.slideractivity.model.SliderPosition;
+import com.tuankhai.travelassistants.module.slideractivity.Slider;
+import com.tuankhai.travelassistants.module.slideractivity.model.SliderConfig;
+import com.tuankhai.travelassistants.module.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.ListPlaceController;
 import com.tuankhai.travelassistants.adapter.PlaceAdapter;

@@ -53,7 +53,7 @@
                     android:textColor="@color/global_black"
                     android:textSize="16sp" />
 
-                <com.tuankhai.ratingbar.MaterialRatingBar
+                <com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar
                     android:id="@+id/ratingBar"
                     style="@style/Widget.MaterialRatingBar.RatingBar"
                     android:layout_width="wrap_content"
