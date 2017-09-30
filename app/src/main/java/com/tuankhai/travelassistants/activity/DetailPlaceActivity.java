@@ -846,6 +846,10 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onBackPressed() {
+        if (dialogReview == null) {
+            super.onBackPressed();
+            return;
+        }
         if (dialogReview != null & dialogReview.isShowing()) {
             ratingBarSelect.setRating(0f);
             dialogReview.dismiss();

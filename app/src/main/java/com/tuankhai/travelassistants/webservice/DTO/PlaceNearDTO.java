@@ -37,7 +37,7 @@ public final class PlaceNearDTO implements Serializable {
         public final Opening_hours opening_hours;
         public final Photo photos[];
         public final String place_id;
-        public final String rating;
+        public String rating = "0";
         public final String reference;
         public final String scope;
         public final String[] types;
@@ -65,18 +65,18 @@ public final class PlaceNearDTO implements Serializable {
             this.opening_hours = opening_hours;
             this.photos = photos;
             this.place_id = place_id;
-            this.rating = rating;
+            this.rating = rating == null ? "0" : rating;
             this.reference = reference;
             this.scope = scope;
             this.types = types;
             this.vicinity = vicinity;
         }
 
-        public Double getLat(){
+        public Double getLat() {
             return Double.parseDouble(this.geometry.location.lat);
         }
 
-        public Double getLng(){
+        public Double getLng() {
             return Double.parseDouble(this.geometry.location.lng);
         }
 

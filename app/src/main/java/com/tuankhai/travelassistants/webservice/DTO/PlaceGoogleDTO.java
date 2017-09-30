@@ -301,7 +301,7 @@ public final class PlaceGoogleDTO {
     }
 
     public float getRating() {
-        if (result == null) return 0.0f;
+        if (result == null || result.rating == null) return 0.0f;
         return Float.parseFloat(result.rating);
     }
 

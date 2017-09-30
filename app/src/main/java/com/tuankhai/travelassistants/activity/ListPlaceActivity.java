@@ -36,7 +36,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.tuankhai.travelassistants.utils.AppContansts.REQUEST_LOGIN;
 
-public class ListPlaceActivity extends AppCompatActivity implements PlaceAdapter.LayoutListPlaceItemListener {
+public class ListPlaceActivity extends AppCompatActivity
+        implements PlaceAdapter.LayoutListPlaceItemListener {
 
     public FirebaseAuth mAuth;
     public FirebaseUser currentUser;

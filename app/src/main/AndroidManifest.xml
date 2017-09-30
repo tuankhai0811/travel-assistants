@@ -69,6 +69,10 @@
             android:name=".activity.MapsActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBarMaps" />
+        <activity
+            android:name=".activity.DetailPlaceNearActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Slider.Sliderable" />
     </application>
 
 </manifest>

@@ -154,7 +154,6 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else {
             ((LoadingViewHolder) viewHolder).progressBar.setIndeterminate(true);
         }
-
     }
 
     @Override
@@ -228,7 +227,7 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         @Override
         public void onClick(View view) {
-//            itemListener.onItemPlaceClick(view, arrPlace.get(getAdapterPosition()));
+            itemListener.onItemPlaceNearClick(view, arrPlace.get(getAdapterPosition()));
         }
     }
 

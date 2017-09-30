@@ -77,7 +77,6 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initSlider();
-        initCollapsingToolbar();
         addControls();
         addEvents();
 
@@ -162,6 +161,7 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
     }
 
     public void progressDistance(List<PlaceNearDTO.Result> list) {
+        if (list == null || list.size() == 0) return;
         for (PlaceNearDTO.Result item : list) {
             if (item.distance != 0) continue;
             Location mLocation = new Location("Place");
@@ -188,34 +188,6 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
-    }
-
-    private void initCollapsingToolbar() {
-//        getSupportActionBar().setTitle(title);
-//        final CollapsingToolbarLayout collapsingToolbar =
-//                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-//        collapsingToolbar.setTitle(title);
-//        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-//        appBarLayout.setExpanded(true);
-
-//        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-//            boolean isShow = false;
-//            int scrollRange = -1;
-//
-//            @Override
-//            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-//                if (scrollRange == -1) {
-//                    scrollRange = appBarLayout.getTotalScrollRange();
-//                }
-//                if (scrollRange + verticalOffset == 0) {
-//                    collapsingToolbar.setTitle(title);
-//                    isShow = true;
-//                } else if (isShow) {
-//                    collapsingToolbar.setTitle(title);
-//                    isShow = false;
-//                }
-//            }
-//        });
     }
 
     private void initSlider() {
@@ -249,7 +221,9 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
 
     @Override
     public void onItemPlaceNearClick(View view, PlaceNearDTO.Result item) {
-
+        Intent intent = new Intent(this, DetailPlaceNearActivity.class);
+        intent.putExtra(AppContansts.INTENT_DATA, item);
+        startActivity(intent);
     }
 
     @Override
