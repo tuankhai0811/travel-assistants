@@ -72,4 +72,5 @@
 
     //ripple
     <color name="transparent">#00FFFFFF</color>
+    <color name="grey_dilivers">#cccccc</color>
 </resources>

@@ -44,6 +44,7 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
         , PlaceNearListAdapter.OnLoadMoreListener, SearchView.OnQueryTextListener {
 
     PlaceNearDTO data;
+    PlaceNearDTO dataMaps;
     String lat, lng;
     public Location location;
     int type;
@@ -121,6 +122,7 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
                 @Override
                 public void onSuccess(Object response) {
                     data = (PlaceNearDTO) response;
+                    dataMaps = (PlaceNearDTO) response;
                     if (data.results == null || data.results.length == 0) {
                         refreshLayout.setRefreshing(false);
                         findViewById(R.id.layout_notify).setVisibility(View.VISIBLE);
@@ -233,11 +235,12 @@ public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNea
                 onBackPressed();
                 break;
             case R.id.action_settings:
+                if (dataMaps.results == null || dataMaps.results.length == 0) break;
                 Intent intent = new Intent(this, MapsActivity.class);
                 intent.putExtra(AppContansts.INTENT_TYPE, type);
                 intent.putExtra(AppContansts.INTENT_DATA_LAT, lat);
                 intent.putExtra(AppContansts.INTENT_DATA_LNG, lng);
-                intent.putExtra(AppContansts.INTENT_DATA, data);
+                intent.putExtra(AppContansts.INTENT_DATA, dataMaps);
                 startActivity(intent);
                 break;
         }

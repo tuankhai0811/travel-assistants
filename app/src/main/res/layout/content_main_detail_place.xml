@@ -97,7 +97,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dilivers_view"
-                    android:background="@color/grey_50" />
+                    android:background="@color/grey_dilivers" />
 
                 <!--<FrameLayout-->
                 <!--android:layout_width="match_parent"-->
@@ -142,7 +142,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dilivers_view"
-                    android:background="@color/grey_50" />
+                    android:background="@color/grey_dilivers" />
 
                 <LinearLayout
                     android:id="@+id/layout_address"
@@ -184,7 +184,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dilivers_view"
-                        android:background="@color/grey_50" />
+                        android:background="@color/grey_dilivers" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -226,7 +226,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dilivers_view"
-                        android:background="@color/grey_50" />
+                        android:background="@color/grey_dilivers" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -267,7 +267,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dilivers_view"
-                        android:background="@color/grey_50" />
+                        android:background="@color/grey_dilivers" />
                 </LinearLayout>
 
             </LinearLayout>
