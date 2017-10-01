@@ -66,12 +66,12 @@ public class ListPlaceController {
     }
 
     public void getFavorite() {
-        if (mActivity.currentUser == null) {
+        if (mActivity.mUser == null) {
             Intent intent = new Intent(mActivity, LoginActivity.class);
             mActivity.startActivity(intent);
             return;
         }
-        new RequestService().load(new GetFavoriteRequest("", mActivity.currentUser.getEmail()), false, new MyCallback() {
+        new RequestService().load(new GetFavoriteRequest("", mActivity.mUser.getEmail()), false, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);

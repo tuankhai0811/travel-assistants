@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -51,14 +50,13 @@ import com.tuankhai.travelassistants.webservice.request.AddUserRequest;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class LoginActivity extends AppCompatActivity implements
+public class LoginActivity extends BaseActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 9001;
 
-    private FirebaseAuth mAuth;
     private GoogleApiClient mGoogleApiClient;
     private CallbackManager mCallbackManager;
 
@@ -92,8 +90,6 @@ public class LoginActivity extends AppCompatActivity implements
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
-        mAuth = FirebaseAuth.getInstance();
 
         mCallbackManager = CallbackManager.Factory.create();
         btnFacebook.setReadPermissions("email", "public_profile");

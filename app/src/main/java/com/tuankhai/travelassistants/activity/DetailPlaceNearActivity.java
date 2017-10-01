@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -54,7 +53,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class DetailPlaceNearActivity extends AppCompatActivity
+public class DetailPlaceNearActivity extends BaseActivity
         implements View.OnClickListener, OnMapReadyCallback {
 
     PlaceNearDTO.Result data;

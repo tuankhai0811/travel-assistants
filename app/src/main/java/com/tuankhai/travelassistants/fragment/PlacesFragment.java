@@ -16,11 +16,11 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.tuankhai.travelassistants.activity.MainActivity;
 import com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.module.loopingviewpager.CircleIndicator;
 import com.tuankhai.travelassistants.module.loopingviewpager.LoopViewPager;
 import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.activity.BaseActivity;
 import com.tuankhai.travelassistants.activity.ListPlaceActivity;
 import com.tuankhai.travelassistants.adapter.ProvinceAdapter;
 import com.tuankhai.travelassistants.adapter.SliderPlaceAdapter;
@@ -43,7 +43,7 @@ import java.util.TimerTask;
 public class PlacesFragment extends BaseFragment
         implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener,
         ProvinceAdapter.LayoutProvinceItemListener {
-    protected BaseActivity mActivity;
+    protected MainActivity mActivity;
     protected PlacesController placesController;
     BaseFragmentCallbacks callbacks;
 
@@ -67,7 +67,7 @@ public class PlacesFragment extends BaseFragment
     final long DELAY_MS = 5000;
     final long PERIOD_MS = 5000;
 
-    public static PlacesFragment newInstance(BaseActivity activity) {
+    public static PlacesFragment newInstance(MainActivity activity) {
         PlacesFragment fragment = new PlacesFragment();
         fragment.mActivity = activity;
         Bundle args = new Bundle();

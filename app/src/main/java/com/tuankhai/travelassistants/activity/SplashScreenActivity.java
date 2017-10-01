@@ -3,7 +3,6 @@ package com.tuankhai.travelassistants.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.tuankhai.travelassistants.R;
@@ -18,7 +17,7 @@ import com.tuankhai.travelassistants.webservice.request.GetSliderPlaceRequest;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +35,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+
+        logError("vào on resume");
     }
 
     @Override
@@ -70,7 +71,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void onSuccess(Object response) {
                 super.onSuccess(response);
                 Utils.saveSliderPlace(SplashScreenActivity.this, (PlaceDTO) response);
-                Intent intent = new Intent(SplashScreenActivity.this, BaseActivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
@@ -118,7 +119,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 //                sliderPlaceDTO.places[i].codeImage = Utils.encodeToBase64(bitmaps.get(i));
 //            }
 //            Utils.saveSliderPlace(SplashScreenActivity.this, sliderPlaceDTO);
-//            Intent intent = new Intent(SplashScreenActivity.this, BaseActivity.class);
+//            Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 //            startActivity(intent);
 //            finish();

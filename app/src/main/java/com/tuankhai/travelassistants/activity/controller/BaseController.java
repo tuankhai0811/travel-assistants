@@ -3,7 +3,7 @@ package com.tuankhai.travelassistants.activity.controller;
 import android.util.Log;
 
 import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.activity.BaseActivity;
+import com.tuankhai.travelassistants.activity.MainActivity;
 import com.tuankhai.travelassistants.fragment.BaseFragment;
 import com.tuankhai.travelassistants.fragment.PlacesFragment;
 import com.tuankhai.travelassistants.fragment.SearchPlaceFragment;
@@ -15,13 +15,13 @@ import com.tuankhai.travelassistants.utils.AppContansts;
 
 public class BaseController {
 
-    BaseActivity mActivity;
+    MainActivity mActivity;
     BaseFragment curFragment = null;
 
     PlacesFragment placesFragment;
     SearchPlaceFragment searchFragment;
 
-    public BaseController(BaseActivity activity) {
+    public BaseController(MainActivity activity) {
         mActivity = activity;
     }
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,16 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.tuankhai.travelassistants.module.slideractivity.Slider;
-import com.tuankhai.travelassistants.module.slideractivity.model.SliderConfig;
-import com.tuankhai.travelassistants.module.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.ListPlaceController;
 import com.tuankhai.travelassistants.adapter.PlaceAdapter;
 import com.tuankhai.travelassistants.adapter.PlaceAdapterSwipe;
 import com.tuankhai.travelassistants.adapter.decoration.ListSpacingItemDecoration;
+import com.tuankhai.travelassistants.module.slideractivity.Slider;
+import com.tuankhai.travelassistants.module.slideractivity.model.SliderConfig;
+import com.tuankhai.travelassistants.module.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
@@ -36,12 +33,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.tuankhai.travelassistants.utils.AppContansts.REQUEST_LOGIN;
 
-public class ListPlaceActivity extends AppCompatActivity
+public class ListPlaceActivity extends BaseActivity
         implements PlaceAdapter.LayoutListPlaceItemListener {
-
-    public FirebaseAuth mAuth;
-    public FirebaseUser currentUser;
-
     ListPlaceController placeController;
     public int type;
 
@@ -53,8 +46,6 @@ public class ListPlaceActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
         placeController = new ListPlaceController(this);
 
         setContentView(R.layout.activity_list_place);
@@ -85,7 +76,7 @@ public class ListPlaceActivity extends AppCompatActivity
     }
 
     private void progressFavorite() {
-        if (currentUser == null) {
+        if (mUser == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
             startActivityForResult(intent, REQUEST_LOGIN);
@@ -114,8 +105,8 @@ public class ListPlaceActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_LOGIN) {
-                currentUser = mAuth.getCurrentUser();
-                placeAdapter.setCurrentUser(currentUser);
+                mUser = mAuth.getCurrentUser();
+                placeAdapter.setCurrentUser(mUser);
                 getData();
             }
         }

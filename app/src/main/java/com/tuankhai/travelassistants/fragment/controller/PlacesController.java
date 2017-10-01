@@ -1,6 +1,6 @@
 package com.tuankhai.travelassistants.fragment.controller;
 
-import com.tuankhai.travelassistants.activity.BaseActivity;
+import com.tuankhai.travelassistants.activity.MainActivity;
 import com.tuankhai.travelassistants.fragment.PlacesFragment;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
@@ -12,11 +12,11 @@ import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 
 public class PlacesController {
     private PlacesFragment placesFragment;
-    private BaseActivity mActivity;
+    private MainActivity mActivity;
 
     public PlacesController(PlacesFragment fragment) {
         placesFragment = fragment;
-        mActivity = (BaseActivity) fragment.getActivity();
+        mActivity = (MainActivity) fragment.getActivity();
     }
 
     public void getAllProvince() {

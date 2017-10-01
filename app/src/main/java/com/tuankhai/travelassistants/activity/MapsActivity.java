@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,11 +18,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.location.LocationHelper;
 import com.tuankhai.travelassistants.module.slideractivity.Slider;
 import com.tuankhai.travelassistants.module.slideractivity.model.SliderConfig;
 import com.tuankhai.travelassistants.module.slideractivity.model.SliderPosition;
-import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.location.LocationHelper;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
@@ -33,7 +32,7 @@ import com.tuankhai.travelassistants.webservice.main.RequestService;
 import java.util.Arrays;
 import java.util.List;
 
-public class MapsActivity extends AppCompatActivity
+public class MapsActivity extends BaseActivity
         implements AdapterView.OnItemSelectedListener, OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback, View.OnClickListener {
 

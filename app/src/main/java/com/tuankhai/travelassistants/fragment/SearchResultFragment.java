@@ -8,20 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tuankhai.travelassistants.activity.MainActivity;
 import com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.activity.BaseActivity;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 
 public class SearchResultFragment extends BaseFragment implements AppBarLayout.OnOffsetChangedListener{
-    BaseActivity mActivity;
+    MainActivity mActivity;
 
     BaseFragmentCallbacks callbacks;
 
     public SearchResultFragment() {
     }
 
-    public static SearchResultFragment newInstance(BaseActivity mActivity) {
+    public static SearchResultFragment newInstance(MainActivity mActivity) {
         SearchResultFragment fragment = new SearchResultFragment();
         fragment.mActivity = mActivity;
         Bundle args = new Bundle();

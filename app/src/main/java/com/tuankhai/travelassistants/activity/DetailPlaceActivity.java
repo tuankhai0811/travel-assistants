@@ -14,7 +14,6 @@ import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -35,9 +34,12 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
+import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.adapter.PlaceNearAdapter;
+import com.tuankhai.travelassistants.adapter.ReviewsAdapter;
+import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
+import com.tuankhai.travelassistants.adapter.decoration.SpacingItemDecorationHorizontal;
 import com.tuankhai.travelassistants.module.likebutton.LikeButton;
 import com.tuankhai.travelassistants.module.likebutton.OnAnimationEndListener;
 import com.tuankhai.travelassistants.module.likebutton.OnLikeListener;
@@ -47,11 +49,7 @@ import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.module.slideractivity.Slider;
 import com.tuankhai.travelassistants.module.slideractivity.model.SliderConfig;
 import com.tuankhai.travelassistants.module.slideractivity.model.SliderPosition;
-import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.adapter.PlaceNearAdapter;
-import com.tuankhai.travelassistants.adapter.ReviewsAdapter;
-import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
-import com.tuankhai.travelassistants.adapter.decoration.SpacingItemDecorationHorizontal;
+import com.tuankhai.travelassistants.module.viewpagertransformers.ZoomOutTranformer;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.CheckDTO;
@@ -68,7 +66,6 @@ import com.tuankhai.travelassistants.webservice.request.CheckFavoriteRequest;
 import com.tuankhai.travelassistants.webservice.request.EditPlaceRequest;
 import com.tuankhai.travelassistants.webservice.request.GetReviewRequest;
 import com.tuankhai.travelassistants.webservice.request.RemoveFavoriteRequest;
-import com.tuankhai.travelassistants.module.viewpagertransformers.ZoomOutTranformer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,10 +77,12 @@ import java.util.TimerTask;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class DetailPlaceActivity extends AppCompatActivity implements View.OnClickListener, OnLikeListener
-        , OnAnimationEndListener, MaterialRatingBar.OnRatingChangeListener, OnMapReadyCallback {
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
+public class DetailPlaceActivity extends BaseActivity
+        implements View.OnClickListener,
+        OnLikeListener,
+        OnAnimationEndListener,
+        MaterialRatingBar.OnRatingChangeListener,
+        OnMapReadyCallback {
 
     PlaceDTO.Place data;
     ReviewDTO reviewDTO;
@@ -150,8 +149,6 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
@@ -179,10 +176,10 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void refreshFavorite() {
-        if (currentUser == null) {
+        if (mUser == null) {
             setLiked(false);
         } else {
-            new RequestService().load(new CheckFavoriteRequest("", data.id, currentUser.getEmail()), false, new MyCallback() {
+            new RequestService().load(new CheckFavoriteRequest("", data.id, mUser.getEmail()), false, new MyCallback() {
                 @Override
                 public void onSuccess(Object response) {
                     super.onSuccess(response);
@@ -445,11 +442,11 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         ratingBarSelect.setRating(0f);
         ratingBarSelect.setOnRatingChangeListener(this);
         refreshProgressBar();
-        if (currentUser == null) {
+        if (mUser == null) {
             return;
         }
         for (int i = 0; i < arrReview.size(); i++) {
-            if (currentUser.getEmail().equals(arrReview.get(i).email)) {
+            if (mUser.getEmail().equals(arrReview.get(i).email)) {
                 ratingBarSelect.setOnRatingChangeListener(null);
                 ratingBarSelect.setRating(arrReview.get(i).getRating());
                 ratingBarSelect.setIsIndicator(true);
@@ -725,13 +722,13 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void liked(final LikeButton likeButton) {
-        if (currentUser == null) {
+        if (mUser == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
             startActivityForResult(intent, AppContansts.REQUEST_LOGIN);
         } else {
             likeButton.setEnabled(false);
-            new RequestService().load(new AddFavoriteRequest("", data.id, currentUser.getEmail()), false, new MyCallback() {
+            new RequestService().load(new AddFavoriteRequest("", data.id, mUser.getEmail()), false, new MyCallback() {
                 @Override
                 public void onSuccess(Object response) {
                     super.onSuccess(response);
@@ -754,12 +751,12 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void unLiked(final LikeButton likeButton) {
         likeButton.setEnabled(false);
-        if (currentUser == null) {
+        if (mUser == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
             startActivityForResult(intent, AppContansts.REQUEST_LOGIN);
         } else {
-            new RequestService().load(new RemoveFavoriteRequest("", data.id, currentUser.getEmail()), false, new MyCallback() {
+            new RequestService().load(new RemoveFavoriteRequest("", data.id, mUser.getEmail()), false, new MyCallback() {
                 @Override
                 public void onSuccess(Object response) {
                     super.onSuccess(response);
@@ -812,9 +809,9 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
     private void userReview() {
         new RequestService().load(
                 new AddReviewRequest("",
-                        currentUser.getDisplayName().toString(),
-                        currentUser.getEmail().toString(),
-                        currentUser.getPhotoUrl().toString(),
+                        mUser.getDisplayName().toString(),
+                        mUser.getEmail().toString(),
+                        mUser.getPhotoUrl().toString(),
                         data.id.toString(),
                         String.valueOf(ratingBarSelectDialog.getRating()),
                         txt_comment_dialog.getText().toString(),
@@ -862,7 +859,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         if (rating == 0f) return;
         switch (ratingBar.getId()) {
             case R.id.ratingBarSelect:
-                if (currentUser == null) {
+                if (mUser == null) {
                     Intent intent = new Intent(this, LoginActivity.class);
                     intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
                     startActivityForResult(intent, AppContansts.REQUEST_LOGIN);
@@ -886,7 +883,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements View.OnCli
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case AppContansts.REQUEST_LOGIN:
-                    currentUser = mAuth.getCurrentUser();
+                    mUser = mAuth.getCurrentUser();
                     refreshReview();
                     refreshFavorite();
                     break;

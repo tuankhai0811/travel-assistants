@@ -8,7 +8,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -20,12 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.tuankhai.travelassistants.module.slideractivity.Slider;
-import com.tuankhai.travelassistants.module.slideractivity.model.SliderConfig;
-import com.tuankhai.travelassistants.module.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.adapter.PlaceNearListAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.ListSpacingItemDecoration;
+import com.tuankhai.travelassistants.module.slideractivity.Slider;
+import com.tuankhai.travelassistants.module.slideractivity.model.SliderConfig;
+import com.tuankhai.travelassistants.module.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
@@ -40,7 +39,7 @@ import java.util.List;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ListPlaceNearActivity extends AppCompatActivity implements PlaceNearListAdapter.LayoutListPlaceNearItemListener
+public class ListPlaceNearActivity extends BaseActivity implements PlaceNearListAdapter.LayoutListPlaceNearItemListener
         , PlaceNearListAdapter.OnLoadMoreListener, SearchView.OnQueryTextListener {
 
     PlaceNearDTO data;

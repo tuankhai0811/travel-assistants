@@ -177,7 +177,7 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
         this.context = context;
         this.arrPlace = arrPlace;
         this.itemListener = listener;
-        this.currentUser = context.currentUser;
+        this.currentUser = context.mUser;
         type = R.layout.item_place_line_swipe;
     }
 
