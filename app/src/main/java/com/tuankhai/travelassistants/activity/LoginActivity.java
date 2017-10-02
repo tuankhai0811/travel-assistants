@@ -85,6 +85,7 @@ public class LoginActivity extends BaseActivity implements
     }
 
     private void initFacebook() {
+        btnFacebook = (LoginButton) findViewById(R.id.btn_sign_in_login_facebook);
         btnFacebook.setReadPermissions("email", "public_profile");
         btnFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -159,7 +160,6 @@ public class LoginActivity extends BaseActivity implements
         btnSignInG = (TextView) findViewById(R.id.btn_sign_in_google);
         btnSignInF = (TextView) findViewById(R.id.btn_sign_in_facebook);
         btnSignOut = (TextView) findViewById(R.id.btn_sign_out);
-        btnFacebook = (LoginButton) findViewById(R.id.btn_sign_in_login_facebook);
         layoutUser = (LinearLayout) findViewById(R.id.layout_login_user);
         layoutLogo = (LinearLayout) findViewById(R.id.layout_login_logo);
         layoutSignin = (FrameLayout) findViewById(R.id.layout_login_login);
