@@ -10,10 +10,10 @@ import java.util.Map;
  */
 
 public class FindPlaceByTypeRequest extends BasicRequest{
-    public final String URL = "TravelAssistants/public/Place/find/type";
+    public final String ROUTES = "Place/find/type";
 
-    String key;
-    String type;
+    private String key;
+    private String type;
 
     public FindPlaceByTypeRequest(String key, String type) {
         this.key = key;
@@ -30,6 +30,6 @@ public class FindPlaceByTypeRequest extends BasicRequest{
 
     @Override
     public String[] path() {
-        return URL.split("/");
+        return ROUTES.split("/");
     }
 }

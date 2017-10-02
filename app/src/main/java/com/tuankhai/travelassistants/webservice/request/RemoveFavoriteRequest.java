@@ -10,11 +10,11 @@ import java.util.Map;
  */
 
 public class RemoveFavoriteRequest extends BasicRequest {
-    public final String URL = "TravelAssistants/public/Favorite/remove/new";
+    public final String ROUTES = "Favorite/remove/new";
 
-    String key;
-    String idPlace;
-    String idUser;
+    private String key;
+    private String idPlace;
+    private String idUser;
 
     public RemoveFavoriteRequest(String key, String idPlace, String idUser) {
         this.key = key;
@@ -33,6 +33,6 @@ public class RemoveFavoriteRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return URL.split("/");
+        return ROUTES.split("/");
     }
 }

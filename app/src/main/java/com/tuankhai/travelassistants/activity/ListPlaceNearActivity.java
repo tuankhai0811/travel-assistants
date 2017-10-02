@@ -36,47 +36,33 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
 public class ListPlaceNearActivity extends BaseActivity implements PlaceNearListAdapter.LayoutListPlaceNearItemListener
         , PlaceNearListAdapter.OnLoadMoreListener, SearchView.OnQueryTextListener {
 
-    PlaceNearDTO data;
-    PlaceNearDTO dataMaps;
-    String lat, lng;
+    private PlaceNearDTO data;
+    private PlaceNearDTO dataMaps;
+    private String lat, lng;
     public Location location;
-    int type;
-    String title;
+    private int type;
+    private String title;
 
-    SwipeRefreshLayout refreshLayout;
-    RecyclerView lvPlace;
-    List<PlaceNearDTO.Result> arrPlace;
-    RecyclerView.LayoutManager layoutManager;
-    PlaceNearListAdapter adapter;
+    private SwipeRefreshLayout refreshLayout;
+    private RecyclerView lvPlace;
+    private List<PlaceNearDTO.Result> arrPlace;
+    private RecyclerView.LayoutManager layoutManager;
+    private PlaceNearListAdapter adapter;
 
-    SearchView searchView;
-    String stringQuery;
+    private SearchView searchView;
+    private String stringQuery = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        data = (PlaceNearDTO) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
-        lat = getIntent().getStringExtra(AppContansts.INTENT_DATA1);
-        lng = getIntent().getStringExtra(AppContansts.INTENT_DATA2);
-        type = getIntent().getIntExtra(AppContansts.INTENT_DATA3, 0);
-        location = new Location("Position");
-        location.setLatitude(Double.parseDouble(lat));
-        location.setLongitude(Double.parseDouble(lng));
-        arrPlace = new ArrayList<>();
-
         setContentView(R.layout.activity_list_place_near);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        initToolbar();
         initSlider();
+
         addControls();
         addEvents();
 
@@ -139,6 +125,12 @@ public class ListPlaceNearActivity extends BaseActivity implements PlaceNearList
         }
     }
 
+    private void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
     private void addEvents() {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -177,18 +169,8 @@ public class ListPlaceNearActivity extends BaseActivity implements PlaceNearList
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(getString(R.string.font_boto_regular))
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
     }
 
     private void initSlider() {
@@ -209,6 +191,15 @@ public class ListPlaceNearActivity extends BaseActivity implements PlaceNearList
     }
 
     private void addControls() {
+        data = (PlaceNearDTO) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
+        lat = getIntent().getStringExtra(AppContansts.INTENT_DATA1);
+        lng = getIntent().getStringExtra(AppContansts.INTENT_DATA2);
+        type = getIntent().getIntExtra(AppContansts.INTENT_DATA3, 0);
+        location = new Location("MyLocation");
+        location.setLatitude(Double.parseDouble(lat));
+        location.setLongitude(Double.parseDouble(lng));
+        arrPlace = new ArrayList<>();
+
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         lvPlace = (RecyclerView) findViewById(R.id.lv_place);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -285,15 +276,12 @@ public class ListPlaceNearActivity extends BaseActivity implements PlaceNearList
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_list_near_place_activity, menu);
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView =
-                (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setQueryHint(getString(R.string.action_search));
         searchView.setOnQueryTextListener(this);
 //        searchView.setSubmitButtonEnabled(true);
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 

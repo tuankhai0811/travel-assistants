@@ -16,13 +16,12 @@ import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 
 public class SearchPlaceFragment extends BaseFragment implements AppBarLayout.OnOffsetChangedListener,
         View.OnClickListener {
-    MainActivity mActivity;
 
-    BaseFragmentCallbacks callbacks;
+    private MainActivity mActivity;
+    private BaseFragmentCallbacks callbacks;
+    private LinearLayout layoutAtm, layoutRestaurant, layoutHotel, layoutDrinks, layoutHospital, layoutGasStation;
 
-    LinearLayout layoutAtm, layoutRestaurant, layoutHotel, layoutDrinks, layoutHospital, layoutGasStation;
-
-    ItemTypeSearchOnClickListener itemListener;
+    private ItemTypeSearchOnClickListener itemListener;
 
     public void setItemListener(ItemTypeSearchOnClickListener listener) {
         this.itemListener = listener;
@@ -52,7 +51,6 @@ public class SearchPlaceFragment extends BaseFragment implements AppBarLayout.On
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.fragment_search_place, container, false);
             addControls();
-            //addEvents();
         }
         mActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         return mRootView;

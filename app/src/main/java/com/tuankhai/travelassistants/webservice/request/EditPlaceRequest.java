@@ -3,6 +3,7 @@ package com.tuankhai.travelassistants.webservice.request;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.main.BasicRequest;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,17 +12,17 @@ import java.util.Map;
  */
 
 public class EditPlaceRequest extends BasicRequest {
-    public final String URL = "TravelAssistants/public/Place/edit/all";
+    public final String ROUTES = "Place/edit/all";
 
-    String key;
-    String id;
-    String rating;
-    String address;
-    String phone;
-    String location_lat;
-    String location_lng;
-    String opening_hours;
-    String website;
+    private String key;
+    private String id;
+    private String rating;
+    private String address;
+    private String phone;
+    private String location_lat;
+    private String location_lng;
+    private String opening_hours;
+    private String website;
 
     public EditPlaceRequest(
             String key,
@@ -61,6 +62,6 @@ public class EditPlaceRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return URL.split("/");
+        return ROUTES.split("/");
     }
 }

@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.webservice.request;
 
 import com.tuankhai.travelassistants.webservice.main.BasicRequest;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,16 +11,16 @@ import java.util.Map;
  */
 
 public class AddReviewRequest extends BasicRequest {
-    public final String URL = "TravelAssistants/public/Review/add/user";
+    public final String ROUTES = "Review/add/user";
 
-    String key;
-    String author_name;
-    String email;
-    String profile_photo_url;
-    String id_place;
-    String rating;
-    String text;
-    String time;
+    private String key;
+    private String author_name;
+    private String email;
+    private String profile_photo_url;
+    private String id_place;
+    private String rating;
+    private String text;
+    private String time;
 
     public AddReviewRequest(String key,
                             String author_name,
@@ -55,6 +56,6 @@ public class AddReviewRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return URL.split("/");
+        return ROUTES.split("/");
     }
 }

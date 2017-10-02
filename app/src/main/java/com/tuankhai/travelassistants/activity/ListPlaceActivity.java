@@ -1,6 +1,5 @@
 package com.tuankhai.travelassistants.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,34 +27,47 @@ import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
 import static com.tuankhai.travelassistants.utils.AppContansts.REQUEST_LOGIN;
 
 public class ListPlaceActivity extends BaseActivity
         implements PlaceAdapter.LayoutListPlaceItemListener {
-    ListPlaceController placeController;
+    private ListPlaceController placeController;
     public int type;
 
-    ArrayList<PlaceDTO.Place> arrPlace;
-    RecyclerView lvPlace;
-    RecyclerView.LayoutManager layoutManager;
-    PlaceAdapterSwipe placeAdapter;
+    private ArrayList<PlaceDTO.Place> arrPlace;
+    private RecyclerView lvPlace;
+    private RecyclerView.LayoutManager layoutManager;
+    private PlaceAdapterSwipe placeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        placeController = new ListPlaceController(this);
-
         setContentView(R.layout.activity_list_place);
+
+        initToolbar();
+        initSlider();
+
+        addContorls();
+    }
+
+    private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        initSlider();
+    }
+
+    private void addContorls() {
+        placeController = new ListPlaceController(this);
 
         type = getIntent().getIntExtra(AppContansts.INTENT_TYPE, 0);
-        init();
+        lvPlace = (RecyclerView) findViewById(R.id.lv_place);
+        arrPlace = new ArrayList<>();
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        placeAdapter = new PlaceAdapterSwipe(this, arrPlace, this);
+        lvPlace.setLayoutManager(layoutManager);
+        lvPlace.addItemDecoration(new ListSpacingItemDecoration(Utils.dpToPx(this, 10)));
+        lvPlace.setItemAnimator(new DefaultItemAnimator());
+        lvPlace.setAdapter(placeAdapter);
     }
 
     private void initSlider() {
@@ -92,11 +104,6 @@ public class ListPlaceActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(getString(R.string.font_boto_regular))
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
         getData();
     }
 
@@ -110,12 +117,6 @@ public class ListPlaceActivity extends BaseActivity
                 getData();
             }
         }
-    }
-
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     private void progressNormal() {
@@ -164,17 +165,6 @@ public class ListPlaceActivity extends BaseActivity
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void init() {
-        lvPlace = (RecyclerView) findViewById(R.id.lv_place);
-        arrPlace = new ArrayList<>();
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        placeAdapter = new PlaceAdapterSwipe(this, arrPlace, this);
-        lvPlace.setLayoutManager(layoutManager);
-        lvPlace.addItemDecoration(new ListSpacingItemDecoration(Utils.dpToPx(this, 10)));
-        lvPlace.setItemAnimator(new DefaultItemAnimator());
-        lvPlace.setAdapter(placeAdapter);
     }
 
     private void getData() {

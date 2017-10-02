@@ -13,15 +13,15 @@ import com.tuankhai.travelassistants.utils.AppContansts;
  * Created by Khai on 31/08/2017.
  */
 
-public class BaseController {
+public class MainController {
 
-    MainActivity mActivity;
-    BaseFragment curFragment = null;
+    private MainActivity mActivity;
+    private BaseFragment curFragment = null;
 
-    PlacesFragment placesFragment;
-    SearchPlaceFragment searchFragment;
+    private PlacesFragment placesFragment;
+    private SearchPlaceFragment searchFragment;
 
-    public BaseController(MainActivity activity) {
+    public MainController(MainActivity activity) {
         mActivity = activity;
     }
 
@@ -52,5 +52,4 @@ public class BaseController {
         mActivity.fragmentTransaction.replace(R.id.base_frame_content, fragment, key);
         mActivity.fragmentTransaction.commit();
     }
-
 }

@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.webservice.request;
 
 import com.tuankhai.travelassistants.webservice.main.BasicRequest;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,11 +11,11 @@ import java.util.Map;
  */
 
 public class AddFavoriteRequest extends BasicRequest {
-    public final String URL = "TravelAssistants/public/Favorite/add/new";
+    public final String ROUTES = "Favorite/add/new";
 
-    String key;
-    String idPlace;
-    String idUser;
+    private String key;
+    private String idPlace;
+    private String idUser;
 
     public AddFavoriteRequest(String key, String idPlace, String idUser) {
         this.key = key;
@@ -33,6 +34,6 @@ public class AddFavoriteRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return URL.split("/");
+        return ROUTES.split("/");
     }
 }

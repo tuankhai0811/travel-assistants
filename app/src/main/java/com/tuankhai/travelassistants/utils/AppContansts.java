@@ -7,6 +7,7 @@ import com.tuankhai.travelassistants.webservice.main.RequestService;
  */
 
 public class AppContansts {
+
     public static final String SHAREDPRE_FILE = "com.tuankhai.travelassistants.sharedpre";
     public static final String SHAREDPRE_ALLPROVINCE = "com.tuankhai.travelassistants.sharedpre.allprovince";
     public static final String SHAREDPRE_SLIDERPLACE = "com.tuankhai.travelassistants.sharedpre.sliderplace";
@@ -47,7 +48,7 @@ public class AppContansts {
     public static final int PLAY_SERVICES_REQUEST = 1000;
     public static final int REQUEST_LOGIN = 231;
 
-    public static String URL_IMAGE = RequestService.BASE_URL + "TravelAssistants/public/image/";
+    public static String URL_IMAGE = RequestService.BASE_URL_IMAGE + "TravelAssistants/public/image/";
     public static String IMAGE_EXTENSION = ".jpg";
     public static String IMAGE_RATIO_3_4 = "_3_4" + IMAGE_EXTENSION;
     public static String IMAGE_RATIO_4_3 = "_4_3" + IMAGE_EXTENSION;

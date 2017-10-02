@@ -1,9 +1,7 @@
 package com.tuankhai.travelassistants.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.utils.Utils;
@@ -13,9 +11,6 @@ import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.travelassistants.webservice.request.GetListProvinceRequest;
 import com.tuankhai.travelassistants.webservice.request.GetSliderPlaceRequest;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SplashScreenActivity extends BaseActivity {
 
@@ -27,29 +22,12 @@ public class SplashScreenActivity extends BaseActivity {
         getAllProvince();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(getString(R.string.font_boto_regular))
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
-
-        logError("vào on resume");
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
     public void getAllProvince() {
         new RequestService().load(new GetListProvinceRequest("key"), false, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);
-                if (response == null){
+                if (response == null) {
                     onFailure("response is null");
                     return;
                 }
@@ -60,7 +38,7 @@ public class SplashScreenActivity extends BaseActivity {
             @Override
             public void onFailure(Object error) {
                 super.onFailure(error);
-                Log.e("RequestService", error.toString());
+                logError("RequestService", error.toString());
             }
         }, ProvinceDTO.class);
     }
@@ -72,7 +50,7 @@ public class SplashScreenActivity extends BaseActivity {
                 super.onSuccess(response);
                 Utils.saveSliderPlace(SplashScreenActivity.this, (PlaceDTO) response);
                 Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
             }
@@ -83,47 +61,5 @@ public class SplashScreenActivity extends BaseActivity {
             }
         }, PlaceDTO.class);
     }
-
-//    class GetImageSlider extends AsyncTask<Void, Void, ArrayList<Bitmap>> {
-//
-//        SliderPlaceDTO sliderPlaceDTO;
-//
-//        public GetImageSlider(SliderPlaceDTO sliderPlaceDTO) {
-//            this.sliderPlaceDTO = sliderPlaceDTO;
-//        }
-//
-//        @Override
-//        protected ArrayList<Bitmap> doInBackground(Void... voids) {
-//            ArrayList<Bitmap> arrImg = new ArrayList<Bitmap>();
-//            for (int i = 0; i < sliderPlaceDTO.places.length; i++) {
-//                try {
-//                    String address = AppContansts.URL_IMAGE + sliderPlaceDTO.places[i].id + AppContansts.IMAGE_RATIO_4_3;
-//                    Log.e("urlImgPlace", address);
-//                    URL url = new URL(address);
-//                    Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//                    arrImg.add(image);
-//                } catch (IOException e) {
-//                    System.out.println(e);
-//                }
-//            }
-//            return arrImg;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(ArrayList<Bitmap> bitmaps) {
-//            super.onPostExecute(bitmaps);
-//            if (bitmaps.size() == 0) return;
-//            if (bitmaps.size() != sliderPlaceDTO.places.length) return;
-//            int size = bitmaps.size();
-//            for (int i = 0; i < size; i++) {
-//                sliderPlaceDTO.places[i].codeImage = Utils.encodeToBase64(bitmaps.get(i));
-//            }
-//            Utils.saveSliderPlace(SplashScreenActivity.this, sliderPlaceDTO);
-//            Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(intent);
-//            finish();
-//        }
-//    }
 
 }

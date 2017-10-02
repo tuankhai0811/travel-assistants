@@ -20,17 +20,16 @@ import java.util.Map;
 
 public class PermissionUtils {
 
-    Context context;
-    Activity current_activity;
+    private Context context;
+    private Activity current_activity;
 
-    PermissionResultCallback permissionResultCallback;
+    private PermissionResultCallback permissionResultCallback;
 
+    private ArrayList<String> permission_list = new ArrayList<>();
+    private ArrayList<String> listPermissionsNeeded = new ArrayList<>();
 
-    ArrayList<String> permission_list = new ArrayList<>();
-    ArrayList<String> listPermissionsNeeded = new ArrayList<>();
-
-    String dialog_content = "";
-    int req_code;
+    private String dialog_content = "";
+    private int req_code;
 
     public PermissionUtils(Context context) {
         this.context = context;
@@ -44,8 +43,6 @@ public class PermissionUtils {
         this.current_activity = (Activity) context;
 
         permissionResultCallback = callback;
-
-
     }
 
 
@@ -56,7 +53,6 @@ public class PermissionUtils {
      * @param dialog_content
      * @param request_code
      */
-
     public boolean check_permission(ArrayList<String> permissions, String dialog_content, int request_code) {
         this.permission_list = permissions;
         this.dialog_content = dialog_content;
@@ -72,7 +68,6 @@ public class PermissionUtils {
             return false;
         } else {
             permissionResultCallback.PermissionGranted(request_code);
-
             Log.e("all permissions", "granted");
             Log.e("proceed", "to callback");
             return true;
@@ -87,7 +82,6 @@ public class PermissionUtils {
      * @param request_code
      * @return
      */
-
     private boolean checkAndRequestPermissions(ArrayList<String> permissions, int request_code) {
 
         if (permissions.size() > 0) {
@@ -99,7 +93,6 @@ public class PermissionUtils {
                 if (hasPermission != PackageManager.PERMISSION_GRANTED) {
                     listPermissionsNeeded.add(permissions.get(i));
                 }
-
             }
 
             if (!listPermissionsNeeded.isEmpty()) {
@@ -139,7 +132,6 @@ public class PermissionUtils {
                                 return;
                             }
                         }
-
                     }
 
                     if (pending_permissions.size() > 0) {
@@ -160,8 +152,6 @@ public class PermissionUtils {
                                                     permissionResultCallback.PartialPermissionGranted(req_code, pending_permissions);
                                                 break;
                                         }
-
-
                                     }
                                 });
 
@@ -169,10 +159,7 @@ public class PermissionUtils {
                         Log.e("all", "permissions granted");
                         Log.e("proceed", "to next step");
                         permissionResultCallback.PermissionGranted(req_code);
-
                     }
-
-
                 }
                 break;
         }

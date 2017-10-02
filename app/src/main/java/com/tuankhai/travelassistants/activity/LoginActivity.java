@@ -1,12 +1,10 @@
 package com.tuankhai.travelassistants.activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -37,7 +35,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.tuankhai.travelassistants.R;
@@ -47,40 +44,71 @@ import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.travelassistants.webservice.request.AddUserRequest;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
 public class LoginActivity extends BaseActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
-    private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 9001;
-
     private GoogleApiClient mGoogleApiClient;
     private CallbackManager mCallbackManager;
 
-    Toolbar toolbar;
+    private Toolbar toolbar;
+    private TextView txtName;
+    private ImageView imgPhoto;
+    private LinearLayout layoutUser, layoutLogo;
+    private FrameLayout layoutSignin, layoutSignout;
+    private TextView btnSignOut, btnSignInG, btnSignInF;
+    private LoginButton btnFacebook;
 
-    TextView txtName;
-    ImageView imgPhoto;
-    LinearLayout layoutUser, layoutLogo;
-    FrameLayout layoutSignin, layoutSignout;
-    TextView btnSignOut, btnSignInG, btnSignInF;
-    LoginButton btnFacebook;
+    private ProgressDialog progressDialog;
 
-    ProgressDialog progressDialog;
-
-    int request_code;
+    private int request_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        request_code = getIntent().getIntExtra(AppContansts.INTENT_DATA, 0);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
-        addControls();
 
+        initToolbar();
+        initGoogle();
+        initFacebook();
+
+        addControls();
+    }
+
+    private void initToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getString(R.string.txt_title_activity_login));
+    }
+
+    private void initFacebook() {
+        btnFacebook.setReadPermissions("email", "public_profile");
+        btnFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                logError("facebook: onSuccess", loginResult);
+                handleFacebookAccessToken(loginResult.getAccessToken());
+                // App code
+            }
+
+            @Override
+            public void onCancel() {
+                logError("facebook: onCancel");
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                logError("facebook: onSuccess", exception);
+                // App code
+            }
+        });
+    }
+
+    private void initGoogle() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -92,31 +120,10 @@ public class LoginActivity extends BaseActivity implements
                 .build();
 
         mCallbackManager = CallbackManager.Factory.create();
-        btnFacebook.setReadPermissions("email", "public_profile");
-        btnFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.e(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-                // App code
-            }
-
-            @Override
-            public void onCancel() {
-                Log.e(TAG, "facebook:onCancel");
-                // App code
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                Log.e(TAG, "facebook:onError", exception);
-                // App code
-            }
-        });
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.e(TAG, "handleFacebookAccessToken:" + token);
+        logError("handleFacebookAccessToken", token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
@@ -124,13 +131,11 @@ public class LoginActivity extends BaseActivity implements
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.e(TAG, "signInWithCredential:success");
+                            logError("signInWithCredential: success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.e(TAG, "signInWithCredential:failure", task.getException());
+                            logError("signInWithCredential: failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed!",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
@@ -141,21 +146,14 @@ public class LoginActivity extends BaseActivity implements
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(getString(R.string.font_boto_regular))
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
+        updateUI(mUser);
     }
 
     private void addControls() {
+        request_code = getIntent().getIntExtra(AppContansts.INTENT_DATA, 0);
+
         txtName = (TextView) findViewById(R.id.txt_name_login);
         imgPhoto = (ImageView) findViewById(R.id.img_photo_login);
         btnSignInG = (TextView) findViewById(R.id.btn_sign_in_google);
@@ -178,11 +176,6 @@ public class LoginActivity extends BaseActivity implements
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Sign in...");
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.txt_title_activity_login));
     }
 
     @Override
@@ -195,25 +188,15 @@ public class LoginActivity extends BaseActivity implements
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (resultCode == RESULT_OK) {
             if (requestCode == RC_SIGN_IN) {
                 GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
                 if (result.isSuccess()) {
-                    // Google Sign In was successful, authenticate with Firebase
                     GoogleSignInAccount account = result.getSignInAccount();
                     firebaseAuthWithGoogle(account);
                 } else {
-                    // Google Sign In failed, update UI appropriately
                     updateUI(null);
                 }
             } else {
@@ -226,7 +209,7 @@ public class LoginActivity extends BaseActivity implements
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.e(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        logError("firebaseAuthWithGoogle", acct.getId());
         showProgressDialog();
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -235,18 +218,15 @@ public class LoginActivity extends BaseActivity implements
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.e(TAG, "signInWithCredential:success");
+                            logError("signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.e(TAG, "signInWithCredential:failure", task.getException());
+                            logError("signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
                         hideProgressDialog();
                     }
                 });
@@ -263,9 +243,7 @@ public class LoginActivity extends BaseActivity implements
 
     private void signOut() {
         mAuth.signOut();
-
         LoginManager.getInstance().logOut();
-
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
@@ -279,7 +257,6 @@ public class LoginActivity extends BaseActivity implements
 
     private void revokeAccess() {
         mAuth.signOut();
-
         Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
@@ -319,7 +296,7 @@ public class LoginActivity extends BaseActivity implements
                             hideProgressDialog();
                         }
                     }, UserDTO.class);
-            if (request_code == AppContansts.REQUEST_LOGIN){
+            if (request_code == AppContansts.REQUEST_LOGIN) {
                 setResult(RESULT_OK);
                 finish();
             }
@@ -339,7 +316,7 @@ public class LoginActivity extends BaseActivity implements
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.e(TAG, "onConnectionFailed:" + connectionResult);
+        logError("onConnectionFailed", connectionResult);
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 

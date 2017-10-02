@@ -16,9 +16,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.ListPlaceNearActivity;
+import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.utils.MyCache;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
@@ -35,13 +35,14 @@ import static com.tuankhai.travelassistants.utils.MyCache.bg_place_global_4_3;
 public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
-    ListPlaceNearActivity context;
-    List<PlaceNearDTO.Result> arrPlace;
-    List<PlaceNearDTO.Result> arrSearch;
-    RecyclerView mRecyclerView;
-    Location location;
 
-    LayoutListPlaceNearItemListener itemListener;
+    private ListPlaceNearActivity context;
+    private List<PlaceNearDTO.Result> arrPlace;
+    private List<PlaceNearDTO.Result> arrSearch;
+    private RecyclerView mRecyclerView;
+    private Location location;
+
+    private LayoutListPlaceNearItemListener itemListener;
     private OnLoadMoreListener mOnLoadMoreListener;
 
     private boolean isLoading;
@@ -109,8 +110,6 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_ITEM) {
             PlaceNearViewHolder holder = (PlaceNearViewHolder) viewHolder;
-//            Glide.clear(holder.imageView);
-//            holder.setIsRecyclable(false);
             PlaceNearDTO.Result item = arrPlace.get(position);
             holder.txtName.setText(item.name);
             holder.ratingBar.invalidate();

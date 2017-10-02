@@ -25,10 +25,6 @@ public class UploadRequest {
         return null;
     }
 
-    public String cusID() {
-        return null;
-    }
-
     public String mediaType() {
         return null;
     }

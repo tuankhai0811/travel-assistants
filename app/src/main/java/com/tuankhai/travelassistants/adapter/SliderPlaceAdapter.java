@@ -26,7 +26,6 @@ public class SliderPlaceAdapter extends PagerAdapter {
     private Activity context;
     private PlaceDTO data;
 
-
     public SliderPlaceAdapter(FragmentActivity activity, PlaceDTO data) {
         this.context = activity;
         this.data = data;

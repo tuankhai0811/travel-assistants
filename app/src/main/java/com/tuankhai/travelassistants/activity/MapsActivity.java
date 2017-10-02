@@ -36,11 +36,10 @@ public class MapsActivity extends BaseActivity
         implements AdapterView.OnItemSelectedListener, OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback, View.OnClickListener {
 
-    int type;
-
-    double location_lat, location_lng;
-    String name;
-    PlaceNearDTO data;
+    private int type;
+    private double location_lat, location_lng;
+    private String name;
+    private PlaceNearDTO data;
 
     private GoogleMap mMap;
     private LocationHelper locationHelper;
@@ -54,13 +53,15 @@ public class MapsActivity extends BaseActivity
 //            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //            getWindow().setStatusBarColor(Color.BLACK);
 //        }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().hide();
-
+        initToolbar();
         initSlider();
+
+        addControls();
+
+    }
+
+    private void addControls() {
+        locationHelper = new LocationHelper(this);
 
         type = getIntent().getIntExtra(AppContansts.INTENT_TYPE, 0);
         name = getIntent().getStringExtra(AppContansts.INTENT_NAME);
@@ -96,6 +97,14 @@ public class MapsActivity extends BaseActivity
         mapFragment.getMapAsync(this);
     }
 
+    private void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().hide();
+    }
+
     private void initSlider() {
         SliderConfig mConfig = new SliderConfig.Builder()
                 .primaryColor(getResources().getColor(R.color.colorPrimary))
@@ -111,8 +120,6 @@ public class MapsActivity extends BaseActivity
                 .edgeSize(0.2f)
                 .build();
         Slider.attach(this, mConfig);
-
-        locationHelper = new LocationHelper(this);
     }
 
     @Override
@@ -180,14 +187,14 @@ public class MapsActivity extends BaseActivity
         mMap.setMaxZoomPreference(18.0f);
         mMap.setMinZoomPreference(13.0f);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 14f));
+        if (!(data == null || Utils.isEmptyString(data.next_page_token))) {
+            getMoreData(data.next_page_token);
+        }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         } else {
             locationHelper.checkpermission();
-        }
-        if (!(data == null || Utils.isEmptyString(data.next_page_token))) {
-            getMoreData(data.next_page_token);
         }
     }
 
@@ -207,8 +214,10 @@ public class MapsActivity extends BaseActivity
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         mMap.setMyLocationEnabled(true);

@@ -19,7 +19,7 @@ import com.tuankhai.travelassistants.webservice.request.GetFavoriteRequest;
 
 public class ListPlaceController {
 
-    ListPlaceActivity mActivity;
+    private ListPlaceActivity mActivity;
 
     public ListPlaceController(ListPlaceActivity activity) {
         mActivity = activity;

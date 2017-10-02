@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.webservice.request;
 
 import com.tuankhai.travelassistants.webservice.main.BasicRequest;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,9 +11,9 @@ import java.util.Map;
  */
 
 public class GetSliderPlaceRequest extends BasicRequest {
-    public final String URL = "TravelAssistants/public/PlaceSlider/get/all";
+    public final String ROUTES = "PlaceSlider/get/all";
 
-    String key;
+    private String key;
 
     public GetSliderPlaceRequest(String key) {
         this.key = key;
@@ -27,6 +28,6 @@ public class GetSliderPlaceRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return URL.split("/");
+        return ROUTES.split("/");
     }
 }

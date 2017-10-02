@@ -1,7 +1,6 @@
 package com.tuankhai.travelassistants.activity;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,7 +16,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -74,77 +72,74 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
 public class DetailPlaceActivity extends BaseActivity
         implements View.OnClickListener,
         OnLikeListener,
         OnAnimationEndListener,
         MaterialRatingBar.OnRatingChangeListener,
-        OnMapReadyCallback {
+        OnMapReadyCallback, PlaceNearAdapter.LayoutListPlaceNearItemListener {
 
-    PlaceDTO.Place data;
-    ReviewDTO reviewDTO;
-    PlaceGoogleDTO dataGoogle;
-    PlaceNearDTO dataNearFood, dataNearHotel;
-    LatLng location;
-    Toolbar toolbar;
-    SliderConfig mConfig;
+    private PlaceDTO.Place data;
+    private ReviewDTO reviewDTO;
+    private PlaceGoogleDTO dataGoogle;
+    private PlaceNearDTO dataNearFood, dataNearHotel;
+    private LatLng location;
+    private Toolbar toolbar;
+    private SliderConfig mConfig;
 
     //Slider Image
-    SliderImageAdapter adapterImage;
-    LoopViewPager viewpager;
-    CircleIndicator indicator;
+    private SliderImageAdapter adapterImage;
+    private LoopViewPager viewpager;
+    private CircleIndicator indicator;
 
     //Recycleview Hotel
-    RecyclerView lvHotel;
-    ArrayList<PlaceNearDTO.Result> arrHotel;
-    RecyclerView.LayoutManager layoutManagerHotel;
-    PlaceNearAdapter adapterHotel;
-    LinearLayout layoutHotel;
+    private RecyclerView lvHotel;
+    private ArrayList<PlaceNearDTO.Result> arrHotel;
+    private RecyclerView.LayoutManager layoutManagerHotel;
+    private PlaceNearAdapter adapterHotel;
+    private LinearLayout layoutHotel;
 
     //Recycleview Food
-    RecyclerView lvFood;
-    ArrayList<PlaceNearDTO.Result> arrFood;
-    RecyclerView.LayoutManager layoutManagerFood;
-    PlaceNearAdapter adapterFood;
-    LinearLayout layoutFood;
+    private RecyclerView lvFood;
+    private ArrayList<PlaceNearDTO.Result> arrFood;
+    private RecyclerView.LayoutManager layoutManagerFood;
+    private PlaceNearAdapter adapterFood;
+    private LinearLayout layoutFood;
 
     //Reviews
-    MaterialRatingBar ratingBarSelect;
-    RecyclerView lvReview;
-    ArrayList<PlaceGoogleDTO.Result.Review> arrReview;
-    RecyclerView.LayoutManager layoutManagerReview;
-    ReviewsAdapter adapterReviews;
+    private MaterialRatingBar ratingBarSelect;
+    private RecyclerView lvReview;
+    private ArrayList<PlaceGoogleDTO.Result.Review> arrReview;
+    private RecyclerView.LayoutManager layoutManagerReview;
+    private ReviewsAdapter adapterReviews;
 
     //Dialog Review
-    Dialog dialogReview;
-    MaterialRatingBar ratingBarSelectDialog;
-    EditText txt_comment_dialog;
-    TextView txtRatingDialog;
-    Button btnCancel, btnSend;
+    private Dialog dialogReview;
+    private MaterialRatingBar ratingBarSelectDialog;
+    private EditText txt_comment_dialog;
+    private TextView txtRatingDialog;
+    private Button btnCancel, btnSend;
 
-    ProgressBar progressBar1;
-    ProgressBar progressBar2;
-    ProgressBar progressBar3;
-    ProgressBar progressBar4;
-    ProgressBar progressBar5;
+    private ProgressBar progressBar1;
+    private ProgressBar progressBar2;
+    private ProgressBar progressBar3;
+    private ProgressBar progressBar4;
+    private ProgressBar progressBar5;
 
-    LikeButton likeButton;
-    MaterialRatingBar ratingBar;
-    MaterialRatingBar ratingBarView;
+    private LikeButton likeButton;
+    private MaterialRatingBar ratingBar;
+    private MaterialRatingBar ratingBarView;
 
     //Maps
-    MapView mapView;
-    GoogleMap mMap;
+    private MapView mapView;
+    private GoogleMap mMap;
 
-    int currentPage;
-    int numPage;
-    TimerTask task;
-    Timer timer;
-    final long DELAY_MS = 5000;      //delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 5000;    //time in milliseconds between successive task executions.
+    private int currentPage;
+    private int numPage;
+    private TimerTask task;
+    private Timer timer;
+    private final long DELAY_MS = 5000;      //delay in milliseconds before task is to be executed
+    private final long PERIOD_MS = 5000;    //time in milliseconds between successive task executions.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,15 +148,13 @@ public class DetailPlaceActivity extends BaseActivity
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
         setContentView(R.layout.activity_detail_place);
+
+        initSlider();
         getData();
         initCollapsingToolbar();
-        initSlider();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
+
         initSliderImage(data.arrImage);
-
         addControls();
-
     }
 
     @Override
@@ -285,14 +278,11 @@ public class DetailPlaceActivity extends BaseActivity
             ((TextView) findViewById(R.id.txt_website)).setText(data.website);
             findViewById(R.id.txt_website).setOnClickListener(this);
         }
-//        findViewById(R.id.layout_static_maps).setOnClickListener(this);
         findViewById(R.id.layout_address).setOnClickListener(this);
     }
 
     private void initStaticMaps() {
         findViewById(R.id.layout_static_maps).setVisibility(View.VISIBLE);
-//        ImageView imgStaticMaps = (ImageView) findViewById(R.id.img_static_maps);
-//        Glide.with(this).load(RequestService.getImageStaticMaps(data.getLocationLat(), data.getLocationLng())).into(imgStaticMaps);
         mapView = (MapView) findViewById(R.id.lite_listrow_map);
         mapView.onCreate(null);
         mapView.getMapAsync(this);
@@ -335,7 +325,6 @@ public class DetailPlaceActivity extends BaseActivity
     }
 
     private void initReviews() {
-
         if (arrReview == null) {
             arrReview = new ArrayList<>();
             arrReview.addAll(dataGoogle.getReviews());
@@ -356,15 +345,6 @@ public class DetailPlaceActivity extends BaseActivity
         ratingBar.setRating(result);
         ratingBarView.setRating(result);
 
-        Log.e("status", "" +
-                data.id +
-                String.valueOf(result) +
-                dataGoogle.result.formatted_address +
-                dataGoogle.result.formatted_phone_number +
-                dataGoogle.getLocationLat() +
-                dataGoogle.getLocationLng() +
-                new Gson().toJson(dataGoogle.result.opening_hours) +
-                dataGoogle.result.website);
         new RequestService().load(
                 new EditPlaceRequest(
                         "",
@@ -381,13 +361,11 @@ public class DetailPlaceActivity extends BaseActivity
                     @Override
                     public void onSuccess(Object response) {
                         super.onSuccess(response);
-                        Log.e("status", new Gson().toJson(response));
                     }
                 }, CheckDTO.class);
     }
 
     public void refreshProgressBar() {
-        Log.e("status", "refress");
         int size = arrReview.size();
         for (int k = 1; k < 6; k++) {
             int count = 0;
@@ -396,7 +374,6 @@ public class DetailPlaceActivity extends BaseActivity
                     count++;
                 }
             }
-            Log.e("status", count + "");
             switch (k) {
                 case 1:
                     Double progress1 = (double) count / (double) size;
@@ -423,7 +400,6 @@ public class DetailPlaceActivity extends BaseActivity
     }
 
     private void refreshReview() {
-        Log.e("status", "refresh review");
         lvReview = (RecyclerView) findViewById(R.id.lv_reviews);
         lvReview.setNestedScrollingEnabled(false);
         layoutManagerReview = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -461,7 +437,7 @@ public class DetailPlaceActivity extends BaseActivity
         lvFood = (RecyclerView) findViewById(R.id.lv_food);
         lvFood.setNestedScrollingEnabled(false);
         layoutManagerFood = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        adapterFood = new PlaceNearAdapter(this, Arrays.asList(dataNearFood.results), null);
+        adapterFood = new PlaceNearAdapter(this, Arrays.asList(dataNearFood.results), this);
         lvFood.setLayoutManager(layoutManagerFood);
         lvFood.addItemDecoration(new SpacingItemDecorationHorizontal(Utils.dpToPx(this, 10)));
         lvFood.setAdapter(adapterFood);
@@ -484,7 +460,7 @@ public class DetailPlaceActivity extends BaseActivity
         lvHotel = (RecyclerView) findViewById(R.id.lv_hotel);
         lvHotel.setNestedScrollingEnabled(false);
         layoutManagerHotel = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        adapterHotel = new PlaceNearAdapter(this, Arrays.asList(dataNearHotel.results), null);
+        adapterHotel = new PlaceNearAdapter(this, Arrays.asList(dataNearHotel.results), this);
         lvHotel.setLayoutManager(layoutManagerHotel);
         lvHotel.addItemDecoration(new SpacingItemDecorationHorizontal(Utils.dpToPx(this, 10)));
         lvHotel.setAdapter(adapterHotel);
@@ -504,19 +480,9 @@ public class DetailPlaceActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(getString(R.string.font_boto_regular))
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
         findViewById(R.id.layout_static_maps).setOnClickListener(this);
         findViewById(R.id.layout_address).setOnClickListener(this);
         refreshFavorite();
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     private void addControlsPlaceGoogle() {
@@ -528,7 +494,6 @@ public class DetailPlaceActivity extends BaseActivity
         ratingBar.setRating(dataGoogle.getRating());
 
         findViewById(R.id.layout_content_reviews).setVisibility(View.VISIBLE);
-//        ((TextView) findViewById(R.id.num_comment)).setText(dataGoogle.getSizeReview() + "");
         ((TextView) findViewById(R.id.txt_rating_view)).setText(dataGoogle.getRating() + "");
         ratingBarView = (MaterialRatingBar) findViewById(R.id.ratingBarView);
         ratingBarView.invalidate();
@@ -667,6 +632,9 @@ public class DetailPlaceActivity extends BaseActivity
     private void initCollapsingToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
+
         ((TextView) findViewById(R.id.txt_title)).setText("");
         final CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -792,17 +760,6 @@ public class DetailPlaceActivity extends BaseActivity
                 Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + data.phone));
                 startActivity(i);
                 break;
-//            case R.id.layout_address:
-//            case R.id.layout_static_maps:
-//                findViewById(R.id.layout_static_maps).setOnClickListener(null);
-//                findViewById(R.id.layout_address).setOnClickListener(null);
-//                Intent mapsIntent = new Intent(this, MapsActivity.class);
-//                mapsIntent.putExtra(AppContansts.INTENT_NAME, data.getName());
-//                mapsIntent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_NORMAL);
-//                mapsIntent.putExtra(AppContansts.INTENT_DATA_LAT, data.getLocationLat());
-//                mapsIntent.putExtra(AppContansts.INTENT_DATA_LNG, data.getLocationLng());
-//                startActivity(mapsIntent);
-//                break;
         }
     }
 
@@ -916,35 +873,10 @@ public class DetailPlaceActivity extends BaseActivity
         }
     }
 
-//    class GetImageSlider extends AsyncTask<Void, Void, ArrayList<Bitmap>> {
-//
-//        ArrayList<String> lists;
-//
-//        public GetImageSlider(ArrayList<String> lists) {
-//            this.lists = lists;
-//        }
-//
-//        @Override
-//        protected ArrayList<Bitmap> doInBackground(Void... voids) {
-//            ArrayList<Bitmap> arrImg = new ArrayList<Bitmap>();
-//            for (int i = 0; i < lists.size(); i++) {
-//                try {
-//                    URL url = new URL(lists.get(i));
-//                    Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//                    arrImg.add(image);
-//                } catch (IOException e) {
-//                    System.out.println(e);
-//                }
-//            }
-//            return arrImg;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(ArrayList<Bitmap> bitmaps) {
-//            super.onPostExecute(bitmaps);
-//            if (bitmaps.size() == 0) return;
-//            initSliderImage(bitmaps);
-//        }
-//    }
-
+    @Override
+    public void onItemPlaceNearClick(View view, PlaceNearDTO.Result item) {
+        Intent intent = new Intent(this, DetailPlaceNearActivity.class);
+        intent.putExtra(AppContansts.INTENT_DATA, item);
+        startActivity(intent);
+    }
 }

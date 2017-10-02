@@ -14,9 +14,9 @@ import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 
 public class SearchResultFragment extends BaseFragment implements AppBarLayout.OnOffsetChangedListener{
-    MainActivity mActivity;
 
-    BaseFragmentCallbacks callbacks;
+    private MainActivity mActivity;
+    private BaseFragmentCallbacks callbacks;
 
     public SearchResultFragment() {
     }

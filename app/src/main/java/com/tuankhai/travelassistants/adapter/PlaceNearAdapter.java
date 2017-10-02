@@ -28,10 +28,10 @@ import static com.tuankhai.travelassistants.utils.MyCache.bg_place_global_4_3;
  */
 
 public class PlaceNearAdapter extends RecyclerView.Adapter<PlaceNearAdapter.PlaceNearViewHolder> {
-    Activity context;
-    List<PlaceNearDTO.Result> arrPlace;
+    private Activity context;
+    private List<PlaceNearDTO.Result> arrPlace;
 
-    LayoutListPlaceNearItemListener itemListener;
+    private LayoutListPlaceNearItemListener itemListener;
 
     public PlaceNearAdapter(Activity context, List<PlaceNearDTO.Result> arrPlace, LayoutListPlaceNearItemListener listener) {
         this.context = context;
@@ -97,7 +97,7 @@ public class PlaceNearAdapter extends RecyclerView.Adapter<PlaceNearAdapter.Plac
 
         @Override
         public void onClick(View view) {
-//            itemListener.onItemPlaceClick(view, arrPlace.get(getAdapterPosition()));
+            itemListener.onItemPlaceNearClick(view, arrPlace.get(getAdapterPosition()));
         }
     }
 

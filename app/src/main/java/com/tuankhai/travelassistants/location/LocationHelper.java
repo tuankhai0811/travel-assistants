@@ -41,11 +41,9 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
     public Location mLastLocation;
 
     // Google client to interact with Google API
-
     public GoogleApiClient mGoogleApiClient;
 
     // list of permissions
-
     private ArrayList<String> permissions = new ArrayList<>();
     private PermissionUtils permissionUtils;
 
@@ -53,12 +51,10 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
     private final static int REQUEST_CHECK_SETTINGS = 2000;
 
     public LocationHelper(Context context) {
-
         this.context = context;
         this.current_activity = (Activity) context;
 
         permissionUtils = new PermissionUtils(context, this);
-
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
     }
@@ -66,7 +62,6 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
     /**
      * Method to check the availability of location permissions
      */
-
     public boolean checkpermission() {
         return permissionUtils.check_permission(permissions, "Need GPS permission for getting your location", 1);
     }
@@ -78,7 +73,6 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
     /**
      * Method to verify google play services on the device
      */
-
     public boolean checkPlayServices() {
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(context);
@@ -158,7 +152,6 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
         return "";
     }
 
-
     public Address getAddress(double latitude, double longitude) {
         Geocoder geocoder;
         List<Address> addresses;
@@ -177,7 +170,6 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
     /**
      * Method used to build GoogleApiClient
      */
-
     public void buildGoogleApiClient() {
 //        if (mGoogleApiClient != null) return;
         mGoogleApiClient = new GoogleApiClient.Builder(context)
@@ -291,10 +283,8 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
         Log.e("PERMISSION", "NEVER ASK AGAIN");
     }
 
-
     private void showToast(String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
-
 
 }

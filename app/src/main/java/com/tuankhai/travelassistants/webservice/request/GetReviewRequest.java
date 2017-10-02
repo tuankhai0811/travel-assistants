@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.webservice.request;
 
 import com.tuankhai.travelassistants.webservice.main.BasicRequest;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,10 +11,10 @@ import java.util.Map;
  */
 
 public class GetReviewRequest extends BasicRequest {
-    public final String URL = "TravelAssistants/public/Review/get/id";
+    public final String ROUTES = "Review/get/id";
 
-    String key;
-    String id_place;
+    private String key;
+    private String id_place;
 
     public GetReviewRequest(String key, String id_place) {
         this.key = key;
@@ -30,6 +31,6 @@ public class GetReviewRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return URL.split("/");
+        return ROUTES.split("/");
     }
 }

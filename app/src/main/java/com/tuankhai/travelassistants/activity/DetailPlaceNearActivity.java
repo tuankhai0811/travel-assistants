@@ -1,6 +1,5 @@
 package com.tuankhai.travelassistants.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -13,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -26,7 +24,6 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.adapter.ReviewsAdapter;
 import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
@@ -49,49 +46,48 @@ import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
 
 public class DetailPlaceNearActivity extends BaseActivity
         implements View.OnClickListener, OnMapReadyCallback {
 
-    PlaceNearDTO.Result data;
-    PlaceGoogleDTO dataGoogle;
-    LatLng location;
-    Toolbar toolbar;
-    SliderConfig mConfig;
+    private PlaceNearDTO.Result data;
+    private PlaceGoogleDTO dataGoogle;
+    private LatLng location;
+    private Toolbar toolbar;
+    private SliderConfig mConfig;
 
     //Slider Image
-    SliderImageAdapter adapterImage;
-    LoopViewPager viewpager;
-    CircleIndicator indicator;
+    private SliderImageAdapter adapterImage;
+    private LoopViewPager viewpager;
+    private CircleIndicator indicator;
 
     //Reviews
-    RecyclerView lvReview;
-    ArrayList<PlaceGoogleDTO.Result.Review> arrReview;
-    RecyclerView.LayoutManager layoutManagerReview;
-    ReviewsAdapter adapterReviews;
+    private RecyclerView lvReview;
+    private ArrayList<PlaceGoogleDTO.Result.Review> arrReview;
+    private RecyclerView.LayoutManager layoutManagerReview;
+    private ReviewsAdapter adapterReviews;
 
-    ProgressBar progressBar1;
-    ProgressBar progressBar2;
-    ProgressBar progressBar3;
-    ProgressBar progressBar4;
-    ProgressBar progressBar5;
+    //Progressbar review
+    private ProgressBar progressBar1;
+    private ProgressBar progressBar2;
+    private ProgressBar progressBar3;
+    private ProgressBar progressBar4;
+    private ProgressBar progressBar5;
 
-    MaterialRatingBar ratingBar;
-    MaterialRatingBar ratingBarView;
+    private MaterialRatingBar ratingBar;
+    private MaterialRatingBar ratingBarView;
 
     //Maps
-    MapView mapView;
-    GoogleMap mMap;
+    private MapView mapView;
+    private GoogleMap mMap;
 
-    int currentPage;
-    int numPage;
-    TimerTask task;
-    Timer timer;
-    final long DELAY_MS = 5000;      //delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 5000;    //time in milliseconds between successive task executions.
+    //Swipe Image
+    private int currentPage;
+    private int numPage;
+    private TimerTask task;
+    private Timer timer;
+    private final long DELAY_MS = 5000;      //delay in milliseconds before task is to be executed
+    private final long PERIOD_MS = 5000;    //time in milliseconds between successive task executions.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,16 +96,14 @@ public class DetailPlaceNearActivity extends BaseActivity
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
         setContentView(R.layout.activity_detail_place_near);
+        initSlider();
+
         getData();
         initCollapsingToolbar();
-        initSlider();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
     }
 
     private void getData() {
         data = (PlaceNearDTO.Result) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
-        Log.e("status", new Gson().toJson(data));
         location = new LatLng(Double.parseDouble(data.getLat() + ""),
                 Double.parseDouble(data.getLng() + ""));
         initProgressRatingbar();
@@ -239,18 +233,8 @@ public class DetailPlaceNearActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(getString(R.string.font_boto_regular))
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
 //        findViewById(R.id.layout_static_maps).setOnClickListener(this);
 //        findViewById(R.id.layout_address).setOnClickListener(this);
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     private void addControlsPlaceGoogle() {
@@ -266,7 +250,7 @@ public class DetailPlaceNearActivity extends BaseActivity
     private void initSliderImageGoogle() {
         ArrayList<String> arrayImage = dataGoogle.getImage();
         if (arrayImage.size() == 0) {
-            findViewById(R.id.layout_image_pager_detail_near).setBackgroundResource(R.drawable.bg_place_global_16_10);
+            findViewById(R.id.layout_image_pager_detail_near).setBackgroundResource(R.drawable.bg_place_global_4_3);
         }
         viewpager = (LoopViewPager) findViewById(R.id.viewpagerImage);
         viewpager.setScrollDurationFactor(1500);
@@ -331,6 +315,9 @@ public class DetailPlaceNearActivity extends BaseActivity
     private void initCollapsingToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
+
         ((TextView) findViewById(R.id.txt_title)).setText("");
         final CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);

@@ -72,5 +72,6 @@
 
     //ripple
     <color name="transparent">#00FFFFFF</color>
-    <color name="grey_dilivers">#cccccc</color>
+    <color name="grey_dilivers">#e2e2e2</color>
+    <color name="grey_progressbar">#838383</color>
 </resources>

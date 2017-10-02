@@ -68,6 +68,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    fontPath="@string/font_boto_bold"
                     android:id="@+id/txt_rating_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -87,7 +88,7 @@
                     android:isIndicator="true"
                     android:maxHeight="@dimen/height_22dp"
                     android:minHeight="@dimen/height_22dp"
-                    android:progressBackgroundTint="@color/grey_70"
+                    android:progressBackgroundTint="@color/grey_50"
                     android:progressTint="@color/grey_50"
                     android:rating="0"
                     app:mrb_progressTint="@color/grey_50"

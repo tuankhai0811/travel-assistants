@@ -10,10 +10,10 @@ import java.util.Map;
  */
 
 public class FindPlaceByProvinceRequest extends BasicRequest {
-    public final String URL = "TravelAssistants/public/Place/find/province";
+    public final String ROUTES = "Place/find/province";
 
-    String key;
-    String id;
+    private String key;
+    private String id;
 
     public FindPlaceByProvinceRequest(String key, String id) {
         this.key = key;
@@ -30,6 +30,6 @@ public class FindPlaceByProvinceRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return URL.split("/");
+        return ROUTES.split("/");
     }
 }

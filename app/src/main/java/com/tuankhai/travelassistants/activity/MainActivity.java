@@ -33,7 +33,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.activity.controller.BaseController;
+import com.tuankhai.travelassistants.activity.controller.MainController;
 import com.tuankhai.travelassistants.fragment.BaseFragment;
 import com.tuankhai.travelassistants.fragment.SearchPlaceFragment;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private BaseActivityCallback callback;
-    private BaseController mBaseController;
+    private MainController mMainController;
     public FragmentManager fragmentManager;
     public FragmentTransaction fragmentTransaction;
 
@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity
         addControls();
         setupSearchBar();
 
-        mBaseController.addPlaceFragment();
+        mMainController.addPlaceFragment();
     }
 
     private boolean initLocation() {
@@ -111,7 +111,7 @@ public class MainActivity extends BaseActivity
     }
 
     private void addControls() {
-        mBaseController = new BaseController(this);
+        mMainController = new MainController(this);
 
         searchviewLayout = (FrameLayout) findViewById(R.id.layout_search_view);
         searchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
@@ -155,7 +155,7 @@ public class MainActivity extends BaseActivity
             @Override
             public void onFocus() {
                 initLocation();
-                mBaseController.addSearchFragment();
+                mMainController.addSearchFragment();
                 logError("SearchView", "onFocus");
             }
 
@@ -195,7 +195,7 @@ public class MainActivity extends BaseActivity
             public void onBackClick() {
                 BaseFragment currentFragment = (BaseFragment) fragmentManager.findFragmentByTag(AppContansts.KEY_SEARCH_FRAGMENT);
                 if (currentFragment != null) {
-                    mBaseController.addPlaceFragment();
+                    mMainController.addPlaceFragment();
                 }
             }
         });
@@ -243,7 +243,7 @@ public class MainActivity extends BaseActivity
         int id = menuItem.getItemId();
         switch (id) {
             case R.id.home:
-                mBaseController.addPlaceFragment();
+                mMainController.addPlaceFragment();
                 break;
             case R.id.nav_menu_favorite:
                 if (mUser == null) {
@@ -259,7 +259,7 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.trash:
                 Toast.makeText(getApplicationContext(), "Trash", Toast.LENGTH_SHORT).show();
-                mBaseController.addSearchFragment();
+                mMainController.addSearchFragment();
                 break;
             case R.id.logout:
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -337,7 +337,7 @@ public class MainActivity extends BaseActivity
         }
         BaseFragment currentFragment = (BaseFragment) fragmentManager.findFragmentByTag(AppContansts.KEY_SEARCH_FRAGMENT);
         if (currentFragment != null) {
-            mBaseController.addPlaceFragment();
+            mMainController.addPlaceFragment();
             return;
         }
         super.onBackPressed();

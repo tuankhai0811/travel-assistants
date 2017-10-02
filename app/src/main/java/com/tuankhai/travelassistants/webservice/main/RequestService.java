@@ -29,15 +29,12 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  */
 
 public class RequestService {
-    public static String BASE_URL = "http://travelassistants.webstarterz.com/";
-    public static String RESULT_OK = "OK";
-    //public static String BASE_URL = "http://192.168.0.117/";
-    //public static String BASE_URL = "http://192.168.1.31/";
+    public static String BASE_URL = "http://travelassistants.webstarterz.com/TravelAssistants/public/";
+    public static String BASE_URL_IMAGE = "http://travelassistants.webstarterz.com/";
     private Retrofit retrofit = null;
 
     static String GOOGLE_URL = "https://maps.googleapis.com/";
     static String LANGUAGE = "vi";
-    //static String API_KEY = "AIzaSyDAPRe0tK-LZ0dS-ecmkkJ6u_oibJcd8Pg";
     static String API_KEY = "AIzaSyBu7xN_K7RcHcGgU5lkwJ7qODxfxOHwHdM";
     static String KEY_FOOD = "";
     static String KEY_HOTEL = "";
@@ -253,14 +250,14 @@ public class RequestService {
         String[] path = mainDTO.path();
         getClient(BASE_URL)
                 .create(WebserviceRequest.class)
-                .getAnswers(path(path, 0), path(path, 1), path(path, 2), path(path, 3), path(path, 4), mainDTO.params())
+                .getAnswers(path(path, 0), path(path, 1), path(path, 2), mainDTO.params())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         try {
                             callback.onSuccess(Utils.readValue(response.body().bytes(), returnClass));
                         } catch (IOException e) {
-                            Log.e(getClass().toString(), "Data err: " + mainDTO.URL);
+                            Log.e(getClass().toString(), "Data err: " + mainDTO.ROUTES);
                         }
                     }
 
@@ -319,6 +316,4 @@ public class RequestService {
         else
             return "";
     }
-
-
 }

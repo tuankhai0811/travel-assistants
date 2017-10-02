@@ -12,15 +12,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseUser;
+import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.ListPlaceActivity;
+import com.tuankhai.travelassistants.activity.LoginActivity;
 import com.tuankhai.travelassistants.module.likebutton.LikeButton;
 import com.tuankhai.travelassistants.module.likebutton.OnLikeListener;
 import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.module.swipelayout.SimpleSwipeListener;
 import com.tuankhai.travelassistants.module.swipelayout.SwipeLayout;
 import com.tuankhai.travelassistants.module.swipelayout.adapter.RecyclerSwipeAdapter;
-import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.activity.ListPlaceActivity;
-import com.tuankhai.travelassistants.activity.LoginActivity;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.CheckDTO;
 import com.tuankhai.travelassistants.webservice.DTO.FavoriteDTO;
@@ -75,18 +75,21 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
             if (currentUser == null) {
                 setLiked(false);
             } else {
-                new RequestService().load(new CheckFavoriteRequest("", arrPlace.get(getAdapterPosition()).id, currentUser.getEmail()), false, new MyCallback() {
-                    @Override
-                    public void onSuccess(Object response) {
-                        super.onSuccess(response);
-                        CheckDTO result = (CheckDTO) response;
-                        if (result.result) {
-                            setLiked(true);
-                        } else {
-                            setLiked(false);
-                        }
-                    }
-                }, CheckDTO.class);
+                new RequestService().load(
+                        new CheckFavoriteRequest("", arrPlace.get(getAdapterPosition()).id, currentUser.getEmail()),
+                        false,
+                        new MyCallback() {
+                            @Override
+                            public void onSuccess(Object response) {
+                                super.onSuccess(response);
+                                CheckDTO result = (CheckDTO) response;
+                                if (result.result) {
+                                    setLiked(true);
+                                } else {
+                                    setLiked(false);
+                                }
+                            }
+                        }, CheckDTO.class);
             }
         }
 
@@ -112,7 +115,6 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
                             public void onSuccess(Object response) {
                                 super.onSuccess(response);
                                 likeButton.setEnabled(true);
-//                                Toast.makeText(context, context.getString(R.string.add_favorite), Toast.LENGTH_SHORT).show();
                             }
                         }, FavoriteDTO.class);
             }
@@ -137,11 +139,10 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
                                 if (context.type == AppContansts.INTENT_TYPE_FAVORITE) {
                                     arrPlace.remove(getAdapterPosition());
                                     notifyItemRemoved(getAdapterPosition());
-                                    if (arrPlace.size() == 0){
+                                    if (arrPlace.size() == 0) {
                                         context.showNotifyNullList();
                                     }
                                 }
-//                                Toast.makeText(context, context.getString(R.string.remove_favorite), Toast.LENGTH_SHORT).show();
                             }
                         }, FavoriteDTO.class);
             }
@@ -161,14 +162,12 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
     }
 
 
-    ListPlaceActivity context;
-    ArrayList<PlaceDTO.Place> arrPlace;
-    FirebaseUser currentUser;
-
+    private ListPlaceActivity context;
+    private ArrayList<PlaceDTO.Place> arrPlace;
+    private FirebaseUser currentUser;
 
     private static int type;
-
-    PlaceAdapter.LayoutListPlaceItemListener itemListener;
+    private PlaceAdapter.LayoutListPlaceItemListener itemListener;
 
     public PlaceAdapterSwipe(
             ListPlaceActivity context,

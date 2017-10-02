@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,8 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.utils.MyCache;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
@@ -52,9 +51,12 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
         } else {
             reviewHolder.txtTime.setText(item.relative_time_description);
         }
-        reviewHolder.txtContent.setText(item.text);
+        if (Utils.isEmptyString(item.text)){
+            reviewHolder.txtContent.setVisibility(View.GONE);
+        }else{
+            reviewHolder.txtContent.setText(item.text);
+        }
         reviewHolder.ratingBar.setRating(item.getRating());
-        Log.e("status",item.profile_photo_url+"");
         if (!Utils.isEmptyString(item.profile_photo_url)){
             Glide.with(context)
                     .load(Uri.parse(item.profile_photo_url))

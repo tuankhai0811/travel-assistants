@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.tuankhai.travelassistants.module.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.module.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 
@@ -23,12 +23,11 @@ import java.util.ArrayList;
  */
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
-    Activity context;
-    ArrayList<PlaceDTO.Place> arrPlace;
-
+    private Activity context;
+    private ArrayList<PlaceDTO.Place> arrPlace;
     private static int type;
 
-    LayoutListPlaceItemListener itemListener;
+    private LayoutListPlaceItemListener itemListener;
 
     public PlaceAdapter(Activity context, ArrayList<PlaceDTO.Place> arrPlace, LayoutListPlaceItemListener listener) {
         this.context = context;

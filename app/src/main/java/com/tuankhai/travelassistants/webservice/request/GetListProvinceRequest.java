@@ -10,9 +10,9 @@ import java.util.Map;
  */
 
 public class GetListProvinceRequest extends BasicRequest {
-    public final String URL = "TravelAssistants/public/Province/get/all";
+    public final String ROUTES = "Province/get/all";
 
-    String key;
+    private String key;
 
     public GetListProvinceRequest(String key) {
         this.key = key;
@@ -27,6 +27,6 @@ public class GetListProvinceRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return URL.split("/");
+        return ROUTES.split("/");
     }
 }

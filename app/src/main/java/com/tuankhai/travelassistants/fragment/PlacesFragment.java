@@ -45,27 +45,27 @@ public class PlacesFragment extends BaseFragment
         ProvinceAdapter.LayoutProvinceItemListener {
     protected MainActivity mActivity;
     protected PlacesController placesController;
-    BaseFragmentCallbacks callbacks;
+    private BaseFragmentCallbacks callbacks;
 
-    RecyclerView lvProvince;
-    RecyclerView.LayoutManager layoutManagerProvince;
-    ArrayList<ProvinceDTO.Province> arrProvinces;
-    ProvinceAdapter adapterProvinces;
+    private RecyclerView lvProvince;
+    private RecyclerView.LayoutManager layoutManagerProvince;
+    private ArrayList<ProvinceDTO.Province> arrProvinces;
+    private ProvinceAdapter adapterProvinces;
 
-    SliderPlaceAdapter adapterSliderPlace;
-    LoopViewPager viewpager;
-    CircleIndicator indicator;
+    private SliderPlaceAdapter adapterSliderPlace;
+    private LoopViewPager viewpager;
+    private CircleIndicator indicator;
 
-    FrameLayout layoutSpring, layoutSummer, layoutAutumn, layoutWinter;
-    LinearLayout layoutSea, layoutAttractions, layoutCultural, layoutEntertainment;
+    private FrameLayout layoutSpring, layoutSummer, layoutAutumn, layoutWinter;
+    private LinearLayout layoutSea, layoutAttractions, layoutCultural, layoutEntertainment;
 
     //auto swipe
-    int currentPage;
-    int numPage;
-    Timer timer;
-    TimerTask task;
-    final long DELAY_MS = 5000;
-    final long PERIOD_MS = 5000;
+    private int currentPage;
+    private int numPage;
+    private Timer timer;
+    private TimerTask task;
+    private final long DELAY_MS = 5000;
+    private final long PERIOD_MS = 5000;
 
     public static PlacesFragment newInstance(MainActivity activity) {
         PlacesFragment fragment = new PlacesFragment();
@@ -81,7 +81,6 @@ public class PlacesFragment extends BaseFragment
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.places_activity, container, false);
             addControls();
-            //addEvents();
             placesController = new PlacesController(this);
             placesController.getAllProvince();
             placesController.getSliderPlace();
@@ -285,7 +284,6 @@ public class PlacesFragment extends BaseFragment
 
     @Override
     public void onProvinceClick(View view, ProvinceDTO.Province item) {
-        ///////
         Intent intent = new Intent(mActivity, ListPlaceActivity.class);
         intent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_PROVINCE);
         intent.putExtra(AppContansts.INTENT_DATA, item);
