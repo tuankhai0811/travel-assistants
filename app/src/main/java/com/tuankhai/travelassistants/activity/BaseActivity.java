@@ -57,19 +57,19 @@ public class BaseActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    protected void logError(String message) {
+    public void logError(String message) {
         Log.e(mTAG, message);
     }
 
-    protected void logError(Object object) {
+    public void logError(Object object) {
         Log.e(mTAG, new Gson().toJson(object));
     }
 
-    protected void logError(String tag, String message) {
+    public void logError(String tag, String message) {
         Log.e(mTAG, tag + ": " + message);
     }
 
-    protected void logError(String tag, Object object) {
+    public void logError(String tag, Object object) {
         Log.e(mTAG, tag + ": " + new Gson().toJson(object));
     }
 }

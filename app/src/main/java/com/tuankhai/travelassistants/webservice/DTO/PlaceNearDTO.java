@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.webservice.DTO;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tuankhai.travelassistants.webservice.main.RequestService;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -28,6 +29,12 @@ public final class PlaceNearDTO implements Serializable {
         this.status = status;
     }
 
+    public boolean isSuccess() {
+        if (status.equals(RequestService.RESULT_OK)) {
+            return true;
+        }
+        return false;
+    }
 
     public static final class Result implements Serializable {
         public final Geometry geometry;

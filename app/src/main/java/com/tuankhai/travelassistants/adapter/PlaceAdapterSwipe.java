@@ -22,7 +22,7 @@ import com.tuankhai.travelassistants.module.swipelayout.SimpleSwipeListener;
 import com.tuankhai.travelassistants.module.swipelayout.SwipeLayout;
 import com.tuankhai.travelassistants.module.swipelayout.adapter.RecyclerSwipeAdapter;
 import com.tuankhai.travelassistants.utils.AppContansts;
-import com.tuankhai.travelassistants.webservice.DTO.CheckDTO;
+import com.tuankhai.travelassistants.webservice.DTO.CheckerDTO;
 import com.tuankhai.travelassistants.webservice.DTO.FavoriteDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
@@ -82,14 +82,14 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
                             @Override
                             public void onSuccess(Object response) {
                                 super.onSuccess(response);
-                                CheckDTO result = (CheckDTO) response;
+                                CheckerDTO result = (CheckerDTO) response;
                                 if (result.result) {
                                     setLiked(true);
                                 } else {
                                     setLiked(false);
                                 }
                             }
-                        }, CheckDTO.class);
+                        }, CheckerDTO.class);
             }
         }
 

@@ -100,4 +100,5 @@
 
     <dimen name="suggestion_body_text_size">18sp</dimen>
     <dimen name="search_bar_text_size">16sp</dimen>
+    <dimen name="padding_26dp">26dp</dimen>
 </resources>

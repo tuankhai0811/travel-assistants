@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.controller.DetailPlaceController;
 import com.tuankhai.travelassistants.adapter.PlaceNearAdapter;
 import com.tuankhai.travelassistants.adapter.ReviewsAdapter;
 import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
@@ -50,20 +51,14 @@ import com.tuankhai.travelassistants.module.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.module.viewpagertransformers.ZoomOutTranformer;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
-import com.tuankhai.travelassistants.webservice.DTO.CheckDTO;
-import com.tuankhai.travelassistants.webservice.DTO.FavoriteDTO;
+import com.tuankhai.travelassistants.webservice.DTO.CheckerDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.DTO.ReviewDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
-import com.tuankhai.travelassistants.webservice.request.AddFavoriteRequest;
-import com.tuankhai.travelassistants.webservice.request.AddReviewRequest;
-import com.tuankhai.travelassistants.webservice.request.CheckFavoriteRequest;
 import com.tuankhai.travelassistants.webservice.request.EditPlaceRequest;
-import com.tuankhai.travelassistants.webservice.request.GetReviewRequest;
-import com.tuankhai.travelassistants.webservice.request.RemoveFavoriteRequest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,7 +72,10 @@ public class DetailPlaceActivity extends BaseActivity
         OnLikeListener,
         OnAnimationEndListener,
         MaterialRatingBar.OnRatingChangeListener,
-        OnMapReadyCallback, PlaceNearAdapter.LayoutListPlaceNearItemListener {
+        OnMapReadyCallback, PlaceNearAdapter.LayoutListPlaceNearItemListener,
+        ReviewsAdapter.OnItemReviewActionListener {
+
+    private DetailPlaceController mController;
 
     private PlaceDTO.Place data;
     private ReviewDTO reviewDTO;
@@ -148,42 +146,33 @@ public class DetailPlaceActivity extends BaseActivity
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
         setContentView(R.layout.activity_detail_place);
-
-        initSlider();
-        getData();
-        initCollapsingToolbar();
-
-        initSliderImage(data.arrImage);
         addControls();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
+        getData();
     }
 
     private void addControls() {
+        mController = new DetailPlaceController(this);
+        data = (PlaceDTO.Place) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
+        location = new LatLng(Double.parseDouble(data.getLocationLat()),
+                Double.parseDouble(data.getLocationLng()));
+
         likeButton = (LikeButton) findViewById(R.id.heart_button);
         likeButton.setOnLikeListener(this);
         likeButton.setOnAnimationEndListener(this);
+
+        initProgress();
+        initInformation();
+        initStaticMaps();
+        initCollapsingToolbar();
+        initSlider();
+        initSliderImage(data.arrImage);
     }
 
     private void refreshFavorite() {
         if (mUser == null) {
             setLiked(false);
         } else {
-            new RequestService().load(new CheckFavoriteRequest("", data.id, mUser.getEmail()), false, new MyCallback() {
-                @Override
-                public void onSuccess(Object response) {
-                    super.onSuccess(response);
-                    CheckDTO result = (CheckDTO) response;
-                    if (result.result) {
-                        setLiked(true);
-                    } else {
-                        setLiked(false);
-                    }
-                }
-            }, CheckDTO.class);
+            mController.checkIsFavorite(data.id, mUser.getEmail());
         }
     }
 
@@ -200,56 +189,10 @@ public class DetailPlaceActivity extends BaseActivity
     }
 
     private void getData() {
-        data = (PlaceDTO.Place) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
-        location = new LatLng(Double.parseDouble(data.getLocationLat()),
-                Double.parseDouble(data.getLocationLng()));
-        initProgress();
-        initInformation();
-        initStaticMaps();
-        new RequestService().load(new GetReviewRequest("", data.id), false, new MyCallback() {
-            @Override
-            public void onSuccess(Object response) {
-                super.onSuccess(response);
-                reviewDTO = (ReviewDTO) response;
-                if (arrReview == null) {
-                    arrReview = new ArrayList<>();
-                    arrReview.addAll(Arrays.asList(reviewDTO.result));
-                } else {
-                    arrReview.addAll(Arrays.asList(reviewDTO.result));
-                    refreshReview();
-                }
-            }
-        }, ReviewDTO.class);
-        new RequestService().getPlace(data.place_id, new MyCallback() {
-            @Override
-            public void onSuccess(Object response) {
-                super.onSuccess(response);
-                dataGoogle = (PlaceGoogleDTO) response;
-                addControlsPlaceGoogle();
-                initSliderImageGoogle();
-                initReviews();
-                initDialogReviews();
-            }
-        });
-        new RequestService().nearPlace(AppContansts.INTENT_TYPE_FOOD, data.location_lat, data.location_lng, new MyCallback() {
-            @Override
-            public void onSuccess(Object response) {
-                super.onSuccess(response);
-                dataNearFood = (PlaceNearDTO) response;
-                if (dataNearFood.results != null && dataNearFood.results.length > 0)
-                    addControlsFood();
-            }
-        });
-
-        new RequestService().nearPlace(AppContansts.INTENT_TYPE_HOTEL, data.location_lat, data.location_lng, new MyCallback() {
-            @Override
-            public void onSuccess(Object response) {
-                super.onSuccess(response);
-                dataNearHotel = (PlaceNearDTO) response;
-                if (dataNearHotel.results != null && dataNearHotel.results.length > 0)
-                    addControlsHotel();
-            }
-        });
+        mController.getLocalReviews(data.id);
+        mController.getGooglePlaceDetail(data.place_id);
+        mController.getNearFoodPlace(data.getLocationLat(), data.getLocationLng());
+        mController.getNearHotelPlace(data.getLocationLat(), data.getLocationLng());
     }
 
     private void initProgress() {
@@ -362,7 +305,7 @@ public class DetailPlaceActivity extends BaseActivity
                     public void onSuccess(Object response) {
                         super.onSuccess(response);
                     }
-                }, CheckDTO.class);
+                }, CheckerDTO.class);
     }
 
     public void refreshProgressBar() {
@@ -404,7 +347,7 @@ public class DetailPlaceActivity extends BaseActivity
         lvReview.setNestedScrollingEnabled(false);
         layoutManagerReview = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         Collections.sort(arrReview);
-        adapterReviews = new ReviewsAdapter(this, arrReview);
+        adapterReviews = new ReviewsAdapter(this, arrReview, this);
         lvReview.setLayoutManager(layoutManagerReview);
         lvReview.setAdapter(adapterReviews);
 
@@ -568,6 +511,7 @@ public class DetailPlaceActivity extends BaseActivity
     private void initSliderImageGoogle() {
 
         if (data.arrImage.size() > 0) return;
+
         ArrayList<String> arrayImage = dataGoogle.getImage();
         viewpager = (LoopViewPager) findViewById(R.id.viewpagerImage);
         viewpager.setScrollDurationFactor(1500);
@@ -696,42 +640,19 @@ public class DetailPlaceActivity extends BaseActivity
             startActivityForResult(intent, AppContansts.REQUEST_LOGIN);
         } else {
             likeButton.setEnabled(false);
-            new RequestService().load(new AddFavoriteRequest("", data.id, mUser.getEmail()), false, new MyCallback() {
-                @Override
-                public void onSuccess(Object response) {
-                    super.onSuccess(response);
-                    likeButton.setEnabled(true);
-                    Snackbar snackbar = Snackbar.make(findViewById(R.id.main_content), getString(R.string.add_favorite), BaseTransientBottomBar.LENGTH_LONG);
-                    snackbar.setAction("View", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(DetailPlaceActivity.this, ListPlaceActivity.class);
-                            intent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_FAVORITE);
-                            startActivity(intent);
-                        }
-                    });
-                    snackbar.show();
-                }
-            }, FavoriteDTO.class);
+            mController.addFavorite(data.id, mUser.getEmail());
         }
     }
 
     @Override
     public void unLiked(final LikeButton likeButton) {
-        likeButton.setEnabled(false);
         if (mUser == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
             startActivityForResult(intent, AppContansts.REQUEST_LOGIN);
         } else {
-            new RequestService().load(new RemoveFavoriteRequest("", data.id, mUser.getEmail()), false, new MyCallback() {
-                @Override
-                public void onSuccess(Object response) {
-                    super.onSuccess(response);
-                    likeButton.setEnabled(true);
-                    Snackbar.make(findViewById(R.id.main_content), getString(R.string.remove_favorite), BaseTransientBottomBar.LENGTH_LONG).show();
-                }
-            }, FavoriteDTO.class);
+            likeButton.setEnabled(false);
+            mController.removeFavorite(data.id, mUser.getEmail());
         }
     }
 
@@ -750,7 +671,14 @@ public class DetailPlaceActivity extends BaseActivity
             case R.id.btn_send:
                 ratingBarSelect.setIsIndicator(true);
                 ratingBarSelect.setOnRatingChangeListener(null);
-                userReview();
+                mController.sendDataReview(
+                        mUser.getDisplayName().toString(),
+                        mUser.getEmail().toString(),
+                        mUser.getPhotoUrl().toString(),
+                        data.id,
+                        String.valueOf(ratingBarSelectDialog.getRating()),
+                        txt_comment_dialog.getText().toString(),
+                        String.valueOf(new Date().getTime()));
                 break;
             case R.id.txt_website:
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.website));
@@ -764,38 +692,7 @@ public class DetailPlaceActivity extends BaseActivity
     }
 
     private void userReview() {
-        new RequestService().load(
-                new AddReviewRequest("",
-                        mUser.getDisplayName().toString(),
-                        mUser.getEmail().toString(),
-                        mUser.getPhotoUrl().toString(),
-                        data.id.toString(),
-                        String.valueOf(ratingBarSelectDialog.getRating()),
-                        txt_comment_dialog.getText().toString(),
-                        String.valueOf(new Date().getTime())),
-                false,
-                new MyCallback() {
-                    @Override
-                    public void onSuccess(Object response) {
-                        super.onSuccess(response);
-                        dialogReview.dismiss();
-                        new RequestService().load(new GetReviewRequest("", data.id), false, new MyCallback() {
-                            @Override
-                            public void onSuccess(Object response) {
-                                super.onSuccess(response);
-                                reviewDTO = (ReviewDTO) response;
-                                if (arrReview == null) {
-                                    arrReview = new ArrayList<>();
-                                    arrReview.addAll(Arrays.asList(reviewDTO.result));
-                                } else {
-                                    arrReview.addAll(Arrays.asList(reviewDTO.result));
-                                    refreshReview();
-                                }
 
-                            }
-                        }, ReviewDTO.class);
-                    }
-                }, PlaceGoogleDTO.Result.Review.class);
     }
 
     @Override
@@ -878,5 +775,98 @@ public class DetailPlaceActivity extends BaseActivity
         Intent intent = new Intent(this, DetailPlaceNearActivity.class);
         intent.putExtra(AppContansts.INTENT_DATA, item);
         startActivity(intent);
+    }
+
+    @Override
+    public void reviewsEdit(PlaceGoogleDTO.Result.Review review) {
+        if (mUser == null) return;
+        mController.editReviews(mUser, review);
+    }
+
+    @Override
+    public void reviewsRemove(PlaceGoogleDTO.Result.Review review) {
+        if (mUser == null) return;
+        mController.removeReviews(mUser, review);
+    }
+
+    public void removeReviewSuccess() {
+        for (PlaceGoogleDTO.Result.Review item :arrReview){
+            if (item.email.equals(mUser.getEmail())){
+                arrReview.remove(item);
+                break;
+            }
+        }
+        refreshReview();
+    }
+
+    public void editReviewSuccess() {
+        for (PlaceGoogleDTO.Result.Review item :arrReview){
+            if (item.email.equals(mUser.getEmail())){
+                arrReview.remove(item);
+                break;
+            }
+        }
+        mController.getLocalReviews(data.id);
+    }
+
+    public void getLocalReviewSuccess(ReviewDTO review) {
+        reviewDTO = review;
+        if (arrReview == null) {
+            arrReview = new ArrayList<>();
+            arrReview.addAll(Arrays.asList(reviewDTO.result));
+        } else {
+            arrReview.addAll(Arrays.asList(reviewDTO.result));
+            refreshReview();
+        }
+    }
+
+    public void getGooglePlaceDetailSuccess(PlaceGoogleDTO placeGoogleDTO) {
+        dataGoogle = placeGoogleDTO;
+        addControlsPlaceGoogle();
+        initSliderImageGoogle();
+        initReviews();
+        initDialogReviews();
+    }
+
+    public void getNearFoodPlaceSuccess(PlaceNearDTO placeNearDTO) {
+        dataNearFood = placeNearDTO;
+        if (dataNearFood.results != null && dataNearFood.results.length > 0)
+            addControlsFood();
+    }
+
+    public void getNearHotelPlaceSuccess(PlaceNearDTO placeNearDTO) {
+        dataNearHotel = placeNearDTO;
+        if (dataNearHotel.results != null && dataNearHotel.results.length > 0)
+            addControlsHotel();
+    }
+
+    public void addFavoriteSuccess() {
+        likeButton.setEnabled(true);
+        Snackbar snackbar = Snackbar.make(
+                findViewById(R.id.main_content),
+                getString(R.string.add_favorite),
+                BaseTransientBottomBar.LENGTH_LONG);
+        snackbar.setAction("View", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailPlaceActivity.this, ListPlaceActivity.class);
+                intent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_FAVORITE);
+                startActivity(intent);
+            }
+        });
+        snackbar.show();
+    }
+
+    public void removeFavoriteSuccess() {
+        likeButton.setEnabled(true);
+        Snackbar.make(
+                findViewById(R.id.main_content),
+                getString(R.string.remove_favorite),
+                BaseTransientBottomBar.LENGTH_LONG).show();
+    }
+
+    public void addReviewSuccess() {
+        dialogReview.dismiss();
+        mController.getLocalReviews(data.id);
     }
 }

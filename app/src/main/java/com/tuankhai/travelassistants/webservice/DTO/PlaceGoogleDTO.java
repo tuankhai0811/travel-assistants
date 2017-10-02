@@ -29,6 +29,12 @@ public final class PlaceGoogleDTO {
         this.status = status;
     }
 
+    public boolean isSuccess(){
+        if (status.equals(RequestService.RESULT_OK)){
+            return true;
+        }
+        return false;
+    }
 
     public static final class Result {
         public final Address_component address_components[];
@@ -276,7 +282,8 @@ public final class PlaceGoogleDTO {
                     @JsonProperty("id_place") String id_place,
                     @JsonProperty("rating") String rating,
                     @JsonProperty("relative_time_description") String relative_time_description,
-                    @JsonProperty("text") String text, @JsonProperty("time") String time) {
+                    @JsonProperty("text") String text,
+                    @JsonProperty("time") String time) {
                 this.author_name = author_name;
                 this.email = email;
                 this.author_url = author_url;

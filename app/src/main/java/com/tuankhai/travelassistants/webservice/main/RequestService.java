@@ -31,6 +31,10 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class RequestService {
     public static String BASE_URL = "http://travelassistants.webstarterz.com/TravelAssistants/public/";
     public static String BASE_URL_IMAGE = "http://travelassistants.webstarterz.com/";
+
+    public static String RESULT_OK = "OK";
+    public static String RESULT_ERROR = "ERROR";
+
     private Retrofit retrofit = null;
 
     static String GOOGLE_URL = "https://maps.googleapis.com/";

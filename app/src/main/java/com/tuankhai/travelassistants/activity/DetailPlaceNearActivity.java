@@ -222,7 +222,7 @@ public class DetailPlaceNearActivity extends BaseActivity
         lvReview.setNestedScrollingEnabled(false);
         layoutManagerReview = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         Collections.sort(arrReview);
-        adapterReviews = new ReviewsAdapter(this, arrReview);
+        adapterReviews = new ReviewsAdapter(this, arrReview, null);
         lvReview.setLayoutManager(layoutManagerReview);
         lvReview.setAdapter(adapterReviews);
 

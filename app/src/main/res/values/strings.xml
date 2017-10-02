@@ -53,5 +53,7 @@
     <string name="action_settings">Cài đặt</string>
     <string name="action_search">Search</string>
     <string name="map_not_ready">Map is not ready yet</string>
+    <string name="menu_remove_reviews">Xóa</string>
+    <string name="menu_edit_reviews">Sửa</string>
 
 </resources>
