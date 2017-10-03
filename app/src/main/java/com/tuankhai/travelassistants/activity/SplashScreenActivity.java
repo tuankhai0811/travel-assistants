@@ -1,6 +1,5 @@
 package com.tuankhai.travelassistants.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.tuankhai.travelassistants.R;
@@ -11,6 +10,9 @@ import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.travelassistants.webservice.request.GetListProvinceRequest;
 import com.tuankhai.travelassistants.webservice.request.GetSliderPlaceRequest;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SplashScreenActivity extends BaseActivity {
 
@@ -49,10 +51,15 @@ public class SplashScreenActivity extends BaseActivity {
             public void onSuccess(Object response) {
                 super.onSuccess(response);
                 Utils.saveSliderPlace(SplashScreenActivity.this, (PlaceDTO) response);
-                Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+//                        Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivity(intent);
+//                        finish();
+                    }
+                }, 30000);
             }
 
             @Override

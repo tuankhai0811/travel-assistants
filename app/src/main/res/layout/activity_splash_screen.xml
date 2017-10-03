@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/bg_splash_screen"
     android:gravity="center"
     android:orientation="vertical"
     tools:context="com.tuankhai.travelassistants.activity.SplashScreenActivity">
@@ -18,19 +18,14 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progressBar2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="300dp"
+            android:background="@android:color/transparent"
+            android:layout_height="200dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/bg_logo_splash_screen" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Đang tải dữ liệu..."
-            android:textColor="@color/global_white"
-            android:textSize="20sp" />
     </LinearLayout>
 
 </LinearLayout>
