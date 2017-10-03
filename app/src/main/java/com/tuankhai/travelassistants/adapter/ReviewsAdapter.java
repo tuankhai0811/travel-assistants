@@ -1,9 +1,11 @@
 package com.tuankhai.travelassistants.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -118,7 +120,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.img_option_menu: {
-                    PopupMenu popup = new PopupMenu(context, view);
+                    Context wrapper = new ContextThemeWrapper(context, R.style.PopupMenu);
+                    PopupMenu popup = new PopupMenu(wrapper, view);
                     popup.getMenuInflater().inflate(R.menu.menu_reviews, popup.getMenu());
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         public boolean onMenuItemClick(MenuItem item) {

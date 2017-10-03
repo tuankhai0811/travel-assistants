@@ -33,15 +33,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
+import com.tuankhai.likebutton.LikeButton;
+import com.tuankhai.likebutton.OnAnimationEndListener;
+import com.tuankhai.likebutton.OnLikeListener;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.DetailPlaceController;
 import com.tuankhai.travelassistants.adapter.PlaceNearAdapter;
 import com.tuankhai.travelassistants.adapter.ReviewsAdapter;
 import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.SpacingItemDecorationHorizontal;
-import com.tuankhai.travelassistants.module.likebutton.LikeButton;
-import com.tuankhai.travelassistants.module.likebutton.OnAnimationEndListener;
-import com.tuankhai.travelassistants.module.likebutton.OnLikeListener;
 import com.tuankhai.travelassistants.module.loopingviewpager.CircleIndicator;
 import com.tuankhai.travelassistants.module.loopingviewpager.LoopViewPager;
 import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
@@ -117,6 +117,7 @@ public class DetailPlaceActivity extends BaseActivity
     private EditText txt_comment_dialog;
     private TextView txtRatingDialog;
     private Button btnCancel, btnSend;
+    private boolean isAddNew = true;
 
     private ProgressBar progressBar1;
     private ProgressBar progressBar2;
@@ -364,12 +365,20 @@ public class DetailPlaceActivity extends BaseActivity
         if (mUser == null) {
             return;
         }
+        boolean flag = true;
         for (int i = 0; i < arrReview.size(); i++) {
             if (mUser.getEmail().equals(arrReview.get(i).email)) {
+                flag = false;
                 ratingBarSelect.setOnRatingChangeListener(null);
                 ratingBarSelect.setRating(arrReview.get(i).getRating());
                 ratingBarSelect.setIsIndicator(true);
+                break;
             }
+        }
+        if (flag) {
+            ratingBarSelect.setOnRatingChangeListener(this);
+            ratingBarSelect.setRating(0);
+            ratingBarSelect.setIsIndicator(false);
         }
         refreshRating();
     }
@@ -449,7 +458,7 @@ public class DetailPlaceActivity extends BaseActivity
     private void initSliderImage(ArrayList<String> array) {
         if (array.size() == 0) return;
         viewpager = (LoopViewPager) findViewById(R.id.viewpagerImage);
-        viewpager.setScrollDurationFactor(1500);
+        viewpager.setScrollDurationFactor(1000);
         adapterImage = new SliderImageAdapter(this, array);
         viewpager.setPageTransformer(true, new ZoomOutTranformer());
         viewpager.setAdapter(adapterImage);
@@ -514,7 +523,7 @@ public class DetailPlaceActivity extends BaseActivity
 
         ArrayList<String> arrayImage = dataGoogle.getImage();
         viewpager = (LoopViewPager) findViewById(R.id.viewpagerImage);
-        viewpager.setScrollDurationFactor(1500);
+        viewpager.setScrollDurationFactor(1000);
         adapterImage = new SliderImageAdapter(this, arrayImage);
         viewpager.setPageTransformer(true, new ZoomOutTranformer());
         viewpager.setAdapter(adapterImage);
@@ -669,16 +678,25 @@ public class DetailPlaceActivity extends BaseActivity
                 dialogReview.dismiss();
                 break;
             case R.id.btn_send:
-                ratingBarSelect.setIsIndicator(true);
-                ratingBarSelect.setOnRatingChangeListener(null);
-                mController.sendDataReview(
-                        mUser.getDisplayName().toString(),
-                        mUser.getEmail().toString(),
-                        mUser.getPhotoUrl().toString(),
-                        data.id,
-                        String.valueOf(ratingBarSelectDialog.getRating()),
-                        txt_comment_dialog.getText().toString(),
-                        String.valueOf(new Date().getTime()));
+                if (isAddNew) {
+                    ratingBarSelect.setIsIndicator(true);
+                    ratingBarSelect.setOnRatingChangeListener(null);
+                    mController.sendDataReview(
+                            mUser.getDisplayName().toString(),
+                            mUser.getEmail().toString(),
+                            mUser.getPhotoUrl().toString(),
+                            data.id,
+                            String.valueOf(ratingBarSelectDialog.getRating()),
+                            txt_comment_dialog.getText().toString(),
+                            String.valueOf(new Date().getTime()));
+                } else {
+                    mController.editReviews(
+                            mUser,
+                            data.id,
+                            String.valueOf(ratingBarSelectDialog.getRating()),
+                            txt_comment_dialog.getText().toString(),
+                            String.valueOf(new Date().getTime()));
+                }
                 break;
             case R.id.txt_website:
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.website));
@@ -721,6 +739,8 @@ public class DetailPlaceActivity extends BaseActivity
                 } else {
                     ratingBarSelectDialog.setRating(rating);
                     setStatusDialog(rating);
+                    txt_comment_dialog.setText("");
+                    isAddNew = true;
                     dialogReview.show();
                 }
                 break;
@@ -780,7 +800,10 @@ public class DetailPlaceActivity extends BaseActivity
     @Override
     public void reviewsEdit(PlaceGoogleDTO.Result.Review review) {
         if (mUser == null) return;
-        mController.editReviews(mUser, review);
+        isAddNew = false;
+        ratingBarSelectDialog.setRating(review.getRating());
+        txt_comment_dialog.setText(review.text);
+        dialogReview.show();
     }
 
     @Override
@@ -790,8 +813,8 @@ public class DetailPlaceActivity extends BaseActivity
     }
 
     public void removeReviewSuccess() {
-        for (PlaceGoogleDTO.Result.Review item :arrReview){
-            if (item.email.equals(mUser.getEmail())){
+        for (PlaceGoogleDTO.Result.Review item : arrReview) {
+            if (item.email.equals(mUser.getEmail())) {
                 arrReview.remove(item);
                 break;
             }
@@ -800,8 +823,9 @@ public class DetailPlaceActivity extends BaseActivity
     }
 
     public void editReviewSuccess() {
-        for (PlaceGoogleDTO.Result.Review item :arrReview){
-            if (item.email.equals(mUser.getEmail())){
+        dialogReview.dismiss();
+        for (PlaceGoogleDTO.Result.Review item : arrReview) {
+            if (item.email.equals(mUser.getEmail())) {
                 arrReview.remove(item);
                 break;
             }

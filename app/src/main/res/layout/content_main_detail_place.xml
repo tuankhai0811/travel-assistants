@@ -301,7 +301,7 @@
                         android:layout_alignParentRight="true"
                         android:paddingLeft="3dp"
                         android:paddingRight="3dp"
-                        app:kt_rippleColor="@color/grey_10"
+                        app:kt_rippleColor="@color/grey_30"
                         app:kt_rippleDuration="10"
                         app:kt_rippleHover="true">
 
@@ -365,7 +365,7 @@
                         android:layout_alignParentRight="true"
                         android:paddingLeft="3dp"
                         android:paddingRight="3dp"
-                        app:kt_rippleColor="@color/grey_10"
+                        app:kt_rippleColor="@color/grey_30"
                         app:kt_rippleDuration="10"
                         app:kt_rippleHover="true">
 

@@ -67,6 +67,7 @@ public class ListPlaceNearActivity extends BaseActivity implements PlaceNearList
         addEvents();
 
         if (data != null) {
+            dataMaps = data;
             refreshLayout.setRefreshing(true);
             if (type == AppContansts.INTENT_TYPE_FOOD) {
                 title = getString(R.string.top_restaurent);

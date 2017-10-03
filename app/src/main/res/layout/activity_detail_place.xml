@@ -80,7 +80,7 @@
                 android:theme="@style/ActionBarThemeOverlay"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ActionBarPopupThemeOverlay">
-                <com.tuankhai.travelassistants.module.likebutton.LikeButton
+                <com.tuankhai.likebutton.LikeButton
                     android:id="@+id/heart_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

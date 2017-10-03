@@ -253,7 +253,7 @@ public class DetailPlaceNearActivity extends BaseActivity
             findViewById(R.id.layout_image_pager_detail_near).setBackgroundResource(R.drawable.bg_place_global_4_3);
         }
         viewpager = (LoopViewPager) findViewById(R.id.viewpagerImage);
-        viewpager.setScrollDurationFactor(1500);
+        viewpager.setScrollDurationFactor(1000);
         adapterImage = new SliderImageAdapter(this, arrayImage);
         viewpager.setPageTransformer(true, new ZoomOutTranformer());
         viewpager.setAdapter(adapterImage);

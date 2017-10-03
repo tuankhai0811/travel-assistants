@@ -223,7 +223,7 @@ public class PlacesFragment extends BaseFragment
     public void setSliderPlace(PlaceDTO data) {
         viewpager = mRootView.findViewById(R.id.viewpagerPlace);
         indicator = mRootView.findViewById(R.id.indicatorPlace);
-        viewpager.setScrollDurationFactor(1500);
+        viewpager.setScrollDurationFactor(1000);
         adapterSliderPlace = new SliderPlaceAdapter(getActivity(), data);
         viewpager.setAdapter(adapterSliderPlace);
         viewpager.setPageTransformer(true, new ZoomOutTranformer());

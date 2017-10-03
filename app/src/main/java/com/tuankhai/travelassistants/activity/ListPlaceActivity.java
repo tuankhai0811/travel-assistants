@@ -104,6 +104,7 @@ public class ListPlaceActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
+        placeAdapter.setCurrentUser(mUser);
         getData();
     }
 

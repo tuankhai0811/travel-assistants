@@ -53,6 +53,14 @@
         <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
         <!--<item name="android:statusBarColor">@color/colorPrimary</item>-->
         <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!--<item name="android:popupMenuStyle">@style/PopupMenu</item>-->
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:textColorPrimary">@color/global_black</item>
+        <item name="android:backgroundTint">@color/global_white</item>
+        <item name="colorControlNormal">@color/global_black</item>
+        <item name="colorControlHighlight">@color/global_black</item>
     </style>
 
     <style name="Theme.Slider.Sliderable.ListPlace" parent="Theme.AppCompat.NoActionBar">
@@ -114,6 +122,7 @@
     <style name="MyTitleDetail">aa</style>
 
     //ratingbar
+
     <style name="Widget.MaterialRatingBar.RatingBar" parent="android:Widget.RatingBar">
         <item name="android:indeterminateDrawable">@null</item>
         <item name="android:minHeight">36dp</item>

@@ -54,10 +54,10 @@ public class DetailPlaceController {
                 }, CheckerDTO.class);
     }
 
-    public void editReviews(FirebaseUser mUser, PlaceGoogleDTO.Result.Review review) {
-        if (mUser == null || review == null) return;
+    public void editReviews(FirebaseUser mUser, String id_place, String rating, String text, String time) {
+        if (mUser == null) return;
         new RequestService().load(
-                new EditReviewRequest("", mUser.getEmail(), review.id_place, review.rating, review.text, review.time),
+                new EditReviewRequest("", mUser.getEmail(), id_place, rating, text, time),
                 false,
                 new MyCallback() {
                     @Override
