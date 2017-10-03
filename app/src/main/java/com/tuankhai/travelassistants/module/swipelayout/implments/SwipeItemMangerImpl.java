@@ -1,12 +1,12 @@
-package com.tuankhai.swipelayout.implments;
+package com.tuankhai.travelassistants.module.swipelayout.implments;
 
 import android.view.View;
 
-import com.tuankhai.swipelayout.SimpleSwipeListener;
-import com.tuankhai.swipelayout.SwipeLayout;
-import com.tuankhai.swipelayout.interfaces.SwipeAdapterInterface;
-import com.tuankhai.swipelayout.interfaces.SwipeItemMangerInterface;
-import com.tuankhai.swipelayout.util.Attributes;
+import com.tuankhai.travelassistants.module.swipelayout.SimpleSwipeListener;
+import com.tuankhai.travelassistants.module.swipelayout.SwipeLayout;
+import com.tuankhai.travelassistants.module.swipelayout.interfaces.SwipeAdapterInterface;
+import com.tuankhai.travelassistants.module.swipelayout.interfaces.SwipeItemMangerInterface;
+import com.tuankhai.travelassistants.module.swipelayout.util.Attributes;
 
 import java.util.ArrayList;
 import java.util.Collections;

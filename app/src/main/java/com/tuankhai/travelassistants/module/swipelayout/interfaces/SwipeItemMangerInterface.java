@@ -1,8 +1,8 @@
-package com.tuankhai.swipelayout.interfaces;
+package com.tuankhai.travelassistants.module.swipelayout.interfaces;
 
 
-import com.tuankhai.swipelayout.SwipeLayout;
-import com.tuankhai.swipelayout.util.Attributes;
+import com.tuankhai.travelassistants.module.swipelayout.SwipeLayout;
+import com.tuankhai.travelassistants.module.swipelayout.util.Attributes;
 
 import java.util.List;
 

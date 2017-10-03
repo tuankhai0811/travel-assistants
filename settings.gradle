@@ -1,1 +1,1 @@
-include ':app', ':likebutton', ':swipelayout'
+include ':app'

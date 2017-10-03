@@ -1,4 +1,4 @@
-package com.tuankhai.likebutton;
+package com.tuankhai.travelassistants.module.likebutton;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -11,6 +11,8 @@ import android.os.Build;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+
+import com.tuankhai.travelassistants.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.tuankhai.likebutton;
+package com.tuankhai.travelassistants.module.likebutton;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -20,6 +20,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import com.tuankhai.travelassistants.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.tuankhai.swipelayout;
+package com.tuankhai.travelassistants.module.swipelayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -18,6 +18,8 @@ import android.view.ViewParent;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+
+import com.tuankhai.travelassistants.R;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

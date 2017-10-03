@@ -71,6 +71,22 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:textColorPrimary">@color/global_black</item>
         <item name="android:textColorHint">@color/global_black</item>
+        <!--<item name="android:backgroundTint">@color/global_white</item>-->
+        <item name="colorControlNormal">@color/global_black</item>
+        <item name="colorControlHighlight">@color/global_black</item>
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--<item name="android:statusBarColor">@color/colorPrimary</item>-->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+    </style>\
+
+    <style name="Theme.Slider.Sliderable.ListPlaceNear" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/global_white</item>
+        <item name="colorPrimaryDark">@color/global_black</item>
+        <!-- These values must be set for this mechanism to work -->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:textColorPrimary">@color/global_black</item>
+        <item name="android:textColorHint">@color/global_black</item>
         <item name="android:backgroundTint">@color/global_white</item>
         <item name="colorControlNormal">@color/global_black</item>
         <item name="colorControlHighlight">@color/global_black</item>

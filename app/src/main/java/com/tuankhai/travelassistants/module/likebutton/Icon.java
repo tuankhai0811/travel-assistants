@@ -1,4 +1,4 @@
-package com.tuankhai.likebutton;
+package com.tuankhai.travelassistants.module.likebutton;
 
 import android.support.annotation.DrawableRes;
 

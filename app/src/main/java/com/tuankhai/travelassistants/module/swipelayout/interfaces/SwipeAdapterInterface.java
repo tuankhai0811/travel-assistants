@@ -1,4 +1,4 @@
-package com.tuankhai.swipelayout.interfaces;
+package com.tuankhai.travelassistants.module.swipelayout.interfaces;
 
 public interface SwipeAdapterInterface {
 

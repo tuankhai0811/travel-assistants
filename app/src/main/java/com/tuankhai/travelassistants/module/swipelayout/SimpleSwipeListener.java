@@ -1,4 +1,4 @@
-package com.tuankhai.swipelayout;
+package com.tuankhai.travelassistants.module.swipelayout;
 
 public class SimpleSwipeListener implements SwipeLayout.SwipeListener {
 

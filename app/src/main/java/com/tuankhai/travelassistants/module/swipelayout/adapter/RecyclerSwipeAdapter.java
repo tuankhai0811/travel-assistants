@@ -1,36 +1,29 @@
-package com.tuankhai.swipelayout.adapter;
+package com.tuankhai.travelassistants.module.swipelayout.adapter;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.support.v4.widget.CursorAdapter;
-import android.view.View;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.tuankhai.swipelayout.SwipeLayout;
-import com.tuankhai.swipelayout.implments.SwipeItemMangerImpl;
-import com.tuankhai.swipelayout.interfaces.SwipeAdapterInterface;
-import com.tuankhai.swipelayout.interfaces.SwipeItemMangerInterface;
-import com.tuankhai.swipelayout.util.Attributes;
+import com.tuankhai.travelassistants.module.swipelayout.SwipeLayout;
+import com.tuankhai.travelassistants.module.swipelayout.implments.SwipeItemMangerImpl;
+import com.tuankhai.travelassistants.module.swipelayout.interfaces.SwipeAdapterInterface;
+import com.tuankhai.travelassistants.module.swipelayout.interfaces.SwipeItemMangerInterface;
+import com.tuankhai.travelassistants.module.swipelayout.util.Attributes;
 
 import java.util.List;
 
-public abstract class CursorSwipeAdapter extends CursorAdapter implements SwipeItemMangerInterface, SwipeAdapterInterface {
+public abstract class RecyclerSwipeAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> implements SwipeItemMangerInterface, SwipeAdapterInterface {
 
-    private SwipeItemMangerImpl mItemManger = new SwipeItemMangerImpl(this);
-
-    protected CursorSwipeAdapter(Context context, Cursor c, boolean autoRequery) {
-        super(context, c, autoRequery);
-    }
-
-    protected CursorSwipeAdapter(Context context, Cursor c, int flags) {
-        super(context, c, flags);
-    }
+    public SwipeItemMangerImpl mItemManger = new SwipeItemMangerImpl(this);
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View v = super.getView(position, convertView, parent);
-        mItemManger.bind(v, position);
-        return v;
+    public abstract VH onCreateViewHolder(ViewGroup parent, int viewType);
+
+    @Override
+    public abstract void onBindViewHolder(VH viewHolder, final int position);
+
+    @Override
+    public void notifyDatasetChanged() {
+        super.notifyDataSetChanged();
     }
 
     @Override
