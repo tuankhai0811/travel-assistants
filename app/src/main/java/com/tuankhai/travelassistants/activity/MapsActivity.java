@@ -169,10 +169,6 @@ public class MapsActivity extends BaseActivity
                 LatLng location = new LatLng(location_lat, location_lng);
                 mMap.addMarker(new MarkerOptions().position(location)
                         .title(name)).showInfoWindow();
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-                mMap.getUiSettings().setMapToolbarEnabled(true);
-                mMap.getUiSettings().setZoomControlsEnabled(true);
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 13f));
             }
             break;
         }
@@ -186,7 +182,7 @@ public class MapsActivity extends BaseActivity
         mMap.getUiSettings().setRotateGesturesEnabled(true);
         mMap.setMaxZoomPreference(18.0f);
         mMap.setMinZoomPreference(13.0f);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 14f));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 16f));
         if (!(data == null || Utils.isEmptyString(data.next_page_token))) {
             getMoreData(data.next_page_token);
         }
