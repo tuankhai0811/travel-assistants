@@ -61,6 +61,18 @@ public class Utils {
         return gson.fromJson(json, ProvinceDTO.class);
     }
 
+    public static long getLastTimeUpdate(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(AppContansts.SHAREDPRE_LASTTIME, Context.MODE_PRIVATE);
+        return preferences.getLong(AppContansts.SHAREDPRE_LASTTIME, new Date().getTime());
+    }
+
+    public static void saveLastTimeUpdate(Context context, long time){
+        SharedPreferences preferences = context.getSharedPreferences(AppContansts.SHAREDPRE_LASTTIME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong(AppContansts.SHAREDPRE_LASTTIME, time);
+        editor.commit();
+    }
+
     public static String encodeToBase64(Bitmap image) {
         Bitmap immage = image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

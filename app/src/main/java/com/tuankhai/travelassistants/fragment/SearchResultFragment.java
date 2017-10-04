@@ -4,29 +4,52 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tuankhai.travelassistants.activity.MainActivity;
-import com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.MainActivity;
+import com.tuankhai.travelassistants.adapter.PlaceQueryAdapter;
+import com.tuankhai.travelassistants.fragment.controller.ResultController;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
+import com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView;
+import com.tuankhai.travelassistants.utils.Utils;
+import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
+import com.tuankhai.travelassistants.webservice.DTO.SearchResultDTO;
 
-public class SearchResultFragment extends BaseFragment implements AppBarLayout.OnOffsetChangedListener{
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class SearchResultFragment extends BaseFragment
+        implements AppBarLayout.OnOffsetChangedListener,
+        PlaceQueryAdapter.LayoutListPlaceQueryItemListener {
+
+    private ResultController mController;
 
     private MainActivity mActivity;
     private BaseFragmentCallbacks callbacks;
 
+    private RecyclerView lvResult;
+    private RecyclerView.LayoutManager layoutManager;
+    private PlaceQueryAdapter adapter;
+    private ArrayList<PlaceDTO.Place> arrPlace;
+
+    public String mLastQuery = "";
+
     public SearchResultFragment() {
     }
 
-    public static SearchResultFragment newInstance(MainActivity mActivity) {
+    public static SearchResultFragment newInstance(MainActivity mActivity, String query) {
         SearchResultFragment fragment = new SearchResultFragment();
         fragment.mActivity = mActivity;
         Bundle args = new Bundle();
         fragment.setArguments(args);
         fragment.TAG = "SearchResultFragment";
+        fragment.mLastQuery = query;
         return fragment;
     }
 
@@ -38,10 +61,14 @@ public class SearchResultFragment extends BaseFragment implements AppBarLayout.O
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.e("status", "onCreateView:"+mLastQuery);
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.fragment_search_result, container, false);
             addControls();
             addEvents();
+        }
+        if (!Utils.isEmptyString(mLastQuery)) {
+            querySearch(mLastQuery);
         }
         mActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         return mRootView;
@@ -52,7 +79,20 @@ public class SearchResultFragment extends BaseFragment implements AppBarLayout.O
     }
 
     private void addControls() {
+        mController = new ResultController(this);
         attachSearchViewActivityDrawer(mActivity.searchView);
+
+        lvResult = mRootView.findViewById(R.id.lv_result);
+        arrPlace = new ArrayList<>();
+        layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
+        adapter = new PlaceQueryAdapter(mActivity, arrPlace, this);
+        lvResult.setLayoutManager(layoutManager);
+        lvResult.setAdapter(adapter);
+    }
+
+    public void querySearch(String query) {
+        mLastQuery = query;
+        mController.getResult(query);
     }
 
     @Override
@@ -91,4 +131,16 @@ public class SearchResultFragment extends BaseFragment implements AppBarLayout.O
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         mActivity.searchView.setTranslationY(verticalOffset);
     }
+
+    @Override
+    public void onItemPlaceClick(View view, PlaceDTO.Place item) {
+
+    }
+
+    public void refressData(SearchResultDTO resultDTO) {
+        arrPlace.clear();
+        arrPlace.addAll(Arrays.asList(resultDTO.result.places));
+        adapter.notifyDataSetChanged();
+    }
+
 }

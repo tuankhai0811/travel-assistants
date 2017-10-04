@@ -11,6 +11,7 @@ public class AppContansts {
     public static final String SHAREDPRE_FILE = "com.tuankhai.travelassistants.sharedpre";
     public static final String SHAREDPRE_ALLPROVINCE = "com.tuankhai.travelassistants.sharedpre.allprovince";
     public static final String SHAREDPRE_SLIDERPLACE = "com.tuankhai.travelassistants.sharedpre.sliderplace";
+    public static final String SHAREDPRE_LASTTIME = "com.tuankhai.travelassistants.sharedpre.lasttime";
 
     public static final String INTENT_TYPE = "com.tuankhai.travelassistants.intent.type";
     public static final String INTENT_NAME = "com.tuankhai.travelassistants.intent.name";
@@ -53,6 +54,7 @@ public class AppContansts {
     public static String IMAGE_RATIO_3_4 = "_3_4" + IMAGE_EXTENSION;
     public static String IMAGE_RATIO_4_3 = "_4_3" + IMAGE_EXTENSION;
     public static String IMAGE_RATIO_16_9 = "_16_9" + IMAGE_EXTENSION;
+    public static String IMAGE_THUMBNAIL = "_thumb" + IMAGE_EXTENSION;
 
     public static int RC_REAUTHORIZE = 111;
     public static final int RC_AUTHORIZE_CONTACTS = 112;

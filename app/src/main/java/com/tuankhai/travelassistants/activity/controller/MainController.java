@@ -7,6 +7,7 @@ import com.tuankhai.travelassistants.activity.MainActivity;
 import com.tuankhai.travelassistants.fragment.BaseFragment;
 import com.tuankhai.travelassistants.fragment.PlacesFragment;
 import com.tuankhai.travelassistants.fragment.SearchPlaceFragment;
+import com.tuankhai.travelassistants.fragment.SearchResultFragment;
 import com.tuankhai.travelassistants.utils.AppContansts;
 
 /**
@@ -16,10 +17,11 @@ import com.tuankhai.travelassistants.utils.AppContansts;
 public class MainController {
 
     private MainActivity mActivity;
-    private BaseFragment curFragment = null;
+    public BaseFragment curFragment = null;
 
     private PlacesFragment placesFragment;
     private SearchPlaceFragment searchFragment;
+    private SearchResultFragment resultFragment;
 
     public MainController(MainActivity activity) {
         mActivity = activity;
@@ -46,7 +48,18 @@ public class MainController {
         addFragment(curFragment, AppContansts.KEY_SEARCH_FRAGMENT);
     }
 
-    public void addFragment(BaseFragment fragment, String key){
+    public void addResultFragment(String query) {
+        Log.e("status", "addResultFragment");
+        if (resultFragment == null) {
+            Log.e("status", "new ResultFragment");
+            resultFragment = SearchResultFragment.newInstance(mActivity, query);
+        }
+        resultFragment.mLastQuery = query;
+        curFragment = resultFragment;
+        addFragment(curFragment, AppContansts.KEY_SEARCH_FRAGMENT);
+    }
+
+    public void addFragment(BaseFragment fragment, String key) {
         mActivity.fragmentManager = mActivity.getSupportFragmentManager();
         mActivity.fragmentTransaction = mActivity.fragmentManager.beginTransaction();
         mActivity.fragmentTransaction.replace(R.id.base_frame_content, fragment, key);

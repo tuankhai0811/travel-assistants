@@ -36,6 +36,7 @@ import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.MainController;
 import com.tuankhai.travelassistants.fragment.BaseFragment;
 import com.tuankhai.travelassistants.fragment.SearchPlaceFragment;
+import com.tuankhai.travelassistants.fragment.SearchResultFragment;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 import com.tuankhai.travelassistants.location.LocationHelper;
 import com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView;
@@ -148,6 +149,12 @@ public class MainActivity extends BaseActivity
                 searchView.hideProgress();
                 mLastQuery = query;
                 logError("SearchView", "onSearchAction");
+                if (mMainController.curFragment.getClass().getName().equals(SearchResultFragment.class.getName())) {
+                    ((SearchResultFragment) mMainController.curFragment).querySearch(mLastQuery);
+                } else {
+                    mMainController.addResultFragment(mLastQuery);
+                    //((SearchResultFragment) mMainController.curFragment).querySearch(mLastQuery);
+                }
             }
         });
 
@@ -204,6 +211,13 @@ public class MainActivity extends BaseActivity
             @Override
             public void onHomeClicked() {
                 logError("SearchView", "onHomeClicked");
+            }
+        });
+
+        searchView.setOnClearSearchActionListener(new FloatingSearchView.OnClearSearchActionListener() {
+            @Override
+            public void onClearSearchClicked() {
+                logError("SearchView", "onClearSearchClicked");
             }
         });
     }
@@ -319,6 +333,7 @@ public class MainActivity extends BaseActivity
                 imm.hideSoftInputFromWindow(searchView.mSearchInput.getWindowToken(), 0);
             }
         }, 10);
+        mLastQuery = "";
     }
 
     @Override

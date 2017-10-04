@@ -169,11 +169,18 @@ public final class PlaceDTO {
             return short_name;
         }
 
-        public String getAddress(){
-            if (Utils.isEmptyString(this.address)){
+        public String getAddress() {
+            if (Utils.isEmptyString(this.address)) {
                 return "";
             }
             return this.address;
+        }
+
+        public float getRating() {
+            if (Utils.isEmptyString(this.rating)) {
+                return 0.0f;
+            }
+            return Float.valueOf(this.rating);
         }
     }
 }

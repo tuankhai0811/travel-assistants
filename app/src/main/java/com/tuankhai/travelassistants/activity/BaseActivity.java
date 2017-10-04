@@ -72,4 +72,5 @@ public class BaseActivity extends AppCompatActivity {
     public void logError(String tag, Object object) {
         Log.e(mTAG, tag + ": " + new Gson().toJson(object));
     }
+
 }

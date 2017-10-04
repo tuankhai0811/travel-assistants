@@ -47,8 +47,8 @@ import android.widget.TextView;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.module.floatingsearchview.utils.Util;
 import com.tuankhai.travelassistants.module.floatingsearchview.utils.adapter.TextWatcherAdapter;
-import com.tuankhai.travelassistants.module.floatingsearchview.utils.view.SearchInputView;
 import com.tuankhai.travelassistants.module.floatingsearchview.utils.view.MenuView;
+import com.tuankhai.travelassistants.module.floatingsearchview.utils.view.SearchInputView;
 import com.tuankhai.travelassistants.module.floatingsearchview.viewpropertyobjectanimator.ViewPropertyObjectAnimator;
 
 import java.lang.annotation.Retention;
@@ -541,7 +541,6 @@ public class FloatingSearchView extends FrameLayout {
                     mSearchListener.onSearchAction(getQuery());
                 }
                 mSkipTextChangeEvent = true;
-                mSkipTextChangeEvent = true;
                 if (mIsTitleSet) {
                     setSearchBarTitle(getQuery());
                 } else {
@@ -1000,7 +999,15 @@ public class FloatingSearchView extends FrameLayout {
 
 
     public void clearSearchFocus() {
-        setSearchFocusedInternal(false);
+        if (mDimBackground) {
+            fadeOutBackground();
+        }
+        mClearButton.setVisibility(View.GONE);
+        mSkipTextChangeEvent = true;
+        mSearchInput.setText("");
+        if (mFocusChangeListener != null) {
+            mFocusChangeListener.onFocusCleared();
+        }
     }
 
     public boolean isSearchBarFocused() {
@@ -1017,7 +1024,7 @@ public class FloatingSearchView extends FrameLayout {
             handleOnVisibleMenuItemsWidthChanged(0);//this must be called before  mMenuView.hideIfRoomItems(...)
             mMenuView.hideIfRoomItems(true);
             transitionInLeftSection(true);
-            Util.showSoftKeyboard(getContext(), mSearchInput);
+//            Util.showSoftKeyboard(getContext(), mSearchInput);
             if (mMenuOpen) {
                 closeMenu(false);
             }

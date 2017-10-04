@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.module.floatingsearchview.utils.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -18,8 +19,7 @@ public class SearchInputView extends EditText {
 
     private OnKeyListener mOnKeyListener = new OnKeyListener() {
         public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-
-            if (keyCode == KeyEvent.KEYCODE_ENTER && mSearchKeyListener != null) {
+            if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER && mSearchKeyListener != null) {
                 mSearchKeyListener.onSearchKeyClicked();
                 return true;
             }

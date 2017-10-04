@@ -9,7 +9,7 @@ import android.view.View;
 
 public abstract class BaseFragment extends Fragment {
     public View mRootView;
-    String TAG = "";
+    public String TAG = "";
 
     public abstract boolean onActivityBackPress();
 }
