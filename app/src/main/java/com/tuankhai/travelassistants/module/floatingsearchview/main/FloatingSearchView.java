@@ -516,7 +516,7 @@ public class FloatingSearchView extends FrameLayout {
         mSearchInput.setOnFocusChangeListener(new TextView.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
+                if (hasFocus == false) return;
                 if (mSkipQueryFocusChangeEvent) {
                     mSkipQueryFocusChangeEvent = false;
                 } else if (hasFocus != mIsFocused) {
