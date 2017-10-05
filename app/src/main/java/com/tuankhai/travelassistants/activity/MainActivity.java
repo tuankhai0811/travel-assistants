@@ -128,23 +128,25 @@ public class MainActivity extends BaseActivity
     }
 
     public void setHighlightSearchView(boolean isHighLight) {
-        if (isHighLight) {
-            searchView.setBackgroundColor(getResources().getColor(R.color.global_white));
-            searchView.setHintTextColor(getResources().getColor(R.color.colorPrimary));
-            searchView.setActionMenuOverflowColor(getResources().getColor(R.color.colorPrimary));
-            searchView.setMenuItemIconColor(getResources().getColor(R.color.colorPrimary));
-            searchView.setClearBtnColor(getResources().getColor(R.color.colorPrimary));
-            searchView.setLeftActionIconColor(getResources().getColor(R.color.colorPrimary));
-            findViewById(R.id.layout_below_searchview).setBackgroundColor(getResources().getColor(R.color.global_white));
-        } else {
-            searchView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            searchView.setHintTextColor(getResources().getColor(R.color.global_black));
-            searchView.setActionMenuOverflowColor(getResources().getColor(R.color.global_black));
-            searchView.setMenuItemIconColor(getResources().getColor(R.color.global_black));
-            searchView.setClearBtnColor(getResources().getColor(R.color.global_black));
-            searchView.setLeftActionIconColor(getResources().getColor(R.color.global_black));
-            findViewById(R.id.layout_below_searchview).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        }
+//        if (isHighLight) {
+//            searchView.setBackgroundColor(getResources().getColor(R.color.global_white));
+//            searchView.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+//            searchView.setTextColor(getResources().getColor(R.color.grey_80));
+//            searchView.setActionMenuOverflowColor(getResources().getColor(R.color.colorPrimary));
+//            searchView.setMenuItemIconColor(getResources().getColor(R.color.colorPrimary));
+//            searchView.setClearBtnColor(getResources().getColor(R.color.colorPrimary));
+//            searchView.setLeftActionIconColor(getResources().getColor(R.color.colorPrimary));
+//            findViewById(R.id.layout_below_searchview).setBackgroundColor(getResources().getColor(R.color.global_white));
+//        } else {
+//            searchView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+//            searchView.setHintTextColor(getResources().getColor(R.color.grey_50));
+//            searchView.setTextColor(getResources().getColor(R.color.grey_80));
+//            searchView.setActionMenuOverflowColor(getResources().getColor(R.color.grey_50));
+//            searchView.setMenuItemIconColor(getResources().getColor(R.color.grey_50));
+//            searchView.setClearBtnColor(getResources().getColor(R.color.grey_50));
+//            searchView.setLeftActionIconColor(getResources().getColor(R.color.grey_50));
+//            findViewById(R.id.layout_below_searchview).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+//        }
     }
 
     private void setupSearchBar() {

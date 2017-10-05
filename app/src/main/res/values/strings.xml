@@ -55,5 +55,6 @@
     <string name="map_not_ready">Map is not ready yet</string>
     <string name="menu_remove_reviews">Xóa</string>
     <string name="menu_edit_reviews">Sửa</string>
+    <string name="no_place_search">Không tìm thấy kết quả tìm kiếm!</string>
 
 </resources>

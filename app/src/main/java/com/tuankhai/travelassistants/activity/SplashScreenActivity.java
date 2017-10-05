@@ -50,8 +50,8 @@ public class SplashScreenActivity extends BaseActivity {
 
     public void getAllProvince() {
         logError("intent");
-        long current = new Date().getTime();
         long last = Utils.getLastTimeUpdate(this);
+        long current = new Date().getTime();
         if (current - last > 4 * 60 * 60 * 1000) {
             new RequestService().load(new GetListProvinceRequest("key"), false, new MyCallback() {
                 @Override

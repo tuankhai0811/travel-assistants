@@ -28,7 +28,7 @@ public class MainController {
     }
 
     public void addPlaceFragment() {
-//        mActivity.setHighlightSearchView(false);
+        mActivity.setHighlightSearchView(false);
         Log.e("status", "addPlaceFragment");
         mActivity.searchView.clearQuery();
         if (placesFragment == null) {

@@ -729,6 +729,12 @@ public class FloatingSearchView extends FrameLayout {
         }
     }
 
+    public void setTextColor(int color) {
+        if (mSearchInput != null) {
+            mSearchInput.setTextColor(color);
+        }
+    }
+
     /**
      * Set the mode for the left action button.
      *

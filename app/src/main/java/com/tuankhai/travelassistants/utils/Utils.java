@@ -63,7 +63,7 @@ public class Utils {
 
     public static long getLastTimeUpdate(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(AppContansts.SHAREDPRE_LASTTIME, Context.MODE_PRIVATE);
-        return preferences.getLong(AppContansts.SHAREDPRE_LASTTIME, new Date().getTime());
+        return preferences.getLong(AppContansts.SHAREDPRE_LASTTIME, 0);
     }
 
     public static void saveLastTimeUpdate(Context context, long time){

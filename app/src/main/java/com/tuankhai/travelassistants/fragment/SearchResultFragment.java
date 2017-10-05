@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.MainActivity;
 import com.tuankhai.travelassistants.adapter.PlaceQueryAdapter;
+import com.tuankhai.travelassistants.adapter.decoration.PlaceQueryDecoration;
 import com.tuankhai.travelassistants.fragment.controller.ResultController;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 import com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView;
@@ -33,6 +35,8 @@ public class SearchResultFragment extends BaseFragment
     private MainActivity mActivity;
     private BaseFragmentCallbacks callbacks;
 
+    private View notify;
+    private ProgressBar progressBar;
     private RecyclerView lvResult;
     private RecyclerView.LayoutManager layoutManager;
     private PlaceQueryAdapter adapter;
@@ -61,7 +65,7 @@ public class SearchResultFragment extends BaseFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.e("status", "onCreateView:"+mLastQuery);
+        Log.e("status", "onCreateView:" + mLastQuery);
         if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.fragment_search_result, container, false);
             addControls();
@@ -82,15 +86,23 @@ public class SearchResultFragment extends BaseFragment
         mController = new ResultController(this);
         attachSearchViewActivityDrawer(mActivity.searchView);
 
+        progressBar = mRootView.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+
+        notify = mRootView.findViewById(R.id.layout_notify);
+        notify.setVisibility(View.GONE);
+
         lvResult = mRootView.findViewById(R.id.lv_result);
         arrPlace = new ArrayList<>();
         layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         adapter = new PlaceQueryAdapter(mActivity, arrPlace, this);
         lvResult.setLayoutManager(layoutManager);
+        lvResult.addItemDecoration(new PlaceQueryDecoration(Utils.dpToPx(mActivity, 10)));
         lvResult.setAdapter(adapter);
     }
 
     public void querySearch(String query) {
+        clearData();
         mLastQuery = query;
         mController.getResult(query);
     }
@@ -138,9 +150,19 @@ public class SearchResultFragment extends BaseFragment
     }
 
     public void refressData(SearchResultDTO resultDTO) {
+        progressBar.setVisibility(View.GONE);
         arrPlace.clear();
         arrPlace.addAll(Arrays.asList(resultDTO.result.places));
         adapter.notifyDataSetChanged();
+
+        if (arrPlace.size() == 0) notify.setVisibility(View.VISIBLE);
+    }
+
+    public void clearData() {
+        notify.setVisibility(View.GONE);
+        arrPlace.clear();
+        adapter.notifyDataSetChanged();
+        progressBar.setVisibility(View.VISIBLE);
     }
 
 }
