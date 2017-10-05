@@ -28,6 +28,7 @@ public class MainController {
     }
 
     public void addPlaceFragment() {
+//        mActivity.setHighlightSearchView(false);
         Log.e("status", "addPlaceFragment");
         mActivity.searchView.clearQuery();
         if (placesFragment == null) {
@@ -39,6 +40,7 @@ public class MainController {
     }
 
     public void addSearchFragment() {
+        mActivity.setHighlightSearchView(false);
         Log.e("status", "addSearchFragment");
         if (searchFragment == null) {
             Log.e("status", "new PlaceFragment");
@@ -49,6 +51,7 @@ public class MainController {
     }
 
     public void addResultFragment(String query) {
+        mActivity.setHighlightSearchView(true);
         Log.e("status", "addResultFragment");
         if (resultFragment == null) {
             Log.e("status", "new ResultFragment");

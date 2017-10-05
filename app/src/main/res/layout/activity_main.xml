@@ -26,6 +26,7 @@
             android:layout_height="wrap_content">
 
             <View
+                android:id="@+id/layout_below_searchview"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_toolbar"
                 android:background="@color/colorPrimary" />

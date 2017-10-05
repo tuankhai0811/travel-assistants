@@ -127,6 +127,26 @@ public class MainActivity extends BaseActivity
         layoutLogout.setVisibility(View.VISIBLE);
     }
 
+    public void setHighlightSearchView(boolean isHighLight) {
+        if (isHighLight) {
+            searchView.setBackgroundColor(getResources().getColor(R.color.global_white));
+            searchView.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+            searchView.setActionMenuOverflowColor(getResources().getColor(R.color.colorPrimary));
+            searchView.setMenuItemIconColor(getResources().getColor(R.color.colorPrimary));
+            searchView.setClearBtnColor(getResources().getColor(R.color.colorPrimary));
+            searchView.setLeftActionIconColor(getResources().getColor(R.color.colorPrimary));
+            findViewById(R.id.layout_below_searchview).setBackgroundColor(getResources().getColor(R.color.global_white));
+        } else {
+            searchView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            searchView.setHintTextColor(getResources().getColor(R.color.global_black));
+            searchView.setActionMenuOverflowColor(getResources().getColor(R.color.global_black));
+            searchView.setMenuItemIconColor(getResources().getColor(R.color.global_black));
+            searchView.setClearBtnColor(getResources().getColor(R.color.global_black));
+            searchView.setLeftActionIconColor(getResources().getColor(R.color.global_black));
+            findViewById(R.id.layout_below_searchview).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        }
+    }
+
     private void setupSearchBar() {
         searchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
 
@@ -179,16 +199,6 @@ public class MainActivity extends BaseActivity
             public void onActionMenuItemSelected(MenuItem item) {
                 if (item.getItemId() == R.id.action_change_colors) {
 
-//                    mIsDarkSearchTheme = true;
-//
-//                    //demonstrate setting colors for items
-//                    mActivity.searchView.setBackgroundColor(Color.parseColor("#787878"));
-//                    mActivity.searchView.setHintTextColor(Color.parseColor("#e9e9e9"));
-//                    mActivity.searchView.setActionMenuOverflowColor(Color.parseColor("#e9e9e9"));
-//                    mActivity.searchView.setMenuItemIconColor(Color.parseColor("#e9e9e9"));
-//                    mActivity.searchView.setLeftActionIconColor(Color.parseColor("#e9e9e9"));
-//                    mActivity.searchView.setClearBtnColor(Color.parseColor("#e9e9e9"));
-//                    mActivity.searchView.setLeftActionIconColor(Color.parseColor("#e9e9e9"));
                 } else {
                     Toast.makeText(getApplicationContext(), item.getTitle(),
                             Toast.LENGTH_SHORT).show();

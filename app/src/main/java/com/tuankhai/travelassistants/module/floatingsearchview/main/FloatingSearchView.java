@@ -28,7 +28,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuItemImpl;
-import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -112,7 +111,7 @@ public class FloatingSearchView extends FrameLayout {
     private OnFocusChangeListener mFocusChangeListener;
     private boolean mDismissFocusOnItemSelection = ATTRS_DISMISS_FOCUS_ON_ITEM_SELECTION_DEFAULT;
 
-    private CardView mQuerySection;
+    private View mQuerySection;
     private OnSearchListener mSearchListener;
     public SearchInputView mSearchInput;
     private int mQueryTextSize;
