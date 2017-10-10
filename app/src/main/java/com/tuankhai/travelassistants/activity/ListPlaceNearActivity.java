@@ -241,13 +241,13 @@ public class ListPlaceNearActivity extends BaseActivity implements PlaceNearList
     @Override
     public void onLoadMore() {
         if (Utils.isEmptyString(data.next_page_token)) return;
-        new Handler().postAtTime(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 arrPlace.add(null);
                 adapter.notifyItemInserted(arrPlace.size() - 1);
             }
-        }, 0);
+        }, 50);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

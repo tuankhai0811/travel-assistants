@@ -1,6 +1,7 @@
 package com.tuankhai.travelassistants.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.DrawerLayout;
@@ -13,12 +14,14 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.DetailPlaceActivity;
 import com.tuankhai.travelassistants.activity.MainActivity;
 import com.tuankhai.travelassistants.adapter.PlaceQueryAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.PlaceQueryDecoration;
 import com.tuankhai.travelassistants.fragment.controller.ResultController;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 import com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView;
+import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.SearchResultDTO;
@@ -146,7 +149,9 @@ public class SearchResultFragment extends BaseFragment
 
     @Override
     public void onItemPlaceClick(View view, PlaceDTO.Place item) {
-
+        Intent intent = new Intent(getActivity(), DetailPlaceActivity.class);
+        intent.putExtra(AppContansts.INTENT_DATA, item);
+        startActivity(intent);
     }
 
     public void refressData(SearchResultDTO resultDTO) {

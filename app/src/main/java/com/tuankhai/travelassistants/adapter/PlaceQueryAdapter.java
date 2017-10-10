@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
-import com.tuankhai.travelassistants.module.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 
@@ -37,14 +36,15 @@ public class PlaceQueryAdapter extends RecyclerView.Adapter<PlaceQueryAdapter.Pl
     @Override
     public PlaceViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        return new PlaceViewHolder(
-                MaterialRippleLayout.on(inflater.inflate(R.layout.item_query_place_type, viewGroup, false))
-                        .rippleOverlay(true)
-                        .rippleAlpha(0.2f)
-                        .rippleColor(R.integer.rippleColor)
-                        .rippleHover(true)
-                        .create()
-        );
+        return new PlaceViewHolder(inflater.inflate(R.layout.item_query_place_type, null));
+//        return new PlaceViewHolder(
+//                MaterialRippleLayout.on(inflater.inflate(R.layout.item_query_place_type, viewGroup, false))
+//                        .rippleOverlay(true)
+//                        .rippleAlpha(0.2f)
+//                        .rippleColor(R.integer.rippleColor)
+//                        .rippleHover(true)
+//                        .create()
+//        );
     }
 
     @Override
@@ -70,6 +70,7 @@ public class PlaceQueryAdapter extends RecyclerView.Adapter<PlaceQueryAdapter.Pl
         TextView txtName, txtProvince;
         ImageView imageView;
         MaterialRatingBar ratingBar;
+        View layout;
 
         public PlaceViewHolder(View itemView) {
             super(itemView);
@@ -77,11 +78,12 @@ public class PlaceQueryAdapter extends RecyclerView.Adapter<PlaceQueryAdapter.Pl
             txtProvince = itemView.findViewById(R.id.txt_name_province);
             imageView = itemView.findViewById(R.id.img_place);
             ratingBar = itemView.findViewById(R.id.ratingBar);
+            layout = itemView.findViewById(R.id.layout_item_place_result);
             ratingBar.invalidate();
             ratingBar.setMax(5);
             ratingBar.setNumStars(5);
             ratingBar.setStepSize(0.1f);
-            itemView.setOnClickListener(this);
+            layout.setOnClickListener(this);
         }
 
         @Override
