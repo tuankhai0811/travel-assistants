@@ -51,13 +51,14 @@
                     android:textSize="@dimen/size_18sp" />
 
                 <TextView
+                    fontPath="@string/font_boto_light_italic"
                     android:id="@+id/txt_name_province"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:text="Quảng Bình"
                     android:textColor="@color/global_black"
-                    android:textSize="@dimen/size_18sp" />
+                    android:textSize="@dimen/size_15sp" />
 
                 <com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar
                     android:id="@+id/ratingBar"

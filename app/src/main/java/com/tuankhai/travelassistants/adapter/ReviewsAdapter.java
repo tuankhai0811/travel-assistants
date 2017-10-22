@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.utils.MyCache;
@@ -32,9 +33,11 @@ import static com.tuankhai.travelassistants.utils.MyCache.icon_user_logo_review;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHolder> {
     private OnItemReviewActionListener itemReviewActionListener;
+    FirebaseUser mUser;
 
     Activity context;
     ArrayList<PlaceGoogleDTO.Result.Review> arrReviews;
+
 
     public ReviewsAdapter(
             Activity context,
@@ -82,7 +85,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
             }
         }
 
-        if (!Utils.isEmptyString(item.email)) {
+        if (!Utils.isEmptyString(item.email) && mUser != null && mUser.getEmail().equals(item.email)) {
             reviewHolder.imgMenu.setVisibility(View.VISIBLE);
         } else {
             reviewHolder.imgMenu.setVisibility(View.GONE);
@@ -92,6 +95,10 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
     @Override
     public int getItemCount() {
         return arrReviews == null ? 0 : arrReviews.size();
+    }
+
+    public void setAuth(FirebaseUser mUser) {
+        this.mUser = mUser;
     }
 
     public class ReviewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 public class MyImageView extends ImageView {
 
-    private float radius = 18.0f;
+    private float radius = 10.0f;
     private Path path;
     private RectF rect;
 

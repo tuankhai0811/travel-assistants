@@ -106,4 +106,6 @@
     <dimen name="margin_100dp">100dp</dimen>
     <dimen name="padding_150dp">150dp</dimen>
     <dimen name="margin_80dp">80dp</dimen>
+    <dimen name="size_15sp">15sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

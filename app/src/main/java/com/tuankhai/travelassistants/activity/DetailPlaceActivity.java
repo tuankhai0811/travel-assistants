@@ -349,6 +349,7 @@ public class DetailPlaceActivity extends BaseActivity
         layoutManagerReview = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         Collections.sort(arrReview);
         adapterReviews = new ReviewsAdapter(this, arrReview, this);
+        adapterReviews.setAuth(mUser);
         lvReview.setLayoutManager(layoutManagerReview);
         lvReview.setAdapter(adapterReviews);
 
@@ -824,12 +825,14 @@ public class DetailPlaceActivity extends BaseActivity
 
     public void editReviewSuccess() {
         dialogReview.dismiss();
-        for (PlaceGoogleDTO.Result.Review item : arrReview) {
-            if (item.email.equals(mUser.getEmail())) {
-                arrReview.remove(item);
-                break;
+        for (int i = 0; i < arrReview.size(); i++) {
+            PlaceGoogleDTO.Result.Review item = arrReview.get(i);
+            if (item.email != null && !item.email.isEmpty()) {
+                arrReview.remove(i);
+                i--;
             }
         }
+        adapterReviews.notifyDataSetChanged();
         mController.getLocalReviews(data.id);
     }
 

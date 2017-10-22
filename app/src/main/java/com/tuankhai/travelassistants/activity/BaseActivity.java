@@ -35,7 +35,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(getString(R.string.font_boto_regular))
+                .setDefaultFontPath(getString(R.string.font_boto_light))
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );

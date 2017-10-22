@@ -5,15 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:scrollbars="none">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <FrameLayout
@@ -38,7 +37,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_slider_place">
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                     <com.tuankhai.travelassistants.module.loopingviewpager.LoopViewPager
                         android:id="@+id/viewpagerPlace"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="match_parent" />
 
                     <com.tuankhai.travelassistants.module.loopingviewpager.CircleIndicator
                         android:id="@+id/indicatorPlace"
@@ -251,157 +251,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_divider_view" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/height_divider_view"
-                android:layout_marginRight="@dimen/height_divider_view"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/layout_type_spring"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_image_type_travel_2">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/bg_sea_travel" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@color/grey_transparent_10" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-
-                        <TextView
-                            style="@style/text_type_travel_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/type_spring" />
-
-                    </LinearLayout>
-                </FrameLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_divider_view" />
-
-                <FrameLayout
-                    android:id="@+id/layout_type_summer"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_image_type_travel_2">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/bg_summer" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@color/grey_transparent_10" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-
-                        <TextView
-                            style="@style/text_type_travel_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/type_summer" />
-
-                    </LinearLayout>
-                </FrameLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_divider_view" />
-
-                <FrameLayout
-                    android:id="@+id/layout_type_autumn"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_image_type_travel_2">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/bg_autumn" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@color/grey_transparent_10" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-
-                        <TextView
-                            style="@style/text_type_travel_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/type_autumn" />
-
-                    </LinearLayout>
-                </FrameLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_divider_view" />
-
-                <FrameLayout
-                    android:id="@+id/layout_type_winter"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_image_type_travel_2">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/bg_winter" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@color/grey_transparent_10" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-
-                        <TextView
-                            style="@style/text_type_travel_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/type_winner" />
-
-                    </LinearLayout>
-                </FrameLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_divider_view" />
-
-            </LinearLayout>
-
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
 
 </LinearLayout>

@@ -268,9 +268,11 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         switch (id) {
-            case R.id.home:
-                mMainController.addPlaceFragment();
-                break;
+            case R.id.nav_menu_schedule: {
+                Intent intent = new Intent(this, ScheduleActivity.class);
+                startActivity(intent);
+            }
+            break;
             case R.id.nav_menu_favorite:
                 if (mUser == null) {
                     Intent intent = new Intent(this, LoginActivity.class);

@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="fontPath">@string/font_boto_regular</item>
+        <item name="fontPath">@string/font_boto_light</item>
     </style>
 
     <style name="text_type_travel">
@@ -86,7 +86,8 @@
         <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
         <!--<item name="android:statusBarColor">@color/colorPrimary</item>-->
         <!--<item name="android:windowTranslucentStatus">true</item>-->
-    </style>\
+    </style>
+    \
 
     <style name="Theme.Slider.Sliderable.ListPlaceNear" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/global_white</item>
@@ -97,6 +98,19 @@
         <item name="android:textColorPrimary">@color/global_black</item>
         <item name="android:textColorHint">@color/global_black</item>
         <item name="android:backgroundTint">@color/global_white</item>
+        <item name="colorControlNormal">@color/global_black</item>
+        <item name="colorControlHighlight">@color/global_black</item>
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--<item name="android:statusBarColor">@color/colorPrimary</item>-->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+    </style>
+
+    <style name="Theme.Slider.Sliderable.Schedule" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/global_white</item>
+        <item name="colorPrimaryDark">@color/global_black</item>
+        <!-- These values must be set for this mechanism to work -->
+        <item name="android:textColorPrimary">@color/global_black</item>
+        <item name="android:textColorHint">@color/global_black</item>
         <item name="colorControlNormal">@color/global_black</item>
         <item name="colorControlHighlight">@color/global_black</item>
         <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->

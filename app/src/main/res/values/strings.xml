@@ -4,10 +4,12 @@
     <string name="fb_login_protocol_scheme">fb118711962110697</string>
     <string name="api_maps">AIzaSyAfmqshBC86K-CHGjrr_Unt21QJDOnc5xA</string>
 
-    <string name="font_boto_regular">fonts/Roboto-Light.ttf</string>
+    <string name="font_boto_regular">fonts/Roboto-Regular.ttf</string>
     <string name="font_boto_bold">fonts/Roboto-Bold.ttf</string>
     <string name="font_boto_bold_italic">fonts/Roboto-BoldItalic.ttf</string>
-
+    <string name="font_boto_light">fonts/Roboto-Light.ttf</string>
+    <string name="font_boto_light_italic">fonts/Roboto-LightItalic.ttf</string>
+    <string name="font_boto_italic">fonts/Roboto-Italic.ttf</string>
 
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
@@ -56,5 +58,7 @@
     <string name="menu_remove_reviews">Xóa</string>
     <string name="menu_edit_reviews">Sửa</string>
     <string name="no_place_search">Không tìm thấy kết quả tìm kiếm!</string>
+    <string name="title_activity_schedule">ScheduleActivity</string>
+
 
 </resources>

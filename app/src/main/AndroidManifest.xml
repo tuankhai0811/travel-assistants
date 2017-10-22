@@ -74,6 +74,11 @@
             android:name=".activity.DetailPlaceNearActivity"
             android:launchMode="singleTop"
             android:theme="@style/Theme.Slider.Sliderable" />
+        <activity
+            android:name=".activity.ScheduleActivity"
+            android:label="@string/title_activity_schedule"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Slider.Sliderable.ListPlaceNear"/>
     </application>
 
 </manifest>

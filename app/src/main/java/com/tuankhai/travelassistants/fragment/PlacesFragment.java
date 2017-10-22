@@ -96,10 +96,10 @@ public class PlacesFragment extends BaseFragment
     }
 
     private void addEvents() {
-        layoutSpring.setOnClickListener(this);
-        layoutSummer.setOnClickListener(this);
-        layoutAutumn.setOnClickListener(this);
-        layoutWinter.setOnClickListener(this);
+//        layoutSpring.setOnClickListener(this);
+//        layoutSummer.setOnClickListener(this);
+//        layoutAutumn.setOnClickListener(this);
+//        layoutWinter.setOnClickListener(this);
         layoutSea.setOnClickListener(this);
         layoutAttractions.setOnClickListener(this);
         layoutEntertainment.setOnClickListener(this);
@@ -109,25 +109,25 @@ public class PlacesFragment extends BaseFragment
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.layout_type_spring:
-                layoutSpring.setOnClickListener(null);
-                onTypeClick(view, AppContansts.INTENT_TYPE_SPRING);
-                break;
-
-            case R.id.layout_type_summer:
-                layoutSummer.setOnClickListener(null);
-                onTypeClick(view, AppContansts.INTENT_TYPE_SUMMER);
-                break;
-
-            case R.id.layout_type_autumn:
-                layoutAutumn.setOnClickListener(null);
-                onTypeClick(view, AppContansts.INTENT_TYPE_AUTUMN);
-                break;
-
-            case R.id.layout_type_winter:
-                layoutWinter.setOnClickListener(null);
-                onTypeClick(view, AppContansts.INTENT_TYPE_WINNER);
-                break;
+//            case R.id.layout_type_spring:
+//                layoutSpring.setOnClickListener(null);
+//                onTypeClick(view, AppContansts.INTENT_TYPE_SPRING);
+//                break;
+//
+//            case R.id.layout_type_summer:
+//                layoutSummer.setOnClickListener(null);
+//                onTypeClick(view, AppContansts.INTENT_TYPE_SUMMER);
+//                break;
+//
+//            case R.id.layout_type_autumn:
+//                layoutAutumn.setOnClickListener(null);
+//                onTypeClick(view, AppContansts.INTENT_TYPE_AUTUMN);
+//                break;
+//
+//            case R.id.layout_type_winter:
+//                layoutWinter.setOnClickListener(null);
+//                onTypeClick(view, AppContansts.INTENT_TYPE_WINNER);
+//                break;
 
             case R.id.layout_type_sea:
                 layoutSea.setOnClickListener(null);
@@ -166,10 +166,10 @@ public class PlacesFragment extends BaseFragment
         lvProvince.setLayoutManager(layoutManagerProvince);
         lvProvince.setAdapter(adapterProvinces);
 
-        layoutSpring = mRootView.findViewById(R.id.layout_type_spring);
-        layoutSummer = mRootView.findViewById(R.id.layout_type_summer);
-        layoutAutumn = mRootView.findViewById(R.id.layout_type_autumn);
-        layoutWinter = mRootView.findViewById(R.id.layout_type_winter);
+//        layoutSpring = mRootView.findViewById(R.id.layout_type_spring);
+//        layoutSummer = mRootView.findViewById(R.id.layout_type_summer);
+//        layoutAutumn = mRootView.findViewById(R.id.layout_type_autumn);
+//        layoutWinter = mRootView.findViewById(R.id.layout_type_winter);
 
         layoutSea = mRootView.findViewById(R.id.layout_type_sea);
         layoutAttractions = mRootView.findViewById(R.id.layout_type_attractions);
