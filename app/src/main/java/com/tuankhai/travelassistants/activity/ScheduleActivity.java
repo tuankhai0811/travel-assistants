@@ -1,8 +1,11 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,17 +19,20 @@ import com.tuankhai.travelassistants.module.stickyadapter.StickyListHeadersListV
 import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDTO;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 public class ScheduleActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener, StickyListHeadersListView.OnHeaderClickListener,
         StickyListHeadersListView.OnStickyHeaderOffsetChangedListener,
-        StickyListHeadersListView.OnStickyHeaderChangedListener {
+        StickyListHeadersListView.OnStickyHeaderChangedListener,
+        SwipeRefreshLayout.OnRefreshListener {
     ScheduleController mController;
 
     Toolbar toolbar;
     FloatingActionButton fab;
+    SwipeRefreshLayout refreshLayout;
 
     //Rycycleview
     StickyListHeadersListView lvSchedule;
@@ -47,6 +53,7 @@ public class ScheduleActivity extends AppCompatActivity
     }
 
     public void setData(List<AddScheduleDTO.Schedule> list) {
+        Collections.sort(list);
         arrSchedule.clear();
         arrSchedule.addAll(list);
         mAdapter = new ScheduleAdapter(this, arrSchedule);
@@ -61,12 +68,17 @@ public class ScheduleActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+
+        refreshLayout.setOnRefreshListener(this);
     }
 
     private void addControls() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
 
         arrSchedule = new ArrayList<>();
         lvSchedule = (StickyListHeadersListView) findViewById(R.id.lv_schedule);
@@ -79,6 +91,9 @@ public class ScheduleActivity extends AppCompatActivity
         lvSchedule.setEmptyView(findViewById(R.id.empty));
         lvSchedule.setDrawingListUnderStickyHeader(true);
         lvSchedule.setAreHeadersSticky(true);
+        lvSchedule.setFastScrollEnabled(true);
+//        lvSchedule.setFastScrollAlwaysVisible(true);
+        lvSchedule.setStickyHeaderTopOffset(-20);
     }
 
     @Override
@@ -93,11 +108,25 @@ public class ScheduleActivity extends AppCompatActivity
 
     @Override
     public void onStickyHeaderOffsetChanged(StickyListHeadersListView l, View header, int offset) {
-
+        if (false && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            header.setAlpha(1 - (offset / (float) header.getMeasuredHeight()));
+        }
     }
 
     @Override
     public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
+        header.setAlpha(1);
+    }
 
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.setRefreshing(false);
+                }
+            }
+        }, 1000);
     }
 }

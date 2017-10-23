@@ -80,7 +80,7 @@
             android:label="@string/title_activity_schedule"
             android:largeHeap="true"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.Slider.Sliderable.Schedule" />
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

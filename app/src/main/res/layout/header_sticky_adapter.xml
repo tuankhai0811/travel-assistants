@@ -9,6 +9,8 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_8dp"
+        android:layout_marginTop="@dimen/margin_8dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:padding="@dimen/padding_5dp"
