@@ -143,6 +143,7 @@ public class ScheduleAdapter extends BaseAdapter implements
             view = mInflater.inflate(R.layout.item_schedule_layout, viewGroup, false);
             holder.txtName = (TextView) view.findViewById(R.id.txtName);
             holder.txtDate = (TextView) view.findViewById(R.id.txtDate);
+            holder.txtPlace = (TextView) view.findViewById(R.id.txtPlace);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -154,13 +155,14 @@ public class ScheduleAdapter extends BaseAdapter implements
         Date dateEnd = new Date(Long.valueOf(item.date_end));
 
         holder.txtName.setText(item.name);
-        holder.txtDate.setText(format.format(dateStart) + " - " + format.format(dateEnd));
+        holder.txtDate.setText(item.length + " ngày (" + format.format(dateStart) + " - " + format.format(dateEnd) + ")");
+        holder.txtPlace.setText(item.place + " địa điểm");
 
         return view;
     }
 
     class ViewHolder {
-        TextView txtName, txtDate;
+        TextView txtName, txtDate, txtPlace;
     }
 
     @Override

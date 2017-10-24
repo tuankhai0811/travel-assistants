@@ -6,9 +6,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -20,13 +18,12 @@ import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDTO;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
-public class ScheduleActivity extends AppCompatActivity
+public class ScheduleActivity extends BaseActivity
         implements AdapterView.OnItemClickListener, StickyListHeadersListView.OnHeaderClickListener,
         StickyListHeadersListView.OnStickyHeaderOffsetChangedListener,
-        StickyListHeadersListView.OnStickyHeaderChangedListener,
+        StickyListHeadersListView.OnStickyHeaderChangedListener, AdapterView.OnItemLongClickListener,
         SwipeRefreshLayout.OnRefreshListener {
     ScheduleController mController;
 
@@ -43,9 +40,6 @@ public class ScheduleActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-        mController = new ScheduleController(this);
-
-        Log.e("status", new Date().getTime() + "");
 
         addControls();
         addEvents();
@@ -73,16 +67,19 @@ public class ScheduleActivity extends AppCompatActivity
     }
 
     private void addControls() {
+        mController = new ScheduleController(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
 
         arrSchedule = new ArrayList<>();
         lvSchedule = (StickyListHeadersListView) findViewById(R.id.lv_schedule);
         lvSchedule.setOnItemClickListener(this);
+        lvSchedule.setOnItemLongClickListener(this);
         lvSchedule.setOnHeaderClickListener(this);
         lvSchedule.setOnStickyHeaderChangedListener(this);
         lvSchedule.setOnStickyHeaderOffsetChangedListener(this);
@@ -94,6 +91,11 @@ public class ScheduleActivity extends AppCompatActivity
         lvSchedule.setFastScrollEnabled(true);
 //        lvSchedule.setFastScrollAlwaysVisible(true);
         lvSchedule.setStickyHeaderTopOffset(-20);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        return false;
     }
 
     @Override
@@ -115,6 +117,7 @@ public class ScheduleActivity extends AppCompatActivity
 
     @Override
     public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
+        //Độ trong suốt của header
         header.setAlpha(1);
     }
 

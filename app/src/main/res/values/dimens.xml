@@ -110,4 +110,8 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_2dp">2dp</dimen>
     <dimen name="margin_6dp">6dp</dimen>
+    <dimen name="height_item_schedule">100dp</dimen>
+    <dimen name="height_header_item_schedule">40dp</dimen>
+    <dimen name="size_22sp">22sp</dimen>
+    <dimen name="padding_1dp">1dp</dimen>
 </resources>
