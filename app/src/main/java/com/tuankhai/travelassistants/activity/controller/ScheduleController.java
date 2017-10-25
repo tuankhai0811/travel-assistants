@@ -32,4 +32,8 @@ public class ScheduleController {
                     }
                 }, AllScheduleDTO.class);
     }
+
+    public void createNewSchedule() {
+
+    }
 }

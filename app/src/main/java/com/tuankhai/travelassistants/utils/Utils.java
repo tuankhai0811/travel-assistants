@@ -13,10 +13,17 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Base64;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 
@@ -239,5 +246,31 @@ public class Utils {
         canvas.drawBitmap(bitmap, rect, rect, paint);
 
         return output;
+    }
+
+    public static void showSuccessToast(Context context, String text) {
+        View view = LayoutInflater.from(context).inflate(R.layout.toast_custom_green, null);
+        ((ImageView) view.findViewById(R.id.toast_img)).setImageDrawable(context.getResources().getDrawable(R.drawable.ico_success));
+        ((TextView) view.findViewById(R.id.toast_txv)).setText(text);
+
+        Toast toast = new Toast(context);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP, 0, 50);
+        toast.setView(view);
+        toast.show();
+    }
+
+    public static void showFaildToast(Context context, String text) {
+        View view = LayoutInflater.from(context).inflate(R.layout.toast_custom_green, null);
+        ((ImageView) view.findViewById(R.id.toast_img)).setImageDrawable(context.getResources().getDrawable(R.drawable.ico_fail));
+        ((TextView) view.findViewById(R.id.toast_txv)).setText(text);
+        ((TextView) view.findViewById(R.id.toast_txv)).setTextColor(context.getResources().getColor(R.color.random_1));
+        view.findViewById(R.id.layout).setBackgroundDrawable(context.getResources().getDrawable(R.drawable.background_round_red));
+
+        Toast toast = new Toast(context);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP, 0, 50);
+        toast.setView(view);
+        toast.show();
     }
 }

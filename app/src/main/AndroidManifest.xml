@@ -76,11 +76,10 @@
             android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.ScheduleActivity"
-            android:hardwareAccelerated="false"
-            android:label="@string/title_activity_schedule"
-            android:largeHeap="true"
+
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.DetailScheduleActivity"></activity>
     </application>
 
 </manifest>

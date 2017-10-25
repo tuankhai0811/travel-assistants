@@ -114,4 +114,8 @@
     <dimen name="height_header_item_schedule">40dp</dimen>
     <dimen name="size_22sp">22sp</dimen>
     <dimen name="padding_1dp">1dp</dimen>
+    <dimen name="width_dialog_new_schedule">350dp</dimen>
+    <dimen name="width_70dp">70dp</dimen>
+    <dimen name="padding_18dp">18dp</dimen>
+    <dimen name="padding_05dp">0.5dp</dimen>
 </resources>
