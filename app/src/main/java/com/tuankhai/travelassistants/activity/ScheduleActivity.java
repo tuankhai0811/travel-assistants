@@ -81,6 +81,9 @@ public class ScheduleActivity extends BaseActivity
         switch (item.getItemId()) {
             case R.id.menu_add_schedule:
                 dialogAddNew.show();
+                txtName.setText("");
+                txtFromDate.setText(simpleDateFormat.format(current.getTime()));
+                txtToDate.setText(simpleDateFormat.format(current.getTime()));
                 return true;
             case android.R.id.home:
                 onBackPressed();
