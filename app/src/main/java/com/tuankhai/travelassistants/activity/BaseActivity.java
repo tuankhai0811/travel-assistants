@@ -34,12 +34,12 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mUser = mAuth.getCurrentUser();
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath(getString(R.string.font_boto_light))
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
-        mUser = mAuth.getCurrentUser();
     }
 
     @Override

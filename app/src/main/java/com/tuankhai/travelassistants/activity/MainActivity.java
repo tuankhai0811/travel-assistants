@@ -269,8 +269,14 @@ public class MainActivity extends BaseActivity
         int id = menuItem.getItemId();
         switch (id) {
             case R.id.nav_menu_schedule: {
-                Intent intent = new Intent(this, ScheduleActivity.class);
-                startActivity(intent);
+                if (mUser == null) {
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN_SCHEDULE);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(this, ScheduleActivity.class);
+                    startActivity(intent);
+                }
             }
             break;
             case R.id.nav_menu_favorite:

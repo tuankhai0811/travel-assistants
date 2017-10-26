@@ -1,11 +1,13 @@
 package com.tuankhai.travelassistants.webservice.main;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
+import com.tuankhai.travelassistants.webservice.UtilsService;
 import com.tuankhai.travelassistants.webservice.interfaces.UploadserviceRequest;
 import com.tuankhai.travelassistants.webservice.interfaces.WebserviceRequest;
 
@@ -36,6 +38,7 @@ public class RequestService {
     public static String RESULT_ERROR = "ERROR";
 
     private Retrofit retrofit = null;
+    private Context context = null;
 
     static String GOOGLE_URL = "https://maps.googleapis.com/";
     static String LANGUAGE = "vi";
@@ -61,6 +64,13 @@ public class RequestService {
     static String ZOOM = "12";
     static String WIDTH = "700";
     static String HEIGHT = "300";
+
+    public RequestService(Context context) {
+        this.context = context;
+    }
+
+    public RequestService() {
+    }
 
     private Retrofit getClient(String baseUrl) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -248,16 +258,27 @@ public class RequestService {
     }
 
     public void load(final BasicRequest mainDTO,
-                     boolean isShowLoading,
+                     final boolean isShowLoading,
                      final MyCallback callback,
                      final Class returnClass) {
         String[] path = mainDTO.path();
+        if (isShowLoading) {
+            if (context != null) {
+                UtilsService.getInstance(context).show();
+            }
+        }
         getClient(BASE_URL)
                 .create(WebserviceRequest.class)
                 .getAnswers(path(path, 0), path(path, 1), path(path, 2), mainDTO.params())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (isShowLoading) {
+                            if (context != null) {
+                                UtilsService.getInstance(context).dismiss();
+                                context = null;
+                            }
+                        }
                         try {
                             callback.onSuccess(Utils.readValue(response.body().bytes(), returnClass));
                         } catch (IOException e) {
@@ -267,6 +288,7 @@ public class RequestService {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        context = null;
                         Log.e(getClass().toString(), "onFailure");
                     }
                 });

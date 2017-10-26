@@ -3,11 +3,13 @@ package com.tuankhai.travelassistants.activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +26,10 @@ import android.widget.TextView;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.ScheduleController;
 import com.tuankhai.travelassistants.adapter.ScheduleAdapter;
+import com.tuankhai.travelassistants.bottomsheet.MenuBottomSheet;
+import com.tuankhai.travelassistants.bottomsheet.interfaces.OnItemMenuSheetBottomClickListener;
 import com.tuankhai.travelassistants.module.stickyadapter.StickyListHeadersListView;
+import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDTO;
 
@@ -38,7 +43,7 @@ public class ScheduleActivity extends BaseActivity
         implements AdapterView.OnItemClickListener, StickyListHeadersListView.OnHeaderClickListener,
         StickyListHeadersListView.OnStickyHeaderOffsetChangedListener,
         StickyListHeadersListView.OnStickyHeaderChangedListener, AdapterView.OnItemLongClickListener,
-        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, OnItemMenuSheetBottomClickListener {
     ScheduleController mController;
 
     Toolbar toolbar;
@@ -50,7 +55,7 @@ public class ScheduleActivity extends BaseActivity
     ArrayList<AddScheduleDTO.Schedule> arrSchedule;
     ScheduleAdapter mAdapter;
 
-    //Dialog
+    //Dialog new
     Dialog dialogAddNew;
     Button btnCancel, btnCreate;
     EditText txtName;
@@ -60,6 +65,13 @@ public class ScheduleActivity extends BaseActivity
     Calendar toDate = Calendar.getInstance();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
+    //Dialog del
+    Dialog dialogDel;
+    Button btnCancelDel, btnDel;
+    TextView txtNameDel;
+
+    AddScheduleDTO.Schedule schedule;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +79,21 @@ public class ScheduleActivity extends BaseActivity
 
         addControls();
         addEvents();
+
+//        RelativeLayout bottomSheetLayout = (RelativeLayout) findViewById(R.id.layout_bottom_sheet);
+//        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
+//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mUser == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_LOGIN);
+            startActivity(intent);
+            return;
+        }
         mController.getData();
     }
 
@@ -109,7 +136,7 @@ public class ScheduleActivity extends BaseActivity
 //        });
         refreshLayout.setOnRefreshListener(this);
 
-        //Dialog
+        //Dialog new
         btnCancel.setOnClickListener(this);
         btnCreate.setOnClickListener(this);
         txtName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -127,6 +154,10 @@ public class ScheduleActivity extends BaseActivity
                 return false;
             }
         });
+
+        btnCancelDel.setOnClickListener(this);
+        btnDel.setOnClickListener(this);
+
         txtFromDate.setOnClickListener(this);
         txtToDate.setOnClickListener(this);
     }
@@ -138,6 +169,9 @@ public class ScheduleActivity extends BaseActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle("");
+        ((TextView) findViewById(R.id.txt_title)).setText(getString(R.string.title_activity_schedule));
+
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
 
@@ -157,7 +191,7 @@ public class ScheduleActivity extends BaseActivity
         lvSchedule.setFastScrollAlwaysVisible(false);
         lvSchedule.setStickyHeaderTopOffset(-20);
 
-        //Dialog
+        //Dialog new
         dialogAddNew = new Dialog(this);
         dialogAddNew.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogAddNew.setContentView(R.layout.content_dialog_new_schedule);
@@ -170,11 +204,23 @@ public class ScheduleActivity extends BaseActivity
         txtToDate = dialogAddNew.findViewById(R.id.txt_to_date);
         txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
         txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
+
+        //Dialog del
+        dialogDel = new Dialog(this);
+        dialogDel.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogDel.setContentView(R.layout.content_dialog_del_schedule);
+        dialogDel.setCanceledOnTouchOutside(false);
+        dialogDel.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        btnCancelDel = dialogDel.findViewById(R.id.btn_cancel_del);
+        btnDel = dialogDel.findViewById(R.id.btn_delete);
+        txtNameDel = dialogDel.findViewById(R.id.txt_name_del);
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        return false;
+        schedule = arrSchedule.get(position);
+        new MenuBottomSheet(this).show(getSupportFragmentManager(), "MenuSheetBottomSchedule");
+        return true;
     }
 
     @Override
@@ -209,18 +255,24 @@ public class ScheduleActivity extends BaseActivity
                     refreshLayout.setRefreshing(false);
                 }
             }
-        }, 1000);
+        }, 500);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            //Dialog new
             case R.id.btn_cancel:
                 dialogAddNew.dismiss();
                 break;
             case R.id.btn_create:
-                mController.createNewSchedule();
-                dialogAddNew.dismiss();
+                if (txtName.getText().toString().trim().isEmpty()) {
+                    Utils.showFaildToast(this, "Tên lịch trình không thể trống");
+                    txtName.setError("Tên lịch trình không thể trống");
+                } else {
+                    txtName.setError(null);
+                    mController.createNewSchedule(txtName.getText().toString(), fromDate, toDate);
+                }
                 break;
             case R.id.txt_from_date:
                 showDialogPickerFromDate();
@@ -228,13 +280,20 @@ public class ScheduleActivity extends BaseActivity
             case R.id.txt_to_date:
                 showDialogPickerToDate();
                 break;
+            //Dialog del
+            case R.id.btn_cancel_del:
+                dialogDel.dismiss();
+                break;
+            case R.id.btn_delete:
+                mController.deleteSchedule(schedule);
+                break;
         }
     }
 
     private void showDialogPickerToDate() {
-        int year = current.get(Calendar.YEAR);
-        int month = current.get(Calendar.MONTH);
-        int day = current.get(Calendar.DAY_OF_MONTH);
+        int year = toDate.get(Calendar.YEAR);
+        int month = toDate.get(Calendar.MONTH);
+        int day = toDate.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog pickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -242,6 +301,13 @@ public class ScheduleActivity extends BaseActivity
                 toDate.set(Calendar.MONTH, month);
                 toDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
+                if (fromDate.getTimeInMillis() > toDate.getTimeInMillis()) {
+                    Log.e("status", fromDate.getTimeInMillis() + "-" + toDate.getTimeInMillis());
+                    txtToDate.setError("Thời gian không đúng!");
+                    Utils.showFaildToast(ScheduleActivity.this, "Ngày kết thúc phải sau ngày bắt đầu!");
+                } else {
+                    txtToDate.setError(null);
+                }
             }
         }, year, month, day);
         pickerDialog.setTitle("Đến ngày");
@@ -249,9 +315,9 @@ public class ScheduleActivity extends BaseActivity
     }
 
     private void showDialogPickerFromDate() {
-        int year = current.get(Calendar.YEAR);
-        int month = current.get(Calendar.MONTH);
-        int day = current.get(Calendar.DAY_OF_MONTH);
+        int year = fromDate.get(Calendar.YEAR);
+        int month = fromDate.get(Calendar.MONTH);
+        int day = fromDate.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog pickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -259,11 +325,40 @@ public class ScheduleActivity extends BaseActivity
                 fromDate.set(Calendar.MONTH, month);
                 fromDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
-                txtFromDate.setError("Thời gian không đúng!");
-                Utils.showFaildToast(ScheduleActivity.this, "Thời gian không đúng!");
+                if (fromDate.getTimeInMillis() < current.getTimeInMillis()) {
+                    txtFromDate.setError("Thời gian không đúng!");
+                    Utils.showFaildToast(ScheduleActivity.this, "Không thể tạo lịch trình trong quá khứ!");
+                } else {
+                    txtFromDate.setError(null);
+                    toDate = fromDate;
+                    txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
+                }
             }
         }, year, month, day);
         pickerDialog.setTitle("Từ ngày");
         pickerDialog.show();
+    }
+
+    public void addFailure() {
+        Utils.showFaildToast(this, "Thời gian trùng với lịch trình khác!");
+    }
+
+    public void addSuccess(AddScheduleDTO.Schedule result) {
+        arrSchedule.add(result);
+        Collections.sort(arrSchedule);
+        mAdapter.notifyDataChange();
+        Utils.showSuccessToast(this, "Thêm thành công lịch trình mới!");
+        dialogAddNew.dismiss();
+    }
+
+    @Override
+    public void onDeleteClick() {
+        txtNameDel.setText("Xóa lịch trình " + schedule.name + "?");
+        dialogDel.show();
+    }
+
+    @Override
+    public void onEditClick() {
+        Utils.showSuccessToast(this, "Edit");
     }
 }

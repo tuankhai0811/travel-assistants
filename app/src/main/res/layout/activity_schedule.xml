@@ -18,11 +18,54 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:elevation="0dp"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:id="@+id/txt_title"
+                fontPath="@string/font_boto_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/global_white"
+                android:textSize="@dimen/size_18sp" />
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_schedule" />
+
+    <!-- bottom sheet layout -->
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/layout_bottom_sheet"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="220dp"-->
+        <!--android:background="@color/random_6"-->
+        <!--android:elevation="@dimen/padding_10dp"-->
+        <!--app:behavior_hideable="true"-->
+        <!--app:behavior_peekHeight="80dp"-->
+        <!--app:layout_behavior="@string/string_bottom_sheet_behavior">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text_view_sheet_title"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:text="asdfasdfasdf"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text_view_more_content"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="adfsd"-->
+            <!--android:layout_below="@+id/text_view_sheet_title"-->
+            <!--android:textStyle="bold" />-->
+
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:text="button"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_below="@+id/text_view_more_content"/>-->
+
+    <!--</RelativeLayout>-->
 
     <!--<android.support.design.widget.FloatingActionButton-->
     <!--android:id="@+id/fab"-->

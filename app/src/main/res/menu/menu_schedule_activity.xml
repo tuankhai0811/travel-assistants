@@ -7,7 +7,7 @@
         android:checkable="false"
         android:enabled="true"
         android:icon="@drawable/ic_add_white_24dp"
-        android:title="New Schedule"
+        android:title="Thêm lịch trình mới"
         android:visible="true"
         app:showAsAction="always" />
 </menu>

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tuankhai.travelassistants.webservice.main.RequestService;
 
 /**
  * Created by tuank on 22/10/2017.
@@ -53,14 +54,21 @@ public final class AddScheduleDTO {
             this.date_start = date_start + "000";
             this.date_end = date_end + "000";
             this.length = length;
-            this.place = place;
+            this.place = place == null ? "0" : place;
             this.created_at = created_at;
             this.updated_at = updated_at;
         }
 
         @Override
         public int compareTo(@NonNull Schedule schedule) {
-            return this.date_start.compareTo(schedule.date_start);
+            return schedule.date_start.compareTo(this.date_start);
         }
+    }
+
+    public boolean isSuccess() {
+        if (status.equals(RequestService.RESULT_OK)) {
+            return true;
+        }
+        return false;
     }
 }

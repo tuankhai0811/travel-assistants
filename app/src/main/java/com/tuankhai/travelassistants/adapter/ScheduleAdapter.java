@@ -1,7 +1,6 @@
 package com.tuankhai.travelassistants.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,13 +36,12 @@ public class ScheduleAdapter extends BaseAdapter implements
         mInflater = LayoutInflater.from(mContext);
         mSectionIndices = getSectionIndices();
         mSectionHeaders = getSectionHeaders();
+    }
 
-        for (int i = 0; i < mSectionIndices.length; i++) {
-            Log.e("status", mSectionIndices[i] + "");
-        }
-        for (int i = 0; i < mSectionHeaders.length; i++) {
-            Log.e("status", mSectionHeaders[i] + "");
-        }
+    public void notifyDataChange() {
+        mSectionIndices = getSectionIndices();
+        mSectionHeaders = getSectionHeaders();
+        notifyDataSetChanged();
     }
 
     private String[] getSectionHeaders() {
@@ -52,7 +50,6 @@ public class ScheduleAdapter extends BaseAdapter implements
         for (int i = 0; i < mSectionIndices.length; i++) {
             Date date = new Date(Long.valueOf(arrSchedule.get(mSectionIndices[i]).date_start));
             dates[i] = format.format(date);
-            Log.e("status", format.format(date));
         }
         return dates;
     }
@@ -65,13 +62,15 @@ public class ScheduleAdapter extends BaseAdapter implements
         }
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
-        Date date = new Date(Long.valueOf(arrSchedule.get(0).date_start));
-        String lastFirstDate = format.format(date);
+        Date dateStart = new Date(Long.valueOf(arrSchedule.get(0).date_start));
+        Date dateEnd = new Date(Long.valueOf(arrSchedule.get(0).date_end));
+        String lastFirstDate = format.format(dateStart) + " - " + format.format(dateEnd);
         sectionIndices.add(0);
 
         for (int i = 0; i < arrSchedule.size(); i++) {
-            Date time = new Date(Long.valueOf(arrSchedule.get(i).date_start));
-            String lastDate = format.format(time);
+            Date timeStart = new Date(Long.valueOf(arrSchedule.get(i).date_start));
+            Date timeEnd = new Date(Long.valueOf(arrSchedule.get(i).date_end));
+            String lastDate = format.format(timeStart) + " - " + format.format(timeEnd);
             if (!lastDate.equals(lastFirstDate)) {
                 lastFirstDate = lastDate;
                 sectionIndices.add(i);
@@ -100,10 +99,15 @@ public class ScheduleAdapter extends BaseAdapter implements
 
         // set header text as first char in name
         SimpleDateFormat format = new SimpleDateFormat("MM - yyyy");
-        Date date = new Date(Long.valueOf(arrSchedule.get(position).date_start));
-        CharSequence headerChar = format.format(date);
-        holder.text.setText(headerChar);
-
+        Date dateStart = new Date(Long.valueOf(arrSchedule.get(position).date_start));
+        Date dateEnd = new Date(Long.valueOf(arrSchedule.get(position).date_end));
+        String start = format.format(dateStart);
+        String end = format.format(dateEnd);
+        if (start.equals(end)) {
+            holder.text.setText(start);
+        } else {
+            holder.text.setText(start + "  đến  " + end);
+        }
         return convertView;
     }
 
@@ -114,9 +118,11 @@ public class ScheduleAdapter extends BaseAdapter implements
     @Override
     public long getHeaderId(int position) {
         SimpleDateFormat format = new SimpleDateFormat("MMyyyy");
-        Date date = new Date(Long.valueOf(arrSchedule.get(position).date_start));
-        long id = Long.valueOf(format.format(date));
-        return id;
+        Date dateStart = new Date(Long.valueOf(arrSchedule.get(position).date_start));
+        Date dateEnd = new Date(Long.valueOf(arrSchedule.get(position).date_end));
+        long start = Long.valueOf(format.format(dateStart));
+        long end = Long.valueOf(format.format(dateEnd));
+        return start * 100 - end;
     }
 
     @Override

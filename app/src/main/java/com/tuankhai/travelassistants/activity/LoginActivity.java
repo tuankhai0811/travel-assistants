@@ -296,9 +296,15 @@ public class LoginActivity extends BaseActivity implements
                             hideProgressDialog();
                         }
                     }, UserDTO.class);
-            if (request_code == AppContansts.REQUEST_LOGIN) {
-                setResult(RESULT_OK);
-                finish();
+            switch (request_code) {
+                case AppContansts.REQUEST_LOGIN:
+                    setResult(RESULT_OK);
+                    finish();
+                    break;
+                case AppContansts.REQUEST_LOGIN_SCHEDULE: {
+                    Intent intent = new Intent(this, ScheduleActivity.class);
+                    startActivity(intent);
+                }
             }
         } else {
             layoutLogo.setVisibility(View.VISIBLE);

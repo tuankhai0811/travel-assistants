@@ -6,6 +6,7 @@
 
     <string name="font_boto_regular">fonts/Roboto-Regular.ttf</string>
     <string name="font_boto_bold">fonts/Roboto-Bold.ttf</string>
+    <string name="font_boto_medium">fonts/Roboto-Medium.ttf</string>
     <string name="font_boto_bold_italic">fonts/Roboto-BoldItalic.ttf</string>
     <string name="font_boto_light">fonts/Roboto-Light.ttf</string>
     <string name="font_boto_light_italic">fonts/Roboto-LightItalic.ttf</string>
@@ -58,7 +59,13 @@
     <string name="menu_remove_reviews">Xóa</string>
     <string name="menu_edit_reviews">Sửa</string>
     <string name="no_place_search">Không tìm thấy kết quả tìm kiếm!</string>
-    <string name="title_activity_schedule">ScheduleActivity</string>
+    <string name="title_activity_schedule">Lịch trình của tôi</string>
+    <string name="textview">TextView</string>
+    <string name="todo">TODO</string>
+    <string name="string_bottom_sheet_behavior">android.support.design.widget.BottomSheetBehavior</string>
+    <string name="action_schedule">Chọn</string>
+    <string name="edit_schedule">Sửa lịch trình</string>
+    <string name="delete_schedule">Xóa lịch trình</string>
 
 
 </resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/global_white"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_20dp"
+    android:paddingTop="@dimen/margin_10dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            fontPath="@string/font_boto_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_10dp"
+            android:layout_marginLeft="@dimen/margin_20dp"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:text="@string/action_schedule"
+            android:textColor="@color/global_black"
+            android:textSize="@dimen/size_18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_action_edit_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector"
+        android:clickable="true"
+        android:gravity="left|center_vertical"
+        android:paddingBottom="@dimen/margin_15dp"
+        android:paddingLeft="@dimen/padding_30dp"
+        android:paddingTop="@dimen/margin_15dp">
+
+        <ImageView
+            android:layout_width="@dimen/height_icon_edit"
+            android:layout_height="@dimen/height_icon_edit"
+            android:padding="@dimen/padding_2dp"
+            android:src="@drawable/ico_edit" />
+
+        <TextView
+            fontPath="@string/font_boto_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_30dp"
+            android:text="@string/edit_schedule"
+            android:textColor="@color/global_black"
+            android:textSize="@dimen/size_16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_action_delete_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector"
+        android:clickable="true"
+        android:gravity="left|center_vertical"
+        android:paddingBottom="@dimen/margin_15dp"
+        android:paddingLeft="@dimen/padding_30dp"
+        android:paddingTop="@dimen/margin_15dp">
+
+        <ImageView
+            android:layout_width="@dimen/height_icon_edit"
+            android:layout_height="@dimen/height_icon_edit"
+            android:src="@drawable/ico_delete" />
+
+        <TextView
+            fontPath="@string/font_boto_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_30dp"
+            android:text="@string/delete_schedule"
+            android:textColor="@color/global_black"
+            android:textSize="@dimen/size_16sp" />
+    </LinearLayout>
+
+</LinearLayout>
