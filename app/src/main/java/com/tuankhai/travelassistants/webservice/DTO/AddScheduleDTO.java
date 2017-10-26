@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 
+import java.util.Date;
+
 /**
  * Created by tuank on 22/10/2017.
  */
@@ -62,6 +64,14 @@ public final class AddScheduleDTO {
         @Override
         public int compareTo(@NonNull Schedule schedule) {
             return schedule.date_start.compareTo(this.date_start);
+        }
+
+        public Date getStart(){
+            return new Date(Long.valueOf(date_start));
+        }
+
+        public Date getEnd(){
+            return new Date(Long.valueOf(date_end));
         }
     }
 

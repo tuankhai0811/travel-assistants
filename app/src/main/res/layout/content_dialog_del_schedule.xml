@@ -28,10 +28,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_25dp"
+            android:layout_marginLeft="@dimen/margin_20dp"
+            android:layout_marginRight="@dimen/margin_20dp"
             android:layout_marginTop="@dimen/margin_40dp"
-            android:gravity="center"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:maxLines="1"
             android:text="Tạo lịch trình mới"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/global_black"
             android:textSize="@dimen/size_18sp" />
 
         <LinearLayout

@@ -23,6 +23,7 @@
         android:paddingRight="@dimen/padding_15dp">
 
         <TextView
+            android:id="@+id/txt_title"
             fontPath="@string/font_boto_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

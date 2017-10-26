@@ -56,10 +56,11 @@ public class ScheduleActivity extends BaseActivity
     ScheduleAdapter mAdapter;
 
     //Dialog new
+    boolean isNew = true;
     Dialog dialogAddNew;
     Button btnCancel, btnCreate;
     EditText txtName;
-    TextView txtFromDate, txtToDate;
+    TextView txtFromDate, txtToDate, txtTitle;
     Calendar current = Calendar.getInstance();
     Calendar fromDate = Calendar.getInstance();
     Calendar toDate = Calendar.getInstance();
@@ -107,10 +108,12 @@ public class ScheduleActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add_schedule:
-                dialogAddNew.show();
+                isNew = true;
+                txtTitle.setText("Tạo lịch trình mới");
                 txtName.setText("");
                 txtFromDate.setText(simpleDateFormat.format(current.getTime()));
                 txtToDate.setText(simpleDateFormat.format(current.getTime()));
+                dialogAddNew.show();
                 return true;
             case android.R.id.home:
                 onBackPressed();
@@ -199,6 +202,7 @@ public class ScheduleActivity extends BaseActivity
         dialogAddNew.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         btnCancel = dialogAddNew.findViewById(R.id.btn_cancel);
         btnCreate = dialogAddNew.findViewById(R.id.btn_create);
+        txtTitle = dialogAddNew.findViewById(R.id.txt_title);
         txtName = dialogAddNew.findViewById(R.id.txt_name);
         txtFromDate = dialogAddNew.findViewById(R.id.txt_from_date);
         txtToDate = dialogAddNew.findViewById(R.id.txt_to_date);
@@ -271,7 +275,11 @@ public class ScheduleActivity extends BaseActivity
                     txtName.setError("Tên lịch trình không thể trống");
                 } else {
                     txtName.setError(null);
-                    mController.createNewSchedule(txtName.getText().toString(), fromDate, toDate);
+                    if (isNew) {
+                        mController.createNewSchedule(txtName.getText().toString(), fromDate, toDate);
+                    } else {
+                        mController.editSchedule(schedule, txtName.getText().toString(), fromDate, toDate);
+                    }
                 }
                 break;
             case R.id.txt_from_date:
@@ -330,8 +338,10 @@ public class ScheduleActivity extends BaseActivity
                     Utils.showFaildToast(ScheduleActivity.this, "Không thể tạo lịch trình trong quá khứ!");
                 } else {
                     txtFromDate.setError(null);
-                    toDate = fromDate;
-                    txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
+                    if (toDate.getTimeInMillis() < fromDate.getTimeInMillis()) {
+                        toDate = fromDate;
+                        txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
+                    }
                 }
             }
         }, year, month, day);
@@ -359,6 +369,35 @@ public class ScheduleActivity extends BaseActivity
 
     @Override
     public void onEditClick() {
-        Utils.showSuccessToast(this, "Edit");
+        isNew = false;
+        txtTitle.setText("Sửa lịch trình");
+        dialogAddNew.show();
+        txtName.setText(schedule.name);
+        txtFromDate.setText(simpleDateFormat.format(schedule.getStart()));
+        txtToDate.setText(simpleDateFormat.format(schedule.getEnd()));
+    }
+
+    public void deleteFailure() {
+        Utils.showFaildToast(this, "Xóa không thành công!");
+        dialogDel.dismiss();
+    }
+
+    public void deleteSuccess(AddScheduleDTO.Schedule schedule) {
+        arrSchedule.remove(schedule);
+        mAdapter.notifyDataChange();
+        dialogDel.dismiss();
+        Utils.showSuccessToast(this, "Xóa thành công " + schedule.name);
+    }
+
+    public void editScheduleFailure() {
+        Utils.showFaildToast(this, "Thao tác không thành công!");
+    }
+
+    public void editScheduleSuccess(AddScheduleDTO scheduleDTO) {
+        arrSchedule.remove(schedule);
+        arrSchedule.add(scheduleDTO.result);
+        mAdapter.notifyDataChange();
+        Utils.showSuccessToast(this, "Cập nhật thành công " + scheduleDTO.result.name);
+        dialogAddNew.dismiss();
     }
 }

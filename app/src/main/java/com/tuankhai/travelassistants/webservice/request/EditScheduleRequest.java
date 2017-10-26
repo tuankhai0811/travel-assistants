@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.webservice.request;
 
 import com.tuankhai.travelassistants.webservice.main.BasicRequest;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ import java.util.Map;
  */
 
 public class EditScheduleRequest extends BasicRequest {
-    public final String URL = "Schedule/edit/new";
+    public final String ROUTES = "Schedule/edit/new";
 
     private String id, name, email, date_start, date_end;
 
@@ -35,6 +36,6 @@ public class EditScheduleRequest extends BasicRequest {
 
     @Override
     public String[] path() {
-        return URL.split("/");
+        return ROUTES.split("/");
     }
 }
