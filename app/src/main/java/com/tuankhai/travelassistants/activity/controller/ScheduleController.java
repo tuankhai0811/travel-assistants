@@ -12,7 +12,7 @@ import com.tuankhai.travelassistants.webservice.request.EditScheduleRequest;
 import com.tuankhai.travelassistants.webservice.request.GetAllScheduleRequest;
 
 import java.util.Arrays;
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by tuank on 22/10/2017.
@@ -39,13 +39,13 @@ public class ScheduleController {
                 }, AllScheduleDTO.class);
     }
 
-    public void createNewSchedule(String name, Calendar fromDate, Calendar toDate) {
+    public void createNewSchedule(String name, Date fromDate, Date toDate) {
         new RequestService(mActivity).load(
                 new CreateScheduleRequest(
                         mActivity.mUser.getEmail(),
                         name,
-                        fromDate.getTimeInMillis() / 1000 + "",
-                        toDate.getTimeInMillis() / 1000 + ""
+                        fromDate.getTime() / 1000 + "",
+                        toDate.getTime() / 1000 + ""
                 ),
                 true,
                 new MyCallback() {
@@ -87,14 +87,14 @@ public class ScheduleController {
         );
     }
 
-    public void editSchedule(final AddScheduleDTO.Schedule schedule, String name, Calendar fromDate, Calendar toDate) {
+    public void editSchedule(final AddScheduleDTO.Schedule schedule, String name, Date fromDate, Date toDate) {
         new RequestService(mActivity).load(
                 new EditScheduleRequest(
                         schedule.id,
                         name,
                         mActivity.mUser.getEmail(),
-                        fromDate.getTimeInMillis() / 1000 + "",
-                        toDate.getTimeInMillis() / 1000 + ""
+                        fromDate.getTime() / 1000 + "",
+                        toDate.getTime() / 1000 + ""
                 ),
                 true,
                 new MyCallback() {
