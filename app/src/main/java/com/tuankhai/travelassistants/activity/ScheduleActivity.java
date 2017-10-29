@@ -335,6 +335,7 @@ public class ScheduleActivity extends BaseActivity
                 fromDate.setMonth(month);
                 fromDate.setDate(dayOfMonth);
                 txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
+                Log.e("status", fromDate.getTime() + "-" + current.getTime());
                 if (fromDate.getTime() < current.getTime()) {
                     txtFromDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(ScheduleActivity.this, "Không thể tạo lịch trình trong quá khứ!");
