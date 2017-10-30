@@ -37,7 +37,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class ScheduleActivity extends BaseActivity
@@ -62,9 +61,9 @@ public class ScheduleActivity extends BaseActivity
     Button btnCancel, btnCreate;
     EditText txtName;
     TextView txtFromDate, txtToDate, txtTitle;
-    Date current = Calendar.getInstance().getTime();
-    Date fromDate = Calendar.getInstance().getTime();
-    Date toDate = Calendar.getInstance().getTime();
+    Calendar current = Calendar.getInstance();
+    Calendar fromDate = Calendar.getInstance();
+    Calendar toDate = Calendar.getInstance();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     //Dialog del
@@ -114,7 +113,6 @@ public class ScheduleActivity extends BaseActivity
                 txtName.setText("");
                 txtFromDate.setText(simpleDateFormat.format(current.getTime()));
                 txtToDate.setText(simpleDateFormat.format(current.getTime()));
-                fromDate = toDate = current;
                 dialogAddNew.show();
                 return true;
             case android.R.id.home:
@@ -301,18 +299,20 @@ public class ScheduleActivity extends BaseActivity
     }
 
     private void showDialogPickerToDate() {
-        int mYear = toDate.getYear() + 1900;
-        int mMonth = toDate.getMonth();
-        int mDay = toDate.getDate();
+        int mYear = toDate.get(Calendar.YEAR) + 1900;
+        int mMonth = toDate.get(Calendar.MONTH);
+        int mDay = toDate.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog pickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                toDate.setYear(year - 1900);
-                toDate.setMonth(month);
-                toDate.setDate(dayOfMonth);
+                toDate.set(Calendar.YEAR, year);
+                toDate.set(Calendar.MONTH, month);
+                toDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
-                if (fromDate.getTime() > toDate.getTime()) {
-                    Log.e("status", fromDate.getTime() + "-" + toDate.getTime());
+                Log.e("status", year + "-" + month + " - " + dayOfMonth);
+                Log.e("status", fromDate.getTime() + "-" + current.getTime());
+                if (fromDate.getTimeInMillis() > toDate.getTimeInMillis()) {
+                    Log.e("status", fromDate.getTimeInMillis() + "-" + toDate.getTimeInMillis());
                     txtToDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(ScheduleActivity.this, "Ngày kết thúc phải sau ngày bắt đầu!");
                 } else {
@@ -325,24 +325,25 @@ public class ScheduleActivity extends BaseActivity
     }
 
     private void showDialogPickerFromDate() {
-        int mYear = fromDate.getYear() + 1900;
-        int mMonth = fromDate.getMonth();
-        int mDay = fromDate.getDate();
+        int mYear = fromDate.get(Calendar.YEAR);
+        int mMonth = fromDate.get(Calendar.MONTH);
+        int mDay = fromDate.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog pickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                fromDate.setYear(year - 1900);
-                fromDate.setMonth(month);
-                fromDate.setDate(dayOfMonth);
+                fromDate.set(Calendar.YEAR, year);
+                fromDate.set(Calendar.MONTH, month);
+                fromDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
-                Log.e("status", fromDate.getTime() + "-" + current.getTime());
-                if (fromDate.getTime() < current.getTime()) {
+                Log.e("status", year + "-" + month + " - " + dayOfMonth);
+                Log.e("status", fromDate.getTimeInMillis() + "-" + current.getTimeInMillis());
+                if (fromDate.getTimeInMillis() < current.getTimeInMillis()) {
                     txtFromDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(ScheduleActivity.this, "Không thể tạo lịch trình trong quá khứ!");
                 } else {
                     txtFromDate.setError(null);
-                    if (toDate.getTime() < fromDate.getTime()) {
-                        toDate = fromDate;
+                    if (toDate.getTimeInMillis() < fromDate.getTimeInMillis()) {
+                        fromDate.setTime(toDate.getTime());
                         txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
                     }
                 }
@@ -372,7 +373,7 @@ public class ScheduleActivity extends BaseActivity
 
     @Override
     public void onEditClick() {
-        if (schedule.getEnd().getTime() < current.getTime()) {
+        if (schedule.getEnd().getTime() < current.getTimeInMillis()) {
             Utils.showFaildToast(this, "Không thể sửa lịch trình trong quá khứ!");
         } else if (Integer.valueOf(schedule.length) > 0) {
             Utils.showFaildToast(this, "Không thể sửa lịch trình đã có chi tiết!");
@@ -383,8 +384,8 @@ public class ScheduleActivity extends BaseActivity
             txtName.setText(schedule.name);
             txtFromDate.setText(simpleDateFormat.format(schedule.getStart()));
             txtToDate.setText(simpleDateFormat.format(schedule.getEnd()));
-            fromDate = schedule.getStart();
-            toDate = schedule.getEnd();
+            fromDate.setTime(schedule.getStart());
+            toDate.setTime(schedule.getEnd());
         }
     }
 
