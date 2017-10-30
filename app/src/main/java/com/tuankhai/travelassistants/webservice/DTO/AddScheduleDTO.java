@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -28,7 +29,7 @@ public final class AddScheduleDTO {
         this.message = message;
     }
 
-    public static final class Schedule implements Comparable<Schedule> {
+    public static final class Schedule implements Comparable<Schedule>, Serializable {
         public final String id;
         public final String name;
         public final String email;

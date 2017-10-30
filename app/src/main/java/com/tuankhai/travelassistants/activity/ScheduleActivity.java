@@ -229,7 +229,9 @@ public class ScheduleActivity extends BaseActivity
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+        Intent intent = new Intent(this, SchedulePlaceActivity.class);
+        intent.putExtra(AppContansts.INTENT_DATA, arrSchedule.get(i));
+        startActivity(intent);
     }
 
     @Override
@@ -299,7 +301,7 @@ public class ScheduleActivity extends BaseActivity
     }
 
     private void showDialogPickerToDate() {
-        int mYear = toDate.get(Calendar.YEAR) + 1900;
+        int mYear = toDate.get(Calendar.YEAR);
         int mMonth = toDate.get(Calendar.MONTH);
         int mDay = toDate.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog pickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -308,10 +310,13 @@ public class ScheduleActivity extends BaseActivity
                 toDate.set(Calendar.YEAR, year);
                 toDate.set(Calendar.MONTH, month);
                 toDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                toDate.set(Calendar.HOUR_OF_DAY, 23);
+                toDate.set(Calendar.MINUTE, 59);
+                toDate.set(Calendar.SECOND, 59);
                 txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
                 Log.e("status", year + "-" + month + " - " + dayOfMonth);
                 Log.e("status", fromDate.getTime() + "-" + current.getTime());
-                if (fromDate.getTimeInMillis() > toDate.getTimeInMillis()) {
+                if (fromDate.getTimeInMillis() >= toDate.getTimeInMillis()) {
                     Log.e("status", fromDate.getTimeInMillis() + "-" + toDate.getTimeInMillis());
                     txtToDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(ScheduleActivity.this, "Ngày kết thúc phải sau ngày bắt đầu!");
@@ -334,6 +339,9 @@ public class ScheduleActivity extends BaseActivity
                 fromDate.set(Calendar.YEAR, year);
                 fromDate.set(Calendar.MONTH, month);
                 fromDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                fromDate.set(Calendar.HOUR_OF_DAY, 0);
+                fromDate.set(Calendar.MINUTE, 0);
+                fromDate.set(Calendar.SECOND, 0);
                 txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
                 Log.e("status", year + "-" + month + " - " + dayOfMonth);
                 Log.e("status", fromDate.getTimeInMillis() + "-" + current.getTimeInMillis());

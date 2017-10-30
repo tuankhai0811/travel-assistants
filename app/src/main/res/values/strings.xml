@@ -66,6 +66,7 @@
     <string name="action_schedule">Chọn</string>
     <string name="edit_schedule">Sửa lịch trình</string>
     <string name="delete_schedule">Xóa lịch trình</string>
+    <string name="title_activity_schedule_place">SchedulePlaceActivity</string>
 
 
 </resources>
