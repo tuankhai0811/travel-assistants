@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,15 +35,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
-import com.tuankhai.travelassistants.module.likebutton.LikeButton;
-import com.tuankhai.travelassistants.module.likebutton.OnAnimationEndListener;
-import com.tuankhai.travelassistants.module.likebutton.OnLikeListener;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.DetailPlaceController;
 import com.tuankhai.travelassistants.adapter.PlaceNearAdapter;
 import com.tuankhai.travelassistants.adapter.ReviewsAdapter;
 import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.SpacingItemDecorationHorizontal;
+import com.tuankhai.travelassistants.module.likebutton.LikeButton;
+import com.tuankhai.travelassistants.module.likebutton.OnAnimationEndListener;
+import com.tuankhai.travelassistants.module.likebutton.OnLikeListener;
 import com.tuankhai.travelassistants.module.loopingviewpager.CircleIndicator;
 import com.tuankhai.travelassistants.module.loopingviewpager.LoopViewPager;
 import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
@@ -60,8 +62,10 @@ import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.travelassistants.webservice.request.EditPlaceRequest;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Timer;
@@ -140,6 +144,18 @@ public class DetailPlaceActivity extends BaseActivity
     private final long DELAY_MS = 5000;      //delay in milliseconds before task is to be executed
     private final long PERIOD_MS = 5000;    //time in milliseconds between successive task executions.
 
+    //Dialog add schedule
+    Dialog dialogSchedule;
+    Button btnCancelDialogSchedule, btnCreateDialogSchedule;
+    TextView txtFromDate, txtToDate, txtNote;
+    Spinner lvSchedule;
+    Calendar current = Calendar.getInstance();
+    Calendar fromDate = Calendar.getInstance();
+    Calendar toDate = Calendar.getInstance();
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    FloatingActionButton btnAdd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,6 +183,27 @@ public class DetailPlaceActivity extends BaseActivity
         initCollapsingToolbar();
         initSlider();
         initSliderImage(data.arrImage);
+        initDialogSchedule();
+    }
+
+    private void initDialogSchedule() {
+        btnAdd = (FloatingActionButton) findViewById(R.id.btn_add_schedule);
+        btnAdd.setOnClickListener(this);
+
+        //Dialog new
+        dialogSchedule = new Dialog(this);
+        dialogSchedule.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogSchedule.setContentView(R.layout.content_dialog_create_schedule_place);
+        dialogSchedule.setCanceledOnTouchOutside(false);
+        dialogSchedule.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        btnCancelDialogSchedule = dialogSchedule.findViewById(R.id.btn_cancel_schedule);
+        btnCreateDialogSchedule = dialogSchedule.findViewById(R.id.btn_create_schedule);
+        txtNote = dialogSchedule.findViewById(R.id.txt_note);
+        txtFromDate = dialogSchedule.findViewById(R.id.txt_from_date);
+        txtToDate = dialogSchedule.findViewById(R.id.txt_to_date);
+        txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
+        txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
     }
 
     private void refreshFavorite() {
