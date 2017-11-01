@@ -3,6 +3,7 @@ package com.tuankhai.travelassistants.activity.controller;
 import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.travelassistants.activity.DetailPlaceActivity;
 import com.tuankhai.travelassistants.utils.AppContansts;
+import com.tuankhai.travelassistants.webservice.DTO.AllScheduleDTO;
 import com.tuankhai.travelassistants.webservice.DTO.CheckerDTO;
 import com.tuankhai.travelassistants.webservice.DTO.FavoriteDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
@@ -14,9 +15,12 @@ import com.tuankhai.travelassistants.webservice.request.AddFavoriteRequest;
 import com.tuankhai.travelassistants.webservice.request.AddReviewRequest;
 import com.tuankhai.travelassistants.webservice.request.CheckFavoriteRequest;
 import com.tuankhai.travelassistants.webservice.request.EditReviewRequest;
+import com.tuankhai.travelassistants.webservice.request.GetAllScheduleRequest;
 import com.tuankhai.travelassistants.webservice.request.GetReviewRequest;
 import com.tuankhai.travelassistants.webservice.request.RemoveFavoriteRequest;
 import com.tuankhai.travelassistants.webservice.request.RemoveReviewRequest;
+
+import java.util.Arrays;
 
 /**
  * Created by tuank on 02/10/2017.
@@ -243,5 +247,21 @@ public class DetailPlaceController {
                         mActivity.logError(error.toString());
                     }
                 }, CheckerDTO.class);
+    }
+
+    public void getSchedule(FirebaseUser mUser) {
+        new RequestService(mActivity).load(
+                new GetAllScheduleRequest(mUser.getEmail()),
+                true,
+                new MyCallback(){
+                    @Override
+                    public void onSuccess(Object response) {
+                        super.onSuccess(response);
+                        AllScheduleDTO result = (AllScheduleDTO) response;
+                        mActivity.getScheduleSuccess(Arrays.asList(result.result));
+                    }
+                },
+                AllScheduleDTO.class
+        );
     }
 }

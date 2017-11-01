@@ -383,7 +383,7 @@ public class ScheduleActivity extends BaseActivity
     public void onEditClick() {
         if (schedule.getEnd().getTime() < current.getTimeInMillis()) {
             Utils.showFaildToast(this, "Không thể sửa lịch trình trong quá khứ!");
-        } else if (Integer.valueOf(schedule.length) > 0) {
+        } else if (Integer.valueOf(schedule.place) > 0) {
             Utils.showFaildToast(this, "Không thể sửa lịch trình đã có chi tiết!");
         } else {
             isNew = false;
