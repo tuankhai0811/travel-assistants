@@ -309,8 +309,8 @@ public class DetailPlaceActivity extends BaseActivity
                     Utils.showFaildToast(getApplicationContext(), "Không thể chọn ngày ngoài lịch trình đã chọn!");
                 } else {
                     txtFromDate.setError(null);
-                    if (toDate.getTimeInMillis() < fromDate.getTimeInMillis()) {
-                        fromDate.setTime(toDate.getTime());
+                    if (fromDate.getTimeInMillis() > toDate.getTimeInMillis()) {
+                        toDate.setTime(fromDate.getTime());
                         txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
                     }
                 }
@@ -1061,6 +1061,8 @@ public class DetailPlaceActivity extends BaseActivity
         Collections.sort(schedules);
         arrSchedule.addAll(schedules);
         adapterSchedule.notifyDataSetChanged();
+        txtFromDate.setError(null);
+        txtToDate.setError(null);
         dialogSchedule.show();
     }
 }

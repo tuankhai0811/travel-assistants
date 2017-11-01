@@ -113,6 +113,8 @@ public class ScheduleActivity extends BaseActivity
                 txtName.setText("");
                 txtFromDate.setText(simpleDateFormat.format(current.getTime()));
                 txtToDate.setText(simpleDateFormat.format(current.getTime()));
+                txtFromDate.setError(null);
+                txtToDate.setError(null);
                 dialogAddNew.show();
                 return true;
             case android.R.id.home:
@@ -285,6 +287,8 @@ public class ScheduleActivity extends BaseActivity
                 }
                 break;
             case R.id.txt_from_date:
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(txtName.getWindowToken(), 0);
                 showDialogPickerFromDate();
                 break;
             case R.id.txt_to_date:
@@ -315,7 +319,7 @@ public class ScheduleActivity extends BaseActivity
                 toDate.set(Calendar.SECOND, 59);
                 txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
                 Log.e("status", year + "-" + month + " - " + dayOfMonth);
-                Log.e("status", fromDate.getTime() + "-" + current.getTime());
+                Log.e("status", fromDate.getTimeInMillis() + "-" + toDate.getTimeInMillis());
                 if (fromDate.getTimeInMillis() >= toDate.getTimeInMillis()) {
                     Log.e("status", fromDate.getTimeInMillis() + "-" + toDate.getTimeInMillis());
                     txtToDate.setError("Thời gian không đúng!");
@@ -350,8 +354,8 @@ public class ScheduleActivity extends BaseActivity
                     Utils.showFaildToast(ScheduleActivity.this, "Không thể tạo lịch trình trong quá khứ!");
                 } else {
                     txtFromDate.setError(null);
-                    if (toDate.getTimeInMillis() < fromDate.getTimeInMillis()) {
-                        fromDate.setTime(toDate.getTime());
+                    if (fromDate.getTimeInMillis() > toDate.getTimeInMillis()) {
+                        toDate.setTime(fromDate.getTime());
                         txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
                     }
                 }
