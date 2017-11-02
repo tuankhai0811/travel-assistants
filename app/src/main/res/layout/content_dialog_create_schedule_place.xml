@@ -39,16 +39,44 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/height_40dp"
             android:layout_marginLeft="@dimen/margin_30dp"
             android:layout_marginRight="@dimen/margin_30dp"
-            android:background="@color/global_white">
+            android:background="@color/global_white"
+            android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/lv_schedule"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/global_white" />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <Spinner
+                    android:id="@+id/lv_schedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/global_white" />
+
+                <TextView
+                    android:id="@+id/txt_schedule"
+                    fontPath="@string/font_boto_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:paddingBottom="@dimen/padding_10dp"
+                    android:paddingLeft="@dimen/padding_20dp"
+                    android:paddingTop="@dimen/padding_10dp"
+                    android:text="Chưa có lịch trình"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/size_18sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/btn_new_schedule"
+                android:layout_width="@dimen/height_40dp"
+                android:layout_height="@dimen/height_40dp"
+                android:src="@drawable/ic_add_blue_24dp" />
         </LinearLayout>
 
         <LinearLayout

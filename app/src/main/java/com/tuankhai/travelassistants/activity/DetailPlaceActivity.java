@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -154,7 +155,8 @@ public class DetailPlaceActivity extends BaseActivity
     //Dialog add schedule
     Dialog dialogSchedule;
     Button btnCancelDialogSchedule, btnCreateDialogSchedule;
-    TextView txtFromDate, txtToDate, txtNote;
+    TextView txtFromDate, txtToDate, txtNote, txtSchedule;
+    ImageView btnNewSchedule;
     Spinner lvSchedule;
     Calendar current = Calendar.getInstance();
     Calendar fromDate = Calendar.getInstance();
@@ -213,10 +215,13 @@ public class DetailPlaceActivity extends BaseActivity
         txtFromDate = dialogSchedule.findViewById(R.id.txt_from_date);
         txtToDate = dialogSchedule.findViewById(R.id.txt_to_date);
         lvSchedule = dialogSchedule.findViewById(R.id.lv_schedule);
+        txtSchedule = dialogSchedule.findViewById(R.id.txt_schedule);
+        btnNewSchedule = dialogSchedule.findViewById(R.id.btn_new_schedule);
         txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
         txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
         arrSchedule = new ArrayList<>();
         adapterSchedule = new ScheduleListAdapter(this, 0, arrSchedule);
+        lvSchedule.setPrompt("Chọn lịch trình...");
         lvSchedule.setAdapter(adapterSchedule);
         btnCancelDialogSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,14 +230,26 @@ public class DetailPlaceActivity extends BaseActivity
             }
         });
 
+        btnNewSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailPlaceActivity.this, ScheduleActivity.class);
+                intent.putExtra(AppContansts.INTENT_DATA, AppContansts.REQUEST_ADD_SCHEDULE);
+                startActivityForResult(intent, AppContansts.REQUEST_ADD_SCHEDULE);
+                dialogSchedule.dismiss();
+            }
+        });
+
         lvSchedule.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mSchedule = arrSchedule.get(i);
-                fromDate.setTime(mSchedule.getStart());
-                toDate.setTime(mSchedule.getEnd());
-                txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
-                txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
+                if (arrSchedule.size() != 0) {
+                    mSchedule = arrSchedule.get(i);
+                    fromDate.setTime(mSchedule.getStart());
+                    toDate.setTime(mSchedule.getEnd());
+                    txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
+                    txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
+                }
             }
 
             @Override
@@ -252,6 +269,17 @@ public class DetailPlaceActivity extends BaseActivity
             @Override
             public void onClick(View view) {
                 showDialogPickerToDate();
+            }
+        });
+
+        btnCreateDialogSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mSchedule == null) {
+                    Utils.showFaildToast(DetailPlaceActivity.this, "Bạn chưa có lịch trình, vui lòng tạo một lịch trình mới trước");
+                } else {
+
+                }
             }
         });
     }
@@ -1063,6 +1091,13 @@ public class DetailPlaceActivity extends BaseActivity
         adapterSchedule.notifyDataSetChanged();
         txtFromDate.setError(null);
         txtToDate.setError(null);
+        if (arrSchedule.size() == 0) {
+            lvSchedule.setVisibility(View.GONE);
+            txtSchedule.setVisibility(View.VISIBLE);
+        } else {
+            lvSchedule.setVisibility(View.VISIBLE);
+            txtSchedule.setVisibility(View.GONE);
+        }
         dialogSchedule.show();
     }
 }

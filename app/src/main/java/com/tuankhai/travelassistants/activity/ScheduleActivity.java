@@ -333,6 +333,16 @@ public class ScheduleActivity extends BaseActivity
         pickerDialog.show();
     }
 
+    @Override
+    public void onBackPressed() {
+        int type = getIntent().getIntExtra(AppContansts.INTENT_DATA, 0);
+        if (type == AppContansts.REQUEST_ADD_SCHEDULE) {
+            finish();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private void showDialogPickerFromDate() {
         int mYear = fromDate.get(Calendar.YEAR);
         int mMonth = fromDate.get(Calendar.MONTH);

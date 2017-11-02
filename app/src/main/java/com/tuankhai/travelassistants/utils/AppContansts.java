@@ -48,6 +48,7 @@ public class AppContansts {
     public static final int REQUEST_CHECK_SETTINGS = 2000;
     public static final int PLAY_SERVICES_REQUEST = 1000;
     public static final int REQUEST_LOGIN = 231;
+    public static final int REQUEST_ADD_SCHEDULE = 232;
     public static final int REQUEST_LOGIN_SCHEDULE = 230;
 
     public static String URL_IMAGE = RequestService.BASE_URL_IMAGE + "TravelAssistants/public/image/";

@@ -1,5 +1,6 @@
 package com.tuankhai.travelassistants.webservice.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -263,7 +264,7 @@ public class RequestService {
                      final Class returnClass) {
         String[] path = mainDTO.path();
         if (isShowLoading) {
-            if (context != null) {
+            if (context != null && !((Activity) context).isFinishing()) {
                 UtilsService.getInstance(context).show();
             }
         }
@@ -274,7 +275,7 @@ public class RequestService {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (isShowLoading) {
-                            if (context != null) {
+                            if (context != null && !((Activity) context).isFinishing()) {
                                 UtilsService.getInstance(context).dismiss();
                                 context = null;
                             }

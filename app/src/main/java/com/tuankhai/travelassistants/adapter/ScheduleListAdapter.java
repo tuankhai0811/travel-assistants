@@ -29,10 +29,17 @@ public class ScheduleListAdapter extends ArrayAdapter<AddScheduleDTO.Schedule> {
         this.arrSchedule = arrSchedule;
     }
 
+    @Override
+    public int getCount() {
+        return super.getCount();
+    }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+//        if (position == 0) {
+//            return initialSelection(false);
+//        }
         return getCustomView(position, convertView, parent, false);
     }
 
@@ -42,13 +49,29 @@ public class ScheduleListAdapter extends ArrayAdapter<AddScheduleDTO.Schedule> {
         TextView textView = row.findViewById(R.id.txt_name);
         textView.setText(arrSchedule.get(position).name);
         if (hasDivider) {
-            row.findViewById(R.id.divider).setVisibility(View.VISIBLE);
+            textView.setHeight(0);
         }
         return row;
     }
 
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+//        if (position == 0) {
+////            return initialSelection(true);
+//            return null;
+//        }
         return getCustomView(position, convertView, parent, true);
+    }
+
+    private View initialSelection(boolean dropdown) {
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View row = inflater.inflate(R.layout.item_spinner_schedule, null, false);
+        TextView textView = row.findViewById(R.id.txt_name);
+        textView.setText("Chưa có lịch trình");
+        if (dropdown) { // Hidden when the dropdown is opened
+            row.setVisibility(View.GONE);
+        }
+//        row.findViewById(R.id.divider).setVisibility(View.VISIBLE);
+        return row;
     }
 }
