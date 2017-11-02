@@ -1,7 +1,6 @@
 package com.tuankhai.travelassistants.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -9,9 +8,11 @@ import android.widget.TextView;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.SchedulePlaceController;
 import com.tuankhai.travelassistants.utils.AppContansts;
+import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDTO;
+import com.tuankhai.travelassistants.webservice.DTO.AllSchedulePlaceDTO;
 
-public class SchedulePlaceActivity extends AppCompatActivity {
+public class SchedulePlaceActivity extends BaseActivity {
 
     SchedulePlaceController mController;
 
@@ -35,13 +36,14 @@ public class SchedulePlaceActivity extends AppCompatActivity {
 
     private void addControls() {
         mController = new SchedulePlaceController(this);
-        schedule = (AddScheduleDTO.Schedule) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
+//        schedule = (AddScheduleDTO.Schedule) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle("");
-        ((TextView) findViewById(R.id.txt_title)).setText(schedule.name);
+        mController.getDetail(getIntent().getStringExtra(AppContansts.INTENT_DATA));
+        mController.getList(getIntent().getStringExtra(AppContansts.INTENT_DATA));
     }
 
     @Override
@@ -52,5 +54,22 @@ public class SchedulePlaceActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getListSuccess(AllSchedulePlaceDTO allSchedulePlaceDTO) {
+
+    }
+
+    public void getListFail() {
+        Utils.showFaildToast(this, "Không lấy được dữ liệu");
+    }
+
+    public void getDetailFail() {
+        Utils.showFaildToast(this, "Không lấy được dữ liệu");
+    }
+
+    public void getDetailSuccess(AddScheduleDTO addScheduleDTO) {
+        schedule = addScheduleDTO.result;
+        ((TextView) findViewById(R.id.txt_title)).setText(schedule.name);
     }
 }

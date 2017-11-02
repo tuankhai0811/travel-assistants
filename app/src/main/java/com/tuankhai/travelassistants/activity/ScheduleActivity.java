@@ -232,7 +232,7 @@ public class ScheduleActivity extends BaseActivity
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(this, SchedulePlaceActivity.class);
-        intent.putExtra(AppContansts.INTENT_DATA, arrSchedule.get(i));
+        intent.putExtra(AppContansts.INTENT_DATA, arrSchedule.get(i).id);
         startActivity(intent);
     }
 

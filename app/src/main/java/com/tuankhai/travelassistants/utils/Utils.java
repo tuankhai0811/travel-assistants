@@ -255,7 +255,7 @@ public class Utils {
 
         Toast toast = new Toast(context);
         toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP, 0, Utils.dpToPx(context, Utils.dpToPx(context, 20)));
+        toast.setGravity(Gravity.TOP, 0, Utils.dpToPx(context, Utils.dpToPx(context, 0)));
         toast.setView(view);
         toast.show();
     }
@@ -269,7 +269,7 @@ public class Utils {
 
         Toast toast = new Toast(context);
         toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP, 0, Utils.dpToPx(context, Utils.dpToPx(context, 20)));
+        toast.setGravity(Gravity.TOP, 0, Utils.dpToPx(context, Utils.dpToPx(context, 0)));
         toast.setView(view);
         toast.show();
     }

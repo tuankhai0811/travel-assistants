@@ -60,6 +60,7 @@ import com.tuankhai.travelassistants.module.viewpagertransformers.ZoomOutTranfor
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDTO;
+import com.tuankhai.travelassistants.webservice.DTO.AddSchedulePlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.CheckerDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
@@ -278,7 +279,14 @@ public class DetailPlaceActivity extends BaseActivity
                 if (mSchedule == null) {
                     Utils.showFaildToast(DetailPlaceActivity.this, "Bạn chưa có lịch trình, vui lòng tạo một lịch trình mới trước");
                 } else {
-
+                    mController.createSchedule(
+                            mUser.getEmail(),
+                            mSchedule.id,
+                            mSchedule.name,
+                            data.id,
+                            fromDate.getTimeInMillis(),
+                            toDate.getTimeInMillis(),
+                            txtNote.getText().toString());
                 }
             }
         });
@@ -1099,5 +1107,27 @@ public class DetailPlaceActivity extends BaseActivity
             txtSchedule.setVisibility(View.GONE);
         }
         dialogSchedule.show();
+    }
+
+    public void addSchedulePlaceSuccess(final AddSchedulePlaceDTO addSchedulePlaceDTO) {
+        dialogSchedule.dismiss();
+        Snackbar snackbar = Snackbar.make(
+                findViewById(R.id.main_content),
+                "Thêm thành công!",
+                BaseTransientBottomBar.LENGTH_LONG);
+        snackbar.setAction("View", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailPlaceActivity.this, SchedulePlaceActivity.class);
+                intent.putExtra(AppContansts.INTENT_DATA, addSchedulePlaceDTO.result.id_schedule);
+                startActivity(intent);
+            }
+        });
+        snackbar.show();
+//        Utils.showSuccessToast(this, "Thêm thành công!");
+    }
+
+    public void addSchedulePlaceFailure() {
+        Utils.showFaildToast(this, "Trùng thời gian với địa điểm khác");
     }
 }

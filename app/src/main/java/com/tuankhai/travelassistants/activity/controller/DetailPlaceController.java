@@ -3,6 +3,7 @@ package com.tuankhai.travelassistants.activity.controller;
 import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.travelassistants.activity.DetailPlaceActivity;
 import com.tuankhai.travelassistants.utils.AppContansts;
+import com.tuankhai.travelassistants.webservice.DTO.AddSchedulePlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.AllScheduleDTO;
 import com.tuankhai.travelassistants.webservice.DTO.CheckerDTO;
 import com.tuankhai.travelassistants.webservice.DTO.FavoriteDTO;
@@ -13,6 +14,7 @@ import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.travelassistants.webservice.request.AddFavoriteRequest;
 import com.tuankhai.travelassistants.webservice.request.AddReviewRequest;
+import com.tuankhai.travelassistants.webservice.request.AddSchedulePlaceRequest;
 import com.tuankhai.travelassistants.webservice.request.CheckFavoriteRequest;
 import com.tuankhai.travelassistants.webservice.request.EditReviewRequest;
 import com.tuankhai.travelassistants.webservice.request.GetAllScheduleRequest;
@@ -253,7 +255,7 @@ public class DetailPlaceController {
         new RequestService(mActivity).load(
                 new GetAllScheduleRequest(mUser.getEmail()),
                 true,
-                new MyCallback(){
+                new MyCallback() {
                     @Override
                     public void onSuccess(Object response) {
                         super.onSuccess(response);
@@ -263,5 +265,40 @@ public class DetailPlaceController {
                 },
                 AllScheduleDTO.class
         );
+    }
+
+    public void createSchedule(
+            String email,
+            String id_schedule,
+            String name_schedule,
+            String id_place,
+            long fromDate,
+            long toDate,
+            String note) {
+        new RequestService(mActivity).load(
+                new AddSchedulePlaceRequest(
+                        email,
+                        id_schedule,
+                        name_schedule,
+                        id_place,
+                        fromDate / 1000 + "",
+                        toDate / 1000 + "",
+                        note),
+                true,
+                new MyCallback() {
+                    @Override
+                    public void onSuccess(Object response) {
+                        super.onSuccess(response);
+                        AddSchedulePlaceDTO addSchedulePlaceDTO = (AddSchedulePlaceDTO) response;
+                        if (addSchedulePlaceDTO.isSuccess()){
+                            mActivity.addSchedulePlaceSuccess(addSchedulePlaceDTO);
+                        } else {
+                            mActivity.addSchedulePlaceFailure();
+                        }
+                    }
+                },
+                AddSchedulePlaceDTO.class
+        );
+
     }
 }
