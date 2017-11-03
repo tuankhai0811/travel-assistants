@@ -1,8 +1,8 @@
 package com.tuankhai.travelassistants.activity.controller;
 
 import com.tuankhai.travelassistants.activity.SchedulePlaceActivity;
-import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDTO;
 import com.tuankhai.travelassistants.webservice.DTO.AllSchedulePlaceDTO;
+import com.tuankhai.travelassistants.webservice.DTO.DetailScheduleDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.travelassistants.webservice.request.GetDetailScheduleRequest;
@@ -28,14 +28,14 @@ public class SchedulePlaceController {
                     public void onSuccess(Object response) {
                         super.onSuccess(response);
                         AllSchedulePlaceDTO allSchedulePlaceDTO = (AllSchedulePlaceDTO) response;
-                        if (allSchedulePlaceDTO.isSuccess()){
+                        if (allSchedulePlaceDTO.isSuccess()) {
                             mActivity.getListSuccess(allSchedulePlaceDTO);
                         } else {
                             mActivity.getListFail();
                         }
                     }
                 },
-                AddScheduleDTO.class);
+                AllSchedulePlaceDTO.class);
     }
 
     public void getDetail(String id) {
@@ -46,14 +46,14 @@ public class SchedulePlaceController {
                     @Override
                     public void onSuccess(Object response) {
                         super.onSuccess(response);
-                        AddScheduleDTO addScheduleDTO = (AddScheduleDTO) response;
-                        if (addScheduleDTO.isSuccess()){
-                            mActivity.getDetailSuccess(addScheduleDTO);
+                        DetailScheduleDTO detailScheduleDTO = (DetailScheduleDTO) response;
+                        if (detailScheduleDTO.isSuccess()) {
+                            mActivity.getDetailSuccess(detailScheduleDTO);
                         } else {
                             mActivity.getDetailFail();
                         }
                     }
                 },
-                AddScheduleDTO.class);
+                DetailScheduleDTO.class);
     }
 }

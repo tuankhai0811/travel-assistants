@@ -27,6 +27,7 @@ public final class AddSchedulePlaceDTO {
         public final String id_schedule;
         public final String id_place;
         public final String email;
+        public final String name;
         public final String date_start;
         public final String date_end;
         public final String description;
@@ -40,6 +41,7 @@ public final class AddSchedulePlaceDTO {
                 @JsonProperty("id_schedule") String id_schedule,
                 @JsonProperty("id_place") String id_place,
                 @JsonProperty("email") String email,
+                @JsonProperty("name") String name,
                 @JsonProperty("date_start") String date_start,
                 @JsonProperty("date_end") String date_end,
                 @JsonProperty("description") String description,
@@ -50,6 +52,7 @@ public final class AddSchedulePlaceDTO {
             this.id_schedule = id_schedule;
             this.id_place = id_place;
             this.email = email;
+            this.name = name;
             this.date_start = date_start;
             this.date_end = date_end;
             this.description = description;

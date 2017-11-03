@@ -124,4 +124,5 @@
     <dimen name="padding_30dp">30dp</dimen>
     <dimen name="margin_25dp">25dp</dimen>
     <dimen name="width_dialog_create_schedule_place">350dp</dimen>
+    <dimen name="height_45dp">45dp</dimen>
 </resources>
