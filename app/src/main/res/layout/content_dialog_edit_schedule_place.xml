@@ -22,7 +22,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:focusable="true"
             android:focusableInTouchMode="true">
 
@@ -31,53 +30,11 @@
                 fontPath="@string/font_boto_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_30dp"
+                android:layout_marginBottom="@dimen/margin_10dp"
                 android:layout_marginTop="@dimen/margin_15dp"
-                android:text="Tạo lịch trình mới"
+                android:text="Sửa lịch trình"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/size_16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_30dp"
-            android:layout_marginRight="@dimen/margin_30dp"
-            android:background="@color/global_white"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <Spinner
-                    android:id="@+id/lv_schedule"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/global_white" />
-
-                <TextView
-                    android:id="@+id/txt_schedule"
-                    fontPath="@string/font_boto_medium"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center|left"
-                    android:paddingBottom="@dimen/padding_10dp"
-                    android:paddingLeft="@dimen/padding_20dp"
-                    android:paddingTop="@dimen/padding_10dp"
-                    android:text="Chưa có lịch trình"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/size_18sp"
-                    android:visibility="gone" />
-            </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/btn_new_schedule"
-                android:layout_width="@dimen/height_40dp"
-                android:layout_height="@dimen/height_40dp"
-                android:src="@drawable/ic_add_blue_24dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -155,8 +112,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-
             <EditText
                 android:id="@+id/txt_note"
                 android:layout_width="match_parent"
@@ -183,14 +138,14 @@
                 android:id="@+id/btn_cancel_schedule"
                 style="@style/ButtonDialog"
                 android:layout_width="wrap_content"
-                android:text="ĐÓNG"
+                android:text="HỦY"
                 android:textColor="@color/colorPrimary" />
 
             <Button
                 android:id="@+id/btn_create_schedule"
                 style="@style/ButtonDialog"
                 android:layout_width="wrap_content"
-                android:text="TẠO LỊCH TRÌNH"
+                android:text="OK"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>
     </LinearLayout>

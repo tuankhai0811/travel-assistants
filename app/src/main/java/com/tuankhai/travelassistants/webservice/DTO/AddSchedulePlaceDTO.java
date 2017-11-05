@@ -1,8 +1,12 @@
 package com.tuankhai.travelassistants.webservice.DTO;
 
+import android.support.annotation.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
+
+import java.util.Date;
 
 /**
  * Created by Khai on 30/10/2017.
@@ -23,7 +27,7 @@ public final class AddSchedulePlaceDTO {
         this.message = message;
     }
 
-    public static final class SchedulePlace {
+    public static final class SchedulePlace implements Comparable<SchedulePlace> {
         public final String id_schedule;
         public final String id_place;
         public final String email;
@@ -60,6 +64,19 @@ public final class AddSchedulePlaceDTO {
             this.updated_at = updated_at;
             this.created_at = created_at;
             this.id = id;
+        }
+
+        public Date getStart() {
+            return new Date(Long.valueOf(date_start + "000"));
+        }
+
+        public Date getEnd() {
+            return new Date(Long.valueOf(date_end + "000"));
+        }
+
+        @Override
+        public int compareTo(@NonNull SchedulePlace schedulePlace) {
+            return this.date_start.compareTo(schedulePlace.date_start);
         }
     }
 

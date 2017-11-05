@@ -48,9 +48,9 @@ public class ScheduleListAdapter extends ArrayAdapter<AddScheduleDTO.Schedule> {
         View row = inflater.inflate(R.layout.item_spinner_schedule, parent, false);
         TextView textView = row.findViewById(R.id.txt_name);
         textView.setText(arrSchedule.get(position).name);
-        if (hasDivider) {
-            textView.setHeight(0);
-        }
+//        if (hasDivider) {
+//            textView.setHeight(0);
+//        }
         return row;
     }
 
@@ -67,10 +67,10 @@ public class ScheduleListAdapter extends ArrayAdapter<AddScheduleDTO.Schedule> {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.item_spinner_schedule, null, false);
         TextView textView = row.findViewById(R.id.txt_name);
-        textView.setText("Chưa có lịch trình");
-        if (dropdown) { // Hidden when the dropdown is opened
-            row.setVisibility(View.GONE);
-        }
+//        textView.setText("Chưa có lịch trình");
+//        if (dropdown) { // Hidden when the dropdown is opened
+//            row.setVisibility(View.GONE);
+//        }
 //        row.findViewById(R.id.divider).setVisibility(View.VISIBLE);
         return row;
     }

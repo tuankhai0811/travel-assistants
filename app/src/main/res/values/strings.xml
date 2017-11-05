@@ -68,5 +68,7 @@
     <string name="delete_schedule">Xóa lịch trình</string>
     <string name="title_activity_schedule_place">SchedulePlaceActivity</string>
 
+    <string name="read_more">mở rộng</string>
+    <string name="read_less">đóng lại</string>
 
 </resources>

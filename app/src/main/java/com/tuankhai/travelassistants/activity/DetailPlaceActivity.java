@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.activity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -53,6 +55,7 @@ import com.tuankhai.travelassistants.module.likebutton.OnLikeListener;
 import com.tuankhai.travelassistants.module.loopingviewpager.CircleIndicator;
 import com.tuankhai.travelassistants.module.loopingviewpager.LoopViewPager;
 import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
+import com.tuankhai.travelassistants.module.readmore.ReadMoreTextView;
 import com.tuankhai.travelassistants.module.slideractivity.Slider;
 import com.tuankhai.travelassistants.module.slideractivity.model.SliderConfig;
 import com.tuankhai.travelassistants.module.slideractivity.model.SliderPosition;
@@ -97,6 +100,7 @@ public class DetailPlaceActivity extends BaseActivity
     private LatLng location;
     private Toolbar toolbar;
     private SliderConfig mConfig;
+    private ReadMoreTextView mDescription;
 
     //Slider Image
     private SliderImageAdapter adapterImage;
@@ -190,6 +194,10 @@ public class DetailPlaceActivity extends BaseActivity
         likeButton.setOnLikeListener(this);
         likeButton.setOnAnimationEndListener(this);
 
+        mDescription = (ReadMoreTextView) findViewById(R.id.txt_description);
+        mDescription.setText(data.description);
+        Log.e("status", data.description+"description");
+
         initProgress();
         initInformation();
         initStaticMaps();
@@ -262,6 +270,8 @@ public class DetailPlaceActivity extends BaseActivity
         txtFromDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(txtNote.getWindowToken(), 0);
                 showDialogPickerFromDate();
             }
         });
@@ -269,6 +279,8 @@ public class DetailPlaceActivity extends BaseActivity
         txtToDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(txtNote.getWindowToken(), 0);
                 showDialogPickerToDate();
             }
         });
@@ -346,7 +358,12 @@ public class DetailPlaceActivity extends BaseActivity
                 } else {
                     txtFromDate.setError(null);
                     if (fromDate.getTimeInMillis() > toDate.getTimeInMillis()) {
-                        toDate.setTime(fromDate.getTime());
+                        toDate.set(Calendar.YEAR, year);
+                        toDate.set(Calendar.MONTH, month);
+                        toDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        toDate.set(Calendar.HOUR_OF_DAY, 23);
+                        toDate.set(Calendar.MINUTE, 59);
+                        toDate.set(Calendar.SECOND, 59);
                         txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
                     }
                 }
@@ -1099,6 +1116,9 @@ public class DetailPlaceActivity extends BaseActivity
         adapterSchedule.notifyDataSetChanged();
         txtFromDate.setError(null);
         txtToDate.setError(null);
+        txtNote.setText("");
+        txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
+        txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
         if (arrSchedule.size() == 0) {
             lvSchedule.setVisibility(View.GONE);
             txtSchedule.setVisibility(View.VISIBLE);

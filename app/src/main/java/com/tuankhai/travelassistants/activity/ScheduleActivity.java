@@ -292,6 +292,8 @@ public class ScheduleActivity extends BaseActivity
                 showDialogPickerFromDate();
                 break;
             case R.id.txt_to_date:
+                InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                im.hideSoftInputFromWindow(txtName.getWindowToken(), 0);
                 showDialogPickerToDate();
                 break;
             //Dialog del
@@ -365,7 +367,12 @@ public class ScheduleActivity extends BaseActivity
                 } else {
                     txtFromDate.setError(null);
                     if (fromDate.getTimeInMillis() > toDate.getTimeInMillis()) {
-                        toDate.setTime(fromDate.getTime());
+                        toDate.set(Calendar.YEAR, year);
+                        toDate.set(Calendar.MONTH, month);
+                        toDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        toDate.set(Calendar.HOUR_OF_DAY, 23);
+                        toDate.set(Calendar.MINUTE, 59);
+                        toDate.set(Calendar.SECOND, 59);
                         txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
                     }
                 }

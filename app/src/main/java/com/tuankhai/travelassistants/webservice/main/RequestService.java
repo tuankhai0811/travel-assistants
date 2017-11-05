@@ -265,7 +265,11 @@ public class RequestService {
         String[] path = mainDTO.path();
         if (isShowLoading) {
             if (context != null && !((Activity) context).isFinishing()) {
-                UtilsService.getInstance(context).show();
+                try {
+                    UtilsService.getInstance(context).show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }
         getClient(BASE_URL)
@@ -276,8 +280,11 @@ public class RequestService {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (isShowLoading) {
                             if (context != null && !((Activity) context).isFinishing()) {
-                                UtilsService.getInstance(context).dismiss();
-                                context = null;
+                                try {
+                                    UtilsService.getInstance(context).dismiss();
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
                             }
                         }
                         try {

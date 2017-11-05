@@ -3,77 +3,117 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_background"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_3dp"
+        android:layout_marginLeft="@dimen/padding_10dp"
+        android:layout_marginRight="@dimen/padding_10dp"
+        android:layout_marginTop="@dimen/padding_5dp"
         app:cardCornerRadius="@dimen/margin_2dp"
-        app:cardElevation="@dimen/margin_5dp"
-        app:cardUseCompatPadding="true">
+        app:cardElevation="@dimen/margin_2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txt_title"
+                            fontPath="@string/font_boto_medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:text="Title"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/size_18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/padding_20dp"
+                            android:layout_height="@dimen/padding_20dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_access_time_grey_500_24dp" />
+
+                        <TextView
+                            android:id="@+id/txt_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="left"
+                            android:paddingLeft="@dimen/padding_5dp"
+                            android:text="3 ngày từ ngày 20/10/2017"
+                            android:textSize="@dimen/size_15sp" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.tuankhai.travelassistants.module.readmore.ReadMoreTextView
+                            android:id="@+id/txt_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10dp"
+                            android:text=""
+                            android:textColor="@color/global_black"
+                            android:textSize="@dimen/size_16sp"
+                            app:colorClickableText="@color/colorPrimary"
+                            app:trimMode="trimModeLine" />
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/txt_description"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/margin_10dp"-->
+                        <!--android:text="Description"-->
+                        <!--android:textColor="@color/global_black"-->
+                        <!--android:textSize="@dimen/size_16sp" />-->
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/btn_menu"
+                    android:layout_width="@dimen/padding_26dp"
+                    android:layout_height="@dimen/padding_26dp"
+                    android:layout_gravity="right|top"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:src="@drawable/ico_three_dots" />
+            </FrameLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/padding_10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/txt_title"
-                        fontPath="@string/font_boto_medium"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Title"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/size_18sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/txt_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="3 ngày từ ngày 20/10/2017"
-                        android:textSize="@dimen/size_14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/txt_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_10dp"
-                        android:text="Description"
-                        android:textColor="@color/global_black"
-                        android:textSize="@dimen/size_16sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:background="@color/grey_10">
 
                 <ImageView
                     android:id="@+id/img_place"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_220dp"
+                    android:background="@color/grey_10"
                     android:scaleType="centerCrop"
                     android:src="@drawable/bg_place_global_16_10" />
             </LinearLayout>

@@ -1,10 +1,13 @@
 package com.tuankhai.travelassistants.activity.controller;
 
 import com.tuankhai.travelassistants.activity.SchedulePlaceActivity;
+import com.tuankhai.travelassistants.webservice.DTO.AddSchedulePlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.AllSchedulePlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.DetailScheduleDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
+import com.tuankhai.travelassistants.webservice.request.DeleteSchedulePlaceRequest;
+import com.tuankhai.travelassistants.webservice.request.EditSchedulePlaceRequest;
 import com.tuankhai.travelassistants.webservice.request.GetDetailScheduleRequest;
 import com.tuankhai.travelassistants.webservice.request.GetSchedulePlaceRequest;
 
@@ -55,5 +58,52 @@ public class SchedulePlaceController {
                     }
                 },
                 DetailScheduleDTO.class);
+    }
+
+    public void editSchedule(
+            String email,
+            String id_schedule,
+            String id_place,
+            String id,
+            String fromDate,
+            String toDate,
+            String note) {
+        new RequestService(mActivity).load(
+                new EditSchedulePlaceRequest(email, id_schedule, id_place, id, fromDate, toDate, note),
+                true,
+                new MyCallback() {
+                    @Override
+                    public void onSuccess(Object response) {
+                        super.onSuccess(response);
+                        AddSchedulePlaceDTO addSchedulePlaceDTO = (AddSchedulePlaceDTO) response;
+                        if (addSchedulePlaceDTO.isSuccess()) {
+                            mActivity.editScheduleSuccess(addSchedulePlaceDTO);
+                        } else {
+                            mActivity.editScheduleFailure();
+                        }
+                    }
+                },
+                AddSchedulePlaceDTO.class
+        );
+    }
+
+    public void deleteSchedulePlace(String email, String id) {
+        new RequestService(mActivity).load(
+                new DeleteSchedulePlaceRequest(email, id),
+                true,
+                new MyCallback() {
+                    @Override
+                    public void onSuccess(Object response) {
+                        super.onSuccess(response);
+                        AllSchedulePlaceDTO allSchedulePlaceDTO = (AllSchedulePlaceDTO) response;
+                        if (allSchedulePlaceDTO.isSuccess()){
+                            mActivity.deleteSuccess();
+                        } else {
+                            mActivity.deleteFailure();
+                        }
+                    }
+                },
+                AllSchedulePlaceDTO.class
+        );
     }
 }
