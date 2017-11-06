@@ -291,10 +291,6 @@ public class MainActivity extends BaseActivity
                 intentFavorite.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_FAVORITE);
                 startActivity(intentFavorite);
                 break;
-            case R.id.trash:
-                Toast.makeText(getApplicationContext(), "Trash", Toast.LENGTH_SHORT).show();
-                mMainController.addSearchFragment();
-                break;
             case R.id.logout:
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);

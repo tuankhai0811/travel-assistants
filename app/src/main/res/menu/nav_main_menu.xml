@@ -6,12 +6,9 @@
             android:title="Lịch trình của tôi"/>
         <item
             android:id="@+id/nav_menu_favorite"
-            android:title="Favorite"/>
-        <item
-            android:id="@+id/trash"
-            android:title="Trash"/>
+            android:title="Địa điểm yêu thích"/>
         <item
             android:id="@+id/logout"
-            android:title="Logout"/>
+            android:title="My Account"/>
     </group>
 </menu>

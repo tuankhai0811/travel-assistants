@@ -56,7 +56,7 @@ public class RequestService {
     static String TYPE_DRINK = "cafe";
     static String TYPE_GAS_STATION = "gas_station";
     static String TYPE_HOSPITAL = "hospital";
-    static String RADIUS = "1500";
+    static String RADIUS = "3000";
     static String RADIUS_GAS_STATION = "3000";
     static String RADIUS_ATM = "2000";
     static String MAX_WIDTH = "700";

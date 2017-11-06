@@ -19,7 +19,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -196,7 +195,6 @@ public class DetailPlaceActivity extends BaseActivity
 
         mDescription = (ReadMoreTextView) findViewById(R.id.txt_description);
         mDescription.setText(data.description);
-        Log.e("status", data.description+"description");
 
         initProgress();
         initInformation();
@@ -318,13 +316,13 @@ public class DetailPlaceActivity extends BaseActivity
                 toDate.set(Calendar.MINUTE, 59);
                 toDate.set(Calendar.SECOND, 59);
                 txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
-                Log.e("status", year + "-" + month + " - " + dayOfMonth);
-                Log.e("status", fromDate.getTime() + "-" + current.getTime());
+//                Log.e("status", year + "-" + month + " - " + dayOfMonth);
+//                Log.e("status", fromDate.getTime() + "-" + current.getTime());
                 if (toDate.getTimeInMillis() < mSchedule.getStart().getTime() || toDate.getTimeInMillis() > mSchedule.getEnd().getTime()) {
                     txtToDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(getApplicationContext(), "Không thể chọn ngày ngoài lịch trình đã chọn!");
                 } else if (fromDate.getTimeInMillis() >= toDate.getTimeInMillis()) {
-                    Log.e("status", fromDate.getTimeInMillis() + "-" + toDate.getTimeInMillis());
+//                    Log.e("status", fromDate.getTimeInMillis() + "-" + toDate.getTimeInMillis());
                     txtToDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(getApplicationContext(), "Ngày kết thúc phải sau ngày bắt đầu!");
                 } else {
@@ -350,8 +348,8 @@ public class DetailPlaceActivity extends BaseActivity
                 fromDate.set(Calendar.MINUTE, 0);
                 fromDate.set(Calendar.SECOND, 0);
                 txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
-                Log.e("status", year + "-" + month + " - " + dayOfMonth);
-                Log.e("status", fromDate.getTimeInMillis() + "-" + mSchedule.getStart().getTime());
+//                Log.e("status", year + "-" + month + " - " + dayOfMonth);
+//                Log.e("status", fromDate.getTimeInMillis() + "-" + mSchedule.getStart().getTime());
                 if (fromDate.getTimeInMillis() < mSchedule.getStart().getTime() || fromDate.getTimeInMillis() > mSchedule.getEnd().getTime()) {
                     txtFromDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(getApplicationContext(), "Không thể chọn ngày ngoài lịch trình đã chọn!");
@@ -492,12 +490,15 @@ public class DetailPlaceActivity extends BaseActivity
         ((TextView) findViewById(R.id.txt_rating_view)).setText(result + "");
         ratingBar.setRating(result);
         ratingBarView.setRating(result);
+        updatePlace(result);
+    }
 
+    public void updatePlace(Float rating) {
         new RequestService().load(
                 new EditPlaceRequest(
                         "",
                         data.id,
-                        String.valueOf(result),
+                        String.valueOf(rating),
                         dataGoogle.result.formatted_address,
                         dataGoogle.result.formatted_phone_number,
                         dataGoogle.getLocationLat(),
@@ -1066,6 +1067,7 @@ public class DetailPlaceActivity extends BaseActivity
         initSliderImageGoogle();
         initReviews();
         initDialogReviews();
+        updatePlace(dataGoogle.getRating());
     }
 
     public void getNearFoodPlaceSuccess(PlaceNearDTO placeNearDTO) {
