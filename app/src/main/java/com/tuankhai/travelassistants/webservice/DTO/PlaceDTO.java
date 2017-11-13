@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
+import com.tuankhai.travelassistants.webservice.main.RequestService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -182,5 +183,12 @@ public final class PlaceDTO {
             }
             return Float.valueOf(this.rating);
         }
+    }
+
+    public boolean isSuccess() {
+        if (status.equals(RequestService.RESULT_OK)) {
+            return true;
+        }
+        return false;
     }
 }
