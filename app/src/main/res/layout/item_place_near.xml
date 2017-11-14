@@ -48,7 +48,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar
+            <com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar
                 android:id="@+id/ratingBar"
                 style="@style/Widget.MaterialRatingBar.RatingBar"
                 android:layout_width="wrap_content"

@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
+import com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.utils.MyCache;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;

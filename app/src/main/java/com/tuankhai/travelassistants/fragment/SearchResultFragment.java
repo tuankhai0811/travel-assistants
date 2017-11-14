@@ -20,7 +20,7 @@ import com.tuankhai.travelassistants.adapter.PlaceQueryAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.PlaceQueryDecoration;
 import com.tuankhai.travelassistants.fragment.controller.ResultController;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
-import com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView;
+import com.tuankhai.travelassistants.library.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;

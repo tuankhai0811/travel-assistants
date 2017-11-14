@@ -39,7 +39,7 @@ import com.tuankhai.travelassistants.fragment.SearchPlaceFragment;
 import com.tuankhai.travelassistants.fragment.SearchResultFragment;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 import com.tuankhai.travelassistants.location.LocationHelper;
-import com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView;
+import com.tuankhai.travelassistants.library.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.utils.AppContansts;
 
 public class MainActivity extends BaseActivity

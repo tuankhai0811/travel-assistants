@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <com.tuankhai.travelassistants.module.myinageview.MyImageView
+                <com.tuankhai.travelassistants.library.myinageview.MyImageView
                     android:id="@+id/img_place"
                     android:layout_width="@dimen/height_140dp"
                     android:layout_height="@dimen/height_100dp"
@@ -60,7 +60,7 @@
                     android:textColor="@color/global_black"
                     android:textSize="@dimen/size_15sp" />
 
-                <com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar
+                <com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar
                     android:id="@+id/ratingBar"
                     style="@style/Widget.MaterialRatingBar.RatingBar"
                     android:layout_width="wrap_content"

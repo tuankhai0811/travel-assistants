@@ -15,18 +15,35 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             app:elevation="0dp"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <TextView
-                android:id="@+id/txt_title"
-                fontPath="@string/font_boto_bold"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/global_white"
-                android:textSize="@dimen/size_18sp" />
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/padding_5dp"
+                android:paddingTop="@dimen/padding_5dp">
+
+                <TextView
+                    android:id="@+id/txt_title"
+                    fontPath="@string/font_boto_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/padding_5dp"
+                    android:textColor="@color/global_white"
+                    android:textSize="@dimen/size_18sp" />
+
+                <TextView
+                    android:id="@+id/txt_time"
+                    fontPath="@string/font_boto_light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/global_white"
+                    android:textSize="@dimen/size_16sp" />
+            </LinearLayout>
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>

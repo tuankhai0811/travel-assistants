@@ -78,11 +78,16 @@
             android:name=".activity.ScheduleActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.SchedulePlaceActivity"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/Theme.Slider.Sliderable" />
+
+        <activity
+            android:name=".activity.ScheduleDetailActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Slider.Sliderable" />
 
         <!-- [START firebase_service] -->
         <service android:name=".fcm.MyFirebaseMessagingService">

@@ -9,7 +9,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.module.stickyadapter.StickyListHeadersAdapter;
+import com.tuankhai.travelassistants.library.stickyadapter.StickyListHeadersAdapter;
 import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDTO;
 
 import java.text.SimpleDateFormat;

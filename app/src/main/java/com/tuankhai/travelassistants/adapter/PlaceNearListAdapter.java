@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.ListPlaceNearActivity;
-import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
+import com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.utils.MyCache;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.main.RequestService;

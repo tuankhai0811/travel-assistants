@@ -35,7 +35,7 @@
                     android:textSize="@dimen/size_36sp"
                     android:textStyle="bold" />
 
-                <com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar
+                <com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar
                     android:id="@+id/ratingBarView"
                     style="@style/Widget.MaterialRatingBar.RatingBar"
                     android:layout_width="wrap_content"

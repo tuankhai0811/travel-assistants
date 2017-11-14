@@ -51,7 +51,7 @@
             android:layout_toEndOf="@+id/search_bar_left_action_container"
             android:layout_toRightOf="@+id/search_bar_left_action_container">
 
-            <com.tuankhai.travelassistants.module.floatingsearchview.utils.view.SearchInputView
+            <com.tuankhai.travelassistants.library.floatingsearchview.utils.view.SearchInputView
                 android:id="@+id/search_bar_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
             android:clickable="true"
             android:padding="@dimen/square_button_padding" />
 
-        <com.tuankhai.travelassistants.module.floatingsearchview.utils.view.MenuView
+        <com.tuankhai.travelassistants.library.floatingsearchview.utils.view.MenuView
             android:id="@+id/menu_view"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/square_button_size"

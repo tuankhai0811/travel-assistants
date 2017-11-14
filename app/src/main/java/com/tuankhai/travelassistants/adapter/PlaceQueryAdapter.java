@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.module.ratingbar.MaterialRatingBar;
+import com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 

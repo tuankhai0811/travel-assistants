@@ -50,7 +50,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingStart="@dimen/padding_5dp"
-                    android:text="@string/textview" />
+                    android:text="@string/textview"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/size_16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -72,7 +74,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingStart="@dimen/padding_5dp"
-                    android:text="@string/textview" />
+                    android:text="@string/textview"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/size_16sp" />
             </LinearLayout>
         </LinearLayout>
 

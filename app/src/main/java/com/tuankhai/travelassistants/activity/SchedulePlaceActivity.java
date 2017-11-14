@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,9 @@ import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.SchedulePlaceController;
 import com.tuankhai.travelassistants.adapter.SchedulePlaceAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.ListSpacingItemDecoration;
+import com.tuankhai.travelassistants.library.slideractivity.Slider;
+import com.tuankhai.travelassistants.library.slideractivity.model.SliderConfig;
+import com.tuankhai.travelassistants.library.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDTO;
@@ -37,35 +41,35 @@ import java.util.Collections;
 
 public class SchedulePlaceActivity extends BaseActivity implements SchedulePlaceAdapter.OnItemSchedulePlaceActionListener {
 
-    SchedulePlaceController mController;
-
-    Toolbar toolbar;
-    RecyclerView lvSchedule;
-    SchedulePlaceAdapter mAdapter;
-    RecyclerView.LayoutManager layoutManager;
-    ArrayList<AddSchedulePlaceDTO.SchedulePlace> arrSchedule;
+    private SchedulePlaceController mController;
+    private Toolbar toolbar;
+    private SliderConfig mConfig;
+    private RecyclerView lvSchedule;
+    private SchedulePlaceAdapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<AddSchedulePlaceDTO.SchedulePlace> arrSchedule;
 
     //Dialog add schedule
-    Dialog dialogSchedule;
-    Button btnCancelDialogSchedule, btnCreateDialogSchedule;
-    TextView txtFromDate, txtToDate, txtNote;
-    Calendar current = Calendar.getInstance();
-    Calendar fromDate = Calendar.getInstance();
-    Calendar toDate = Calendar.getInstance();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private Dialog dialogSchedule;
+    private Button btnCancelDialogSchedule, btnCreateDialogSchedule;
+    private TextView txtFromDate, txtToDate, txtNote;
+    private Calendar current = Calendar.getInstance();
+    private Calendar fromDate = Calendar.getInstance();
+    private Calendar toDate = Calendar.getInstance();
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     //Dialog del
-    Dialog dialogDel;
-    Button btnCancelDel, btnDel;
-    TextView txtNameDel;
+    private Dialog dialogDel;
+    private Button btnCancelDel, btnDel;
+    private TextView txtNameDel;
 
     //Get Data first
     boolean flag = true;
 
-    AddScheduleDTO.Schedule schedule;
+    private AddScheduleDTO.Schedule schedule;
 
     //Current schedulePlace select
-    AddSchedulePlaceDTO.SchedulePlace mSchedulePlace;
+    private AddSchedulePlaceDTO.SchedulePlace mSchedulePlace;
 
 
     @Override
@@ -75,6 +79,16 @@ public class SchedulePlaceActivity extends BaseActivity implements SchedulePlace
 
         addControls();
         addEvents();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (flag) {
+            mController.getDetail(getIntent().getStringExtra(AppContansts.INTENT_DATA));
+            flag = false;
+        }
+        mController.getList(getIntent().getStringExtra(AppContansts.INTENT_DATA));
     }
 
     private void addEvents() {
@@ -88,6 +102,8 @@ public class SchedulePlaceActivity extends BaseActivity implements SchedulePlace
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle("");
+
+        initSlider();
 
         lvSchedule = (RecyclerView) findViewById(R.id.lv_schedule_place);
         arrSchedule = new ArrayList<>();
@@ -175,6 +191,23 @@ public class SchedulePlaceActivity extends BaseActivity implements SchedulePlace
         });
     }
 
+    private void initSlider() {
+        mConfig = new SliderConfig.Builder()
+                .primaryColor(getResources().getColor(R.color.colorPrimary))
+                .secondaryColor(getResources().getColor(R.color.colorPrimary))
+                .position(SliderPosition.LEFT)
+                .sensitivity(1f)
+                .scrimColor(Color.BLACK)
+                .scrimStartAlpha(0.8f)
+                .scrimEndAlpha(0f)
+                .velocityThreshold(2400)
+                .distanceThreshold(0.2f)
+                .edge(true)
+                .edgeSize(0.2f)
+                .build();
+        Slider.attach(this, mConfig);
+    }
+
     private void showDialogPickerToDate() {
         int mYear = toDate.get(Calendar.YEAR);
         int mMonth = toDate.get(Calendar.MONTH);
@@ -244,17 +277,6 @@ public class SchedulePlaceActivity extends BaseActivity implements SchedulePlace
         pickerDialog.show();
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (flag) {
-            mController.getDetail(getIntent().getStringExtra(AppContansts.INTENT_DATA));
-            flag = false;
-        }
-        mController.getList(getIntent().getStringExtra(AppContansts.INTENT_DATA));
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_schedule_activity, menu);
@@ -306,6 +328,9 @@ public class SchedulePlaceActivity extends BaseActivity implements SchedulePlace
     public void getDetailSuccess(DetailScheduleDTO detailScheduleDTO) {
         schedule = detailScheduleDTO.result[0];
         ((TextView) findViewById(R.id.txt_title)).setText("Lịch trình: " + schedule.name);
+        ((TextView) findViewById(R.id.txt_time)).setText(
+                simpleDateFormat.format(schedule.getStart())
+                        + " đến " + simpleDateFormat.format(schedule.getEnd()));
     }
 
     @Override

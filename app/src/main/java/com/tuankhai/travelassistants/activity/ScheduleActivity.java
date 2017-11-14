@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,7 +29,10 @@ import com.tuankhai.travelassistants.activity.controller.ScheduleController;
 import com.tuankhai.travelassistants.adapter.ScheduleAdapter;
 import com.tuankhai.travelassistants.bottomsheet.MenuBottomSheet;
 import com.tuankhai.travelassistants.bottomsheet.interfaces.OnItemMenuSheetBottomClickListener;
-import com.tuankhai.travelassistants.module.stickyadapter.StickyListHeadersListView;
+import com.tuankhai.travelassistants.library.slideractivity.Slider;
+import com.tuankhai.travelassistants.library.slideractivity.model.SliderConfig;
+import com.tuankhai.travelassistants.library.slideractivity.model.SliderPosition;
+import com.tuankhai.travelassistants.library.stickyadapter.StickyListHeadersListView;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDTO;
@@ -46,32 +50,33 @@ public class ScheduleActivity extends BaseActivity
         SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, OnItemMenuSheetBottomClickListener {
     ScheduleController mController;
 
-    Toolbar toolbar;
-    //    FloatingActionButton fab;
-    SwipeRefreshLayout refreshLayout;
+    private Toolbar toolbar;
+    private SliderConfig mConfig;
+    //FloatingActionButton fab;
+    private SwipeRefreshLayout refreshLayout;
 
     //Rycycleview
-    StickyListHeadersListView lvSchedule;
-    ArrayList<AddScheduleDTO.Schedule> arrSchedule;
-    ScheduleAdapter mAdapter;
+    private StickyListHeadersListView lvSchedule;
+    private ArrayList<AddScheduleDTO.Schedule> arrSchedule;
+    private ScheduleAdapter mAdapter;
 
     //Dialog new
     boolean isNew = true;
-    Dialog dialogAddNew;
-    Button btnCancel, btnCreate;
-    EditText txtName;
-    TextView txtFromDate, txtToDate, txtTitle;
-    Calendar current = Calendar.getInstance();
-    Calendar fromDate = Calendar.getInstance();
-    Calendar toDate = Calendar.getInstance();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private Dialog dialogAddNew;
+    private Button btnCancel, btnCreate;
+    private EditText txtName;
+    private TextView txtFromDate, txtToDate, txtTitle;
+    private Calendar current = Calendar.getInstance();
+    private Calendar fromDate = Calendar.getInstance();
+    private Calendar toDate = Calendar.getInstance();
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     //Dialog del
-    Dialog dialogDel;
-    Button btnCancelDel, btnDel;
-    TextView txtNameDel;
+    private Dialog dialogDel;
+    private Button btnCancelDel, btnDel;
+    private TextView txtNameDel;
 
-    AddScheduleDTO.Schedule schedule;
+    private AddScheduleDTO.Schedule schedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +121,7 @@ public class ScheduleActivity extends BaseActivity
                 txtFromDate.setError(null);
                 txtToDate.setError(null);
                 dialogAddNew.show();
+                txtName.requestFocus();
                 return true;
             case android.R.id.home:
                 onBackPressed();
@@ -130,6 +136,23 @@ public class ScheduleActivity extends BaseActivity
         arrSchedule.addAll(list);
         mAdapter = new ScheduleAdapter(this, arrSchedule);
         lvSchedule.setAdapter(mAdapter);
+    }
+
+    private void initSlider() {
+        mConfig = new SliderConfig.Builder()
+                .primaryColor(getResources().getColor(R.color.colorPrimary))
+                .secondaryColor(getResources().getColor(R.color.colorPrimary))
+                .position(SliderPosition.LEFT)
+                .sensitivity(1f)
+                .scrimColor(Color.BLACK)
+                .scrimStartAlpha(0.8f)
+                .scrimEndAlpha(0f)
+                .velocityThreshold(2400)
+                .distanceThreshold(0.2f)
+                .edge(true)
+                .edgeSize(0.2f)
+                .build();
+        Slider.attach(this, mConfig);
     }
 
     private void addEvents() {
@@ -176,6 +199,8 @@ public class ScheduleActivity extends BaseActivity
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle("");
         ((TextView) findViewById(R.id.txt_title)).setText(getString(R.string.title_activity_schedule));
+
+        initSlider();
 
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -411,6 +436,8 @@ public class ScheduleActivity extends BaseActivity
             txtTitle.setText("Sửa lịch trình");
             dialogAddNew.show();
             txtName.setText(schedule.name);
+            txtName.requestFocus();
+            txtName.setSelection(txtName.getText().toString().length());
             txtFromDate.setText(simpleDateFormat.format(schedule.getStart()));
             txtToDate.setText(simpleDateFormat.format(schedule.getEnd()));
             fromDate.setTime(schedule.getStart());

@@ -45,12 +45,12 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary">
 
-                    <com.tuankhai.travelassistants.module.loopingviewpager.LoopViewPager
+                    <com.tuankhai.travelassistants.library.loopingviewpager.LoopViewPager
                         android:id="@+id/viewpagerPlace"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
-                    <com.tuankhai.travelassistants.module.loopingviewpager.CircleIndicator
+                    <com.tuankhai.travelassistants.library.loopingviewpager.CircleIndicator
                         android:id="@+id/indicatorPlace"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"

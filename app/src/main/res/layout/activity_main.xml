@@ -31,7 +31,7 @@
                 android:layout_height="@dimen/height_toolbar"
                 android:background="@color/colorPrimary" />
 
-            <com.tuankhai.travelassistants.module.floatingsearchview.main.FloatingSearchView
+            <com.tuankhai.travelassistants.library.floatingsearchview.main.FloatingSearchView
                 android:id="@+id/floating_search_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
