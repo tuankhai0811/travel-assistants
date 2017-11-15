@@ -48,9 +48,10 @@
         android:backgroundTint="@color/grey_10"
         android:orientation="vertical">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,7 +62,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_5dp"
                     android:background="@color/global_white"
                     android:backgroundTint="@color/global_white"
                     android:orientation="vertical">
@@ -98,7 +98,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_5dp"
+                    android:layout_marginTop="@dimen/padding_05dp"
                     android:background="@color/global_white"
                     android:backgroundTint="@color/global_white"
                     android:orientation="vertical">
@@ -132,7 +132,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/padding_5dp"
+                    android:layout_marginTop="@dimen/padding_05dp"
+                    android:background="@color/global_white"
+                    android:backgroundTint="@color/global_white"
                     android:orientation="vertical">
 
                     <TabHost
@@ -148,7 +150,8 @@
                             <TabWidget
                                 android:id="@android:id/tabs"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/padding_10dp" />
 
                             <FrameLayout
                                 android:id="@android:id/tabcontent"
@@ -160,6 +163,32 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:id="@+id/btn_add_restaurent"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:background="@drawable/selector"
+                                        android:focusable="true"
+                                        android:focusableInTouchMode="true"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:padding="@dimen/padding_5dp">
+
+                                        <ImageView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:src="@drawable/ic_add_blue_24dp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/margin_5dp"
+                                            android:text="Thêm"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="@dimen/size_16sp" />
+                                    </LinearLayout>
 
                                     <android.support.v7.widget.RecyclerView
                                         android:id="@+id/lv_restaurent"
@@ -173,6 +202,32 @@
                                     android:layout_height="match_parent"
                                     android:orientation="vertical">
 
+                                    <LinearLayout
+                                        android:id="@+id/btn_add_hotel"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:background="@drawable/selector"
+                                        android:focusable="true"
+                                        android:focusableInTouchMode="true"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        android:padding="@dimen/padding_5dp">
+
+                                        <ImageView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:src="@drawable/ic_add_blue_24dp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/margin_5dp"
+                                            android:text="Thêm"
+                                            android:textColor="@color/colorPrimary"
+                                            android:textSize="@dimen/size_16sp" />
+                                    </LinearLayout>
+
                                     <android.support.v7.widget.RecyclerView
                                         android:id="@+id/lv_hotel"
                                         android:layout_width="match_parent"
@@ -184,7 +239,7 @@
                     </TabHost>
                 </LinearLayout>
             </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

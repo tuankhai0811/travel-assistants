@@ -83,7 +83,6 @@
             android:name=".activity.SchedulePlaceActivity"
             android:launchMode="singleTop"
             android:theme="@style/Theme.Slider.Sliderable" />
-
         <activity
             android:name=".activity.ScheduleDetailActivity"
             android:launchMode="singleTop"
@@ -103,6 +102,13 @@
             </intent-filter>
         </service>
         <!-- [END firebase_iid_service] -->
+
+        <activity
+            android:name=".activity.ListPlaceScheduleActivity"
+            android:hardwareAccelerated="true"
+            android:largeHeap="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Slider.Sliderable.ListPlaceNear" />
     </application>
 
 </manifest>

@@ -1,9 +1,11 @@
 package com.tuankhai.travelassistants.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -15,6 +17,8 @@ import com.tuankhai.travelassistants.library.slideractivity.model.SliderConfig;
 import com.tuankhai.travelassistants.library.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
+import com.tuankhai.travelassistants.webservice.DTO.DetailPlaceDTO;
+import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.DTO.ScheduleDetailDTO;
 
 import java.text.SimpleDateFormat;
@@ -25,12 +29,16 @@ public class ScheduleDetailActivity extends BaseActivity {
     private Toolbar toolbar;
     private SliderConfig mConfig;
 
+    private DetailPlaceDTO placeDTO;
+    private PlaceNearDTO placeNearRestaurentDTO, placeNearHotelDTO;
     private ScheduleDetailDTO.ScheduleDetail scheduleDetail;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     private ReadMoreTextView txtDescription;
 
     private TabHost tabHost;
+
+    private View btnAddRes, btnAddHotel;
 
     //Get Data detail first
     boolean flag = true;
@@ -41,6 +49,10 @@ public class ScheduleDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_schedule_detail);
         addControls();
         addEvents();
+    }
+
+    private void getData() {
+        mController.getDetailPlace(scheduleDetail.id_place);
     }
 
     private void initSlider() {
@@ -85,6 +97,27 @@ public class ScheduleDetailActivity extends BaseActivity {
                 setTabColor(tabHost);
             }
         });
+
+        btnAddRes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (placeNearRestaurentDTO != null) {
+                    gotoListRes();
+                } else {
+                    if (placeDTO != null) {
+                        mController.getListRestaurent(placeDTO);
+                    }
+                }
+            }
+        });
+
+        btnAddHotel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ScheduleDetailActivity.this, ListPlaceScheduleActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void addControls() {
@@ -100,6 +133,9 @@ public class ScheduleDetailActivity extends BaseActivity {
         txtDescription = (ReadMoreTextView) findViewById(R.id.txt_description);
 
         initTabHost();
+
+        btnAddRes = findViewById(R.id.btn_add_restaurent);
+        btnAddHotel = findViewById(R.id.btn_add_hotel);
     }
 
     private void initTabHost() {
@@ -142,6 +178,7 @@ public class ScheduleDetailActivity extends BaseActivity {
 
     public void getDetailSuccess(ScheduleDetailDTO scheduleDetailDTO) {
         scheduleDetail = scheduleDetailDTO.result;
+        getData();
         ((TextView) findViewById(R.id.txt_title)).setText("Lịch trình: " + scheduleDetail.name);
         ((TextView) findViewById(R.id.txt_time)).setText(
                 "Lịch trình " + scheduleDetail.length + " ngày" + "\nTừ ngày " +
@@ -157,5 +194,23 @@ public class ScheduleDetailActivity extends BaseActivity {
 
     public void getDetailFailure() {
         Utils.showFaildToast(this, "Không lấy được dữ liệu!");
+    }
+
+    public void getDetailPlaceSuccess(DetailPlaceDTO placeDTO) {
+        this.placeDTO = placeDTO;
+    }
+
+    public void getListRestaurentSuccess(PlaceNearDTO placeNearDTO) {
+        placeNearRestaurentDTO = placeNearDTO;
+        gotoListRes();
+    }
+
+    public void gotoListRes() {
+        Intent intent = new Intent(this, ListPlaceScheduleActivity.class);
+        intent.putExtra(AppContansts.INTENT_DATA, placeNearRestaurentDTO);
+        intent.putExtra(AppContansts.INTENT_DATA1, placeDTO.place.getLocationLat());
+        intent.putExtra(AppContansts.INTENT_DATA2, placeDTO.place.getLocationLng());
+        intent.putExtra(AppContansts.INTENT_DATA3, AppContansts.INTENT_TYPE_FOOD);
+        startActivity(intent);
     }
 }

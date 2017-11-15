@@ -15,7 +15,8 @@
         android:layout_marginLeft="@dimen/padding_5dp"
         android:layout_marginRight="@dimen/padding_20dp"
         android:layout_marginTop="@dimen/padding_0dp"
-        app:cardCornerRadius="@dimen/padding_5dp">
+        app:cardCornerRadius="@dimen/padding_5dp"
+        app:cardUseCompatPadding="true">
 
         <TextView
             android:id="@+id/txt_tab_hotel"
