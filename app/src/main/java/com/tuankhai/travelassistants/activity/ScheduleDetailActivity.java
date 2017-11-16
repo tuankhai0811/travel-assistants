@@ -3,6 +3,8 @@ package com.tuankhai.travelassistants.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,19 +13,24 @@ import android.widget.TextView;
 
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.ScheduleDetailController;
+import com.tuankhai.travelassistants.adapter.PlaceScheduleDayAdapter;
 import com.tuankhai.travelassistants.library.readmore.ReadMoreTextView;
 import com.tuankhai.travelassistants.library.slideractivity.Slider;
 import com.tuankhai.travelassistants.library.slideractivity.model.SliderConfig;
 import com.tuankhai.travelassistants.library.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
+import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDayDTO;
 import com.tuankhai.travelassistants.webservice.DTO.DetailPlaceDTO;
+import com.tuankhai.travelassistants.webservice.DTO.GetScheduleDayDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.DTO.ScheduleDetailDTO;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class ScheduleDetailActivity extends BaseActivity {
+public class ScheduleDetailActivity extends BaseActivity implements PlaceScheduleDayAdapter.LayoutListPlaceNearItemListener {
 
     private ScheduleDetailController mController;
     private Toolbar toolbar;
@@ -37,6 +44,9 @@ public class ScheduleDetailActivity extends BaseActivity {
     private ReadMoreTextView txtDescription;
 
     private TabHost tabHost;
+    private RecyclerView lvRes, lvHotel;
+    private ArrayList<AddScheduleDayDTO.ScheduleDay> arrRes, arrHotel;
+    private PlaceScheduleDayAdapter adapterRes, adapterHotel;
 
     private View btnAddRes, btnAddHotel;
 
@@ -53,6 +63,16 @@ public class ScheduleDetailActivity extends BaseActivity {
 
     private void getData() {
         mController.getDetailPlace(scheduleDetail.id_place);
+        mController.getListPlaceRestaurent(
+                mUser.getEmail(),
+                scheduleDetail.id_schedule,
+                scheduleDetail.id,
+                AppContansts.TYPE_RESTAURENT_SCHEDULE_DAY);
+        mController.getListPlaceHotel(
+                mUser.getEmail(),
+                scheduleDetail.id_schedule,
+                scheduleDetail.id,
+                AppContansts.TYPE_HOTEL_SCHEDULE_DAY);
     }
 
     private void initSlider() {
@@ -77,6 +97,18 @@ public class ScheduleDetailActivity extends BaseActivity {
         super.onResume();
         if (flag) {
             mController.getDetailSchedule(mUser.getEmail(), getIntent().getStringExtra(AppContansts.INTENT_DATA));
+        }
+        if (scheduleDetail != null) {
+            mController.getListPlaceRestaurent(
+                    mUser.getEmail(),
+                    scheduleDetail.id_schedule,
+                    scheduleDetail.id,
+                    AppContansts.TYPE_RESTAURENT_SCHEDULE_DAY);
+            mController.getListPlaceHotel(
+                    mUser.getEmail(),
+                    scheduleDetail.id_schedule,
+                    scheduleDetail.id,
+                    AppContansts.TYPE_HOTEL_SCHEDULE_DAY);
         }
     }
 
@@ -114,8 +146,13 @@ public class ScheduleDetailActivity extends BaseActivity {
         btnAddHotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ScheduleDetailActivity.this, ListPlaceScheduleActivity.class);
-                startActivity(intent);
+                if (placeNearHotelDTO != null) {
+                    gotoListHotel();
+                } else {
+                    if (placeDTO != null) {
+                        mController.getListHotel(placeDTO);
+                    }
+                }
             }
         });
     }
@@ -136,6 +173,17 @@ public class ScheduleDetailActivity extends BaseActivity {
 
         btnAddRes = findViewById(R.id.btn_add_restaurent);
         btnAddHotel = findViewById(R.id.btn_add_hotel);
+
+        lvRes = (RecyclerView) findViewById(R.id.lv_restaurent);
+        lvHotel = (RecyclerView) findViewById(R.id.lv_hotel);
+        arrRes = new ArrayList<>();
+        arrHotel = new ArrayList<>();
+        adapterRes = new PlaceScheduleDayAdapter(this, arrRes, this);
+        adapterHotel = new PlaceScheduleDayAdapter(this, arrHotel, this);
+        lvRes.setLayoutManager(new LinearLayoutManager(this));
+        lvHotel.setLayoutManager(new LinearLayoutManager(this));
+        lvRes.setAdapter(adapterRes);
+        lvHotel.setAdapter(adapterHotel);
     }
 
     private void initTabHost() {
@@ -205,12 +253,47 @@ public class ScheduleDetailActivity extends BaseActivity {
         gotoListRes();
     }
 
+    public void getListHotelSuccess(PlaceNearDTO placeNearDTO) {
+        placeNearHotelDTO = placeNearDTO;
+        gotoListHotel();
+    }
+
     public void gotoListRes() {
         Intent intent = new Intent(this, ListPlaceScheduleActivity.class);
         intent.putExtra(AppContansts.INTENT_DATA, placeNearRestaurentDTO);
         intent.putExtra(AppContansts.INTENT_DATA1, placeDTO.place.getLocationLat());
         intent.putExtra(AppContansts.INTENT_DATA2, placeDTO.place.getLocationLng());
-        intent.putExtra(AppContansts.INTENT_DATA3, AppContansts.INTENT_TYPE_FOOD);
+        intent.putExtra(AppContansts.INTENT_DATA3, AppContansts.TYPE_RESTAURENT_SCHEDULE_DAY);
+        intent.putExtra(AppContansts.INTENT_DATA4, scheduleDetail);
+        intent.putExtra(AppContansts.INTENT_DATA5, arrRes);
         startActivity(intent);
+    }
+
+    public void gotoListHotel() {
+        Intent intent = new Intent(this, ListPlaceScheduleActivity.class);
+        intent.putExtra(AppContansts.INTENT_DATA, placeNearHotelDTO);
+        intent.putExtra(AppContansts.INTENT_DATA1, placeDTO.place.getLocationLat());
+        intent.putExtra(AppContansts.INTENT_DATA2, placeDTO.place.getLocationLng());
+        intent.putExtra(AppContansts.INTENT_DATA3, AppContansts.TYPE_HOTEL_SCHEDULE_DAY);
+        intent.putExtra(AppContansts.INTENT_DATA4, scheduleDetail);
+        intent.putExtra(AppContansts.INTENT_DATA5, arrHotel);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemPlaceNearClick(View view, AddScheduleDayDTO.ScheduleDay item) {
+
+    }
+
+    public void getListPlaceRestaurentSuccess(GetScheduleDayDTO scheduleDayDTO) {
+        arrRes.clear();
+        arrRes.addAll(Arrays.asList(scheduleDayDTO.result));
+        adapterRes.notifyDataSetChanged();
+    }
+
+    public void getListPlaceHotelSuccess(GetScheduleDayDTO scheduleDayDTO) {
+        arrHotel.clear();
+        arrHotel.addAll(Arrays.asList(scheduleDayDTO.result));
+        adapterHotel.notifyDataSetChanged();
     }
 }

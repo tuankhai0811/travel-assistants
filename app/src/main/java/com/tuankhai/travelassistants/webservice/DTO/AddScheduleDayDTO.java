@@ -5,77 +5,71 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * Created by Khai on 14/11/2017.
+ * Created by Khai on 16/11/2017.
  */
 
-public final class ScheduleDetailDTO {
+public final class AddScheduleDayDTO {
     public final String status;
-    public final ScheduleDetail result;
+    public final ScheduleDay result;
     public final String message;
 
     @JsonCreator
-    public ScheduleDetailDTO(
+    public AddScheduleDayDTO(
             @JsonProperty("status") String status,
-            @JsonProperty("result") ScheduleDetail result,
+            @JsonProperty("result") ScheduleDay result,
             @JsonProperty("message") String message) {
         this.status = status;
         this.result = result;
         this.message = message;
     }
 
-    public static final class ScheduleDetail implements Serializable{
+    public static final class ScheduleDay implements Serializable{
         public final String id;
         public final String id_schedule;
-        public final String id_place;
-        public final String name;
+        public final String id_schedule_place;
+        public final String place_id;
         public final String email;
-        public final String date_start;
-        public final String date_end;
-        public final String length;
+        public final String type;
+        public final String time_start;
+        public final String time_end;
+        public final String date;
         public final String description;
         public final String created_at;
         public final String updated_at;
 
         @JsonCreator
-        public ScheduleDetail(
+        public ScheduleDay(
                 @JsonProperty("id") String id,
                 @JsonProperty("id_schedule") String id_schedule,
-                @JsonProperty("id_place") String id_place,
-                @JsonProperty("name") String name,
+                @JsonProperty("id_schedule_place") String id_schedule_place,
+                @JsonProperty("place_id") String place_id,
                 @JsonProperty("email") String email,
-                @JsonProperty("date_start") String date_start,
-                @JsonProperty("date_end") String date_end,
-                @JsonProperty("length") String length,
+                @JsonProperty("type") String type,
+                @JsonProperty("time_start") String time_start,
+                @JsonProperty("time_end") String time_end,
+                @JsonProperty("date") String date,
                 @JsonProperty("description") String description,
                 @JsonProperty("created_at") String created_at,
                 @JsonProperty("updated_at") String updated_at) {
             this.id = id;
             this.id_schedule = id_schedule;
-            this.id_place = id_place;
-            this.name = name;
+            this.id_schedule_place = id_schedule_place;
+            this.place_id = place_id;
             this.email = email;
-            this.date_start = date_start;
-            this.date_end = date_end;
-            this.length = length;
+            this.type = type;
+            this.time_start = time_start;
+            this.time_end = time_end;
+            this.date = date;
             this.description = description;
             this.created_at = created_at;
             this.updated_at = updated_at;
         }
-
-        public Date getStart(){
-            return new Date(Long.valueOf(date_start));
-        }
-
-        public Date getEnd(){
-            return new Date(Long.valueOf(date_end));
-        }
     }
 
-    public boolean isSuccess() {
-        if (status.equals(RequestService.RESULT_OK)) {
+    public boolean isSuccess(){
+        if (status.equals(RequestService.RESULT_OK)){
             return true;
         }
         return false;

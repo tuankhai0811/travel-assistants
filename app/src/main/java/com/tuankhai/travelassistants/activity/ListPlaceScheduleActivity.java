@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.controller.ListPlaceScheduleController;
 import com.tuankhai.travelassistants.adapter.PlaceNearListAdapter;
 import com.tuankhai.travelassistants.adapter.PlaceScheduleAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.ListSpacingItemDecoration;
@@ -28,7 +30,9 @@ import com.tuankhai.travelassistants.library.slideractivity.model.SliderConfig;
 import com.tuankhai.travelassistants.library.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
+import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDayDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
+import com.tuankhai.travelassistants.webservice.DTO.ScheduleDetailDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 
@@ -38,10 +42,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class ListPlaceScheduleActivity extends BaseActivity implements PlaceNearListAdapter.LayoutListPlaceNearItemListener
-        , PlaceNearListAdapter.OnLoadMoreListener, SearchView.OnQueryTextListener {
+        , PlaceNearListAdapter.OnLoadMoreListener, SearchView.OnQueryTextListener,
+        PlaceScheduleAdapter.OnCheckedChangeListener {
 
+    private ListPlaceScheduleController mController;
+
+    private ScheduleDetailDTO.ScheduleDetail scheduleDetail;
     private PlaceNearDTO data;
     private PlaceNearDTO dataMaps;
+    public ArrayList<AddScheduleDayDTO.ScheduleDay> arrHasPlace;
     private String lat, lng;
     public Location location;
     private int type;
@@ -70,7 +79,7 @@ public class ListPlaceScheduleActivity extends BaseActivity implements PlaceNear
         if (data != null) {
             dataMaps = data;
             refreshLayout.setRefreshing(true);
-            if (type == AppContansts.INTENT_TYPE_FOOD) {
+            if (type == AppContansts.TYPE_RESTAURENT_SCHEDULE_DAY) {
                 title = getString(R.string.top_restaurent);
             } else {
                 title = getString(R.string.top_hotel);
@@ -137,9 +146,9 @@ public class ListPlaceScheduleActivity extends BaseActivity implements PlaceNear
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                progressDistance(arrPlace);
-                Collections.sort(arrPlace, PlaceNearDTO.Result.ComparatorDistance);
-                adapter.notifyDataSetChanged();
+//                progressDistance(arrPlace);
+//                Collections.sort(arrPlace, PlaceNearDTO.Result.ComparatorDistance);
+//                adapter.notifyDataSetChanged();
                 refreshLayout.setRefreshing(false);
             }
         });
@@ -193,6 +202,9 @@ public class ListPlaceScheduleActivity extends BaseActivity implements PlaceNear
     }
 
     private void addControls() {
+        mController = new ListPlaceScheduleController(this);
+        arrHasPlace = (ArrayList<AddScheduleDayDTO.ScheduleDay>) getIntent().getSerializableExtra(AppContansts.INTENT_DATA5);
+        scheduleDetail = (ScheduleDetailDTO.ScheduleDetail) getIntent().getSerializableExtra(AppContansts.INTENT_DATA4);
         data = (PlaceNearDTO) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
         lat = getIntent().getStringExtra(AppContansts.INTENT_DATA1);
         lng = getIntent().getStringExtra(AppContansts.INTENT_DATA2);
@@ -206,11 +218,12 @@ public class ListPlaceScheduleActivity extends BaseActivity implements PlaceNear
         lvPlace = (RecyclerView) findViewById(R.id.lv_place);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         lvPlace.setLayoutManager(layoutManager);
-        adapter = new PlaceScheduleAdapter(this, lvPlace, arrPlace);
+        adapter = new PlaceScheduleAdapter(this, lvPlace, arrPlace, arrHasPlace);
         lvPlace.addItemDecoration(new ListSpacingItemDecoration(Utils.dpToPx(this, 5)));
         lvPlace.setAdapter(adapter);
         adapter.setOnLoadMoreListener(this);
         adapter.setOnItemClickListener(this);
+        adapter.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -301,6 +314,39 @@ public class ListPlaceScheduleActivity extends BaseActivity implements PlaceNear
             adapter.getFilter().filter(newText);
         }
         return true;
+    }
+
+    @Override
+    public void onCheckedChange(boolean isChecked, PlaceNearDTO.Result item) {
+        Log.e("status", "onCheckedChange");
+        if (isChecked) {
+            mController.addPlaceToSchedule(
+                    mUser.getEmail(),
+                    scheduleDetail.id_schedule,
+                    scheduleDetail.id,
+                    item.place_id,
+                    type);
+        } else {
+            mController.removePlaceFromSchedule(
+                    mUser.getEmail(),
+                    scheduleDetail.id_schedule,
+                    scheduleDetail.id,
+                    item.place_id,
+                    type);
+        }
+    }
+
+    public void addPlace(AddScheduleDayDTO place) {
+        arrHasPlace.add(place.result);
+    }
+
+    public void removePlace(String id_place) {
+        for (AddScheduleDayDTO.ScheduleDay item : arrHasPlace) {
+            if (id_place.equals(item.place_id)) {
+                arrHasPlace.remove(item);
+                return;
+            }
+        }
     }
 }
 

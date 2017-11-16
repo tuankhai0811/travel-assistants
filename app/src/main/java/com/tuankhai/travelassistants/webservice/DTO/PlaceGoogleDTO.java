@@ -29,8 +29,8 @@ public final class PlaceGoogleDTO {
         this.status = status;
     }
 
-    public boolean isSuccess(){
-        if (status.equals(RequestService.RESULT_OK)){
+    public boolean isSuccess() {
+        if (status.equals(RequestService.RESULT_OK)) {
             return true;
         }
         return false;
@@ -103,6 +103,11 @@ public final class PlaceGoogleDTO {
             this.utc_offset = utc_offset;
             this.vicinity = vicinity;
             this.website = website;
+        }
+
+        public float getRaring() {
+            if (rating == null) return 0;
+            return Float.parseFloat(rating);
         }
 
         public static final class Address_component {

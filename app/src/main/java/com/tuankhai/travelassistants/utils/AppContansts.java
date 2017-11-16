@@ -19,6 +19,8 @@ public class AppContansts {
     public static final String INTENT_DATA1 = "com.tuankhai.travelassistants.intent.data1";
     public static final String INTENT_DATA2 = "com.tuankhai.travelassistants.intent.data2";
     public static final String INTENT_DATA3 = "com.tuankhai.travelassistants.intent.data3";
+    public static final String INTENT_DATA4 = "com.tuankhai.travelassistants.intent.data4";
+    public static final String INTENT_DATA5 = "com.tuankhai.travelassistants.intent.data5";
     public static final String INTENT_DATA_LAT = "com.tuankhai.travelassistants.intent.lat";
     public static final String INTENT_DATA_LNG = "com.tuankhai.travelassistants.intent.lng";
     public static final String INTENT_IMAGE = "com.tuankhai.travelassistants.intent.image";
@@ -61,4 +63,7 @@ public class AppContansts {
     public static int RC_REAUTHORIZE = 111;
     public static final int RC_AUTHORIZE_CONTACTS = 112;
     public static int REQUEST_LOCATION = 113;
+
+    public static int TYPE_RESTAURENT_SCHEDULE_DAY = 1;
+    public static int TYPE_HOTEL_SCHEDULE_DAY = 2;
 }

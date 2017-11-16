@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -17,10 +18,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.tuankhai.travelassistants.activity.ListPlaceScheduleActivity;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.ListPlaceScheduleActivity;
 import com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.utils.MyCache;
+import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDayDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 
@@ -40,11 +42,13 @@ public class PlaceScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
     private ListPlaceScheduleActivity context;
     private List<PlaceNearDTO.Result> arrPlace;
     private List<PlaceNearDTO.Result> arrSearch;
+    private ArrayList<AddScheduleDayDTO.ScheduleDay> arrHasPlace;
     private RecyclerView mRecyclerView;
     private Location location;
 
     private PlaceNearListAdapter.LayoutListPlaceNearItemListener itemListener;
     private PlaceNearListAdapter.OnLoadMoreListener mOnLoadMoreListener;
+    private OnCheckedChangeListener mCheckedChangeListener;
 
     private boolean isLoading;
     private int visibleThreshold = 1;
@@ -58,9 +62,18 @@ public class PlaceScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.itemListener = onItemClickListener;
     }
 
-    public PlaceScheduleAdapter(ListPlaceScheduleActivity context, RecyclerView recyclerView, List<PlaceNearDTO.Result> arrPlace) {
+    public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
+        this.mCheckedChangeListener = listener;
+    }
+
+    public PlaceScheduleAdapter(
+            ListPlaceScheduleActivity context,
+            RecyclerView recyclerView,
+            List<PlaceNearDTO.Result> arrPlace,
+            ArrayList<AddScheduleDayDTO.ScheduleDay> arrHasPlace) {
         this.context = context;
         this.arrPlace = arrPlace;
+        this.arrHasPlace = arrHasPlace;
         this.mRecyclerView = recyclerView;
         this.location = context.location;
 
@@ -151,9 +164,25 @@ public class PlaceScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
                     holder.imageView.setImageBitmap(MyCache.getInstance().getBitmapFromMemCache(bg_place_global_4_3));
                 }
             }
+            if (containArray(item.place_id)) {
+                holder.checkBox.setOnCheckedChangeListener(null);
+                holder.checkBox.setChecked(true);
+                holder.checkBox.setOnCheckedChangeListener(holder);
+            } else {
+                holder.checkBox.setOnCheckedChangeListener(null);
+                holder.checkBox.setChecked(false);
+                holder.checkBox.setOnCheckedChangeListener(holder);
+            }
         } else {
             ((PlaceScheduleAdapter.LoadingViewHolder) viewHolder).progressBar.setIndeterminate(true);
         }
+    }
+
+    private boolean containArray(String id) {
+        for (AddScheduleDayDTO.ScheduleDay item : arrHasPlace) {
+            if (item.place_id.equals(id)) return true;
+        }
+        return false;
     }
 
     @Override
@@ -211,7 +240,8 @@ public class PlaceScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    public class PlaceNearViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class PlaceNearViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+            CompoundButton.OnCheckedChangeListener {
         TextView txtName, txtDistance;
         ImageView imageView;
         MaterialRatingBar ratingBar;
@@ -225,13 +255,18 @@ public class PlaceScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
             ratingBar = itemView.findViewById(R.id.ratingBar);
             checkBox = itemView.findViewById(R.id.checkbox);
             checkBox.setChecked(false);
-            checkBox.setOnCheckedChangeListener(null);
+            checkBox.setOnCheckedChangeListener(this);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             itemListener.onItemPlaceNearClick(view, arrPlace.get(getAdapterPosition()));
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            mCheckedChangeListener.onCheckedChange(b, arrPlace.get(getAdapterPosition()));
         }
     }
 
@@ -241,5 +276,9 @@ public class PlaceScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public interface OnLoadMoreListener {
         void onLoadMore();
+    }
+
+    public interface OnCheckedChangeListener {
+        void onCheckedChange(boolean isChecked, PlaceNearDTO.Result item);
     }
 }
