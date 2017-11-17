@@ -50,8 +50,9 @@ import java.util.TimerTask;
 public class DetailPlaceNearActivity extends BaseActivity
         implements View.OnClickListener, OnMapReadyCallback {
 
+    private int type = AppContansts.TYPE_NORMAL;
     private PlaceNearDTO.Result data;
-    private PlaceGoogleDTO dataGoogle;
+    private PlaceGoogleDTO.Result dataGoogle;
     private LatLng location;
     private Toolbar toolbar;
     private SliderConfig mConfig;
@@ -103,22 +104,37 @@ public class DetailPlaceNearActivity extends BaseActivity
     }
 
     private void getData() {
-        data = (PlaceNearDTO.Result) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
-        location = new LatLng(Double.parseDouble(data.getLat() + ""),
-                Double.parseDouble(data.getLng() + ""));
-        initProgressRatingbar();
+        type = getIntent().getIntExtra(AppContansts.INTENT_TYPE, AppContansts.TYPE_NORMAL);
+        if (type == AppContansts.TYPE_NORMAL) {
+            data = (PlaceNearDTO.Result) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
+            location = new LatLng(Double.parseDouble(data.getLat() + ""),
+                    Double.parseDouble(data.getLng() + ""));
+        } else {
+            dataGoogle = (PlaceGoogleDTO.Result) getIntent().getSerializableExtra(AppContansts.INTENT_DATA);
+            location = new LatLng(Double.parseDouble(dataGoogle.getLat() + ""),
+                    Double.parseDouble(dataGoogle.getLng() + ""));
+        }
         initStaticMaps();
-        new RequestService().getPlace(data.place_id, new MyCallback() {
-            @Override
-            public void onSuccess(Object response) {
-                super.onSuccess(response);
-                dataGoogle = (PlaceGoogleDTO) response;
-                addControlsPlaceGoogle();
-                initInformation();
-                initSliderImageGoogle();
-                initReviews();
-            }
-        });
+        if (type == AppContansts.TYPE_NORMAL) {
+            new RequestService().getPlace(data.place_id, new MyCallback() {
+                @Override
+                public void onSuccess(Object response) {
+                    super.onSuccess(response);
+                    dataGoogle = ((PlaceGoogleDTO) response).result;
+                    initProgressRatingbar();
+                    addControlsPlaceGoogle();
+                    initInformation();
+                    initSliderImageGoogle();
+                    initReviews();
+                }
+            });
+        } else {
+            initProgressRatingbar();
+            addControlsPlaceGoogle();
+            initInformation();
+            initSliderImageGoogle();
+            initReviews();
+        }
     }
 
     private void initProgressRatingbar() {
@@ -127,7 +143,7 @@ public class DetailPlaceNearActivity extends BaseActivity
         ratingBar.setMax(5);
         ratingBar.setNumStars(5);
         ratingBar.setStepSize(0.1f);
-        ratingBar.setRating(Float.valueOf(data.rating));
+        ratingBar.setRating(Float.valueOf(dataGoogle.rating));
 
         progressBar1 = (ProgressBar) findViewById(R.id.progressBar_1);
         progressBar2 = (ProgressBar) findViewById(R.id.progressBar_2);
@@ -143,15 +159,15 @@ public class DetailPlaceNearActivity extends BaseActivity
     }
 
     private void initInformation() {
-        ((TextView) findViewById(R.id.txt_address)).setText(dataGoogle.result.formatted_address);
-        if (!Utils.isEmptyString(dataGoogle.result.formatted_phone_number)) {
+        ((TextView) findViewById(R.id.txt_address)).setText(dataGoogle.formatted_address);
+        if (!Utils.isEmptyString(dataGoogle.formatted_phone_number)) {
             findViewById(R.id.layout_tel).setVisibility(View.VISIBLE);
-            ((TextView) findViewById(R.id.txt_tel)).setText(dataGoogle.result.formatted_phone_number);
+            ((TextView) findViewById(R.id.txt_tel)).setText(dataGoogle.formatted_phone_number);
             findViewById(R.id.txt_tel).setOnClickListener(this);
         }
-        if (!Utils.isEmptyString(dataGoogle.result.website)) {
+        if (!Utils.isEmptyString(dataGoogle.website)) {
             findViewById(R.id.layout_website).setVisibility(View.VISIBLE);
-            ((TextView) findViewById(R.id.txt_website)).setText(dataGoogle.result.website);
+            ((TextView) findViewById(R.id.txt_website)).setText(dataGoogle.website);
             findViewById(R.id.txt_website).setOnClickListener(this);
         }
         findViewById(R.id.layout_address).setOnClickListener(this);
@@ -175,7 +191,7 @@ public class DetailPlaceNearActivity extends BaseActivity
     }
 
     private void initReviews() {
-        if (dataGoogle.result.reviews == null || dataGoogle.result.reviews.length == 0) return;
+        if (dataGoogle.reviews == null || dataGoogle.reviews.length == 0) return;
         findViewById(R.id.layout_content_reviews).setVisibility(View.VISIBLE);
         arrReview = new ArrayList<>();
         arrReview.addAll(dataGoogle.getReviews());
@@ -321,7 +337,11 @@ public class DetailPlaceNearActivity extends BaseActivity
         ((TextView) findViewById(R.id.txt_title)).setText("");
         final CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(data.name);
+        if (type == AppContansts.TYPE_NORMAL) {
+            collapsingToolbar.setTitle(data.name);
+        } else {
+            collapsingToolbar.setTitle(dataGoogle.name);
+        }
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.setExpanded(true);
 
@@ -335,11 +355,14 @@ public class DetailPlaceNearActivity extends BaseActivity
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle(data.name);
                     isShow = true;
                 } else if (isShow) {
-                    collapsingToolbar.setTitle(data.name);
                     isShow = false;
+                }
+                if (type == AppContansts.TYPE_NORMAL) {
+                    collapsingToolbar.setTitle(data.name);
+                } else {
+                    collapsingToolbar.setTitle(dataGoogle.name);
                 }
             }
         });
@@ -375,11 +398,11 @@ public class DetailPlaceNearActivity extends BaseActivity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.txt_website:
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(dataGoogle.result.website));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(dataGoogle.website));
                 startActivity(intent);
                 break;
             case R.id.txt_tel:
-                Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + dataGoogle.result.formatted_phone_number));
+                Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + dataGoogle.formatted_phone_number));
                 startActivity(i);
                 break;
         }

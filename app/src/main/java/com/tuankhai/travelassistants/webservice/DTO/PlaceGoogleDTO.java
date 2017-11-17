@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by tuank on 10/09/2017.
  */
 
-public final class PlaceGoogleDTO {
+public final class PlaceGoogleDTO implements Serializable {
     public final String[] html_attributions;
     public final Result result;
     public final String status;
@@ -36,7 +37,7 @@ public final class PlaceGoogleDTO {
         return false;
     }
 
-    public static final class Result {
+    public static final class Result implements Serializable {
         public final Address_component address_components[];
         public final String adr_address;
         public final String formatted_address;
@@ -105,12 +106,38 @@ public final class PlaceGoogleDTO {
             this.website = website;
         }
 
-        public float getRaring() {
+        public float getRating() {
             if (rating == null) return 0;
             return Float.parseFloat(rating);
         }
 
-        public static final class Address_component {
+        public ArrayList<String> getImage() {
+            ArrayList<String> arrImage = new ArrayList<>();
+            if (photos == null || photos.length == 0) return arrImage;
+            for (int i = 0; i < photos.length; i++) {
+                arrImage.add(RequestService.getImage(photos[i].photo_reference));
+            }
+            return arrImage;
+        }
+
+        public Double getLat() {
+            return Double.parseDouble(this.geometry.location.lat);
+        }
+
+        public Double getLng() {
+            return Double.parseDouble(this.geometry.location.lng);
+        }
+
+        public List<Result.Review> getReviews() {
+            List<Result.Review> array = new ArrayList<>();
+            if (reviews == null) {
+                return array;
+            } else {
+                return Arrays.asList(reviews);
+            }
+        }
+
+        public static final class Address_component implements Serializable {
             public final String long_name;
             public final String short_name;
             public final String[] types;
@@ -126,7 +153,7 @@ public final class PlaceGoogleDTO {
             }
         }
 
-        public static final class Geometry {
+        public static final class Geometry implements Serializable {
             public final Location location;
             public final Viewport viewport;
 
@@ -138,7 +165,7 @@ public final class PlaceGoogleDTO {
                 this.viewport = viewport;
             }
 
-            public static final class Location {
+            public static final class Location implements Serializable {
                 public final String lat;
                 public final String lng;
 
@@ -151,7 +178,7 @@ public final class PlaceGoogleDTO {
                 }
             }
 
-            public static final class Viewport {
+            public static final class Viewport implements Serializable {
                 public final Northeast northeast;
                 public final Southwest southwest;
 
@@ -163,7 +190,7 @@ public final class PlaceGoogleDTO {
                     this.southwest = southwest;
                 }
 
-                public static final class Northeast {
+                public static final class Northeast implements Serializable {
                     public final String lat;
                     public final String lng;
 
@@ -176,7 +203,7 @@ public final class PlaceGoogleDTO {
                     }
                 }
 
-                public static final class Southwest {
+                public static final class Southwest implements Serializable {
                     public final String lat;
                     public final String lng;
 
@@ -191,7 +218,7 @@ public final class PlaceGoogleDTO {
             }
         }
 
-        public static final class Opening_hours {
+        public static final class Opening_hours implements Serializable {
             public final boolean open_now;
             public final Period periods[];
             public final String[] weekday_text;
@@ -206,7 +233,7 @@ public final class PlaceGoogleDTO {
                 this.weekday_text = weekday_text;
             }
 
-            public static final class Period {
+            public static final class Period implements Serializable {
                 public final Close close;
                 public final Open open;
 
@@ -218,7 +245,7 @@ public final class PlaceGoogleDTO {
                     this.open = open;
                 }
 
-                public static final class Close {
+                public static final class Close implements Serializable {
                     public final String day;
                     public final String time;
 
@@ -231,7 +258,7 @@ public final class PlaceGoogleDTO {
                     }
                 }
 
-                public static final class Open {
+                public static final class Open implements Serializable {
                     public final String day;
                     public final String time;
 
@@ -246,7 +273,7 @@ public final class PlaceGoogleDTO {
             }
         }
 
-        public static final class Photo {
+        public static final class Photo implements Serializable {
             public final String height;
             public final String[] html_attributions;
             public final String photo_reference;
@@ -265,7 +292,7 @@ public final class PlaceGoogleDTO {
             }
         }
 
-        public static final class Review implements Comparable<Review> {
+        public static final class Review implements Comparable<Review>, Serializable {
             public final String author_name;
             public String email;
             public final String author_url;

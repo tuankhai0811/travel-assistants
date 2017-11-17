@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar;
-import com.tuankhai.travelassistants.library.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.utils.MyCache;
 import com.tuankhai.travelassistants.webservice.DTO.AddScheduleDayDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
@@ -47,14 +46,14 @@ public class PlaceScheduleDayAdapter extends RecyclerView.Adapter<PlaceScheduleD
     @Override
     public PlaceScheduleDayAdapter.PlaceNearViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        return new PlaceScheduleDayAdapter.PlaceNearViewHolder(
-                MaterialRippleLayout.on(inflater.inflate(R.layout.item_place_near, viewGroup, false))
-                        .rippleOverlay(true)
-                        .rippleAlpha(0.2f)
-                        .rippleColor(R.integer.rippleColor)
-                        .rippleHover(true)
-                        .create()
-        );
+        return new PlaceScheduleDayAdapter.PlaceNearViewHolder(inflater.inflate(R.layout.item_place_schedule_day_liner, viewGroup, false));
+//                MaterialRippleLayout.on()
+//                        .rippleOverlay(true)
+//                        .rippleAlpha(0.2f)
+//                        .rippleColor(R.integer.rippleColor)
+//                        .rippleHover(true)
+//                        .create()
+//        );
     }
 
     @Override
@@ -71,25 +70,44 @@ public class PlaceScheduleDayAdapter extends RecyclerView.Adapter<PlaceScheduleD
                 });
     }
 
-    private void binding(PlaceScheduleDayAdapter.PlaceNearViewHolder placeViewHolder, PlaceGoogleDTO.Result item) {
-        placeViewHolder.txtName.setText(item.name);
-        placeViewHolder.ratingBar.invalidate();
-        placeViewHolder.ratingBar.setMax(5);
-        placeViewHolder.ratingBar.setNumStars(5);
-        placeViewHolder.ratingBar.setStepSize(0.1f);
-        placeViewHolder.ratingBar.setRating(item.getRaring() + 0.1f);
+    private void binding(PlaceScheduleDayAdapter.PlaceNearViewHolder holder, PlaceGoogleDTO.Result item) {
+        holder.txtName.setText(item.name);
+        holder.ratingBar.invalidate();
+        holder.ratingBar.setMax(5);
+        holder.ratingBar.setNumStars(5);
+        holder.ratingBar.setStepSize(0.1f);
+        holder.ratingBar.setRating(item.getRating() + 0.1f);
+//        if (item.distance == 0) {
+//            Location mLocation = new Location("Place");
+//            mLocation.setLongitude(Double.parseDouble(item.geometry.location.lng));
+//            mLocation.setLatitude(Double.parseDouble(item.geometry.location.lat));
+//            arrPlace.get(position).distance = mLocation.distanceTo(location);
+//            double distance = ((double) Math.round(mLocation.distanceTo(location) / 100)) / 10;
+//            if (distance == 0) {
+//                holder.txtDistance.setText(Math.round(mLocation.distanceTo(location)) + " m");
+//            } else {
+//                holder.txtDistance.setText(distance + " km");
+//            }
+//        } else {
+//            double distance = ((double) Math.round(item.distance / 100)) / 10;
+//            if (distance == 0) {
+//                holder.txtDistance.setText(Math.round(item.distance) + " m");
+//            } else {
+//                holder.txtDistance.setText(distance + " km");
+//            }
+//        }
         if (item.photos != null && item.photos.length > 0) {
             Glide.with(context)
-                    .load(RequestService.getImageAdapterHorizontal(item.photos[0].photo_reference))
+                    .load(RequestService.getImageAdapter(item.photos[0].photo_reference))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(placeViewHolder.imageView);
+                    .into(holder.imageView);
         } else {
             if (MyCache.getInstance().getBitmapFromMemCache(bg_place_global_4_3) == null) {
                 Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.bg_place_global_4_3);
                 MyCache.getInstance().addBitmapToMemoryCache(bg_place_global_4_3, image);
-                placeViewHolder.imageView.setImageBitmap(image);
+                holder.imageView.setImageBitmap(image);
             } else {
-                placeViewHolder.imageView.setImageBitmap(MyCache.getInstance().getBitmapFromMemCache(bg_place_global_4_3));
+                holder.imageView.setImageBitmap(MyCache.getInstance().getBitmapFromMemCache(bg_place_global_4_3));
             }
         }
     }
@@ -100,13 +118,14 @@ public class PlaceScheduleDayAdapter extends RecyclerView.Adapter<PlaceScheduleD
     }
 
     public class PlaceNearViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView txtName;
+        TextView txtName, txtDistance;
         ImageView imageView;
         MaterialRatingBar ratingBar;
 
         public PlaceNearViewHolder(View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txt_name);
+            txtDistance = itemView.findViewById(R.id.txt_distance);
             imageView = itemView.findViewById(R.id.img_place);
             ratingBar = itemView.findViewById(R.id.ratingBar);
             itemView.setOnClickListener(this);

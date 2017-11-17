@@ -103,10 +103,12 @@
 
                 <ImageView
                     android:id="@+id/btn_menu"
-                    android:layout_width="@dimen/padding_26dp"
-                    android:layout_height="@dimen/padding_26dp"
+                    android:layout_width="@dimen/padding_36dp"
+                    android:layout_height="@dimen/padding_36dp"
                     android:layout_gravity="right|top"
                     android:layout_marginTop="@dimen/margin_10dp"
+                    android:paddingBottom="@dimen/padding_10dp"
+                    android:paddingLeft="@dimen/padding_10dp"
                     android:src="@drawable/ico_three_dots" />
             </FrameLayout>
 

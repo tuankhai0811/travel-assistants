@@ -1,9 +1,13 @@
 package com.tuankhai.travelassistants.activity.controller;
 
+import android.content.Intent;
+
+import com.tuankhai.travelassistants.activity.DetailPlaceNearActivity;
 import com.tuankhai.travelassistants.activity.ScheduleDetailActivity;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.DetailPlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.GetScheduleDayDTO;
+import com.tuankhai.travelassistants.webservice.DTO.PlaceGoogleDTO;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.DTO.ScheduleDetailDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
@@ -129,5 +133,19 @@ public class ScheduleDetailController {
                 },
                 GetScheduleDayDTO.class
         );
+    }
+
+    public void getDetailPlaceScheduleDay(String id_place) {
+        new RequestService(mActivity.getApplicationContext()).getPlace(id_place, new MyCallback() {
+            @Override
+            public void onSuccess(Object response) {
+                super.onSuccess(response);
+                PlaceGoogleDTO placeGoogleDTO = (PlaceGoogleDTO) response;
+                Intent intent = new Intent(mActivity.getApplicationContext(), DetailPlaceNearActivity.class);
+                intent.putExtra(AppContansts.INTENT_DATA, placeGoogleDTO.result);
+                intent.putExtra(AppContansts.INTENT_TYPE, AppContansts.TYPE_FROM_SCHEDULE);
+                mActivity.startActivity(intent);
+            }
+        });
     }
 }

@@ -282,7 +282,7 @@ public class ScheduleDetailActivity extends BaseActivity implements PlaceSchedul
 
     @Override
     public void onItemPlaceNearClick(View view, AddScheduleDayDTO.ScheduleDay item) {
-
+        mController.getDetailPlaceScheduleDay(item.place_id);
     }
 
     public void getListPlaceRestaurentSuccess(GetScheduleDayDTO scheduleDayDTO) {

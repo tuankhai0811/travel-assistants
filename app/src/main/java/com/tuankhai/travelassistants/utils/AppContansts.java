@@ -66,4 +66,7 @@ public class AppContansts {
 
     public static int TYPE_RESTAURENT_SCHEDULE_DAY = 1;
     public static int TYPE_HOTEL_SCHEDULE_DAY = 2;
+
+    public static int TYPE_NORMAL = 1;
+    public static int TYPE_FROM_SCHEDULE = 2;
 }
