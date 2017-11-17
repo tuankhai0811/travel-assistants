@@ -105,6 +105,7 @@ public class SearchResultFragment extends BaseFragment
     }
 
     public void querySearch(String query) {
+        if (query.length() < 2) return;
         clearData();
         mLastQuery = query;
         mController.getResult(query);
