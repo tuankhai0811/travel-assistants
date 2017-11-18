@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+        android:id="@+id/action_view_on_map"
+        android:title="@string/action_view_on_map"
         android:orderInCategory="100"
         app:showAsAction="never"/>
 

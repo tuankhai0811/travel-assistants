@@ -138,6 +138,9 @@
                 android:id="@+id/btn_cancel_schedule"
                 style="@style/ButtonDialog"
                 android:layout_width="wrap_content"
+                android:layout_marginRight="@dimen/margin_20dp"
+                android:paddingLeft="@dimen/padding_10dp"
+                android:paddingRight="@dimen/padding_10dp"
                 android:text="HỦY"
                 android:textColor="@color/colorPrimary" />
 
@@ -145,6 +148,9 @@
                 android:id="@+id/btn_create_schedule"
                 style="@style/ButtonDialog"
                 android:layout_width="wrap_content"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:paddingLeft="@dimen/padding_10dp"
+                android:paddingRight="@dimen/padding_10dp"
                 android:text="OK"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>

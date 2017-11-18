@@ -225,7 +225,7 @@ public class ListPlaceNearActivity extends BaseActivity implements PlaceNearList
             case android.R.id.home:
                 onBackPressed();
                 break;
-            case R.id.action_settings:
+            case R.id.action_view_on_map:
                 if (dataMaps.results == null || dataMaps.results.length == 0) break;
                 Intent intent = new Intent(this, MapsActivity.class);
                 intent.putExtra(AppContansts.INTENT_TYPE, type);

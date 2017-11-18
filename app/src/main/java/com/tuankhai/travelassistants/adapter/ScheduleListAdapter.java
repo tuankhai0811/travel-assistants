@@ -45,7 +45,12 @@ public class ScheduleListAdapter extends ArrayAdapter<AddScheduleDTO.Schedule> {
 
     public View getCustomView(int position, @Nullable View convertView, @NonNull ViewGroup parent, boolean hasDivider) {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.item_spinner_schedule, parent, false);
+        View row;
+        if (hasDivider) {
+            row = inflater.inflate(R.layout.item_spinner_schedule, parent, false);
+        } else {
+            row = inflater.inflate(R.layout.item_spinner_schedule_2, parent, false);
+        }
         TextView textView = row.findViewById(R.id.txt_name);
         textView.setText(arrSchedule.get(position).name);
 //        if (hasDivider) {

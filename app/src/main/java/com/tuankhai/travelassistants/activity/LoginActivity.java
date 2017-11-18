@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +39,9 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.library.slideractivity.Slider;
+import com.tuankhai.travelassistants.library.slideractivity.model.SliderConfig;
+import com.tuankhai.travelassistants.library.slideractivity.model.SliderPosition;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.UserDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
@@ -71,10 +75,28 @@ public class LoginActivity extends BaseActivity implements
         setContentView(R.layout.activity_login);
 
         initToolbar();
+        initSlider();
         initGoogle();
         initFacebook();
 
         addControls();
+    }
+
+    private void initSlider() {
+        SliderConfig mConfig = new SliderConfig.Builder()
+                .primaryColor(getResources().getColor(R.color.colorPrimary))
+                .secondaryColor(getResources().getColor(R.color.global_black))
+                .position(SliderPosition.LEFT)
+                .sensitivity(1f)
+                .scrimColor(Color.BLACK)
+                .scrimStartAlpha(0.8f)
+                .scrimEndAlpha(0f)
+                .velocityThreshold(2400)
+                .distanceThreshold(0.2f)
+                .edge(true)
+                .edgeSize(0.2f)
+                .build();
+        Slider.attach(this, mConfig);
     }
 
     private void initToolbar() {

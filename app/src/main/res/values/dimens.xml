@@ -127,4 +127,5 @@
     <dimen name="height_45dp">45dp</dimen>
     <dimen name="padding_0dp">0dp</dimen>
     <dimen name="padding_36dp">36dp</dimen>
+    <dimen name="padding_12dp">12dp</dimen>
 </resources>

@@ -57,6 +57,10 @@ public class Utils {
         return (int) (Runtime.getRuntime().maxMemory() / 1024);
     }
 
+    public static int getAnimDialog(Context context){
+        return R.style.ZoomDialog;
+    }
+
     public static void saveAllProvince(Context context, ProvinceDTO data) {
         SharedPreferences preferences = context.getSharedPreferences(AppContansts.SHAREDPRE_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

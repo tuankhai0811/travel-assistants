@@ -53,7 +53,7 @@
     <string name="no_place_near_hear">Không có địa điểm nào gần đây!</string>
     <string name="no_favorite">Bạn chưa có địa điểm yêu thích nào!</string>
     <string name="no_list_in_province">Danh sách chưa được cập nhật!</string>
-    <string name="action_settings">Cài đặt</string>
+    <string name="action_view_on_map">View maps</string>
     <string name="action_search">Search</string>
     <string name="map_not_ready">Map is not ready yet</string>
     <string name="menu_remove_reviews">Xóa</string>

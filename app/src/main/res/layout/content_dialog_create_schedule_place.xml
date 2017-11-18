@@ -22,9 +22,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txt_title"
@@ -156,7 +156,6 @@
             android:orientation="vertical">
 
 
-
             <EditText
                 android:id="@+id/txt_note"
                 android:layout_width="match_parent"
@@ -183,6 +182,9 @@
                 android:id="@+id/btn_cancel_schedule"
                 style="@style/ButtonDialog"
                 android:layout_width="wrap_content"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:paddingLeft="@dimen/padding_5dp"
+                android:paddingRight="@dimen/padding_5dp"
                 android:text="ĐÓNG"
                 android:textColor="@color/colorPrimary" />
 
@@ -190,6 +192,8 @@
                 android:id="@+id/btn_create_schedule"
                 style="@style/ButtonDialog"
                 android:layout_width="wrap_content"
+                android:paddingLeft="@dimen/padding_5dp"
+                android:paddingRight="@dimen/padding_5dp"
                 android:text="TẠO LỊCH TRÌNH"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>

@@ -210,7 +210,7 @@ public class DetailPlaceActivity extends BaseActivity
         btnAdd.setOnClickListener(this);
 
         //Dialog new
-        dialogSchedule = new Dialog(this);
+        dialogSchedule = new Dialog(this, Utils.getAnimDialog(this));
         dialogSchedule.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogSchedule.setContentView(R.layout.content_dialog_create_schedule_place);
         dialogSchedule.setCanceledOnTouchOutside(false);
@@ -228,7 +228,7 @@ public class DetailPlaceActivity extends BaseActivity
         txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
         arrSchedule = new ArrayList<>();
         adapterSchedule = new ScheduleListAdapter(this, 0, arrSchedule);
-        lvSchedule.setPrompt("Chọn lịch trình...");
+//        lvSchedule.setPrompt("Chọn lịch trình...");
         lvSchedule.setAdapter(adapterSchedule);
         btnCancelDialogSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -445,7 +445,7 @@ public class DetailPlaceActivity extends BaseActivity
     }
 
     private void initDialogReviews() {
-        dialogReview = new Dialog(this);
+        dialogReview = new Dialog(this, Utils.getAnimDialog(this));
         dialogReview.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogReview.setContentView(R.layout.content_dialog_rating);
         dialogReview.setCanceledOnTouchOutside(false);
@@ -1114,6 +1114,7 @@ public class DetailPlaceActivity extends BaseActivity
 
     public void getScheduleSuccess(List<AddScheduleDTO.Schedule> schedules) {
         Collections.sort(schedules);
+        arrSchedule.clear();
         arrSchedule.addAll(schedules);
         adapterSchedule.notifyDataSetChanged();
         txtFromDate.setError(null);

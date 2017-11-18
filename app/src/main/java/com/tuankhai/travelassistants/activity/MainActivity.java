@@ -26,7 +26,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.ConnectionResult;
@@ -38,8 +37,8 @@ import com.tuankhai.travelassistants.fragment.BaseFragment;
 import com.tuankhai.travelassistants.fragment.SearchPlaceFragment;
 import com.tuankhai.travelassistants.fragment.SearchResultFragment;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
-import com.tuankhai.travelassistants.location.LocationHelper;
 import com.tuankhai.travelassistants.library.floatingsearchview.main.FloatingSearchView;
+import com.tuankhai.travelassistants.location.LocationHelper;
 import com.tuankhai.travelassistants.utils.AppContansts;
 
 public class MainActivity extends BaseActivity
@@ -199,12 +198,12 @@ public class MainActivity extends BaseActivity
         searchView.setOnMenuItemClickListener(new FloatingSearchView.OnMenuItemClickListener() {
             @Override
             public void onActionMenuItemSelected(MenuItem item) {
-                if (item.getItemId() == R.id.action_change_colors) {
-
-                } else {
-                    Toast.makeText(getApplicationContext(), item.getTitle(),
-                            Toast.LENGTH_SHORT).show();
-                }
+//                if (item.getItemId() == R.id.action_change_colors) {
+//
+//                } else {
+//                    Toast.makeText(getApplicationContext(), item.getTitle(),
+//                            Toast.LENGTH_SHORT).show();
+//                }
 
             }
         });

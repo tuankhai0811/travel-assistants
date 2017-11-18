@@ -48,6 +48,9 @@
                 android:id="@+id/btn_cancel_del"
                 style="@style/ButtonDialog"
                 android:layout_width="@dimen/width_70dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:paddingLeft="@dimen/padding_5dp"
+                android:paddingRight="@dimen/padding_5dp"
                 android:text="HỦY"
                 android:textColor="@color/colorPrimary" />
 
@@ -55,6 +58,8 @@
                 android:id="@+id/btn_delete"
                 style="@style/ButtonDialog"
                 android:layout_width="@dimen/width_70dp"
+                android:paddingLeft="@dimen/padding_5dp"
+                android:paddingRight="@dimen/padding_5dp"
                 android:text="XÓA"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>

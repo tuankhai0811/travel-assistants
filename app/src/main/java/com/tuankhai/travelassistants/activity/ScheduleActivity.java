@@ -222,7 +222,7 @@ public class ScheduleActivity extends BaseActivity
         lvSchedule.setStickyHeaderTopOffset(-20);
 
         //Dialog new
-        dialogAddNew = new Dialog(this);
+        dialogAddNew = new Dialog(this, Utils.getAnimDialog(this));
         dialogAddNew.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogAddNew.setContentView(R.layout.content_dialog_new_schedule);
         dialogAddNew.setCanceledOnTouchOutside(false);
@@ -237,7 +237,7 @@ public class ScheduleActivity extends BaseActivity
         txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
 
         //Dialog del
-        dialogDel = new Dialog(this);
+        dialogDel = new Dialog(this, Utils.getAnimDialog(this));
         dialogDel.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogDel.setContentView(R.layout.content_dialog_del_schedule);
         dialogDel.setCanceledOnTouchOutside(false);

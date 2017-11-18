@@ -143,7 +143,7 @@ public class DetailPlaceNearActivity extends BaseActivity
         ratingBar.setMax(5);
         ratingBar.setNumStars(5);
         ratingBar.setStepSize(0.1f);
-        ratingBar.setRating(Float.valueOf(dataGoogle.rating));
+        ratingBar.setRating(Float.valueOf(dataGoogle.getRating()));
 
         progressBar1 = (ProgressBar) findViewById(R.id.progressBar_1);
         progressBar2 = (ProgressBar) findViewById(R.id.progressBar_2);

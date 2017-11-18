@@ -114,7 +114,7 @@ public class SchedulePlaceActivity extends BaseActivity implements SchedulePlace
         lvSchedule.setAdapter(mAdapter);
 
         //Dialog edit
-        dialogSchedule = new Dialog(this);
+        dialogSchedule = new Dialog(this, Utils.getAnimDialog(this));
         dialogSchedule.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogSchedule.setContentView(R.layout.content_dialog_edit_schedule_place);
         dialogSchedule.setCanceledOnTouchOutside(false);
@@ -167,7 +167,7 @@ public class SchedulePlaceActivity extends BaseActivity implements SchedulePlace
         });
 
         //Dialog del
-        dialogDel = new Dialog(this);
+        dialogDel = new Dialog(this, Utils.getAnimDialog(this));
         dialogDel.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogDel.setContentView(R.layout.content_dialog_del_schedule);
         dialogDel.setCanceledOnTouchOutside(false);

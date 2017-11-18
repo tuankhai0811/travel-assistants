@@ -1,6 +1,7 @@
 package com.tuankhai.travelassistants.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -76,6 +77,11 @@ public class BaseActivity extends AppCompatActivity {
 
     public void logError(String tag, Object object) {
         Log.e(mTAG, tag + ": " + new Gson().toJson(object));
+    }
+
+    public void goTo(Intent intent){
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 
 }

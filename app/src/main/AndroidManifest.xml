@@ -59,7 +59,7 @@
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.ListPlaceNearActivity"
             android:hardwareAccelerated="true"
@@ -88,6 +88,13 @@
             android:launchMode="singleTop"
             android:theme="@style/Theme.Slider.Sliderable" />
 
+        <activity
+            android:name=".activity.ListPlaceScheduleActivity"
+            android:hardwareAccelerated="true"
+            android:largeHeap="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Slider.Sliderable.ListPlaceNear" />
+
         <!-- [START firebase_service] -->
         <service android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>
@@ -102,13 +109,6 @@
             </intent-filter>
         </service>
         <!-- [END firebase_iid_service] -->
-
-        <activity
-            android:name=".activity.ListPlaceScheduleActivity"
-            android:hardwareAccelerated="true"
-            android:largeHeap="false"
-            android:launchMode="singleTop"
-            android:theme="@style/Theme.Slider.Sliderable.ListPlaceNear" />
     </application>
 
 </manifest>
