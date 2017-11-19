@@ -16,21 +16,22 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.tuankhai.travelassistants.activity.MainActivity;
-import com.tuankhai.travelassistants.library.floatingsearchview.main.FloatingSearchView;
-import com.tuankhai.travelassistants.library.loopingviewpager.CircleIndicator;
-import com.tuankhai.travelassistants.library.loopingviewpager.LoopViewPager;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.ListPlaceActivity;
+import com.tuankhai.travelassistants.activity.MainActivity;
 import com.tuankhai.travelassistants.adapter.ProvinceAdapter;
 import com.tuankhai.travelassistants.adapter.SliderPlaceAdapter;
 import com.tuankhai.travelassistants.fragment.controller.PlacesController;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
+import com.tuankhai.travelassistants.library.floatingsearchview.main.FloatingSearchView;
+import com.tuankhai.travelassistants.library.loopingviewpager.CircleIndicator;
+import com.tuankhai.travelassistants.library.loopingviewpager.LoopViewPager;
+import com.tuankhai.travelassistants.library.viewpagertransformers.ZoomOutTranformer;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
-import com.tuankhai.travelassistants.library.viewpagertransformers.ZoomOutTranformer;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Timer;
@@ -83,7 +84,6 @@ public class PlacesFragment extends BaseFragment
             addControls();
             placesController = new PlacesController(this);
             placesController.getAllProvince();
-            placesController.getSliderPlace();
         }
         mActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         return mRootView;
@@ -92,7 +92,18 @@ public class PlacesFragment extends BaseFragment
     @Override
     public void onResume() {
         super.onResume();
+        placesController.getSliderPlace();
         addEvents();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        timer.cancel();
+        timer.purge();
+        timer = null;
+        task.cancel();
+        viewpager.setOnPageChangeListener(null);
     }
 
     private void addEvents() {
@@ -231,15 +242,7 @@ public class PlacesFragment extends BaseFragment
         currentPage = 0;
         numPage = data.places.length;
         final Handler handler = new Handler();
-        final Runnable update = new Runnable() {
-            public void run() {
-                currentPage = viewpager.getCurrentItem() + 1;
-                if (currentPage == numPage) {
-                    currentPage = 0;
-                }
-                viewpager.setCurrentItem(currentPage--, true);
-            }
-        };
+        final Runnable update = new StaticRunnable(this);
         task = new TimerTask() {
             @Override
             public void run() {
@@ -296,5 +299,27 @@ public class PlacesFragment extends BaseFragment
         intent.putExtra(AppContansts.INTENT_DATA, type);
         startActivity(intent);
     }
+
+    private static class StaticRunnable implements Runnable {
+        private WeakReference weakReference;
+
+        public StaticRunnable(BaseFragment fragment) {
+            weakReference = new WeakReference<>(fragment);
+        }
+
+        @Override
+        public void run() {
+            PlacesFragment fragment = (PlacesFragment) weakReference.get();
+            if (fragment != null) {
+                fragment.currentPage = fragment.viewpager.getCurrentItem() + 1;
+                if (fragment.currentPage == fragment.numPage) {
+                    fragment.currentPage = 0;
+                }
+                fragment.viewpager.setCurrentItem(fragment.currentPage--, true);
+            }
+
+        }
+    }
+
 
 }

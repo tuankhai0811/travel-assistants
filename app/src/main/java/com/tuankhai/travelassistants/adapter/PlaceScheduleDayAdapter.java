@@ -97,10 +97,12 @@ public class PlaceScheduleDayAdapter extends RecyclerView.Adapter<PlaceScheduleD
 //            }
 //        }
         if (item.photos != null && item.photos.length > 0) {
-            Glide.with(context)
-                    .load(RequestService.getImageAdapter(item.photos[0].photo_reference))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(holder.imageView);
+            if (context != null) {
+                Glide.with(context)
+                        .load(RequestService.getImageAdapter(item.photos[0].photo_reference))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(holder.imageView);
+            }
         } else {
             if (MyCache.getInstance().getBitmapFromMemCache(bg_place_global_4_3) == null) {
                 Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.bg_place_global_4_3);
