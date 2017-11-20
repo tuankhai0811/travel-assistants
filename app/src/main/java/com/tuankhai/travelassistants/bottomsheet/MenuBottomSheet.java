@@ -20,11 +20,12 @@ public class MenuBottomSheet extends BottomSheetDialogFragment {
 
     View delete, edit;
 
-    public MenuBottomSheet(OnItemMenuSheetBottomClickListener listener) {
-        this.mListener = listener;
+    public MenuBottomSheet() {
     }
 
-    public MenuBottomSheet() {
+    public MenuBottomSheet setListener(OnItemMenuSheetBottomClickListener listener) {
+        this.mListener = listener;
+        return this;
     }
 
     @Nullable

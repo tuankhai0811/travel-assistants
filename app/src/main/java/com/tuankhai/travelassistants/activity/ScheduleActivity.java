@@ -250,7 +250,7 @@ public class ScheduleActivity extends BaseActivity
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         schedule = arrSchedule.get(position);
-        new MenuBottomSheet(this).show(getSupportFragmentManager(), "MenuSheetBottomSchedule");
+        new MenuBottomSheet().setListener(this).show(getSupportFragmentManager(), "MenuSheetBottomSchedule");
         return true;
     }
 
