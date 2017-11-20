@@ -72,6 +72,7 @@ import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 import com.tuankhai.travelassistants.webservice.request.EditPlaceRequest;
 
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -201,7 +202,6 @@ public class DetailPlaceActivity extends BaseActivity
         initStaticMaps();
         initCollapsingToolbar();
         initSlider();
-        initSliderImage(data.arrImage);
         initDialogSchedule();
     }
 
@@ -640,7 +640,23 @@ public class DetailPlaceActivity extends BaseActivity
         super.onResume();
         findViewById(R.id.layout_static_maps).setOnClickListener(this);
         findViewById(R.id.layout_address).setOnClickListener(this);
+        initSliderImage(data.arrImage);
         refreshFavorite();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try {
+            timer.cancel();
+            timer.purge();
+            timer = null;
+            task.cancel();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            viewpager.setOnPageChangeListener(null);
+        }
     }
 
     private void addControlsPlaceGoogle() {
@@ -672,15 +688,7 @@ public class DetailPlaceActivity extends BaseActivity
         currentPage = 0;
         numPage = array.size();
         final Handler handler = new Handler();
-        final Runnable update = new Runnable() {
-            public void run() {
-                currentPage = viewpager.getCurrentItem() + 1;
-                if (currentPage == numPage) {
-                    currentPage = 0;
-                }
-                viewpager.setCurrentItem(currentPage++, true);
-            }
-        };
+        final Runnable update = new StaticRunnable(this);
         task = new TimerTask() {
             @Override
             public void run() {
@@ -1152,5 +1160,25 @@ public class DetailPlaceActivity extends BaseActivity
 
     public void addSchedulePlaceFailure() {
         Utils.showFaildToast(this, "Trùng thời gian với địa điểm khác");
+    }
+
+    private static class StaticRunnable implements Runnable {
+        private WeakReference weakReference;
+
+        public StaticRunnable(BaseActivity activity) {
+            weakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void run() {
+            DetailPlaceActivity activity = (DetailPlaceActivity) weakReference.get();
+            if (activity != null) {
+                activity.currentPage = activity.viewpager.getCurrentItem() + 1;
+                if (activity.currentPage == activity.numPage) {
+                    activity.currentPage = 0;
+                }
+                activity.viewpager.setCurrentItem(activity.currentPage--, true);
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ public class ListPlaceController {
     }
 
     public void getListPlace(String id) {
-        new RequestService().load(new FindPlaceByProvinceRequest("key", id), false, new MyCallback() {
+        new RequestService().load(new FindPlaceByProvinceRequest("key", id), true, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);
@@ -46,7 +46,7 @@ public class ListPlaceController {
     }
 
     public void getList(int type) {
-        new RequestService().load(new FindPlaceByTypeRequest("key", String.valueOf(type)), false, new MyCallback() {
+        new RequestService().load(new FindPlaceByTypeRequest("key", String.valueOf(type)), true, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);
@@ -71,7 +71,7 @@ public class ListPlaceController {
             mActivity.startActivity(intent);
             return;
         }
-        new RequestService().load(new GetFavoriteRequest("", mActivity.mUser.getEmail()), false, new MyCallback() {
+        new RequestService().load(new GetFavoriteRequest("", mActivity.mUser.getEmail()), true, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);

@@ -1,6 +1,6 @@
 package com.tuankhai.travelassistants.adapter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -29,16 +29,16 @@ import static com.tuankhai.travelassistants.utils.MyCache.bg_place_global_4_3;
  */
 
 public class PlaceScheduleDayAdapter extends RecyclerView.Adapter<PlaceScheduleDayAdapter.PlaceNearViewHolder> {
-    private Activity context;
+    private Context context;
     private List<AddScheduleDayDTO.ScheduleDay> arrPlace;
 
     private PlaceScheduleDayAdapter.LayoutListPlaceNearItemListener itemListener;
 
     public PlaceScheduleDayAdapter(
-            Activity context,
+            Context context,
             List<AddScheduleDayDTO.ScheduleDay> arrPlace,
             PlaceScheduleDayAdapter.LayoutListPlaceNearItemListener listener) {
-        this.context = context;
+        this.context = context.getApplicationContext();
         this.arrPlace = arrPlace;
         this.itemListener = listener;
     }
@@ -97,12 +97,10 @@ public class PlaceScheduleDayAdapter extends RecyclerView.Adapter<PlaceScheduleD
 //            }
 //        }
         if (item.photos != null && item.photos.length > 0) {
-            if (context != null) {
-                Glide.with(context)
-                        .load(RequestService.getImageAdapter(item.photos[0].photo_reference))
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(holder.imageView);
-            }
+            Glide.with(context)
+                    .load(RequestService.getImageAdapter(item.photos[0].photo_reference))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(holder.imageView);
         } else {
             if (MyCache.getInstance().getBitmapFromMemCache(bg_place_global_4_3) == null) {
                 Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.bg_place_global_4_3);

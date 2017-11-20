@@ -320,6 +320,4 @@ public class PlacesFragment extends BaseFragment
 
         }
     }
-
-
 }
