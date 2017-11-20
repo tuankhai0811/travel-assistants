@@ -88,6 +88,15 @@
 }
 
 #jackson
+-dontwarn com.fasterxml.**
+-dontwarn okio.**
+-keep class com.fasterxml.jackson.databind.ObjectMapper {
+    public <methods>;
+    protected <methods>;
+}
+-keep class com.fasterxml.jackson.databind.ObjectWriter {
+    public ** writeValueAsString(**);
+}
 
 #okhttp
 -dontwarn com.squareup.okhttp3.**
