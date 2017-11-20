@@ -93,7 +93,7 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
 
         @Override
         public void onClick(View view) {
-            itemListener.onProvinceClick(view, lists.get(getAdapterPosition()));
+            itemListener.onProvinceClick(txtName, lists.get(getAdapterPosition()));
         }
     }
 

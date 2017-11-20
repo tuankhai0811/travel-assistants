@@ -168,6 +168,12 @@ public class ListPlaceActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        supportFinishAfterTransition();
+    }
+
     private void getData() {
         switch (type) {
             case AppContansts.INTENT_TYPE_PROVINCE:

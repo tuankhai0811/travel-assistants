@@ -56,6 +56,8 @@ public class SliderPlaceAdapter extends PagerAdapter {
         String address = AppContansts.URL_IMAGE + data.places[position].id + AppContansts.IMAGE_RATIO_4_3;
         Glide.with(context)
                 .load(Uri.parse(address))
+                .override(context.getResources().getInteger(R.integer.width_4_3),
+                        context.getResources().getInteger(R.integer.height_4_3))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
         item.setOnClickListener(new View.OnClickListener() {

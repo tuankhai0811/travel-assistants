@@ -72,7 +72,6 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
         if (!Utils.isEmptyString(item.profile_photo_url)) {
             Glide.with(context)
                     .load(Uri.parse(item.profile_photo_url))
-                    .asBitmap()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(reviewHolder.imgView);
         } else {

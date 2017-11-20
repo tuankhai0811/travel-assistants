@@ -41,6 +41,7 @@ import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Timer;
@@ -253,6 +254,21 @@ public class DetailPlaceNearActivity extends BaseActivity
 //        findViewById(R.id.layout_address).setOnClickListener(this);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        try {
+            timer.cancel();
+            timer.purge();
+            timer = null;
+            task.cancel();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            viewpager.setOnPageChangeListener(null);
+        }
+    }
+
     private void addControlsPlaceGoogle() {
         ((TextView) findViewById(R.id.txt_rating_view)).setText(dataGoogle.getRating() + "");
         ratingBarView = (MaterialRatingBar) findViewById(R.id.ratingBarView);
@@ -277,15 +293,7 @@ public class DetailPlaceNearActivity extends BaseActivity
         currentPage = 0;
         numPage = arrayImage.size();
         final Handler handler = new Handler();
-        final Runnable update = new Runnable() {
-            public void run() {
-                currentPage = viewpager.getCurrentItem() + 1;
-                if (currentPage == numPage) {
-                    currentPage = 0;
-                }
-                viewpager.setCurrentItem(currentPage++, true);
-            }
-        };
+        final Runnable update = new StaticRunnable(this);
         task = new TimerTask() {
             @Override
             public void run() {
@@ -405,6 +413,26 @@ public class DetailPlaceNearActivity extends BaseActivity
                 Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + dataGoogle.formatted_phone_number));
                 startActivity(i);
                 break;
+        }
+    }
+
+    private static class StaticRunnable implements Runnable {
+        private WeakReference weakReference;
+
+        public StaticRunnable(BaseActivity activity) {
+            weakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void run() {
+            DetailPlaceNearActivity activity = (DetailPlaceNearActivity) weakReference.get();
+            if (activity != null) {
+                activity.currentPage = activity.viewpager.getCurrentItem() + 1;
+                if (activity.currentPage == activity.numPage) {
+                    activity.currentPage = 0;
+                }
+                activity.viewpager.setCurrentItem(activity.currentPage--, true);
+            }
         }
     }
 }

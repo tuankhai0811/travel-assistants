@@ -50,6 +50,8 @@ public class SliderImageAdapter extends PagerAdapter {
         imageView.setBackgroundColor(context.getResources().getColor(R.color.grey));
         Glide.with(context)
                 .load(arrImage.get(position))
+                .override(context.getResources().getInteger(R.integer.width_4_3),
+                        context.getResources().getInteger(R.integer.height_4_3))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
         view.addView(item, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

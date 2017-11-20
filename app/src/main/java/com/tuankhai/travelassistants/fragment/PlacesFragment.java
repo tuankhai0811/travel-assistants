@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -290,7 +292,10 @@ public class PlacesFragment extends BaseFragment
         Intent intent = new Intent(mActivity, ListPlaceActivity.class);
         intent.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_PROVINCE);
         intent.putExtra(AppContansts.INTENT_DATA, item);
-        startActivity(intent);
+        Pair<View, String> pair = Pair.create(view, "title");
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(mActivity, pair);
+        startActivity(intent, options.toBundle());
     }
 
     public void onTypeClick(View view, int type) {

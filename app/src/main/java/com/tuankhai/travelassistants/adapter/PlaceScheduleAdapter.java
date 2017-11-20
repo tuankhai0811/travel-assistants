@@ -153,6 +153,8 @@ public class PlaceScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
             if (item.photos != null && item.photos.length > 0) {
                 Glide.with(context)
                         .load(RequestService.getImageAdapter(item.photos[0].photo_reference))
+                        .override(context.getResources().getInteger(R.integer.width_16_9),
+                                context.getResources().getInteger(R.integer.height_16_9))
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(holder.imageView);
             } else {

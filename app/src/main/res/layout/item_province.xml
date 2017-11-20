@@ -27,13 +27,14 @@
             android:id="@+id/txt_item_name_province"
             android:layout_width="@dimen/width_layout_item_province"
             android:layout_height="@dimen/height_text_province"
-            android:gravity="center"
-            android:paddingRight="2dp"
-            android:paddingLeft="2dp"
             android:ellipsize="end"
+            android:gravity="center"
             android:maxLines="1"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
             android:text="Hồ Chí Minh Minh"
             android:textColor="@color/global_white"
-            android:textSize="@dimen/size_text_province" />
+            android:textSize="@dimen/size_text_province"
+            android:transitionName="title" />
     </LinearLayout>
 </LinearLayout>

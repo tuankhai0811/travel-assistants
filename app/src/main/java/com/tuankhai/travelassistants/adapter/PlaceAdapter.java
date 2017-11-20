@@ -56,6 +56,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         placeViewHolder.txtName.setText(item.long_name);
         Glide.with(context)
                 .load(url)
+                .override(context.getResources().getInteger(R.integer.width_16_9),
+                        context.getResources().getInteger(R.integer.height_16_9))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(placeViewHolder.imageView);
     }

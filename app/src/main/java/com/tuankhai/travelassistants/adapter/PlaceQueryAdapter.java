@@ -56,6 +56,8 @@ public class PlaceQueryAdapter extends RecyclerView.Adapter<PlaceQueryAdapter.Pl
         placeViewHolder.ratingBar.setRating(item.getRating());
         Glide.with(context)
                 .load(url)
+                .override(context.getResources().getInteger(R.integer.width_thumb),
+                        context.getResources().getInteger(R.integer.height_thumb))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.bg_place_global_16_10)
                 .into(placeViewHolder.imageView);

@@ -70,6 +70,8 @@ public class SchedulePlaceAdapter extends RecyclerView.Adapter<SchedulePlaceAdap
         String url = AppContansts.URL_IMAGE + item.id_place + AppContansts.IMAGE_RATIO_16_9;
         Glide.with(mContext)
                 .load(url)
+                .override(mContext.getResources().getInteger(R.integer.width_16_9),
+                        mContext.getResources().getInteger(R.integer.height_16_9))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.imgPlace);
     }

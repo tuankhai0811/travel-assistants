@@ -206,6 +206,8 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
         viewHolder.ratingBar.setRating(Float.parseFloat(item.rating));
         Glide.with(context)
                 .load(url)
+                .override(context.getResources().getInteger(R.integer.width_16_9),
+                        context.getResources().getInteger(R.integer.height_16_9))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.imageView);
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
