@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -114,19 +115,16 @@ public class LoginActivity extends BaseActivity implements
             public void onSuccess(LoginResult loginResult) {
                 logError("facebook: onSuccess", loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                // App code
             }
 
             @Override
             public void onCancel() {
                 logError("facebook: onCancel");
-                // App code
             }
 
             @Override
             public void onError(FacebookException exception) {
-                logError("facebook: onSuccess", exception);
-                // App code
+                logError("facebook: onErr", exception.toString());
             }
         });
     }
@@ -147,7 +145,6 @@ public class LoginActivity extends BaseActivity implements
 
     private void handleFacebookAccessToken(AccessToken token) {
         logError("handleFacebookAccessToken", token);
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -214,11 +211,14 @@ public class LoginActivity extends BaseActivity implements
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == RC_SIGN_IN) {
+                Log.e("status", "result OK");
                 GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
                 if (result.isSuccess()) {
+                    Log.e("status", "result success");
                     GoogleSignInAccount account = result.getSignInAccount();
                     firebaseAuthWithGoogle(account);
                 } else {
+                    Log.e("status", "result error");
                     updateUI(null);
                 }
             } else {
@@ -226,6 +226,7 @@ public class LoginActivity extends BaseActivity implements
                 mCallbackManager.onActivityResult(requestCode, resultCode, data);
             }
         } else {
+            Log.e("status", "result ERR");
             hideProgressDialog();
         }
     }
