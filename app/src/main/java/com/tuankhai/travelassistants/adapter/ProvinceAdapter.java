@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.tuankhai.travelassistants.library.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.webservice.DTO.ProvinceDTO;
 
@@ -56,14 +55,15 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
     @Override
     public ProvinceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new ProvinceViewHolder(
-                MaterialRippleLayout.on(inflater.inflate(R.layout.item_province, parent, false))
-                        .rippleOverlay(true)
-                        .rippleAlpha(0.05f)
-                        .rippleColor(R.integer.rippleColor)
-                        .rippleHover(true)
-                        .create()
-        );
+        return new ProvinceViewHolder(inflater.inflate(R.layout.item_province, null));
+//        return new ProvinceViewHolder(
+//                MaterialRippleLayout.on(inflater.inflate(R.layout.item_province, parent, false))
+//                        .rippleOverlay(true)
+//                        .rippleAlpha(0.05f)
+//                        .rippleColor(R.integer.rippleColor)
+//                        .rippleHover(true)
+//                        .create()
+//        );
     }
 
     @Override

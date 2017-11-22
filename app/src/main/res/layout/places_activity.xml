@@ -90,6 +90,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/height_divider_view_2"
                         android:layout_weight="1"
+                        android:clickable="true"
+                        android:foreground="@drawable/ripple"
                         android:orientation="horizontal">
 
                         <RelativeLayout
@@ -127,6 +129,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/height_divider_view_2"
                         android:layout_weight="1"
+                        android:clickable="true"
+                        android:foreground="@drawable/ripple"
                         android:orientation="vertical">
 
                         <RelativeLayout
@@ -176,6 +180,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/height_divider_view_2"
                         android:layout_weight="1"
+                        android:clickable="true"
+                        android:foreground="@drawable/ripple"
                         android:orientation="vertical">
 
                         <RelativeLayout
@@ -213,6 +219,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/height_divider_view_2"
                         android:layout_weight="1"
+                        android:clickable="true"
+                        android:foreground="@drawable/ripple"
                         android:orientation="vertical">
 
                         <RelativeLayout

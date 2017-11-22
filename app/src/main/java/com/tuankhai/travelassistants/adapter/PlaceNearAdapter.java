@@ -12,9 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar;
-import com.tuankhai.travelassistants.library.ripple.MaterialRippleLayout;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar;
 import com.tuankhai.travelassistants.utils.MyCache;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceNearDTO;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
@@ -42,14 +41,15 @@ public class PlaceNearAdapter extends RecyclerView.Adapter<PlaceNearAdapter.Plac
     @Override
     public PlaceNearViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        return new PlaceNearViewHolder(
-                MaterialRippleLayout.on(inflater.inflate(R.layout.item_place_near, viewGroup, false))
-                        .rippleOverlay(true)
-                        .rippleAlpha(0.2f)
-                        .rippleColor(R.integer.rippleColor)
-                        .rippleHover(true)
-                        .create()
-        );
+        return new PlaceNearViewHolder(inflater.inflate(R.layout.item_place_near, null));
+//        return new PlaceNearViewHolder(
+//                MaterialRippleLayout.on(inflater.inflate(R.layout.item_place_near, viewGroup, false))
+//                        .rippleOverlay(true)
+//                        .rippleAlpha(0.2f)
+//                        .rippleColor(R.integer.rippleColor)
+//                        .rippleHover(true)
+//                        .create()
+//        );
     }
 
     @Override

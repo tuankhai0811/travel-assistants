@@ -34,7 +34,6 @@ public class ScheduleDetailActivity extends BaseActivity implements PlaceSchedul
 
     private ScheduleDetailController mController;
     private Toolbar toolbar;
-    private SliderConfig mConfig;
 
     private DetailPlaceDTO placeDTO;
     private PlaceNearDTO placeNearRestaurentDTO, placeNearHotelDTO;
@@ -76,7 +75,7 @@ public class ScheduleDetailActivity extends BaseActivity implements PlaceSchedul
     }
 
     private void initSlider() {
-        mConfig = new SliderConfig.Builder()
+        SliderConfig mConfig = new SliderConfig.Builder()
                 .primaryColor(getResources().getColor(R.color.colorPrimary))
                 .secondaryColor(getResources().getColor(R.color.colorPrimary))
                 .position(SliderPosition.LEFT)

@@ -35,6 +35,7 @@
             android:hardwareAccelerated="false"
             android:largeHeap="true"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SplashScreenActivity"
@@ -51,41 +52,50 @@
             android:hardwareAccelerated="true"
             android:largeHeap="false"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Slider.Sliderable.ListPlace" />
         <activity
             android:name=".activity.DetailPlaceActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.ListPlaceNearActivity"
             android:hardwareAccelerated="true"
             android:largeHeap="false"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Slider.Sliderable.ListPlaceNear" />
         <activity
             android:name=".activity.MapsActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarMaps" />
         <activity
             android:name=".activity.DetailPlaceNearActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.ScheduleActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.SchedulePlaceActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.ScheduleDetailActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Slider.Sliderable" />
 
         <activity
@@ -93,6 +103,7 @@
             android:hardwareAccelerated="true"
             android:largeHeap="false"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Slider.Sliderable.ListPlaceNear" />
 
         <!-- [START firebase_service] -->

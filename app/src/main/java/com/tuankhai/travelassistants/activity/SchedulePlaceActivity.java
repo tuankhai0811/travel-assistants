@@ -43,7 +43,6 @@ public class SchedulePlaceActivity extends BaseActivity implements SchedulePlace
 
     private SchedulePlaceController mController;
     private Toolbar toolbar;
-    private SliderConfig mConfig;
     private RecyclerView lvSchedule;
     private SchedulePlaceAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -192,7 +191,7 @@ public class SchedulePlaceActivity extends BaseActivity implements SchedulePlace
     }
 
     private void initSlider() {
-        mConfig = new SliderConfig.Builder()
+        SliderConfig mConfig = new SliderConfig.Builder()
                 .primaryColor(getResources().getColor(R.color.colorPrimary))
                 .secondaryColor(getResources().getColor(R.color.colorPrimary))
                 .position(SliderPosition.LEFT)
@@ -222,13 +221,10 @@ public class SchedulePlaceActivity extends BaseActivity implements SchedulePlace
                 toDate.set(Calendar.MINUTE, 59);
                 toDate.set(Calendar.SECOND, 59);
                 txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
-                Log.e("status", year + "-" + month + " - " + dayOfMonth);
-                Log.e("status", toDate.getTime() + "-" + current.getTime());
                 if (toDate.getTimeInMillis() < schedule.getStart().getTime() || toDate.getTimeInMillis() > schedule.getEnd().getTime()) {
                     txtToDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(getApplicationContext(), "Không thể chọn ngày ngoài lịch trình đã chọn!");
                 } else if (fromDate.getTimeInMillis() >= toDate.getTimeInMillis()) {
-                    Log.e("status", fromDate.getTimeInMillis() + "-" + toDate.getTimeInMillis());
                     txtToDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(getApplicationContext(), "Ngày kết thúc phải sau ngày bắt đầu!");
                 } else {
@@ -254,8 +250,6 @@ public class SchedulePlaceActivity extends BaseActivity implements SchedulePlace
                 fromDate.set(Calendar.MINUTE, 0);
                 fromDate.set(Calendar.SECOND, 0);
                 txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
-                Log.e("status", year + "-" + month + " - " + dayOfMonth);
-                Log.e("status", fromDate.getTimeInMillis() + "-" + schedule.getStart().getTime());
                 if (fromDate.getTimeInMillis() < schedule.getStart().getTime() || fromDate.getTimeInMillis() > schedule.getEnd().getTime()) {
                     txtFromDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(getApplicationContext(), "Không thể chọn ngày ngoài lịch trình đã chọn!");

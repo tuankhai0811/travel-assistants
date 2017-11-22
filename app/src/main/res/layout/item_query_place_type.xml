@@ -2,7 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="@drawable/ripple">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,8 +53,8 @@
                     android:textSize="@dimen/size_18sp" />
 
                 <TextView
-                    fontPath="@string/font_boto_light_italic"
                     android:id="@+id/txt_name_province"
+                    fontPath="@string/font_boto_light_italic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
@@ -78,12 +80,4 @@
 
         </LinearLayout>
     </LinearLayout>
-
-    <View
-        android:id="@+id/layout_item_place_result"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_100dp"
-        android:background="@drawable/bg_item_place_result_selector"
-        android:focusable="true" />
-
 </FrameLayout>

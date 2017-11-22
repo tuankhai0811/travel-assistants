@@ -221,7 +221,8 @@ public class PlaceNearListAdapter extends RecyclerView.Adapter<RecyclerView.View
             txtDistance = itemView.findViewById(R.id.txt_distance);
             imageView = itemView.findViewById(R.id.img_place);
             ratingBar = itemView.findViewById(R.id.ratingBar);
-            itemView.setOnClickListener(this);
+//            itemView.setOnClickListener(this);
+            itemView.findViewById(R.id.layout).setOnClickListener(this);
         }
 
         @Override

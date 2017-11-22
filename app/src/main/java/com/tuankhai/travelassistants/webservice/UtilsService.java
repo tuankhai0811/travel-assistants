@@ -2,6 +2,7 @@ package com.tuankhai.travelassistants.webservice;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.view.Window;
 
 import com.tuankhai.travelassistants.R;
@@ -24,6 +25,11 @@ public class UtilsService {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
         return dialog;
+    }
+
+    public boolean isNetworkAvailable(Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
 }

@@ -12,15 +12,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseUser;
-import com.tuankhai.travelassistants.library.likebutton.LikeButton;
-import com.tuankhai.travelassistants.library.likebutton.OnLikeListener;
-import com.tuankhai.travelassistants.library.swipelayout.SimpleSwipeListener;
-import com.tuankhai.travelassistants.library.swipelayout.SwipeLayout;
-import com.tuankhai.travelassistants.library.swipelayout.adapter.RecyclerSwipeAdapter;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.ListPlaceActivity;
 import com.tuankhai.travelassistants.activity.LoginActivity;
+import com.tuankhai.travelassistants.library.likebutton.LikeButton;
+import com.tuankhai.travelassistants.library.likebutton.OnLikeListener;
 import com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar;
+import com.tuankhai.travelassistants.library.swipelayout.SimpleSwipeListener;
+import com.tuankhai.travelassistants.library.swipelayout.SwipeLayout;
+import com.tuankhai.travelassistants.library.swipelayout.adapter.RecyclerSwipeAdapter;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.webservice.DTO.CheckerDTO;
 import com.tuankhai.travelassistants.webservice.DTO.FavoriteDTO;
@@ -62,7 +62,7 @@ public class PlaceAdapterSwipe extends RecyclerSwipeAdapter<PlaceAdapterSwipe.Pl
             ratingBar.setStepSize(0.1f);
             likeButton = itemView.findViewById(R.id.heart_button);
             likeButton.setOnLikeListener(this);
-            itemView.setOnClickListener(this);
+            itemView.findViewById(R.id.layout).setOnClickListener(this);
             swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
                 @Override
                 public void onDoubleClick(SwipeLayout layout, boolean surface) {

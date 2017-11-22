@@ -11,6 +11,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.net.ConnectivityManager;
 import android.util.Base64;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -45,6 +46,11 @@ public class Utils {
         return getObjectMapper().readValue(data, valueType);
     }
 
+    public static boolean isNetworkAvailable(Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
     public static ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT);
@@ -57,7 +63,7 @@ public class Utils {
         return (int) (Runtime.getRuntime().maxMemory() / 1024);
     }
 
-    public static int getAnimDialog(Context context){
+    public static int getAnimDialog(Context context) {
         return R.style.ZoomDialog;
     }
 

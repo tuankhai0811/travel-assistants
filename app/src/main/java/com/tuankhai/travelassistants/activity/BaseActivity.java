@@ -7,11 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.utils.Utils;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -42,6 +44,9 @@ public class BaseActivity extends AppCompatActivity {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+        if (!Utils.isNetworkAvailable(getApplicationContext())) {
+            Toast.makeText(this, "Vui lòng bật kết nối internet!", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -79,7 +84,7 @@ public class BaseActivity extends AppCompatActivity {
         Log.e(mTAG, tag + ": " + new Gson().toJson(object));
     }
 
-    public void goTo(Intent intent){
+    public void goTo(Intent intent) {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }

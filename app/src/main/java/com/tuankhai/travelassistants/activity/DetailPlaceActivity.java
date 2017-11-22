@@ -655,6 +655,7 @@ public class DetailPlaceActivity extends BaseActivity
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            if (viewpager == null) return;
             viewpager.setOnPageChangeListener(null);
         }
     }

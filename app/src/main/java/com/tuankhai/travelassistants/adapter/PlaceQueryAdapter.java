@@ -80,12 +80,11 @@ public class PlaceQueryAdapter extends RecyclerView.Adapter<PlaceQueryAdapter.Pl
             txtProvince = itemView.findViewById(R.id.txt_name_province);
             imageView = itemView.findViewById(R.id.img_place);
             ratingBar = itemView.findViewById(R.id.ratingBar);
-            layout = itemView.findViewById(R.id.layout_item_place_result);
             ratingBar.invalidate();
             ratingBar.setMax(5);
             ratingBar.setNumStars(5);
             ratingBar.setStepSize(0.1f);
-            layout.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override

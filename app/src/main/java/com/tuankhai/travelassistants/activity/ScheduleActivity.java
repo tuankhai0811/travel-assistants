@@ -51,7 +51,6 @@ public class ScheduleActivity extends BaseActivity
     ScheduleController mController;
 
     private Toolbar toolbar;
-    private SliderConfig mConfig;
     //FloatingActionButton fab;
     private SwipeRefreshLayout refreshLayout;
 
@@ -85,10 +84,6 @@ public class ScheduleActivity extends BaseActivity
 
         addControls();
         addEvents();
-
-//        RelativeLayout bottomSheetLayout = (RelativeLayout) findViewById(R.id.layout_bottom_sheet);
-//        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
-//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     @Override
@@ -134,12 +129,12 @@ public class ScheduleActivity extends BaseActivity
         Collections.sort(list);
         arrSchedule.clear();
         arrSchedule.addAll(list);
-        mAdapter = new ScheduleAdapter(this, arrSchedule);
+        mAdapter = new ScheduleAdapter(getApplicationContext(), arrSchedule);
         lvSchedule.setAdapter(mAdapter);
     }
 
     private void initSlider() {
-        mConfig = new SliderConfig.Builder()
+        SliderConfig mConfig = new SliderConfig.Builder()
                 .primaryColor(getResources().getColor(R.color.colorPrimary))
                 .secondaryColor(getResources().getColor(R.color.colorPrimary))
                 .position(SliderPosition.LEFT)
@@ -156,12 +151,6 @@ public class ScheduleActivity extends BaseActivity
     }
 
     private void addEvents() {
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dialogAddNew.show();
-//            }
-//        });
         refreshLayout.setOnRefreshListener(this);
 
         //Dialog new
@@ -193,7 +182,6 @@ public class ScheduleActivity extends BaseActivity
     private void addControls() {
         mController = new ScheduleController(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        fab = (FloatingActionButton) findViewById(fab);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -384,8 +372,6 @@ public class ScheduleActivity extends BaseActivity
                 fromDate.set(Calendar.MINUTE, 0);
                 fromDate.set(Calendar.SECOND, 0);
                 txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
-                Log.e("status", year + "-" + month + " - " + dayOfMonth);
-                Log.e("status", fromDate.getTimeInMillis() + "-" + current.getTimeInMillis());
                 if (fromDate.getTimeInMillis() < current.getTimeInMillis()) {
                     txtFromDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(ScheduleActivity.this, "Không thể tạo lịch trình trong quá khứ!");

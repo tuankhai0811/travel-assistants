@@ -56,7 +56,6 @@ public class DetailPlaceNearActivity extends BaseActivity
     private PlaceGoogleDTO.Result dataGoogle;
     private LatLng location;
     private Toolbar toolbar;
-    private SliderConfig mConfig;
 
     //Slider Image
     private SliderImageAdapter adapterImage;
@@ -99,7 +98,6 @@ public class DetailPlaceNearActivity extends BaseActivity
         }
         setContentView(R.layout.activity_detail_place_near);
         initSlider();
-
         getData();
         initCollapsingToolbar();
     }
@@ -377,7 +375,7 @@ public class DetailPlaceNearActivity extends BaseActivity
     }
 
     private void initSlider() {
-        mConfig = new SliderConfig.Builder()
+        SliderConfig mConfig = new SliderConfig.Builder()
                 .primaryColor(getResources().getColor(R.color.colorPrimary))
                 .secondaryColor(getResources().getColor(R.color.colorPrimary))
                 .position(SliderPosition.LEFT)

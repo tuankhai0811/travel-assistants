@@ -2,8 +2,6 @@
 <resources>
     <color name="colorPrimary">#03A9F4</color>
     <color name="colorPrimaryDark">#03A9F4</color>
-    <!--<color name="colorPrimaryDark">#0288D1</color>-->
-    <!--<color name="colorAccent">#4CAF50</color>-->
     <color name="colorAccent">#03A9F4</color>
 
     <color name="random_1">#EF5350</color>
@@ -79,4 +77,8 @@
     <color name="grey_dilivers">#e2e2e2</color>
     <color name="grey_progressbar">#838383</color>
     <color name="color_selector">#33000000</color>
+
+    //ripple
+    <color name="color_ripple_2">#FFDDDDDD</color>
+    <color name="color_ripple">#ae898989</color>
 </resources>

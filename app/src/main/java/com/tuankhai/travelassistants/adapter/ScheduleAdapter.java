@@ -147,9 +147,9 @@ public class ScheduleAdapter extends BaseAdapter implements
         if (view == null) {
             holder = new ViewHolder();
             view = mInflater.inflate(R.layout.item_schedule_layout, viewGroup, false);
-            holder.txtName = (TextView) view.findViewById(R.id.txtName);
-            holder.txtDate = (TextView) view.findViewById(R.id.txtDate);
-            holder.txtPlace = (TextView) view.findViewById(R.id.txtPlace);
+            holder.txtName = view.findViewById(R.id.txtName);
+            holder.txtDate = view.findViewById(R.id.txtDate);
+            holder.txtPlace = view.findViewById(R.id.txtPlace);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
