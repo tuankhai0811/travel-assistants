@@ -70,5 +70,6 @@
 
     <string name="read_more">mở rộng</string>
     <string name="read_less">đóng lại</string>
+    <string name="txt_title_activity_about">About</string>
 
 </resources>
