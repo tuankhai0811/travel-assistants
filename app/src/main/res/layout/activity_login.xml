@@ -49,6 +49,7 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="TextView"
+                android:textColor="@color/colorPrimary"
                 android:textSize="22sp" />
         </LinearLayout>
 

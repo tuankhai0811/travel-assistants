@@ -144,23 +144,22 @@ public class LoginActivity extends BaseActivity implements
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-        logError("handleFacebookAccessToken", token);
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            logError("signInWithCredential: success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            hideProgressDialog();
                         } else {
                             logError("signInWithCredential: failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed!",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
+                            hideProgressDialog();
                         }
-                        hideProgressDialog();
                     }
                 });
     }
@@ -193,7 +192,7 @@ public class LoginActivity extends BaseActivity implements
         btnSignInF.setOnClickListener(this);
         btnSignInG.setOnClickListener(this);
 
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this, R.style.ProgressDialog);
         progressDialog.setMessage("Sign in...");
     }
 
@@ -210,24 +209,21 @@ public class LoginActivity extends BaseActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            showProgressDialog();
             if (requestCode == RC_SIGN_IN) {
-                Log.e("status", "result OK");
                 GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
                 if (result.isSuccess()) {
-                    Log.e("status", "result success");
                     GoogleSignInAccount account = result.getSignInAccount();
                     firebaseAuthWithGoogle(account);
                 } else {
-                    Log.e("status", "result error");
                     updateUI(null);
+                    hideProgressDialog();
                 }
             } else {
-                showProgressDialog();
                 mCallbackManager.onActivityResult(requestCode, resultCode, data);
             }
         } else {
             Log.e("status", "result ERR");
-            hideProgressDialog();
         }
     }
 
@@ -244,13 +240,14 @@ public class LoginActivity extends BaseActivity implements
                             logError("signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            hideProgressDialog();
                         } else {
                             logError("signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
+                            hideProgressDialog();
                         }
-                        hideProgressDialog();
                     }
                 });
     }
@@ -273,6 +270,7 @@ public class LoginActivity extends BaseActivity implements
                     public void onResult(@NonNull Status status) {
                         if (status.isSuccess()) {
                             updateUI(null);
+                            hideProgressDialog();
                         }
                     }
                 });
@@ -285,6 +283,7 @@ public class LoginActivity extends BaseActivity implements
                     @Override
                     public void onResult(@NonNull Status status) {
                         updateUI(null);
+                        hideProgressDialog();
                     }
                 });
     }
@@ -293,7 +292,6 @@ public class LoginActivity extends BaseActivity implements
         if (user != null) {
             txtName.setText(user.getDisplayName());
             Glide.with(this).load(user.getPhotoUrl()).into(imgPhoto);
-//            Log.e("status", user.getPhoneNumber());
             layoutUser.setVisibility(View.VISIBLE);
             layoutLogo.setVisibility(View.GONE);
             layoutSignout.setVisibility(View.VISIBLE);
@@ -310,13 +308,13 @@ public class LoginActivity extends BaseActivity implements
                         @Override
                         public void onSuccess(Object response) {
                             super.onSuccess(response);
-                            hideProgressDialog();
+//                            hideProgressDialog();
                         }
 
                         @Override
                         public void onFailure(Object error) {
                             super.onFailure(error);
-                            hideProgressDialog();
+//                            hideProgressDialog();
                         }
                     }, UserDTO.class);
             switch (request_code) {
@@ -334,7 +332,6 @@ public class LoginActivity extends BaseActivity implements
             layoutUser.setVisibility(View.GONE);
             layoutSignout.setVisibility(View.GONE);
             layoutSignin.setVisibility(View.VISIBLE);
-            hideProgressDialog();
         }
     }
 

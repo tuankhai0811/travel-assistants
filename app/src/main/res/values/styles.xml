@@ -9,6 +9,12 @@
         <item name="fontPath">@string/font_boto_light</item>
     </style>
 
+    <style name="ProgressDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/global_black</item>
+        <item name="android:background">@color/global_white</item>
+    </style>
+
     <style name="ZoomDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
     </style>

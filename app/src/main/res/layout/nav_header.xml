@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="190dp"
     android:background="@color/colorPrimaryDark"
+    android:clickable="true"
+    android:foreground="@drawable/ripple"
     android:orientation="vertical">
 
     <FrameLayout
@@ -53,8 +55,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="5dp"
-            android:textColor="@color/global_white"
             android:text="TextView"
+            android:textColor="@color/global_white"
             android:textSize="22sp" />
     </LinearLayout>
 </LinearLayout>
