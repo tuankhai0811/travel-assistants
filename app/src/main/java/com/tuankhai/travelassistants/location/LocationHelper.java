@@ -241,7 +241,7 @@ public class LocationHelper implements PermissionUtils.PermissionResultCallback 
     }
 
     /**
-     * Handles the activity results
+     * Handles the activities results
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {

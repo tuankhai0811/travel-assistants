@@ -63,7 +63,7 @@ public class SliderConfig {
     }
 
     /**
-     * Get teh start alpha value for when the activity is not swiped at all
+     * Get teh start alpha value for when the activities is not swiped at all
      *
      * @return      the start alpha value (0.0 to 1.0)
      */
@@ -72,7 +72,7 @@ public class SliderConfig {
     }
 
     /**
-     * Get the end alpha value for when the user almost swipes the activity off the screen
+     * Get the end alpha value for when the user almost swipes the activities off the screen
      *
      * @return      the end alpha value (0.0 to 1.0)
      */
@@ -82,7 +82,7 @@ public class SliderConfig {
 
     /**
      * Get the position of the slidable mechanism for this configuration. This is the position on
-     * the screen that the user can swipe the activity away from
+     * the screen that the user can swipe the activities away from
      *
      * @return      the slider position
      */
@@ -111,7 +111,7 @@ public class SliderConfig {
     }
 
     /**
-     * Get at what % of the screen is the minimum viable distance the activity has to be dragged
+     * Get at what % of the screen is the minimum viable distance the activities has to be dragged
      * in-order to be slinged off the screen
      *
      * @return      the distant threshold as a percentage of the screen size (width or height)

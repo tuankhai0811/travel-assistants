@@ -97,7 +97,6 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Slider.Sliderable" />
-
         <activity
             android:name=".activity.ListPlaceScheduleActivity"
             android:hardwareAccelerated="true"
@@ -120,6 +119,7 @@
             </intent-filter>
         </service>
         <!-- [END firebase_iid_service] -->
+        <activity android:name=".activity.AboutActivity"></activity>
     </application>
 
 </manifest>

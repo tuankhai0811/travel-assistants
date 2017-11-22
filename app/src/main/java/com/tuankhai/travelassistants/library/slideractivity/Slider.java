@@ -14,7 +14,7 @@ import com.tuankhai.travelassistants.library.slideractivity.widget.SliderPanel;
 
 /**
  * This attacher class is used to attach the sliding mechanism to any {@link android.app.Activity}
- * that lets the user slide (or swipe) the activity away as a form of back or up action. The action
+ * that lets the user slide (or swipe) the activities away as a form of back or up action. The action
  * causes {@link android.app.Activity#finish()} to be called.
  *
  *

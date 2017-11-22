@@ -13,7 +13,6 @@ import com.tuankhai.travelassistants.webservice.request.GetAllScheduleRequest;
 
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by tuank on 22/10/2017.

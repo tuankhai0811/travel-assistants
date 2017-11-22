@@ -291,10 +291,13 @@ public class MainActivity extends BaseActivity
                 startActivity(intentFavorite);
                 break;
             case R.id.logout:
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
+                Intent intentLogin = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intentLogin);
                 break;
-
+            case R.id.about:
+                Intent intentAbount = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(intentAbount);
+                break;
         }
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
