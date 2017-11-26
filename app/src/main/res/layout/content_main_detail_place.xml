@@ -32,8 +32,8 @@
                 <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
-                <!--android:paddingLeft="@dimen/padding_10dp"-->
-                <!--android:paddingTop="@dimen/padding_10dp"-->
+                <!--android:paddingLeft="@diparams_10dp10dp"-->
+                <!--android:paddingTop="@diparams_10dp10dp"-->
                 <!--android:text="@string/rating"-->
                 <!--android:textAllCaps="false"-->
                 <!--android:textColor="@color/grey"-->
@@ -45,9 +45,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingBottom="@dimen/padding_10dp"
-                    android:paddingLeft="@dimen/padding_10dp"
-                    android:paddingTop="@dimen/padding_15dp">
+                    android:paddingBottom="@dimen/params_10dp"
+                    android:paddingLeft="@dimen/params_10dp"
+                    android:paddingTop="@dimen/params_15dp">
 
                     <com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar
                         android:id="@+id/ratingBar"
@@ -85,7 +85,7 @@
                     fontPath="@string/font_boto_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/padding_10dp"
+                    android:paddingLeft="@dimen/params_10dp"
                     android:text="Mô tả"
                     android:textAllCaps="false"
                     android:textColor="@color/grey"
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.02"
                     android:lineSpacingExtra="@dimen/padding_7dp"
-                    android:padding="@dimen/padding_10dp"
+                    android:padding="@dimen/params_10dp"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/size_16sp"
                     app:colorClickableText="@color/colorPrimary"
@@ -109,8 +109,8 @@
                 fontPath="@string/font_boto_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding_10dp"
-                android:paddingLeft="@dimen/padding_10dp"
+                android:paddingBottom="@dimen/params_10dp"
+                android:paddingLeft="@dimen/params_10dp"
                 android:text="@string/information"
                 android:textAllCaps="false"
                 android:textColor="@color/grey"
@@ -144,7 +144,7 @@
                 <!--android:layout_width="@dimen/width_80dp"-->
                 <!--android:layout_height="@dimen/height_30dp"-->
                 <!--android:layout_gravity="left|bottom"-->
-                <!--android:padding="@dimen/padding_5dp"-->
+                <!--android:padding="@diparams_5dp_5dp"-->
                 <!--android:scaleType="fitCenter"-->
                 <!--app:srcCompat="@drawable/logo_google" />-->
 
@@ -152,7 +152,7 @@
                 <!--android:layout_width="@dimen/width_40dp"-->
                 <!--android:layout_height="@dimen/height_40dp"-->
                 <!--android:layout_gravity="right|top"-->
-                <!--android:layout_margin="@dimen/margin_10dp"-->
+                <!--android:layout_margin="@diparams_10dp10dp"-->
                 <!--android:scaleType="fitCenter"-->
                 <!--app:srcCompat="@drawable/ic_gps" />-->
                 <!--</FrameLayout>-->
@@ -188,9 +188,9 @@
                         android:foreground="@drawable/ripple"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingBottom="@dimen/padding_15dp"
-                        android:paddingLeft="@dimen/padding_10dp"
-                        android:paddingTop="@dimen/padding_15dp">
+                        android:paddingBottom="@dimen/params_15dp"
+                        android:paddingLeft="@dimen/params_10dp"
+                        android:paddingTop="@dimen/params_15dp">
 
                         <ImageView
                             android:id="@+id/imageAddress"
@@ -204,8 +204,8 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:paddingLeft="@dimen/padding_10dp"
-                            android:paddingRight="@dimen/padding_10dp"
+                            android:paddingLeft="@dimen/params_10dp"
+                            android:paddingRight="@dimen/params_10dp"
                             android:text=""
                             android:textAllCaps="false"
                             android:textColor="@color/grey"
@@ -233,9 +233,9 @@
                         android:foreground="@drawable/ripple"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingBottom="@dimen/padding_15dp"
-                        android:paddingLeft="@dimen/padding_10dp"
-                        android:paddingTop="@dimen/padding_15dp">
+                        android:paddingBottom="@dimen/params_15dp"
+                        android:paddingLeft="@dimen/params_10dp"
+                        android:paddingTop="@dimen/params_15dp">
 
                         <ImageView
                             android:id="@+id/imageView"
@@ -249,7 +249,8 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:paddingLeft="@dimen/padding_10dp"
+                            android:paddingLeft="@dimen/params_10dp"
+                            android:paddingRight="@dimen/params_10dp"
                             android:text="http://news.zing.vn"
                             android:textAllCaps="false"
                             android:textColor="@color/colorPrimary"
@@ -277,9 +278,9 @@
                         android:foreground="@drawable/ripple"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingBottom="@dimen/padding_15dp"
-                        android:paddingLeft="@dimen/padding_10dp"
-                        android:paddingTop="@dimen/padding_15dp">
+                        android:paddingBottom="@dimen/params_15dp"
+                        android:paddingLeft="@dimen/params_10dp"
+                        android:paddingTop="@dimen/params_15dp">
 
                         <ImageView
                             android:layout_width="@dimen/height_24dp"
@@ -292,7 +293,7 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:paddingLeft="@dimen/padding_10dp"
+                            android:paddingLeft="@dimen/params_10dp"
                             android:text="+84987075305"
                             android:textAllCaps="false"
                             android:textColor="@color/colorPrimary"
@@ -319,53 +320,49 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_layout_detail">
+                    android:paddingLeft="@dimen/params_10dp"
+                    android:paddingRight="@dimen/params_10dp">
 
                     <TextView
                         fontPath="@string/font_boto_bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:paddingBottom="@dimen/params_10dp"
+                        android:paddingTop="@dimen/params_10dp"
                         android:text="@string/top_restaurent"
                         android:textAllCaps="false"
                         android:textColor="@color/grey"
                         android:textSize="@dimen/size_16sp" />
 
-                    <com.tuankhai.travelassistants.library.ripple.MaterialRippleLayout
+                    <LinearLayout
                         android:id="@+id/layout_more_food"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
-                        android:paddingLeft="3dp"
-                        android:paddingRight="3dp"
-                        app:kt_rippleColor="@color/grey_30"
-                        app:kt_rippleDuration="10"
-                        app:kt_rippleHover="true">
+                        android:layout_centerVertical="true"
+                        android:clickable="true"
+                        android:foreground="@drawable/ripple"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/params_5dp">
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:paddingRight="2dp"
+                            android:text="@string/view_all"
+                            android:textAllCaps="false"
+                            android:textColor="@color/grey"
+                            android:textSize="16sp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingRight="2dp"
-                                android:text="@string/view_all"
-                                android:textAllCaps="false"
-                                android:textColor="@color/grey"
-                                android:textSize="16sp" />
-
-                            <ImageView
-                                android:layout_width="12dp"
-                                android:layout_height="fill_parent"
-                                android:layout_gravity="center"
-                                android:paddingTop="1dp"
-                                app:srcCompat="@drawable/ic_arrow_button" />
-                        </LinearLayout>
-                    </com.tuankhai.travelassistants.library.ripple.MaterialRippleLayout>
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center"
+                            android:paddingTop="1dp"
+                            app:srcCompat="@drawable/ic_arrow_button" />
+                    </LinearLayout>
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
@@ -384,53 +381,51 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_layout_detail">
+                    android:paddingLeft="@dimen/params_10dp"
+                    android:paddingRight="@dimen/params_10dp">
 
                     <TextView
                         fontPath="@string/font_boto_bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:paddingBottom="@dimen/params_10dp"
+                        android:paddingTop="@dimen/params_10dp"
                         android:text="@string/top_hotel"
                         android:textAllCaps="false"
                         android:textColor="@color/grey"
                         android:textSize="@dimen/size_16sp" />
 
-                    <com.tuankhai.travelassistants.library.ripple.MaterialRippleLayout
+                    <LinearLayout
                         android:id="@+id/layout_more_hotel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingLeft="3dp"
-                        android:paddingRight="3dp"
-                        app:kt_rippleColor="@color/grey_30"
-                        app:kt_rippleDuration="10"
-                        app:kt_rippleHover="true">
+                        android:layout_centerVertical="true"
+                        android:clickable="true"
+                        android:foreground="@drawable/ripple"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/params_5dp"
+                        android:paddingLeft="@dimen/params_10dp"
+                        android:paddingRight="@dimen/params_10dp">
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:paddingRight="2dp"
+                            android:text="@string/view_all"
+                            android:textAllCaps="false"
+                            android:textColor="@color/grey"
+                            android:textSize="16sp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingRight="2dp"
-                                android:text="@string/view_all"
-                                android:textAllCaps="false"
-                                android:textColor="@color/grey"
-                                android:textSize="16sp" />
-
-                            <ImageView
-                                android:layout_width="12dp"
-                                android:layout_height="fill_parent"
-                                android:layout_gravity="center"
-                                android:paddingTop="1dp"
-                                app:srcCompat="@drawable/ic_arrow_button" />
-                        </LinearLayout>
-                    </com.tuankhai.travelassistants.library.ripple.MaterialRippleLayout>
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center"
+                            android:paddingTop="1dp"
+                            app:srcCompat="@drawable/ic_arrow_button" />
+                    </LinearLayout>
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView

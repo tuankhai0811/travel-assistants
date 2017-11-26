@@ -49,13 +49,17 @@
     </style>
 
     <style name="ButtonDialog">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="fontPath">@string/font_boto_bold</item>
-        <item name="android:padding">@dimen/padding_5dp</item>
-        <item name="android:background">@drawable/bg_btn_dialog</item>
+        <item name="android:paddingTop">@dimen/params_10dp</item>
+        <item name="android:paddingLeft">@dimen/params_20dp</item>
+        <item name="android:paddingRight">@dimen/params_20dp</item>
+        <item name="android:paddingBottom">@dimen/params_10dp</item>
+        <item name="android:background">@drawable/ripple</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">@dimen/size_16sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:layout_height">@dimen/height_32dp</item>
     </style>
 
     <style name="AppTheme.SplashScreen">
@@ -170,7 +174,7 @@
     </style>
 
     <style name="MyProgressBarReview" parent="Widget.AppCompat.ProgressBar.Horizontal">
-        <item name="android:layout_marginLeft">@dimen/margin_4dp</item>
+        <item name="android:layout_marginLeft">@dimen/params_4dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:max">100</item>
         <item name="android:progress">25</item>
@@ -205,6 +209,12 @@
     <style name="Widget.MaterialRatingBar.RatingBar.Indicator.Small">
         <item name="android:minHeight">16dp</item>
         <item name="android:maxHeight">16dp</item>
+    </style>
+
+    <style name="TitleActivity">
+        <item name="fontPath">@string/font_boto_bold</item>
+        <item name="android:textSize">@dimen/size_18sp</item>
+        <item name="android:textColor">@color/global_white</item>
     </style>
 
     <dimen name="padding_7dp">7dp</dimen>

@@ -23,8 +23,8 @@
 
     <ImageView
         android:id="@+id/img_back"
-        android:layout_marginTop="@dimen/margin_16dp"
-        android:layout_marginLeft="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/params_16dp"
+        android:layout_marginLeft="@dimen/params_16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_arrow_back_black_24dp" />

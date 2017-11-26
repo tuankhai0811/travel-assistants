@@ -46,19 +46,19 @@ public class PlaceScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
     private RecyclerView mRecyclerView;
     private Location location;
 
-    private PlaceNearListAdapter.LayoutListPlaceNearItemListener itemListener;
-    private PlaceNearListAdapter.OnLoadMoreListener mOnLoadMoreListener;
+    private PlaceScheduleAdapter.LayoutListPlaceNearItemListener itemListener;
+    private PlaceScheduleAdapter.OnLoadMoreListener mOnLoadMoreListener;
     private OnCheckedChangeListener mCheckedChangeListener;
 
     private boolean isLoading;
     private int visibleThreshold = 1;
     private int lastVisibleItem, totalItemCount;
 
-    public void setOnLoadMoreListener(PlaceNearListAdapter.OnLoadMoreListener mOnLoadMoreListener) {
+    public void setOnLoadMoreListener(PlaceScheduleAdapter.OnLoadMoreListener mOnLoadMoreListener) {
         this.mOnLoadMoreListener = mOnLoadMoreListener;
     }
 
-    public void setOnItemClickListener(PlaceNearListAdapter.LayoutListPlaceNearItemListener onItemClickListener) {
+    public void setOnItemClickListener(PlaceScheduleAdapter.LayoutListPlaceNearItemListener onItemClickListener) {
         this.itemListener = onItemClickListener;
     }
 
@@ -97,15 +97,6 @@ public class PlaceScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
-//            final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-//            return new PlaceNearViewHolder(
-//                    MaterialRippleLayout.on(inflater.inflate(R.layout.item_place_near_liner, viewGroup, false))
-//                            .rippleOverlay(true)
-//                            .rippleAlpha(0.2f)
-//                            .rippleColor(R.integer.rippleColor)
-//                            .rippleHover(true)
-//                            .create()
-//            );
             View view = LayoutInflater.from(context).inflate(R.layout.item_place_near_schedule_liner, viewGroup, false);
             return new PlaceScheduleAdapter.PlaceNearViewHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
@@ -242,8 +233,8 @@ public class PlaceScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    public class PlaceNearViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
-            CompoundButton.OnCheckedChangeListener {
+    public class PlaceNearViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
         TextView txtName, txtDistance;
         ImageView imageView;
         MaterialRatingBar ratingBar;
@@ -258,7 +249,7 @@ public class PlaceScheduleAdapter extends RecyclerView.Adapter<RecyclerView.View
             checkBox = itemView.findViewById(R.id.checkbox);
             checkBox.setChecked(false);
             checkBox.setOnCheckedChangeListener(this);
-            itemView.setOnClickListener(this);
+            itemView.findViewById(R.id.layout).setOnClickListener(this);
         }
 
         @Override

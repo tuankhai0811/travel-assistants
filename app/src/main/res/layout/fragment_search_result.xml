@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/margin_80dp"
+        android:layout_marginBottom="@dimen/params_80dp"
         android:visibility="visible" />
 
     <LinearLayout
@@ -26,15 +26,15 @@
         android:layout_gravity="center"
         android:orientation="vertical"
         android:gravity="center"
-        android:paddingBottom="@dimen/padding_150dp"
+        android:paddingBottom="@dimen/params_150dp"
         android:visibility="visible">
 
         <ImageView
             android:layout_width="@dimen/width_logo"
             android:layout_height="@dimen/height_logo"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/margin_10dp"
-            android:layout_marginRight="@dimen/margin_20dp"
+            android:layout_marginBottom="@dimen/params_10dp"
+            android:layout_marginRight="@dimen/params_20dp"
             android:scaleType="centerInside"
             android:src="@drawable/logo_small" />
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="@dimen/margin_15dp"
+    android:layout_marginTop="@dimen/params_15dp"
     android:visibility="gone">
 
     <View
@@ -18,12 +18,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="@dimen/padding_16dp">
+        android:padding="@dimen/params_16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_5dp"
+            android:paddingBottom="@dimen/params_5dp"
             android:text="@string/rating_here"
             android:textAllCaps="false"
             android:textColor="@color/global_black"
@@ -98,15 +98,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingTop="@dimen/padding_5dp">
+                    android:paddingTop="@dimen/params_5dp">
 
                     <TextView
                         android:id="@+id/num_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:paddingBottom="@dimen/padding_3dp"
-                        android:paddingRight="@dimen/padding_3dp"
+                        android:paddingBottom="@dimen/params_3dp"
+                        android:paddingRight="@dimen/params_3dp"
                         android:text="8"
                         android:textColor="@color/grey_70"
                         android:textSize="@dimen/size_14sp" />
@@ -125,17 +125,17 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/padding_10dp"
-                android:paddingTop="@dimen/padding_10dp">
+                android:paddingBottom="@dimen/params_10dp"
+                android:paddingTop="@dimen/params_10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_24dp"
                     android:orientation="horizontal"
-                    android:paddingBottom="@dimen/padding_2dp"
-                    android:paddingLeft="@dimen/padding_10dp"
-                    android:paddingRight="@dimen/padding_20dp"
-                    android:paddingTop="@dimen/padding_2dp">
+                    android:paddingBottom="@dimen/params_2dp"
+                    android:paddingLeft="@dimen/params_10dp"
+                    android:paddingRight="@dimen/params_20dp"
+                    android:paddingTop="@dimen/params_2dp">
 
                     <TextView
                         style="@style/MyTextViewReview"
@@ -146,8 +146,8 @@
                     <ImageView
                         android:layout_width="@dimen/width_14dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/margin_4dp"
-                        android:layout_marginRight="@dimen/margin_4dp"
+                        android:layout_marginLeft="@dimen/params_4dp"
+                        android:layout_marginRight="@dimen/params_4dp"
                         app:srcCompat="@drawable/ic_star_black_24dp" />
 
                     <ProgressBar
@@ -162,10 +162,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_24dp"
                     android:orientation="horizontal"
-                    android:paddingBottom="@dimen/padding_2dp"
-                    android:paddingLeft="@dimen/padding_10dp"
-                    android:paddingRight="@dimen/padding_20dp"
-                    android:paddingTop="@dimen/padding_2dp">
+                    android:paddingBottom="@dimen/params_2dp"
+                    android:paddingLeft="@dimen/params_10dp"
+                    android:paddingRight="@dimen/params_20dp"
+                    android:paddingTop="@dimen/params_2dp">
 
                     <TextView
                         style="@style/MyTextViewReview"
@@ -176,8 +176,8 @@
                     <ImageView
                         android:layout_width="@dimen/width_14dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/margin_4dp"
-                        android:layout_marginRight="@dimen/margin_4dp"
+                        android:layout_marginLeft="@dimen/params_4dp"
+                        android:layout_marginRight="@dimen/params_4dp"
                         app:srcCompat="@drawable/ic_star_black_24dp" />
 
                     <ProgressBar
@@ -192,10 +192,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_24dp"
                     android:orientation="horizontal"
-                    android:paddingBottom="@dimen/padding_2dp"
-                    android:paddingLeft="@dimen/padding_10dp"
-                    android:paddingRight="@dimen/padding_20dp"
-                    android:paddingTop="@dimen/padding_2dp">
+                    android:paddingBottom="@dimen/params_2dp"
+                    android:paddingLeft="@dimen/params_10dp"
+                    android:paddingRight="@dimen/params_20dp"
+                    android:paddingTop="@dimen/params_2dp">
 
                     <TextView
                         style="@style/MyTextViewReview"
@@ -206,8 +206,8 @@
                     <ImageView
                         android:layout_width="@dimen/width_14dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/margin_4dp"
-                        android:layout_marginRight="@dimen/margin_4dp"
+                        android:layout_marginLeft="@dimen/params_4dp"
+                        android:layout_marginRight="@dimen/params_4dp"
                         app:srcCompat="@drawable/ic_star_black_24dp" />
 
                     <ProgressBar
@@ -222,10 +222,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_24dp"
                     android:orientation="horizontal"
-                    android:paddingBottom="@dimen/padding_2dp"
-                    android:paddingLeft="@dimen/padding_10dp"
-                    android:paddingRight="@dimen/padding_20dp"
-                    android:paddingTop="@dimen/padding_2dp">
+                    android:paddingBottom="@dimen/params_2dp"
+                    android:paddingLeft="@dimen/params_10dp"
+                    android:paddingRight="@dimen/params_20dp"
+                    android:paddingTop="@dimen/params_2dp">
 
                     <TextView
                         style="@style/MyTextViewReview"
@@ -236,8 +236,8 @@
                     <ImageView
                         android:layout_width="@dimen/width_14dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/margin_4dp"
-                        android:layout_marginRight="@dimen/margin_4dp"
+                        android:layout_marginLeft="@dimen/params_4dp"
+                        android:layout_marginRight="@dimen/params_4dp"
                         app:srcCompat="@drawable/ic_star_black_24dp" />
 
                     <ProgressBar
@@ -252,10 +252,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_24dp"
                     android:orientation="horizontal"
-                    android:paddingBottom="@dimen/padding_2dp"
-                    android:paddingLeft="@dimen/padding_10dp"
-                    android:paddingRight="@dimen/padding_20dp"
-                    android:paddingTop="@dimen/padding_2dp">
+                    android:paddingBottom="@dimen/params_2dp"
+                    android:paddingLeft="@dimen/params_10dp"
+                    android:paddingRight="@dimen/params_20dp"
+                    android:paddingTop="@dimen/params_2dp">
 
                     <TextView
                         style="@style/MyTextViewReview"
@@ -266,8 +266,8 @@
                     <ImageView
                         android:layout_width="@dimen/width_14dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/margin_4dp"
-                        android:layout_marginRight="@dimen/margin_4dp"
+                        android:layout_marginLeft="@dimen/params_4dp"
+                        android:layout_marginRight="@dimen/params_4dp"
                         app:srcCompat="@drawable/ic_star_black_24dp" />
 
                     <ProgressBar

@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.adapter.ReviewsAdapter;
 import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
+import com.tuankhai.travelassistants.customTab.CustomTabActivityHelper;
 import com.tuankhai.travelassistants.library.loopingviewpager.CircleIndicator;
 import com.tuankhai.travelassistants.library.loopingviewpager.LoopViewPager;
 import com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar;
@@ -404,8 +405,7 @@ public class DetailPlaceNearActivity extends BaseActivity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.txt_website:
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(dataGoogle.website));
-                startActivity(intent);
+                CustomTabActivityHelper.openCustomTab(this, Uri.parse(dataGoogle.website));
                 break;
             case R.id.txt_tel:
                 Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + dataGoogle.formatted_phone_number));

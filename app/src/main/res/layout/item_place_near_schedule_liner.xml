@@ -17,14 +17,16 @@
         app:cardElevation="1dp">
 
         <LinearLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_10dp">
+            android:clickable="true"
+            android:foreground="@drawable/ripple"
+            android:layout_height="wrap_content">
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/grey_30">
+                android:padding="@dimen/params_10dp">
 
                 <ImageView
                     android:id="@+id/img_place"
@@ -52,15 +54,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="0dp">
+                    android:paddingTop="10dp">
 
                     <TextView
                         android:id="@+id/txt_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/padding_20dp"
+                        android:layout_marginRight="@dimen/params_20dp"
                         android:ellipsize="end"
                         android:maxLines="3"
                         android:text=""
@@ -99,8 +100,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|top"
+                    android:paddingTop="@dimen/params_10dp"
+                    android:paddingRight="@dimen/params_10dp"
                     android:backgroundTint="@color/colorPrimary"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:gravity="center"/>
             </FrameLayout>
 
         </LinearLayout>

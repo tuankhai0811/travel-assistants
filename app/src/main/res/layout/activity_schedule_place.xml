@@ -24,15 +24,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/padding_5dp"
-                android:paddingTop="@dimen/padding_5dp">
+                android:paddingBottom="@dimen/params_5dp"
+                android:paddingTop="@dimen/params_5dp">
 
                 <TextView
                     android:id="@+id/txt_title"
                     fontPath="@string/font_boto_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/padding_5dp"
+                    android:paddingBottom="@dimen/params_5dp"
                     android:textColor="@color/global_white"
                     android:textSize="@dimen/size_18sp" />
 

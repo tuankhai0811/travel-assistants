@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="params_0dp">0dp</dimen>
+    <dimen name="params_05dp">0.5dp</dimen>
+    <dimen name="params_1dp">1dp</dimen>
+    <dimen name="params_2dp">2dp</dimen>
+    <dimen name="params_3dp">3dp</dimen>
+    <dimen name="params_4dp">4dp</dimen>
+    <dimen name="params_5dp">5dp</dimen>
+    <dimen name="params_6dp">6dp</dimen>
+    <dimen name="params_8dp">8dp</dimen>
+    <dimen name="params_10dp">10dp</dimen>
+    <dimen name="params_12dp">12dp</dimen>
+    <dimen name="params_15dp">15dp</dimen>
+    <dimen name="params_16dp">16dp</dimen>
+    <dimen name="params_18dp">18dp</dimen>
+    <dimen name="params_20dp">20dp</dimen>
+    <dimen name="params_23dp">23dp</dimen>
+    <dimen name="params_25dp">25dp</dimen>
+    <dimen name="params_26dp">26dp</dimen>
+    <dimen name="params_28dp">28dp</dimen>
+    <dimen name="params_30dp">30dp</dimen>
+    <dimen name="params_36dp">36dp</dimen>
+    <dimen name="params_40dp">40dp</dimen>
+    <dimen name="params_50dp">50dp</dimen>
+    <dimen name="params_80dp">80dp</dimen>
+    <dimen name="params_100dp">100dp</dimen>
+    <dimen name="params_150dp">150dp</dimen>
+    <dimen name="params_250dp">250dp</dimen>
+
+
+
     <dimen name="corner_radius">25dp</dimen>
     <dimen name="height_icon_province">50dp</dimen>
     <dimen name="margin_icon_province">5dp</dimen>
@@ -25,43 +56,33 @@
     <dimen name="width_layout_item_place_near">200dp</dimen>
     <dimen name="margin_layout_detail">10dp</dimen>
     <dimen name="height_image_item_place">100dp</dimen>
-    <dimen name="padding_16dp">16dp</dimen>
-    <dimen name="padding_5dp">5dp</dimen>
+
     <dimen name="size_18sp">18sp</dimen>
     <dimen name="height_32dp">32dp</dimen>
     <dimen name="size_36sp">36sp</dimen>
     <dimen name="height_22dp">22dp</dimen>
-    <dimen name="padding_3dp">3dp</dimen>
     <dimen name="size_14sp">14sp</dimen>
     <dimen name="width_16dp">16dp</dimen>
-    <dimen name="padding_10dp">10dp</dimen>
     <dimen name="height_24dp">24dp</dimen>
-    <dimen name="padding_2dp">2dp</dimen>
-    <dimen name="padding_20dp">20dp</dimen>
     <dimen name="width_14dp">14dp</dimen>
-    <dimen name="margin_4dp">4dp</dimen>
     <dimen name="dilivers_view">0.5dp</dimen>
-    <dimen name="padding_23dp">23dp</dimen>
+
     <dimen name="size_16sp">16sp</dimen>
     <dimen name="height_18dp">18dp</dimen>
     <dimen name="width_46dp">46dp</dimen>
     <dimen name="height_120dp">120dp</dimen>
-    <dimen name="padding_15dp">15dp</dimen>
     <dimen name="height_220dp">220dp</dimen>
-    <dimen name="margin_20dp">20dp</dimen>
-    <dimen name="margin_50dp">50dp</dimen>
+
     <dimen name="height_500dp">500dp</dimen>
     <dimen name="height_400dp">400dp</dimen>
     <dimen name="height_350dp">350dp</dimen>
     <dimen name="width_60dp">60dp</dimen>
     <dimen name="height_42dp">42dp</dimen>
-    <dimen name="margin_10dp">10dp</dimen>
     <dimen name="size_32dp">32dp</dimen>
     <dimen name="size_38dp">38dp</dimen>
     <dimen name="width_swipe_item">200dp</dimen>
     <dimen name="size_20sp">20sp</dimen>
-    <dimen name="padding_8dp">8dp</dimen>
-    <dimen name="margin_30dp">30dp</dimen>
+
     <dimen name="height_150dp">150dp</dimen>
     <dimen name="width_80dp">80dp</dimen>
     <dimen name="height_50dp">50dp</dimen>
@@ -71,16 +92,12 @@
     <dimen name="width_30dp">30dp</dimen>
     <dimen name="width_50dp">50dp</dimen>
     <dimen name="width_40dp">40dp</dimen>
-    <dimen name="margin_28dp">28dp</dimen>
-    <dimen name="margin_15dp">15dp</dimen>
+
     <dimen name="height_80dp">80dp</dimen>
-    <dimen name="margin_8dp">8dp</dimen>
-    <dimen name="margin_40dp">40dp</dimen>
-    <dimen name="margin_5dp">5dp</dimen>
+
     <dimen name="width_logo">180dp</dimen>
     <dimen name="height_logo">100dp</dimen>
-    <dimen name="padding_250dp">250dp</dimen>
-    <dimen name="margin_16dp">16dp</dimen>
+
 
 
     //Searchview
@@ -90,44 +107,46 @@
     <dimen name="search_bar_search_input_left_margin">20dp</dimen>
     <dimen name="search_bar_search_input_right_margin">68dp</dimen>
     <dimen name="search_bar_filter_section_marin_left">64dp</dimen>
-    <dimen name="text_content_margin">16dp</dimen>
     <dimen name="search_view_corner_radius">3dp</dimen>
-
-    <!-- Sizes for a square button with a system icon on it -->
     <dimen name="square_button_icon_size">24dp</dimen>
     <dimen name="square_button_size">48dp</dimen>
     <dimen name="square_button_padding">12dp</dimen>
-
     <dimen name="suggestion_body_text_size">18sp</dimen>
     <dimen name="search_bar_text_size">16sp</dimen>
-    <dimen name="padding_26dp">26dp</dimen>
+
+
     <dimen name="height_100dp">100dp</dimen>
     <dimen name="height_140dp">140dp</dimen>
-    <dimen name="margin_100dp">100dp</dimen>
-    <dimen name="padding_150dp">150dp</dimen>
-    <dimen name="margin_80dp">80dp</dimen>
+
     <dimen name="size_15sp">15sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="margin_2dp">2dp</dimen>
-    <dimen name="margin_6dp">6dp</dimen>
+
     <dimen name="height_item_schedule">100dp</dimen>
     <dimen name="height_header_item_schedule">40dp</dimen>
     <dimen name="size_22sp">22sp</dimen>
-    <dimen name="padding_1dp">1dp</dimen>
+
     <dimen name="width_dialog_new_schedule">350dp</dimen>
     <dimen name="width_70dp">70dp</dimen>
-    <dimen name="padding_18dp">18dp</dimen>
-    <dimen name="padding_05dp">0.5dp</dimen>
+
     <dimen name="height_icon_time">24dp</dimen>
-    <dimen name="padding_4dp">4dp</dimen>
+
     <dimen name="height_icon_edit">30dp</dimen>
-    <dimen name="padding_30dp">30dp</dimen>
-    <dimen name="margin_25dp">25dp</dimen>
+
     <dimen name="width_dialog_create_schedule_place">350dp</dimen>
     <dimen name="height_45dp">45dp</dimen>
-    <dimen name="padding_0dp">0dp</dimen>
-    <dimen name="padding_36dp">36dp</dimen>
-    <dimen name="padding_12dp">12dp</dimen>
+
     <dimen name="scroll_bar_size">4dp</dimen>
     <dimen name="size_24sp">24sp</dimen>
+
+    //About Activity
+    <dimen name="about_activity_cover_image">150dp</dimen>
+    <dimen name="about_activity_logo">200dp</dimen>
+    <dimen name="about_activity_avatar">90dp</dimen>
+    <dimen name="about_activity_margin_top_avatar">105dp</dimen>
+    <dimen name="about_activity_height_profile_name">158dp</dimen>
+
+    //Nav menu main
+    <dimen name="nav_header_height_logo">120dp</dimen>
+    <dimen name="nav_header_height">190dp</dimen>
+    <dimen name="nav_header_height_avatar">80dp</dimen>
 </resources>

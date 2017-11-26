@@ -48,6 +48,7 @@ import com.tuankhai.travelassistants.adapter.ReviewsAdapter;
 import com.tuankhai.travelassistants.adapter.ScheduleListAdapter;
 import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.SpacingItemDecorationHorizontal;
+import com.tuankhai.travelassistants.customTab.CustomTabActivityHelper;
 import com.tuankhai.travelassistants.library.likebutton.LikeButton;
 import com.tuankhai.travelassistants.library.likebutton.OnAnimationEndListener;
 import com.tuankhai.travelassistants.library.likebutton.OnLikeListener;
@@ -316,13 +317,10 @@ public class DetailPlaceActivity extends BaseActivity
                 toDate.set(Calendar.MINUTE, 59);
                 toDate.set(Calendar.SECOND, 59);
                 txtToDate.setText(simpleDateFormat.format(toDate.getTime()));
-//                Log.e("status", year + "-" + month + " - " + dayOfMonth);
-//                Log.e("status", fromDate.getTime() + "-" + current.getTime());
                 if (toDate.getTimeInMillis() < mSchedule.getStart().getTime() || toDate.getTimeInMillis() > mSchedule.getEnd().getTime()) {
                     txtToDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(getApplicationContext(), "Không thể chọn ngày ngoài lịch trình đã chọn!");
                 } else if (fromDate.getTimeInMillis() >= toDate.getTimeInMillis()) {
-//                    Log.e("status", fromDate.getTimeInMillis() + "-" + toDate.getTimeInMillis());
                     txtToDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(getApplicationContext(), "Ngày kết thúc phải sau ngày bắt đầu!");
                 } else {
@@ -348,8 +346,6 @@ public class DetailPlaceActivity extends BaseActivity
                 fromDate.set(Calendar.MINUTE, 0);
                 fromDate.set(Calendar.SECOND, 0);
                 txtFromDate.setText(simpleDateFormat.format(fromDate.getTime()));
-//                Log.e("status", year + "-" + month + " - " + dayOfMonth);
-//                Log.e("status", fromDate.getTimeInMillis() + "-" + mSchedule.getStart().getTime());
                 if (fromDate.getTimeInMillis() < mSchedule.getStart().getTime() || fromDate.getTimeInMillis() > mSchedule.getEnd().getTime()) {
                     txtFromDate.setError("Thời gian không đúng!");
                     Utils.showFaildToast(getApplicationContext(), "Không thể chọn ngày ngoài lịch trình đã chọn!");
@@ -914,8 +910,7 @@ public class DetailPlaceActivity extends BaseActivity
                 }
                 break;
             case R.id.txt_website:
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.website));
-                startActivity(intent);
+                CustomTabActivityHelper.openCustomTab(this, Uri.parse(data.website));
                 break;
             case R.id.txt_tel:
                 Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + data.phone));

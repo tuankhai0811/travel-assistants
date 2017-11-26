@@ -6,7 +6,7 @@
     android:clickable="true"
     android:foreground="@drawable/ripple"
     android:orientation="vertical"
-    android:padding="@dimen/padding_10dp">
+    android:padding="@dimen/params_10dp">
 
     <View
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/padding_10dp">
+                android:paddingLeft="@dimen/params_10dp">
 
                 <TextView
                     android:id="@+id/txt_name"
@@ -79,7 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:paddingLeft="@dimen/padding_10dp"
+                        android:paddingLeft="@dimen/params_10dp"
                         android:text="1 thang truoc"
                         android:textAllCaps="false"
                         android:textColor="@color/grey_80"
@@ -97,8 +97,8 @@
 
             <ImageView
                 android:id="@+id/img_option_menu"
-                android:layout_width="@dimen/padding_26dp"
-                android:layout_height="@dimen/padding_26dp"
+                android:layout_width="@dimen/params_26dp"
+                android:layout_height="@dimen/params_26dp"
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
                 android:src="@drawable/ico_three_dots"
@@ -114,9 +114,9 @@
             android:id="@+id/txt_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_10dp"
-            android:paddingLeft="@dimen/padding_23dp"
-            android:paddingTop="@dimen/padding_10dp"
+            android:paddingBottom="@dimen/params_10dp"
+            android:paddingLeft="@dimen/params_23dp"
+            android:paddingTop="@dimen/params_10dp"
             android:textAllCaps="false"
             android:textColor="@color/global_black"
             android:textSize="@dimen/size_16sp" />

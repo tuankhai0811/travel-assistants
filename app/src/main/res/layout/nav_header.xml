@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="190dp"
+    android:layout_height="@dimen/nav_header_height"
     android:background="@color/colorPrimaryDark"
     android:clickable="true"
     android:foreground="@drawable/ripple"
@@ -11,25 +11,17 @@
         android:id="@+id/nav_header_logout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_attractions_travel" />
-
-        <TextView
-            android:id="@+id/txt_login_nav"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="20dp"
-            android:padding="5dp"
-            android:text="LOGIN"
-            android:textColor="@color/global_white"
-            android:textSize="18sp" />
+            android:layout_height="@dimen/nav_header_height_logo"
+            android:layout_gravity="bottom|left"
+            android:paddingLeft="@dimen/params_10dp"
+            android:paddingBottom="@dimen/params_10dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/logo_small" />
+
     </FrameLayout>
 
     <LinearLayout
@@ -39,24 +31,25 @@
         android:layout_gravity="bottom|center_horizontal"
         android:gravity="bottom|center_horizontal"
         android:orientation="vertical"
+        android:visibility="gone"
         android:paddingBottom="7dp">
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/img_photo_nav"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/bg_image"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="0dp" />
+            android:layout_width="@dimen/nav_header_height_avatar"
+            android:layout_height="@dimen/nav_header_height_avatar"
+            android:src="@drawable/ic_avatar"
+            app:civ_border_color="@color/global_white"
+            app:civ_border_width="@dimen/params_1dp" />
 
         <TextView
             android:id="@+id/txt_name_nav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="5dp"
-            android:text="TextView"
+            android:padding="@dimen/params_5dp"
+            android:text="@string/app_name"
             android:textColor="@color/global_white"
-            android:textSize="22sp" />
+            android:textSize="@dimen/size_22sp" />
     </LinearLayout>
 </LinearLayout>

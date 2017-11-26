@@ -10,11 +10,11 @@
         fontPath="@string/font_boto_medium"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_header_item_schedule"
-        android:layout_marginBottom="@dimen/margin_8dp"
-        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/params_8dp"
+        android:layout_marginTop="@dimen/params_8dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:padding="@dimen/padding_5dp"
+        android:padding="@dimen/params_5dp"
         android:text="TextView"
         android:textColor="@color/global_white"
         android:textSize="@dimen/size_18sp" />
@@ -23,9 +23,9 @@
         android:id="@+id/view22"
         android:layout_width="@dimen/height_header_item_schedule"
         android:layout_height="@dimen/height_header_item_schedule"
-        android:layout_marginBottom="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/params_8dp"
         android:layout_marginLeft="-28dp"
-        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginTop="@dimen/params_8dp"
         android:background="@color/grey_background"
         android:rotation="45" />
 
@@ -34,9 +34,9 @@
         android:layout_width="@dimen/height_header_item_schedule"
         android:layout_height="@dimen/height_header_item_schedule"
         android:layout_gravity="right"
-        android:layout_marginBottom="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/params_8dp"
         android:layout_marginRight="-28dp"
-        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginTop="@dimen/params_8dp"
         android:background="@color/grey_background"
         android:rotation="45" />
 </FrameLayout>

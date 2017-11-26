@@ -32,8 +32,8 @@
                 <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
-                <!--android:paddingLeft="@dimen/padding_10dp"-->
-                <!--android:paddingTop="@dimen/padding_10dp"-->
+                <!--android:paddingLeft="@diparams_10dp10dp"-->
+                <!--android:paddingTop="@diparams_10dp10dp"-->
                 <!--android:text="@string/rating"-->
                 <!--android:textAllCaps="false"-->
                 <!--android:textColor="@color/grey"-->
@@ -45,9 +45,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingBottom="@dimen/padding_10dp"
-                    android:paddingLeft="@dimen/padding_10dp"
-                    android:paddingTop="@dimen/padding_15dp">
+                    android:paddingBottom="@dimen/params_10dp"
+                    android:paddingLeft="@dimen/params_10dp"
+                    android:paddingTop="@dimen/params_15dp">
 
                     <com.tuankhai.travelassistants.library.ratingbar.MaterialRatingBar
                         android:id="@+id/ratingBar"
@@ -80,8 +80,8 @@
                 fontPath="@string/font_boto_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding_10dp"
-                android:paddingLeft="@dimen/padding_10dp"
+                android:paddingBottom="@dimen/params_10dp"
+                android:paddingLeft="@dimen/params_10dp"
                 android:text="@string/information"
                 android:textAllCaps="false"
                 android:textColor="@color/grey"
@@ -115,7 +115,7 @@
                 <!--android:layout_width="@dimen/width_80dp"-->
                 <!--android:layout_height="@dimen/height_30dp"-->
                 <!--android:layout_gravity="left|bottom"-->
-                <!--android:padding="@dimen/padding_5dp"-->
+                <!--android:padding="@diparams_5dp_5dp"-->
                 <!--android:scaleType="fitCenter"-->
                 <!--app:srcCompat="@drawable/logo_google" />-->
 
@@ -123,7 +123,7 @@
                 <!--android:layout_width="@dimen/width_40dp"-->
                 <!--android:layout_height="@dimen/height_40dp"-->
                 <!--android:layout_gravity="right|top"-->
-                <!--android:layout_margin="@dimen/margin_10dp"-->
+                <!--android:layout_margin="@diparams_10dp10dp"-->
                 <!--android:scaleType="fitCenter"-->
                 <!--app:srcCompat="@drawable/ic_gps" />-->
                 <!--</FrameLayout>-->
@@ -159,9 +159,9 @@
                         android:foreground="@drawable/ripple"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingBottom="@dimen/padding_15dp"
-                        android:paddingLeft="@dimen/padding_10dp"
-                        android:paddingTop="@dimen/padding_15dp">
+                        android:paddingBottom="@dimen/params_15dp"
+                        android:paddingLeft="@dimen/params_10dp"
+                        android:paddingTop="@dimen/params_15dp">
 
                         <ImageView
                             android:id="@+id/imageAddress"
@@ -175,8 +175,8 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:paddingLeft="@dimen/padding_10dp"
-                            android:paddingRight="@dimen/padding_10dp"
+                            android:paddingLeft="@dimen/params_10dp"
+                            android:paddingRight="@dimen/params_10dp"
                             android:text=""
                             android:textAllCaps="false"
                             android:textColor="@color/grey"
@@ -204,9 +204,9 @@
                         android:foreground="@drawable/ripple"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingBottom="@dimen/padding_15dp"
-                        android:paddingLeft="@dimen/padding_10dp"
-                        android:paddingTop="@dimen/padding_15dp">
+                        android:paddingBottom="@dimen/params_15dp"
+                        android:paddingLeft="@dimen/params_10dp"
+                        android:paddingTop="@dimen/params_15dp">
 
                         <ImageView
                             android:id="@+id/imageView"
@@ -220,7 +220,8 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:paddingLeft="@dimen/padding_10dp"
+                            android:paddingLeft="@dimen/params_10dp"
+                            android:paddingRight="@dimen/params_10dp"
                             android:text="http://news.zing.vn"
                             android:textAllCaps="false"
                             android:textColor="@color/colorPrimary"
@@ -248,9 +249,9 @@
                         android:foreground="@drawable/ripple"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingBottom="@dimen/padding_15dp"
-                        android:paddingLeft="@dimen/padding_10dp"
-                        android:paddingTop="@dimen/padding_15dp">
+                        android:paddingBottom="@dimen/params_15dp"
+                        android:paddingLeft="@dimen/params_10dp"
+                        android:paddingTop="@dimen/params_15dp">
 
                         <ImageView
                             android:layout_width="@dimen/height_24dp"
@@ -263,7 +264,7 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:paddingLeft="@dimen/padding_10dp"
+                            android:paddingLeft="@dimen/params_10dp"
                             android:text="+84987075305"
                             android:textAllCaps="false"
                             android:textColor="@color/colorPrimary"

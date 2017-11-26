@@ -69,15 +69,15 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/padding_250dp"
+            android:paddingBottom="@dimen/params_250dp"
             android:visibility="gone">
 
             <ImageView
                 android:layout_width="@dimen/width_logo"
                 android:layout_height="@dimen/height_logo"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin_10dp"
-                android:layout_marginRight="@dimen/margin_20dp"
+                android:layout_marginBottom="@dimen/params_10dp"
+                android:layout_marginRight="@dimen/params_20dp"
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/logo_small" />
 

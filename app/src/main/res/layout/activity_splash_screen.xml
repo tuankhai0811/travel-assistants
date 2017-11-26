@@ -25,7 +25,7 @@
             android:background="@android:color/transparent"
             android:scaleType="centerInside"
             android:src="@drawable/bg_logo_splash_screen"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </LinearLayout>
 

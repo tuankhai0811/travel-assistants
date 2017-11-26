@@ -35,10 +35,10 @@
                     android:drawSelectorOnTop="true"
                     android:fastScrollEnabled="false"
                     android:overScrollMode="never"
-                    android:paddingBottom="@dimen/margin_16dp"
-                    android:paddingLeft="@dimen/margin_16dp"
-                    android:paddingRight="@dimen/margin_16dp"
-                    android:paddingTop="@dimen/margin_8dp"
+                    android:paddingBottom="@dimen/params_16dp"
+                    android:paddingLeft="@dimen/params_16dp"
+                    android:paddingRight="@dimen/params_16dp"
+                    android:paddingTop="@dimen/params_8dp"
                     android:scrollbarSize="0dp"
                     android:scrollbarStyle="outsideOverlay"
                     android:scrollbars="none" />
@@ -53,15 +53,15 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/padding_250dp"
+                android:paddingBottom="@dimen/params_250dp"
                 android:visibility="gone">
 
                 <ImageView
                     android:layout_width="@dimen/width_logo"
                     android:layout_height="@dimen/height_logo"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/margin_10dp"
-                    android:layout_marginRight="@dimen/margin_20dp"
+                    android:layout_marginBottom="@dimen/params_10dp"
+                    android:layout_marginRight="@dimen/params_20dp"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/logo_small" />
 

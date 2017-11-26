@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.customTab.CustomTabActivityHelper;
 import com.tuankhai.travelassistants.utils.Utils;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -28,11 +29,21 @@ public class BaseActivity extends AppCompatActivity {
     public FirebaseAuth mAuth;
     public FirebaseUser mUser;
 
+    public CustomTabActivityHelper mTabHelper;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         mTAG = getLocalClassName();
+
+        mTabHelper = new CustomTabActivityHelper();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mTabHelper.bindCustomTabsService(this);
     }
 
     @Override
@@ -57,6 +68,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        mTabHelper.unbindCustomTabsService(this);
     }
 
     @Override

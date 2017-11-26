@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_50dp"
-    android:layout_marginLeft="@dimen/margin_20dp"
-    android:layout_marginRight="@dimen/margin_20dp"
-    android:layout_marginTop="@dimen/margin_50dp"
+    android:layout_marginBottom="@dimen/params_50dp"
+    android:layout_marginLeft="@dimen/params_20dp"
+    android:layout_marginRight="@dimen/params_20dp"
+    android:layout_marginTop="@dimen/params_50dp"
     app:cardBackgroundColor="@color/global_white"
-    app:cardCornerRadius="@dimen/padding_2dp"
+    app:cardCornerRadius="@dimen/params_2dp"
     app:cardElevation="5dp">
 
     <LinearLayout
@@ -19,18 +19,18 @@
         android:focusableInTouchMode="true"
         android:minWidth="@dimen/width_dialog_new_schedule"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/padding_15dp"
-        android:paddingRight="@dimen/padding_15dp">
+        android:paddingLeft="@dimen/params_15dp"
+        android:paddingRight="@dimen/params_15dp">
 
         <TextView
             android:id="@+id/txt_name_del"
             fontPath="@string/font_boto_regular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_25dp"
-            android:layout_marginLeft="@dimen/margin_20dp"
-            android:layout_marginRight="@dimen/margin_20dp"
-            android:layout_marginTop="@dimen/margin_40dp"
+            android:layout_marginBottom="@dimen/params_25dp"
+            android:layout_marginLeft="@dimen/params_20dp"
+            android:layout_marginRight="@dimen/params_20dp"
+            android:layout_marginTop="@dimen/params_40dp"
             android:ellipsize="end"
             android:gravity="left"
             android:maxLines="1"
@@ -41,27 +41,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_10dp"
+            android:layout_margin="@dimen/params_10dp"
             android:gravity="right">
 
             <Button
                 android:id="@+id/btn_cancel_del"
                 style="@style/ButtonDialog"
-                android:layout_width="@dimen/width_70dp"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:paddingLeft="@dimen/padding_5dp"
-                android:paddingRight="@dimen/padding_5dp"
-                android:text="HỦY"
-                android:textColor="@color/colorPrimary" />
+                android:layout_marginRight="@dimen/params_10dp"
+                android:text="HỦY"/>
 
             <Button
                 android:id="@+id/btn_delete"
                 style="@style/ButtonDialog"
-                android:layout_width="@dimen/width_70dp"
-                android:paddingLeft="@dimen/padding_5dp"
-                android:paddingRight="@dimen/padding_5dp"
-                android:text="XÓA"
-                android:textColor="@color/colorPrimary" />
+                android:paddingLeft="@dimen/params_10dp"
+                android:paddingRight="@dimen/params_10dp"
+                android:text="XÓA"/>
         </LinearLayout>
     </LinearLayout>
 

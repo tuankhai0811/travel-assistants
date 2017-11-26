@@ -101,7 +101,7 @@
         android:id="@+id/btn_add_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_28dp"
+        android:layout_marginRight="@dimen/params_28dp"
         android:backgroundTint="@color/colorFloatButton"
         android:src="@drawable/float_schedule_button"
         app:borderWidth="0dp"

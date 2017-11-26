@@ -104,7 +104,8 @@ public class LoginActivity extends BaseActivity implements
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.txt_title_activity_login));
+        getSupportActionBar().setTitle("");
+        ((TextView)findViewById(R.id.txt_title)).setText(getString(R.string.txt_title_activity_login));
     }
 
     private void initFacebook() {

@@ -12,7 +12,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -63,7 +62,7 @@ public class MainActivity extends BaseActivity
 
     private NavigationView navigationView;
     private View header;
-    protected TextView txtLogin, txtName;
+    protected TextView txtName;
     private ImageView imgPhoto;
     private LinearLayout layoutLogin;
     private FrameLayout layoutLogout;
@@ -79,9 +78,34 @@ public class MainActivity extends BaseActivity
         initNavigationDrawer();
         initLocationHelper();
         addControls();
+        addEvents();
         setupSearchBar();
 
         mMainController.addPlaceFragment();
+    }
+
+    private void addEvents() {
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                unCheckItemMenu(navigationView.getMenu());
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
     }
 
     private boolean initLocation() {
@@ -117,7 +141,6 @@ public class MainActivity extends BaseActivity
         searchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBar);
 
-        txtLogin = header.findViewById(R.id.txt_login_nav);
         imgPhoto = header.findViewById(R.id.img_photo_nav);
         txtName = header.findViewById(R.id.txt_name_nav);
         layoutLogin = header.findViewById(R.id.nav_header_login);
@@ -299,19 +322,19 @@ public class MainActivity extends BaseActivity
                 startActivity(intentAbount);
                 break;
         }
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
+//        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+//            drawerLayout.closeDrawers();
+//        }
         return true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        unCheckItemMenu(navigationView.getMenu());
+//        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+//            drawerLayout.closeDrawers();
+//        }
+//        unCheckItemMenu(navigationView.getMenu());
         updateNavUI(mUser);
     }
 

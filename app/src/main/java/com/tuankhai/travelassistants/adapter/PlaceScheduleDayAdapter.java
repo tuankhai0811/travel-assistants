@@ -47,13 +47,6 @@ public class PlaceScheduleDayAdapter extends RecyclerView.Adapter<PlaceScheduleD
     public PlaceScheduleDayAdapter.PlaceNearViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         final LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         return new PlaceScheduleDayAdapter.PlaceNearViewHolder(inflater.inflate(R.layout.item_place_schedule_day_liner, viewGroup, false));
-//                MaterialRippleLayout.on()
-//                        .rippleOverlay(true)
-//                        .rippleAlpha(0.2f)
-//                        .rippleColor(R.integer.rippleColor)
-//                        .rippleHover(true)
-//                        .create()
-//        );
     }
 
     @Override
@@ -130,7 +123,7 @@ public class PlaceScheduleDayAdapter extends RecyclerView.Adapter<PlaceScheduleD
             txtDistance = itemView.findViewById(R.id.txt_distance);
             imageView = itemView.findViewById(R.id.img_place);
             ratingBar = itemView.findViewById(R.id.ratingBar);
-            itemView.setOnClickListener(this);
+            itemView.findViewById(R.id.layout).setOnClickListener(this);
         }
 
         @Override

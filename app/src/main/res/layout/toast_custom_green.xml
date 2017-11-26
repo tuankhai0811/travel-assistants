@@ -6,16 +6,16 @@
     android:background="@drawable/background_round_green"
     android:gravity="center"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/padding_8dp"
-    android:paddingLeft="@dimen/padding_15dp"
-    android:paddingRight="@dimen/padding_15dp"
-    android:paddingTop="@dimen/padding_8dp">
+    android:paddingBottom="@dimen/params_8dp"
+    android:paddingLeft="@dimen/params_15dp"
+    android:paddingRight="@dimen/params_15dp"
+    android:paddingTop="@dimen/params_8dp">
 
     <ImageView
         android:id="@+id/toast_img"
         android:layout_width="@dimen/height_24dp"
         android:layout_height="@dimen/height_24dp"
-        android:layout_marginRight="@dimen/padding_10dp"
+        android:layout_marginRight="@dimen/params_10dp"
         android:src="@drawable/ico_success" />
 
     <TextView

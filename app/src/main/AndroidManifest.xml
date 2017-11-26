@@ -14,6 +14,7 @@
     <application
         android:name=".activity.CustomApplication"
         android:allowBackup="true"
+        android:configChanges="orientation|screenSize"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -32,6 +33,7 @@
 
         <activity
             android:name=".activity.MainActivity"
+            android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="false"
             android:largeHeap="true"
             android:launchMode="singleTop"
@@ -39,6 +41,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SplashScreenActivity"
+            android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SplashScreen">
             <intent-filter>
@@ -49,6 +52,7 @@
         </activity>
         <activity
             android:name=".activity.ListPlaceActivity"
+            android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:largeHeap="false"
             android:launchMode="singleTop"
@@ -56,6 +60,7 @@
             android:theme="@style/Theme.Slider.Sliderable.ListPlace" />
         <activity
             android:name=".activity.DetailPlaceActivity"
+            android:configChanges="orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Slider.Sliderable" />
@@ -66,6 +71,7 @@
             android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.ListPlaceNearActivity"
+            android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:largeHeap="false"
             android:launchMode="singleTop"
@@ -73,6 +79,7 @@
             android:theme="@style/Theme.Slider.Sliderable.ListPlaceNear" />
         <activity
             android:name=".activity.MapsActivity"
+            android:configChanges="orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarMaps" />
@@ -83,6 +90,7 @@
             android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.ScheduleActivity"
+            android:configChanges="orientation|screenSize"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait"
@@ -94,6 +102,7 @@
             android:theme="@style/Theme.Slider.Sliderable" />
         <activity
             android:name=".activity.ScheduleDetailActivity"
+            android:configChanges="orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Slider.Sliderable" />
@@ -106,11 +115,14 @@
             android:theme="@style/Theme.Slider.Sliderable.ListPlaceNear" />
         <activity
             android:name=".activity.AboutActivity"
-            android:hardwareAccelerated="true"
-            android:largeHeap="false"
-            android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Slider.Sliderable" />
+            android:theme="@style/Theme.Slider.Sliderable">
+            <intent-filter>
+                <action android:name="android.intent.action.ABOUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>
@@ -122,6 +134,7 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+        <receiver android:name=".customTab.ChromeTabActionBroadcastReceiver" />
     </application>
 
 </manifest>

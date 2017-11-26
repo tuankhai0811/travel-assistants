@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.controller.ListPlaceScheduleController;
-import com.tuankhai.travelassistants.adapter.PlaceNearListAdapter;
 import com.tuankhai.travelassistants.adapter.PlaceScheduleAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.ListSpacingItemDecoration;
 import com.tuankhai.travelassistants.library.slideractivity.Slider;
@@ -41,8 +40,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ListPlaceScheduleActivity extends BaseActivity implements PlaceNearListAdapter.LayoutListPlaceNearItemListener
-        , PlaceNearListAdapter.OnLoadMoreListener, SearchView.OnQueryTextListener,
+public class ListPlaceScheduleActivity extends BaseActivity implements PlaceScheduleAdapter.LayoutListPlaceNearItemListener
+        , PlaceScheduleAdapter.OnLoadMoreListener, SearchView.OnQueryTextListener,
         PlaceScheduleAdapter.OnCheckedChangeListener {
 
     private ListPlaceScheduleController mController;

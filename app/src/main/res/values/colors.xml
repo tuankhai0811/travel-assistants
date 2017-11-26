@@ -24,7 +24,8 @@
     <color name="random_18">#76FF03</color>
     <color name="random_19">#9E9E9E</color>
     <color name="random_20">#66BB6A</color>
-    
+
+    <color name="grey_text">#565656</color>
     <color name="grey">#212121</color>
     <color name="grey_70">#565656</color>
     <color name="grey_80">#414141</color>

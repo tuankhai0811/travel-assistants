@@ -18,7 +18,7 @@ android {
             // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
             // to pre-dex each module and produce an APK that can be tested on
             // Android Lollipop without time consuming dex merging processes.
-            minSdkVersion 19
+            minSdkVersion 17
         }
         prod {
             // The actual minSdkVersion for the application.
@@ -81,6 +81,7 @@ android {
         compile 'com.android.support:support-v4:26.+'
         compile 'com.android.support:percent:26.+'
         compile 'com.android.support:multidex:1.0.1'
+        compile 'com.android.support:customtabs:26.+'
         compile 'com.android.support:appcompat-v7:26.+'
         compile 'com.android.support:support-compat:26.+'
         compile 'com.android.support:design:26.+'

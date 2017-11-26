@@ -4,6 +4,7 @@
     <string name="fb_login_protocol_scheme">fb118711962110697</string>
     <string name="api_maps">AIzaSyAfmqshBC86K-CHGjrr_Unt21QJDOnc5xA</string>
 
+    //Font
     <string name="font_boto_regular">fonts/Roboto-Regular.ttf</string>
     <string name="font_boto_bold">fonts/Roboto-Bold.ttf</string>
     <string name="font_boto_medium">fonts/Roboto-Medium.ttf</string>
@@ -12,6 +13,7 @@
     <string name="font_boto_light_italic">fonts/Roboto-LightItalic.ttf</string>
     <string name="font_boto_italic">fonts/Roboto-Italic.ttf</string>
 
+    //Navigation bar main
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
@@ -71,5 +73,10 @@
     <string name="read_more">mở rộng</string>
     <string name="read_less">đóng lại</string>
     <string name="txt_title_activity_about">About</string>
+    <string name="about_author_description">I\'m 22 years old. I am a young software developer, I love music, video games and travel around the world. I also like to develop mobile software, especially for Android development.</string>
+    <string name="send_email">SEND EMAIL</string>
+    <string name="about_special_thanks">Special thanks</string>
+    <string name="about_special_thanks_members_sub">to Ms. <a href="https://www.facebook.com/nguyetthuan">Phan Nguyen Thuan</a> has guided me throughout the last time.</string>
+    <string name="send_mail_error">Error!</string>
 
 </resources>

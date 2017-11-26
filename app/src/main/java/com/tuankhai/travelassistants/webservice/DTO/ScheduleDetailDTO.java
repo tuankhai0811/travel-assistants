@@ -26,7 +26,7 @@ public final class ScheduleDetailDTO {
         this.message = message;
     }
 
-    public static final class ScheduleDetail implements Serializable{
+    public static final class ScheduleDetail implements Serializable {
         public final String id;
         public final String id_schedule;
         public final String id_place;
@@ -65,12 +65,12 @@ public final class ScheduleDetailDTO {
             this.updated_at = updated_at;
         }
 
-        public Date getStart(){
-            return new Date(Long.valueOf(date_start));
+        public Date getStart() {
+            return new Date(Long.valueOf(date_start + "000"));
         }
 
-        public Date getEnd(){
-            return new Date(Long.valueOf(date_end));
+        public Date getEnd() {
+            return new Date(Long.valueOf(date_end + "000"));
         }
     }
 

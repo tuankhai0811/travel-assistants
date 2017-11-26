@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_50dp"
-    android:layout_marginLeft="@dimen/margin_20dp"
-    android:layout_marginRight="@dimen/margin_20dp"
-    android:layout_marginTop="@dimen/margin_50dp"
+    android:layout_marginBottom="@dimen/params_50dp"
+    android:layout_marginLeft="@dimen/params_20dp"
+    android:layout_marginRight="@dimen/params_20dp"
+    android:layout_marginTop="@dimen/params_50dp"
     app:cardBackgroundColor="@color/global_white"
-    app:cardCornerRadius="@dimen/padding_2dp"
+    app:cardCornerRadius="@dimen/params_2dp"
     app:cardElevation="5dp">
 
     <LinearLayout
@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:background="@color/grey_background"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/padding_15dp"
-        android:paddingRight="@dimen/padding_15dp">
+        android:paddingLeft="@dimen/params_15dp"
+        android:paddingRight="@dimen/params_15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,8 +31,8 @@
                 fontPath="@string/font_boto_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_30dp"
-                android:layout_marginTop="@dimen/margin_15dp"
+                android:layout_marginBottom="@dimen/params_30dp"
+                android:layout_marginTop="@dimen/params_15dp"
                 android:text="Tạo lịch trình mới"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/size_16sp" />
@@ -41,8 +41,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_30dp"
-            android:layout_marginRight="@dimen/margin_30dp"
+            android:layout_marginLeft="@dimen/params_30dp"
+            android:layout_marginRight="@dimen/params_30dp"
             android:background="@color/global_white"
             android:orientation="horizontal">
 
@@ -64,9 +64,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center|left"
-                    android:paddingBottom="@dimen/padding_10dp"
-                    android:paddingLeft="@dimen/padding_20dp"
-                    android:paddingTop="@dimen/padding_10dp"
+                    android:paddingBottom="@dimen/params_10dp"
+                    android:paddingLeft="@dimen/params_20dp"
+                    android:paddingTop="@dimen/params_10dp"
                     android:text="Chưa có lịch trình"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_18sp"
@@ -88,16 +88,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_30dp"
-                android:layout_marginRight="@dimen/margin_30dp"
-                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginLeft="@dimen/params_30dp"
+                android:layout_marginRight="@dimen/params_30dp"
+                android:layout_marginTop="@dimen/params_10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     fontPath="@string/font_boto_bold"
                     android:layout_width="@dimen/width_80dp"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/padding_5dp"
+                    android:padding="@dimen/params_5dp"
                     android:text="Từ  ngày"
                     android:textColor="@color/global_black"
                     android:textSize="@dimen/size_16sp" />
@@ -107,10 +107,10 @@
                     fontPath="@string/font_boto_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginLeft="@dimen/params_10dp"
                     android:background="@drawable/bg_field_input"
                     android:gravity="center"
-                    android:padding="@dimen/padding_8dp"
+                    android:padding="@dimen/params_8dp"
                     android:text="12/10/2017"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_16sp" />
@@ -120,17 +120,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_10dp"
-                android:layout_marginLeft="@dimen/margin_30dp"
-                android:layout_marginRight="@dimen/margin_30dp"
-                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginBottom="@dimen/params_10dp"
+                android:layout_marginLeft="@dimen/params_30dp"
+                android:layout_marginRight="@dimen/params_30dp"
+                android:layout_marginTop="@dimen/params_10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     fontPath="@string/font_boto_bold"
                     android:layout_width="@dimen/width_80dp"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/padding_5dp"
+                    android:padding="@dimen/params_5dp"
                     android:text="Đến ngày"
                     android:textColor="@color/global_black"
                     android:textSize="@dimen/size_16sp" />
@@ -140,10 +140,10 @@
                     fontPath="@string/font_boto_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginLeft="@dimen/params_10dp"
                     android:background="@drawable/bg_field_input"
                     android:gravity="center"
-                    android:padding="@dimen/padding_8dp"
+                    android:padding="@dimen/params_8dp"
                     android:text="12/11/2017"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_16sp" />
@@ -163,7 +163,7 @@
                 android:background="@drawable/bg_field_input"
                 android:gravity="left|top"
                 android:hint="Thêm mô tả hoặc ghi chú lịch trình của bạn..."
-                android:padding="@dimen/padding_10dp"
+                android:padding="@dimen/params_10dp"
                 android:textColor="@color/global_black"
                 android:textColorHint="@color/grey_70"
                 android:textSize="@dimen/size_18sp" />
@@ -172,30 +172,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_10dp"
-            android:layout_marginLeft="@dimen/margin_10dp"
-            android:layout_marginRight="@dimen/margin_10dp"
-            android:layout_marginTop="@dimen/margin_30dp"
+            android:layout_marginBottom="@dimen/params_10dp"
+            android:layout_marginLeft="@dimen/params_10dp"
+            android:layout_marginRight="@dimen/params_10dp"
+            android:layout_marginTop="@dimen/params_30dp"
             android:gravity="right">
 
             <Button
                 android:id="@+id/btn_cancel_schedule"
                 style="@style/ButtonDialog"
-                android:layout_width="wrap_content"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:paddingLeft="@dimen/padding_5dp"
-                android:paddingRight="@dimen/padding_5dp"
-                android:text="ĐÓNG"
-                android:textColor="@color/colorPrimary" />
+                android:layout_marginRight="@dimen/params_10dp"
+                android:paddingLeft="@dimen/params_10dp"
+                android:paddingRight="@dimen/params_10dp"
+                android:text="ĐÓNG" />
 
             <Button
                 android:id="@+id/btn_create_schedule"
                 style="@style/ButtonDialog"
-                android:layout_width="wrap_content"
-                android:paddingLeft="@dimen/padding_5dp"
-                android:paddingRight="@dimen/padding_5dp"
-                android:text="TẠO LỊCH TRÌNH"
-                android:textColor="@color/colorPrimary" />
+                android:paddingLeft="@dimen/params_10dp"
+                android:paddingRight="@dimen/params_10dp"
+                android:text="TẠO LỊCH TRÌNH" />
         </LinearLayout>
     </LinearLayout>
 

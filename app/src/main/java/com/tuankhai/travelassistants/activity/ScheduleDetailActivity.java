@@ -30,7 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ScheduleDetailActivity extends BaseActivity implements PlaceScheduleDayAdapter.LayoutListPlaceNearItemListener {
+public class ScheduleDetailActivity extends BaseActivity
+        implements PlaceScheduleDayAdapter.LayoutListPlaceNearItemListener {
 
     private ScheduleDetailController mController;
     private Toolbar toolbar;
@@ -165,16 +166,15 @@ public class ScheduleDetailActivity extends BaseActivity implements PlaceSchedul
         getSupportActionBar().setTitle("");
 
         initSlider();
-
-        txtDescription = (ReadMoreTextView) findViewById(R.id.txt_description);
-
         initTabHost();
 
+        txtDescription = (ReadMoreTextView) findViewById(R.id.txt_description);
         btnAddRes = findViewById(R.id.btn_add_restaurent);
         btnAddHotel = findViewById(R.id.btn_add_hotel);
-
         lvRes = (RecyclerView) findViewById(R.id.lv_restaurent);
         lvHotel = (RecyclerView) findViewById(R.id.lv_hotel);
+        lvRes.setNestedScrollingEnabled(false);
+        lvHotel.setNestedScrollingEnabled(false);
         arrRes = new ArrayList<>();
         arrHotel = new ArrayList<>();
         adapterRes = new PlaceScheduleDayAdapter(this, arrRes, this);
@@ -193,8 +193,6 @@ public class ScheduleDetailActivity extends BaseActivity implements PlaceSchedul
         resSpec.setIndicator(getView(R.layout.tab_indicator_restaurent));
         resSpec.setContent(R.id.tab_restaurent);
 
-
-        //Khởi tạo tab nghe nhạc
         TabHost.TabSpec hotelSpec = tabHost.newTabSpec("hotel");
         hotelSpec.setIndicator(getView(R.layout.tab_indicator_hotel));
         hotelSpec.setContent(R.id.tab_hotel);
