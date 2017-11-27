@@ -12,6 +12,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.base.BaseActivity;
 import com.tuankhai.travelassistants.activity.controller.ScheduleDetailController;
 import com.tuankhai.travelassistants.adapter.PlaceScheduleDayAdapter;
 import com.tuankhai.travelassistants.library.readmore.ReadMoreTextView;

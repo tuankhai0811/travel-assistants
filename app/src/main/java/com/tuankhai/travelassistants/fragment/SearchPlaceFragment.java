@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.tuankhai.travelassistants.library.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.MainActivity;
+import com.tuankhai.travelassistants.fragment.base.BaseFragment;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
+import com.tuankhai.travelassistants.library.floatingsearchview.main.FloatingSearchView;
 
 public class SearchPlaceFragment extends BaseFragment implements AppBarLayout.OnOffsetChangedListener,
         View.OnClickListener {

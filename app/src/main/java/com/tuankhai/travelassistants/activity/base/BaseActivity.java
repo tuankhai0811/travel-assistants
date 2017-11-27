@@ -1,4 +1,4 @@
-package com.tuankhai.travelassistants.activity;
+package com.tuankhai.travelassistants.activity.base;
 
 import android.content.Context;
 import android.content.Intent;

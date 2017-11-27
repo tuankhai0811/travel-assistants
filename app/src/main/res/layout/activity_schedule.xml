@@ -74,7 +74,7 @@
     <!--android:layout_gravity="bottom|end"-->
     <!--android:layout_margin="@dimen/fab_margin"-->
     <!--app:layout_anchorGravity="bottom|right|end"-->
-    <!--app:srcCompat="@drawable/ic_add_white_24dp"-->
+    <!--app:srcCompat="@drawaic_add_white24dp"-->
     <!--tools:ignore="VectorDrawableCompat" />-->
 
 </android.support.design.widget.CoordinatorLayout>

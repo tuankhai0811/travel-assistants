@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.base.BaseActivity;
 import com.tuankhai.travelassistants.activity.controller.ListPlaceController;
 import com.tuankhai.travelassistants.adapter.PlaceAdapter;
 import com.tuankhai.travelassistants.adapter.PlaceAdapterSwipe;

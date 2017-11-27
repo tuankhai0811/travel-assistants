@@ -77,7 +77,7 @@
                 android:id="@+id/btn_new_schedule"
                 android:layout_width="@dimen/height_40dp"
                 android:layout_height="@dimen/height_40dp"
-                android:src="@drawable/ic_add_blue_24dp" />
+                android:src="@drawable/ic_add_blue" />
         </LinearLayout>
 
         <LinearLayout

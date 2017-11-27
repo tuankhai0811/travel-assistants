@@ -265,7 +265,7 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
     }
     @Override
     public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing) {
-        // Only care about the (sub)menu we're presenting.
+        // Only care nav_menu_account the (sub)menu we're presenting.
         if (menu != mMenu) return;
         dismiss();
         if (mPresenterCallback != null) {

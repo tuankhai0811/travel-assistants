@@ -25,6 +25,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.base.BaseActivity;
 import com.tuankhai.travelassistants.adapter.ReviewsAdapter;
 import com.tuankhai.travelassistants.adapter.SliderImageAdapter;
 import com.tuankhai.travelassistants.customTab.CustomTabActivityHelper;

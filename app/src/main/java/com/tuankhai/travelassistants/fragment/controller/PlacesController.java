@@ -1,6 +1,6 @@
 package com.tuankhai.travelassistants.fragment.controller;
 
-import com.tuankhai.travelassistants.activity.BaseActivity;
+import com.tuankhai.travelassistants.activity.base.BaseActivity;
 import com.tuankhai.travelassistants.fragment.PlacesFragment;
 import com.tuankhai.travelassistants.utils.Utils;
 import com.tuankhai.travelassistants.webservice.DTO.PlaceDTO;

@@ -19,9 +19,9 @@
         <LinearLayout
             android:id="@+id/layout"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:clickable="true"
-            android:foreground="@drawable/ripple"
-            android:layout_height="wrap_content">
+            android:foreground="@drawable/ripple">
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -100,11 +100,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|top"
-                    android:paddingTop="@dimen/params_10dp"
-                    android:paddingRight="@dimen/params_10dp"
-                    android:backgroundTint="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/params_10dp"
+                    android:buttonTint="@color/colorPrimary"
                     android:checked="false"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:paddingRight="@dimen/params_10dp" />
             </FrameLayout>
 
         </LinearLayout>

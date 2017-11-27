@@ -31,8 +31,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.base.BaseActivity;
 import com.tuankhai.travelassistants.activity.controller.MainController;
-import com.tuankhai.travelassistants.fragment.BaseFragment;
+import com.tuankhai.travelassistants.fragment.base.BaseFragment;
 import com.tuankhai.travelassistants.fragment.SearchPlaceFragment;
 import com.tuankhai.travelassistants.fragment.SearchResultFragment;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
@@ -313,11 +314,11 @@ public class MainActivity extends BaseActivity
                 intentFavorite.putExtra(AppContansts.INTENT_TYPE, AppContansts.INTENT_TYPE_FAVORITE);
                 startActivity(intentFavorite);
                 break;
-            case R.id.logout:
+            case R.id.nav_menu_account:
                 Intent intentLogin = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intentLogin);
                 break;
-            case R.id.about:
+            case R.id.nav_menu_about:
                 Intent intentAbount = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(intentAbount);
                 break;

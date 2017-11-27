@@ -217,7 +217,7 @@ public class MenuView extends LinearLayout {
         if (addOverflowAtTheEnd) {
 
             ImageView overflowAction = getOverflowActionView();
-            overflowAction.setImageResource(R.drawable.ic_more_vert_black_24dp);
+            overflowAction.setImageResource(R.drawable.ic_more_vert_black);
             Util.setIconColor(overflowAction, mOverflowIconColor);
             addView(overflowAction);
 

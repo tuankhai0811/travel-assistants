@@ -321,9 +321,9 @@ public class FloatingSearchView extends FrameLayout {
 
     private void initDrawables() {
         mMenuBtnDrawable = new DrawerArrowDrawable(getContext());
-        mIconClear = Util.getWrappedDrawable(getContext(), R.drawable.ic_clear_black_24dp);
-        mIconBackArrow = Util.getWrappedDrawable(getContext(), R.drawable.ic_arrow_back_black_24dp);
-        mIconSearch = Util.getWrappedDrawable(getContext(), R.drawable.ic_search_black_24dp);
+        mIconClear = Util.getWrappedDrawable(getContext(), R.drawable.ic_clear_black);
+        mIconBackArrow = Util.getWrappedDrawable(getContext(), R.drawable.ic_arrow_back_black);
+        mIconSearch = Util.getWrappedDrawable(getContext(), R.drawable.ic_search_black);
     }
 
     private void setupViews(AttributeSet attrs) {
@@ -435,7 +435,7 @@ public class FloatingSearchView extends FrameLayout {
                     mActionMenuItemListener.onActionMenuItemSelected(item);
                 }
 
-                //todo check if we should care about this return or not
+                //todo check if we should care nav_menu_about this return or not
                 return false;
             }
 

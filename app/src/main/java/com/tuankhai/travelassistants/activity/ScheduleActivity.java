@@ -25,10 +25,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.base.BaseActivity;
 import com.tuankhai.travelassistants.activity.controller.ScheduleController;
 import com.tuankhai.travelassistants.adapter.ScheduleAdapter;
-import com.tuankhai.travelassistants.bottomsheet.MenuBottomSheet;
-import com.tuankhai.travelassistants.bottomsheet.interfaces.OnItemMenuSheetBottomClickListener;
+import com.tuankhai.travelassistants.bottomSheet.MenuBottomSheet;
+import com.tuankhai.travelassistants.bottomSheet.interfaces.OnItemMenuSheetBottomClickListener;
 import com.tuankhai.travelassistants.library.slideractivity.Slider;
 import com.tuankhai.travelassistants.library.slideractivity.model.SliderConfig;
 import com.tuankhai.travelassistants.library.slideractivity.model.SliderPosition;

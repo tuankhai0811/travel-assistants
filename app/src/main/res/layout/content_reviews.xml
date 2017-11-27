@@ -4,9 +4,9 @@
     android:id="@+id/layout_content_reviews"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginTop="@dimen/params_15dp"
-    android:visibility="gone">
+    android:orientation="vertical"
+    android:visibility="visible">
 
     <View
         android:layout_width="match_parent"
@@ -16,6 +16,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/global_white"
+        android:clickable="true"
+        android:foreground="@drawable/ripple"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/params_16dp">
@@ -53,7 +56,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/global_white"
+        android:focusable="true"
+        android:foreground="@drawable/ripple">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,8 +74,8 @@
                 android:orientation="vertical">
 
                 <TextView
-                    fontPath="@string/font_boto_bold"
                     android:id="@+id/txt_rating_view"
+                    fontPath="@string/font_boto_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4,5"

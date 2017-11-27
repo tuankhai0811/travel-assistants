@@ -1,4 +1,4 @@
-package com.tuankhai.travelassistants.activity;
+package com.tuankhai.travelassistants;
 
 import android.support.multidex.MultiDexApplication;
 

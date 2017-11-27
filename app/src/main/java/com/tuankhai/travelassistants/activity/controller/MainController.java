@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.MainActivity;
-import com.tuankhai.travelassistants.fragment.BaseFragment;
+import com.tuankhai.travelassistants.fragment.base.BaseFragment;
 import com.tuankhai.travelassistants.fragment.PlacesFragment;
 import com.tuankhai.travelassistants.fragment.SearchPlaceFragment;
 import com.tuankhai.travelassistants.fragment.SearchResultFragment;

@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.base.BaseActivity;
 import com.tuankhai.travelassistants.activity.controller.ListPlaceScheduleController;
 import com.tuankhai.travelassistants.adapter.PlaceScheduleAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.ListSpacingItemDecoration;

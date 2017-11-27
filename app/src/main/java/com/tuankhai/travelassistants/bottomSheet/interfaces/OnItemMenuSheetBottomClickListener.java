@@ -1,4 +1,4 @@
-package com.tuankhai.travelassistants.bottomsheet.interfaces;
+package com.tuankhai.travelassistants.bottomSheet.interfaces;
 
 /**
  * Created by Khai on 26/10/2017.

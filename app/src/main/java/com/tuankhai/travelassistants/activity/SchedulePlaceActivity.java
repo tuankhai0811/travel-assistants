@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.base.BaseActivity;
 import com.tuankhai.travelassistants.activity.controller.SchedulePlaceController;
 import com.tuankhai.travelassistants.adapter.SchedulePlaceAdapter;
 import com.tuankhai.travelassistants.adapter.decoration.ListSpacingItemDecoration;

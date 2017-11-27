@@ -42,6 +42,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.base.BaseActivity;
 import com.tuankhai.travelassistants.activity.controller.DetailPlaceController;
 import com.tuankhai.travelassistants.adapter.PlaceNearAdapter;
 import com.tuankhai.travelassistants.adapter.ReviewsAdapter;
@@ -59,6 +60,7 @@ import com.tuankhai.travelassistants.library.readmore.ReadMoreTextView;
 import com.tuankhai.travelassistants.library.slideractivity.Slider;
 import com.tuankhai.travelassistants.library.slideractivity.model.SliderConfig;
 import com.tuankhai.travelassistants.library.slideractivity.model.SliderPosition;
+import com.tuankhai.travelassistants.library.viewpagertransformers.DefaultTransformer;
 import com.tuankhai.travelassistants.library.viewpagertransformers.ZoomOutTranformer;
 import com.tuankhai.travelassistants.utils.AppContansts;
 import com.tuankhai.travelassistants.utils.Utils;
@@ -100,7 +102,6 @@ public class DetailPlaceActivity extends BaseActivity
     private PlaceNearDTO dataNearFood, dataNearHotel;
     private LatLng location;
     private Toolbar toolbar;
-    private SliderConfig mConfig;
     private ReadMoreTextView mDescription;
 
     //Slider Image
@@ -679,7 +680,7 @@ public class DetailPlaceActivity extends BaseActivity
         viewpager = (LoopViewPager) findViewById(R.id.viewpagerImage);
         viewpager.setScrollDurationFactor(1000);
         adapterImage = new SliderImageAdapter(this, array);
-        viewpager.setPageTransformer(true, new ZoomOutTranformer());
+        viewpager.setPageTransformer(true, new DefaultTransformer());
         viewpager.setAdapter(adapterImage);
 
         currentPage = 0;
@@ -827,7 +828,7 @@ public class DetailPlaceActivity extends BaseActivity
     }
 
     private void initSlider() {
-        mConfig = new SliderConfig.Builder()
+        SliderConfig mConfig = new SliderConfig.Builder()
                 .primaryColor(getResources().getColor(R.color.colorPrimary))
                 .secondaryColor(getResources().getColor(R.color.colorPrimary))
                 .position(SliderPosition.LEFT)

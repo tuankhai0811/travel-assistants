@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.base.BaseActivity;
 import com.tuankhai.travelassistants.customTab.CustomTabActivityHelper;
 import com.tuankhai.travelassistants.library.slideractivity.Slider;
 import com.tuankhai.travelassistants.library.slideractivity.model.SliderConfig;

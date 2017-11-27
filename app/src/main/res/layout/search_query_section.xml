@@ -30,7 +30,7 @@
                 android:background="@drawable/oval_btn_selector"
                 android:clickable="true"
                 android:padding="@dimen/square_button_padding"
-                android:src="@drawable/ic_arrow_back_black_24dp" />
+                android:src="@drawable/ic_arrow_back_black" />
 
             <ProgressBar
                 android:id="@+id/search_bar_search_progress"

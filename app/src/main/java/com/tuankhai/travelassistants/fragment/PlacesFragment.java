@@ -23,6 +23,7 @@ import com.tuankhai.travelassistants.activity.ListPlaceActivity;
 import com.tuankhai.travelassistants.activity.MainActivity;
 import com.tuankhai.travelassistants.adapter.ProvinceAdapter;
 import com.tuankhai.travelassistants.adapter.SliderPlaceAdapter;
+import com.tuankhai.travelassistants.fragment.base.BaseFragment;
 import com.tuankhai.travelassistants.fragment.controller.PlacesController;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 import com.tuankhai.travelassistants.library.floatingsearchview.main.FloatingSearchView;

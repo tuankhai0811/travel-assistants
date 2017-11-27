@@ -1,4 +1,4 @@
-package com.tuankhai.travelassistants.bottomsheet;
+package com.tuankhai.travelassistants.bottomSheet;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tuankhai.travelassistants.R;
-import com.tuankhai.travelassistants.bottomsheet.interfaces.OnItemMenuSheetBottomClickListener;
+import com.tuankhai.travelassistants.bottomSheet.interfaces.OnItemMenuSheetBottomClickListener;
 
 /**
  * Created by Khai on 26/10/2017.

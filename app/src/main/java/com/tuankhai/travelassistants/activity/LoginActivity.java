@@ -40,6 +40,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.tuankhai.travelassistants.R;
+import com.tuankhai.travelassistants.activity.base.BaseActivity;
 import com.tuankhai.travelassistants.library.slideractivity.Slider;
 import com.tuankhai.travelassistants.library.slideractivity.model.SliderConfig;
 import com.tuankhai.travelassistants.library.slideractivity.model.SliderPosition;
@@ -86,7 +87,7 @@ public class LoginActivity extends BaseActivity implements
     private void initSlider() {
         SliderConfig mConfig = new SliderConfig.Builder()
                 .primaryColor(getResources().getColor(R.color.colorPrimary))
-                .secondaryColor(getResources().getColor(R.color.global_black))
+                .secondaryColor(getResources().getColor(R.color.colorPrimary))
                 .position(SliderPosition.LEFT)
                 .sensitivity(1f)
                 .scrimColor(Color.BLACK)
