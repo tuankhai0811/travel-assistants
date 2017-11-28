@@ -13,11 +13,13 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbarSize="@dimen/scroll_bar_size"
+        android:scrollbarThumbVertical="@color/colorPrimary"
+        android:scrollbars="vertical"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:clipToPadding="false"
-        android:overScrollMode="never"
-        android:scrollbars="none">
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"

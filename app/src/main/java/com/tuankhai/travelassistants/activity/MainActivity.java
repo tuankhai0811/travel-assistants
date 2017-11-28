@@ -33,9 +33,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.tuankhai.travelassistants.R;
 import com.tuankhai.travelassistants.activity.base.BaseActivity;
 import com.tuankhai.travelassistants.activity.controller.MainController;
-import com.tuankhai.travelassistants.fragment.base.BaseFragment;
 import com.tuankhai.travelassistants.fragment.SearchPlaceFragment;
 import com.tuankhai.travelassistants.fragment.SearchResultFragment;
+import com.tuankhai.travelassistants.fragment.base.BaseFragment;
 import com.tuankhai.travelassistants.fragment.interfaces.BaseFragmentCallbacks;
 import com.tuankhai.travelassistants.library.floatingsearchview.main.FloatingSearchView;
 import com.tuankhai.travelassistants.location.LocationHelper;
@@ -391,6 +391,7 @@ public class MainActivity extends BaseActivity
     public void onBackPressed() {
         if (searchView.isSearchBarFocused()) {
             searchView.clearSearchFocus();
+            searchView.backPress();
         }
         BaseFragment currentFragment = (BaseFragment) fragmentManager.findFragmentByTag(AppContansts.KEY_SEARCH_FRAGMENT);
         if (currentFragment != null) {

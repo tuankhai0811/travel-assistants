@@ -128,7 +128,11 @@ public class PlaceScheduleDayAdapter extends RecyclerView.Adapter<PlaceScheduleD
 
         @Override
         public void onClick(View view) {
-            itemListener.onItemPlaceNearClick(view, arrPlace.get(getAdapterPosition()));
+            try {
+                itemListener.onItemPlaceNearClick(view, arrPlace.get(getAdapterPosition()));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                e.printStackTrace();
+            }
         }
     }
 

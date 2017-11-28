@@ -42,7 +42,10 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lv_schedule_place"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scrollbarSize="@dimen/scroll_bar_size"
+        android:scrollbarThumbVertical="@color/colorPrimary"
+        android:scrollbars="vertical" />
 
 
 </FrameLayout>

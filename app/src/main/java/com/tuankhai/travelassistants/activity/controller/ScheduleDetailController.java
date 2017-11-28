@@ -136,7 +136,7 @@ public class ScheduleDetailController {
     }
 
     public void getDetailPlaceScheduleDay(String id_place) {
-        new RequestService(mActivity.getApplicationContext()).getPlace(id_place, new MyCallback() {
+        new RequestService(mActivity).getPlace(id_place, new MyCallback() {
             @Override
             public void onSuccess(Object response) {
                 super.onSuccess(response);

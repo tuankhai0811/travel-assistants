@@ -63,6 +63,7 @@ public class MainController {
     }
 
     public void addFragment(BaseFragment fragment, String key) {
+        curFragment = fragment;
         mActivity.fragmentManager = mActivity.getSupportFragmentManager();
         mActivity.fragmentTransaction = mActivity.fragmentManager.beginTransaction();
         mActivity.fragmentTransaction.replace(R.id.base_frame_content, fragment, key);

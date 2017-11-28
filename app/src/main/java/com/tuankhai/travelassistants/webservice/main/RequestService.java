@@ -239,11 +239,25 @@ public class RequestService {
     }
 
     public void getPlace(String placeID, final MyCallback callback) {
+        if (context != null && !((Activity) context).isFinishing()) {
+            try {
+                UtilsService.getInstance(context).show();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
         getClient().create(WebserviceRequest.class)
                 .getPlace(placeID, LANGUAGE, API_KEY)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (context != null && !((Activity) context).isFinishing()) {
+                            try {
+                                UtilsService.getInstance(context).dismiss();
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
                         try {
                             callback.onSuccess(Utils.readValue(response.body().bytes(), PlaceGoogleDTO.class));
                         } catch (IOException e) {

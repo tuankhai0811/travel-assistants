@@ -31,6 +31,7 @@ import android.support.v7.view.menu.MenuItemImpl;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -85,6 +86,10 @@ public class FloatingSearchView extends FrameLayout {
     public final static int LEFT_ACTION_MODE_SHOW_HOME = 3;
     public final static int LEFT_ACTION_MODE_NO_LEFT_ACTION = 4;
     private final static int LEFT_ACTION_MODE_NOT_SET = -1;
+
+    public void backPress() {
+        mLeftAction.performClick();
+    }
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({LEFT_ACTION_MODE_SHOW_HAMBURGER, LEFT_ACTION_MODE_SHOW_SEARCH,
@@ -572,7 +577,7 @@ public class FloatingSearchView extends FrameLayout {
         mLeftAction.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.e("status", "clickback");
                 if (isSearchBarFocused()) {
                     setSearchFocusedInternal(false);
                 } else {
@@ -1007,6 +1012,7 @@ public class FloatingSearchView extends FrameLayout {
         if (mDimBackground) {
             fadeOutBackground();
         }
+        mOldQuery = "";
         mClearButton.setVisibility(View.GONE);
         mSkipTextChangeEvent = true;
         mSearchInput.setText("");

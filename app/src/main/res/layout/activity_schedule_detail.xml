@@ -40,7 +40,10 @@
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbarSize="@dimen/scroll_bar_size"
+            android:scrollbarThumbVertical="@color/colorPrimary"
+            android:scrollbars="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -164,8 +167,8 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:layout_marginBottom="@dimen/params_5dp"
-                                        android:foreground="@drawable/ripple"
                                         android:focusable="true"
+                                        android:foreground="@drawable/ripple"
                                         android:gravity="center"
                                         android:orientation="horizontal"
                                         android:padding="@dimen/params_5dp">
