@@ -1,7 +1,7 @@
 package com.tuankhai.travelassistants.webservice.main;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.Dialog;
 import android.util.Log;
 
 import com.tuankhai.travelassistants.utils.AppContansts;
@@ -39,7 +39,8 @@ public class RequestService {
     public static String RESULT_ERROR = "ERROR";
 
     private Retrofit retrofit = null;
-    private Context context = null;
+    private Activity activity = null;
+    private Dialog dialog = null;
 
     static String GOOGLE_URL = "https://maps.googleapis.com/";
     static String LANGUAGE = "vi";
@@ -66,8 +67,8 @@ public class RequestService {
     static String WIDTH = "700";
     static String HEIGHT = "300";
 
-    public RequestService(Context context) {
-        this.context = context;
+    public RequestService(Activity activity) {
+        this.activity = activity;
     }
 
     public RequestService() {
@@ -239,9 +240,12 @@ public class RequestService {
     }
 
     public void getPlace(String placeID, final MyCallback callback) {
-        if (context != null && !((Activity) context).isFinishing()) {
+        if (activity != null && !(activity).isFinishing()) {
             try {
-                UtilsService.getInstance(context).show();
+                if (dialog == null){
+                    dialog = UtilsService.createDialog(activity);
+                }
+                dialog.show();
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -251,9 +255,11 @@ public class RequestService {
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (context != null && !((Activity) context).isFinishing()) {
+                        if (activity != null && !activity.isFinishing()) {
                             try {
-                                UtilsService.getInstance(context).dismiss();
+                                if (dialog != null){
+                                    dialog.dismiss();
+                                }
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
@@ -278,9 +284,12 @@ public class RequestService {
                      final Class returnClass) {
         String[] path = mainDTO.path();
         if (isShowLoading) {
-            if (context != null && !((Activity) context).isFinishing()) {
+            if (activity != null && !(activity).isFinishing()) {
                 try {
-                    UtilsService.getInstance(context).show();
+                    if (dialog == null){
+                        dialog = UtilsService.createDialog(activity);
+                    }
+                    dialog.show();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -293,9 +302,11 @@ public class RequestService {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (isShowLoading) {
-                            if (context != null && !((Activity) context).isFinishing()) {
+                            if (activity != null && !activity.isFinishing()) {
                                 try {
-                                    UtilsService.getInstance(context).dismiss();
+                                    if (dialog != null){
+                                        dialog.dismiss();
+                                    }
                                 }catch (Exception e){
                                     e.printStackTrace();
                                 }
@@ -310,7 +321,6 @@ public class RequestService {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        context = null;
                         Log.e(getClass().toString(), "onFailure");
                     }
                 });

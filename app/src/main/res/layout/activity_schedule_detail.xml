@@ -206,7 +206,6 @@
                                         android:layout_gravity="center"
                                         android:layout_marginBottom="@dimen/params_5dp"
                                         android:focusable="true"
-                                        android:focusableInTouchMode="true"
                                         android:foreground="@drawable/ripple"
                                         android:gravity="center"
                                         android:orientation="horizontal"

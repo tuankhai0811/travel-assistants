@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -205,6 +206,10 @@ public class DetailPlaceActivity extends BaseActivity
         initCollapsingToolbar();
         initSlider();
         initDialogSchedule();
+    }
+
+    public void showAddress(View view){
+        Toast.makeText(DetailPlaceActivity.this, data.getAddress(), Toast.LENGTH_SHORT).show();
     }
 
     private void initDialogSchedule() {
@@ -421,7 +426,6 @@ public class DetailPlaceActivity extends BaseActivity
             ((TextView) findViewById(R.id.txt_website)).setText(data.website);
             findViewById(R.id.txt_website).setOnClickListener(this);
         }
-        findViewById(R.id.layout_address).setOnClickListener(this);
     }
 
     private void initStaticMaps() {

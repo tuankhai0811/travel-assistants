@@ -16,10 +16,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:clipToPadding="false"
+        android:overScrollMode="never"
         android:scrollbarSize="@dimen/scroll_bar_size"
         android:scrollbarThumbVertical="@color/colorPrimary"
-        android:scrollbars="vertical"
-        android:overScrollMode="never">
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -151,14 +151,14 @@
                     android:id="@+id/layout_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:foreground="@drawable/ripple"
+                    android:onClick="showAddress"
                     android:orientation="vertical">
 
                     <LinearLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:foreground="@drawable/ripple"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingBottom="@dimen/params_15dp"

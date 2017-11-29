@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
@@ -53,6 +54,8 @@ public class ScheduleDetailActivity extends BaseActivity
 
     //Get Data detail first
     boolean flag = true;
+    boolean flagHotel = false;
+    boolean flagRes = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,18 +101,27 @@ public class ScheduleDetailActivity extends BaseActivity
         super.onResume();
         if (flag) {
             mController.getDetailSchedule(mUser.getEmail(), getIntent().getStringExtra(AppContansts.INTENT_DATA));
+            flag = false;
         }
         if (scheduleDetail != null) {
-            mController.getListPlaceRestaurent(
-                    mUser.getEmail(),
-                    scheduleDetail.id_schedule,
-                    scheduleDetail.id,
-                    AppContansts.TYPE_RESTAURENT_SCHEDULE_DAY);
-            mController.getListPlaceHotel(
-                    mUser.getEmail(),
-                    scheduleDetail.id_schedule,
-                    scheduleDetail.id,
-                    AppContansts.TYPE_HOTEL_SCHEDULE_DAY);
+            if (flagRes) {
+                Log.e("status", "getREs");
+                mController.getListPlaceRestaurent(
+                        mUser.getEmail(),
+                        scheduleDetail.id_schedule,
+                        scheduleDetail.id,
+                        AppContansts.TYPE_RESTAURENT_SCHEDULE_DAY);
+                flagRes = false;
+            }
+            if (flagHotel) {
+                Log.e("status", "getHotel");
+                mController.getListPlaceHotel(
+                        mUser.getEmail(),
+                        scheduleDetail.id_schedule,
+                        scheduleDetail.id,
+                        AppContansts.TYPE_HOTEL_SCHEDULE_DAY);
+                flagHotel = false;
+            }
         }
     }
 
@@ -265,6 +277,7 @@ public class ScheduleDetailActivity extends BaseActivity
         intent.putExtra(AppContansts.INTENT_DATA4, scheduleDetail);
         intent.putExtra(AppContansts.INTENT_DATA5, arrRes);
         startActivity(intent);
+        flagRes = true;
     }
 
     public void gotoListHotel() {
@@ -276,6 +289,7 @@ public class ScheduleDetailActivity extends BaseActivity
         intent.putExtra(AppContansts.INTENT_DATA4, scheduleDetail);
         intent.putExtra(AppContansts.INTENT_DATA5, arrHotel);
         startActivity(intent);
+        flagHotel = true;
     }
 
     @Override

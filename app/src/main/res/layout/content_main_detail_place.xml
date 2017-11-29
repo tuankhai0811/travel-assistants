@@ -13,13 +13,13 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarSize="@dimen/scroll_bar_size"
-        android:scrollbarThumbVertical="@color/colorPrimary"
-        android:scrollbars="vertical"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:clipToPadding="false"
-        android:overScrollMode="never">
+        android:overScrollMode="never"
+        android:scrollbarSize="@dimen/scroll_bar_size"
+        android:scrollbarThumbVertical="@color/colorPrimary"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -177,18 +177,18 @@
                     android:background="@color/grey_dilivers" />
 
                 <LinearLayout
-                    android:id="@+id/layout_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <LinearLayout
-
+                        android:id="@+id/layout_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:foreground="@drawable/ripple"
                         android:gravity="center_vertical"
+                        android:onClick="showAddress"
                         android:orientation="horizontal"
                         android:paddingBottom="@dimen/params_15dp"
                         android:paddingLeft="@dimen/params_10dp"
@@ -213,6 +213,7 @@
                             android:textColor="@color/grey"
                             android:textSize="@dimen/size_16sp"
                             android:textStyle="normal" />
+
                     </LinearLayout>
 
                     <View

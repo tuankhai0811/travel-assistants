@@ -1,5 +1,6 @@
 package com.tuankhai.travelassistants.webservice;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -14,16 +15,12 @@ import com.tuankhai.travelassistants.utils.Utils;
 
 public class UtilsService {
 
-    private static Dialog dialog;
-
-    public static Dialog getInstance(Context context){
-        if (dialog == null){
-            dialog = new Dialog(context.getApplicationContext(), Utils.getAnimDialog(context));
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.content_dialog_progress_webservice);
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        }
+    public static Dialog createDialog(Activity activity) {
+        Dialog dialog = new Dialog(activity, Utils.getAnimDialog(activity));
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.content_dialog_progress_webservice);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         return dialog;
     }
 

@@ -21,6 +21,7 @@ import com.tuankhai.travelassistants.webservice.main.MyCallback;
 import com.tuankhai.travelassistants.webservice.main.RequestService;
 
 import java.util.List;
+import java.util.WeakHashMap;
 
 import static com.tuankhai.travelassistants.utils.MyCache.bg_place_global_4_3;
 
@@ -31,6 +32,7 @@ import static com.tuankhai.travelassistants.utils.MyCache.bg_place_global_4_3;
 public class PlaceScheduleDayAdapter extends RecyclerView.Adapter<PlaceScheduleDayAdapter.PlaceNearViewHolder> {
     private Context context;
     private List<AddScheduleDayDTO.ScheduleDay> arrPlace;
+    private WeakHashMap<String, PlaceGoogleDTO> arrData;
 
     private PlaceScheduleDayAdapter.LayoutListPlaceNearItemListener itemListener;
 
@@ -41,6 +43,7 @@ public class PlaceScheduleDayAdapter extends RecyclerView.Adapter<PlaceScheduleD
         this.context = context.getApplicationContext();
         this.arrPlace = arrPlace;
         this.itemListener = listener;
+        this.arrData = new WeakHashMap<>();
     }
 
     @Override
@@ -50,17 +53,24 @@ public class PlaceScheduleDayAdapter extends RecyclerView.Adapter<PlaceScheduleD
     }
 
     @Override
-    public void onBindViewHolder(final PlaceScheduleDayAdapter.PlaceNearViewHolder placeViewHolder, int i) {
-        new RequestService().getPlace(
-                arrPlace.get(i).place_id,
-                new MyCallback() {
-                    @Override
-                    public void onSuccess(Object response) {
-                        super.onSuccess(response);
-                        PlaceGoogleDTO detail = (PlaceGoogleDTO) response;
-                        binding(placeViewHolder, detail.result);
-                    }
-                });
+    public void onBindViewHolder(final PlaceScheduleDayAdapter.PlaceNearViewHolder placeViewHolder, final int i) {
+        String id = arrPlace.get(i).place_id;
+        PlaceGoogleDTO item = arrData.get(id);
+        if (item == null){
+            new RequestService().getPlace(
+                    arrPlace.get(i).place_id,
+                    new MyCallback() {
+                        @Override
+                        public void onSuccess(Object response) {
+                            super.onSuccess(response);
+                            PlaceGoogleDTO detail = (PlaceGoogleDTO) response;
+                            arrData.put(arrPlace.get(i).place_id, detail);
+                            binding(placeViewHolder, detail.result);
+                        }
+                    });
+        } else {
+            binding(placeViewHolder, item.result);
+        }
     }
 
     private void binding(PlaceScheduleDayAdapter.PlaceNearViewHolder holder, PlaceGoogleDTO.Result item) {

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -138,6 +139,10 @@ public class DetailPlaceNearActivity extends BaseActivity
         }
     }
 
+    public void showAddress(View view){
+        Toast.makeText(DetailPlaceNearActivity.this, dataGoogle.formatted_address, Toast.LENGTH_SHORT).show();
+    }
+
     private void initProgressRatingbar() {
         ratingBar = (MaterialRatingBar) findViewById(R.id.ratingBar);
         ratingBar.invalidate();
@@ -171,7 +176,6 @@ public class DetailPlaceNearActivity extends BaseActivity
             ((TextView) findViewById(R.id.txt_website)).setText(dataGoogle.website);
             findViewById(R.id.txt_website).setOnClickListener(this);
         }
-        findViewById(R.id.layout_address).setOnClickListener(this);
     }
 
     private void initStaticMaps() {

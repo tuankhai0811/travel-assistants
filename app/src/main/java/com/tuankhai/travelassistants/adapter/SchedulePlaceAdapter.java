@@ -1,5 +1,6 @@
 package com.tuankhai.travelassistants.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
@@ -34,12 +35,12 @@ import java.util.ArrayList;
 
 public class SchedulePlaceAdapter extends RecyclerView.Adapter<SchedulePlaceAdapter.ViewHolder> {
 
-    Context mContext;
+    Activity mContext;
     OnItemSchedulePlaceActionListener mListener;
     ArrayList<AddSchedulePlaceDTO.SchedulePlace> arrPlace;
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    public SchedulePlaceAdapter(Context context,
+    public SchedulePlaceAdapter(Activity context,
                                 ArrayList<AddSchedulePlaceDTO.SchedulePlace> arrPlace,
                                 OnItemSchedulePlaceActionListener listener) {
         this.mContext = context;
