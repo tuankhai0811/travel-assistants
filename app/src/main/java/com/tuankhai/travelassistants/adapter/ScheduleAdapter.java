@@ -161,7 +161,7 @@ public class ScheduleAdapter extends BaseAdapter implements
         Date dateEnd = new Date(Long.valueOf(item.date_end));
 
         holder.txtName.setText(item.name);
-        holder.txtDate.setText(item.length + " ngày (" + format.format(dateStart) + " - " + format.format(dateEnd) + ")");
+        holder.txtDate.setText(item.length + " ngày từ " + format.format(dateStart));
         holder.txtPlace.setText(item.place + " địa điểm");
 
         return view;

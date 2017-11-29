@@ -324,7 +324,7 @@ public class SchedulePlaceActivity extends BaseActivity implements SchedulePlace
         ((TextView) findViewById(R.id.txt_title)).setText("Lịch trình: " + schedule.name);
         ((TextView) findViewById(R.id.txt_time)).setText(
                 simpleDateFormat.format(schedule.getStart())
-                        + " đến " + simpleDateFormat.format(schedule.getEnd()));
+                        + " - " + simpleDateFormat.format(schedule.getEnd()));
     }
 
     @Override

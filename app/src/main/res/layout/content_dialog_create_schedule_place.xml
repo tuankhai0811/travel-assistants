@@ -1,198 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/params_50dp"
-    android:layout_marginLeft="@dimen/params_20dp"
-    android:layout_marginRight="@dimen/params_20dp"
-    android:layout_marginTop="@dimen/params_50dp"
-    app:cardBackgroundColor="@color/global_white"
-    app:cardCornerRadius="@dimen/params_2dp"
-    app:cardElevation="5dp">
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@android:color/transparent"
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="@dimen/width_dialog_create_schedule_place"
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/grey_background"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/params_15dp"
-        android:paddingRight="@dimen/params_15dp">
+        android:layout_marginRight="@dimen/params_20dp"
+        android:layout_marginLeft="@dimen/params_20dp"
+        app:cardBackgroundColor="@color/global_white"
+        app:cardCornerRadius="@dimen/params_2dp"
+        app:cardElevation="5dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txt_title"
-                fontPath="@string/font_boto_bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/params_30dp"
-                android:layout_marginTop="@dimen/params_15dp"
-                android:text="Tạo lịch trình mới"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/size_16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/params_30dp"
-            android:layout_marginRight="@dimen/params_30dp"
-            android:background="@color/global_white"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <Spinner
-                    android:id="@+id/lv_schedule"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/global_white" />
-
-                <TextView
-                    android:id="@+id/txt_schedule"
-                    fontPath="@string/font_boto_medium"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center|left"
-                    android:paddingBottom="@dimen/params_10dp"
-                    android:paddingLeft="@dimen/params_20dp"
-                    android:paddingTop="@dimen/params_10dp"
-                    android:text="Chưa có lịch trình"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/size_18sp"
-                    android:visibility="gone" />
-            </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/btn_new_schedule"
-                android:layout_width="@dimen/height_40dp"
-                android:layout_height="@dimen/height_40dp"
-                android:src="@drawable/ic_add_blue" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/grey_background"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/params_15dp"
+            android:paddingRight="@dimen/params_15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/params_30dp"
-                android:layout_marginRight="@dimen/params_30dp"
-                android:layout_marginTop="@dimen/params_10dp"
-                android:orientation="horizontal">
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txt_title"
                     fontPath="@string/font_boto_bold"
-                    android:layout_width="@dimen/width_80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/params_5dp"
-                    android:text="Từ  ngày"
-                    android:textColor="@color/global_black"
-                    android:textSize="@dimen/size_16sp" />
-
-                <TextView
-                    android:id="@+id/txt_from_date"
-                    fontPath="@string/font_boto_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/params_10dp"
-                    android:background="@drawable/bg_field_input"
-                    android:gravity="center"
-                    android:padding="@dimen/params_8dp"
-                    android:text="12/10/2017"
+                    android:layout_marginBottom="@dimen/params_30dp"
+                    android:layout_marginTop="@dimen/params_15dp"
+                    android:text="Tạo lịch trình mới"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_16sp" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_40dp"
+                android:layout_marginLeft="@dimen/params_20dp"
+                android:layout_marginRight="@dimen/params_20dp"
+                android:background="@color/global_white"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <Spinner
+                        android:id="@+id/lv_schedule"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/global_white" />
+
+                    <TextView
+                        android:id="@+id/txt_schedule"
+                        fontPath="@string/font_boto_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:paddingBottom="@dimen/params_10dp"
+                        android:paddingLeft="@dimen/params_20dp"
+                        android:paddingTop="@dimen/params_10dp"
+                        android:text="Chưa có lịch trình"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/size_18sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/btn_new_schedule"
+                    android:layout_width="@dimen/height_40dp"
+                    android:layout_height="@dimen/height_40dp"
+                    android:src="@drawable/ic_add_blue" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/params_20dp"
+                    android:layout_marginRight="@dimen/params_20dp"
+                    android:layout_marginTop="@dimen/params_10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        fontPath="@string/font_boto_bold"
+                        android:layout_width="@dimen/width_80dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/params_5dp"
+                        android:text="Từ  ngày"
+                        android:textColor="@color/global_black"
+                        android:textSize="@dimen/size_16sp" />
+
+                    <TextView
+                        android:id="@+id/txt_from_date"
+                        fontPath="@string/font_boto_regular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/params_10dp"
+                        android:background="@drawable/bg_field_input"
+                        android:gravity="center"
+                        android:padding="@dimen/params_8dp"
+                        android:text="12/10/2017"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/size_16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/params_10dp"
+                    android:layout_marginLeft="@dimen/params_20dp"
+                    android:layout_marginRight="@dimen/params_20dp"
+                    android:layout_marginTop="@dimen/params_10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        fontPath="@string/font_boto_bold"
+                        android:layout_width="@dimen/width_80dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/params_5dp"
+                        android:text="Đến ngày"
+                        android:textColor="@color/global_black"
+                        android:textSize="@dimen/size_16sp" />
+
+                    <TextView
+                        android:id="@+id/txt_to_date"
+                        fontPath="@string/font_boto_regular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/params_10dp"
+                        android:background="@drawable/bg_field_input"
+                        android:gravity="center"
+                        android:padding="@dimen/params_8dp"
+                        android:text="12/11/2017"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/size_16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <EditText
+                    android:id="@+id/txt_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_140dp"
+                    android:background="@drawable/bg_field_input"
+                    android:gravity="left|top"
+                    android:hint="Thêm mô tả hoặc ghi chú lịch trình của bạn..."
+                    android:padding="@dimen/params_10dp"
+                    android:textColor="@color/global_black"
+                    android:textColorHint="@color/grey_70"
+                    android:textSize="@dimen/size_18sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/params_10dp"
-                android:layout_marginLeft="@dimen/params_30dp"
-                android:layout_marginRight="@dimen/params_30dp"
-                android:layout_marginTop="@dimen/params_10dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/params_20dp"
+                android:gravity="right">
 
-                <TextView
-                    fontPath="@string/font_boto_bold"
-                    android:layout_width="@dimen/width_80dp"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/params_5dp"
-                    android:text="Đến ngày"
-                    android:textColor="@color/global_black"
-                    android:textSize="@dimen/size_16sp" />
+                <Button
+                    android:id="@+id/btn_cancel_schedule"
+                    style="@style/ButtonDialog"
+                    android:layout_marginRight="@dimen/params_10dp"
+                    android:paddingLeft="@dimen/params_10dp"
+                    android:paddingRight="@dimen/params_10dp"
+                    android:text="ĐÓNG" />
 
-                <TextView
-                    android:id="@+id/txt_to_date"
-                    fontPath="@string/font_boto_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/params_10dp"
-                    android:background="@drawable/bg_field_input"
-                    android:gravity="center"
-                    android:padding="@dimen/params_8dp"
-                    android:text="12/11/2017"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/size_16sp" />
+                <Button
+                    android:id="@+id/btn_create_schedule"
+                    style="@style/ButtonDialog"
+                    android:paddingLeft="@dimen/params_10dp"
+                    android:paddingRight="@dimen/params_10dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="TẠO LỊCH TRÌNH" />
             </LinearLayout>
         </LinearLayout>
+    </android.support.v7.widget.CardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <EditText
-                android:id="@+id/txt_note"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_140dp"
-                android:background="@drawable/bg_field_input"
-                android:gravity="left|top"
-                android:hint="Thêm mô tả hoặc ghi chú lịch trình của bạn..."
-                android:padding="@dimen/params_10dp"
-                android:textColor="@color/global_black"
-                android:textColorHint="@color/grey_70"
-                android:textSize="@dimen/size_18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/params_10dp"
-            android:layout_marginLeft="@dimen/params_10dp"
-            android:layout_marginRight="@dimen/params_10dp"
-            android:layout_marginTop="@dimen/params_30dp"
-            android:gravity="right">
-
-            <Button
-                android:id="@+id/btn_cancel_schedule"
-                style="@style/ButtonDialog"
-                android:layout_marginRight="@dimen/params_10dp"
-                android:paddingLeft="@dimen/params_10dp"
-                android:paddingRight="@dimen/params_10dp"
-                android:text="ĐÓNG" />
-
-            <Button
-                android:id="@+id/btn_create_schedule"
-                style="@style/ButtonDialog"
-                android:paddingLeft="@dimen/params_10dp"
-                android:paddingRight="@dimen/params_10dp"
-                android:text="TẠO LỊCH TRÌNH" />
-        </LinearLayout>
-    </LinearLayout>
-
-</android.support.v7.widget.CardView>
+</LinearLayout>

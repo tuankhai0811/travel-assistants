@@ -294,6 +294,20 @@ public class ScheduleActivity extends BaseActivity
                 } else {
                     txtName.setError(null);
                     if (isNew) {
+                        if (fromDate.getTimeInMillis() == toDate.getTimeInMillis()) {
+                            fromDate.set(Calendar.YEAR, current.get(Calendar.YEAR));
+                            fromDate.set(Calendar.MONTH, current.get(Calendar.MONTH));
+                            fromDate.set(Calendar.DAY_OF_MONTH, current.get(Calendar.DAY_OF_MONTH));
+                            fromDate.set(Calendar.HOUR_OF_DAY, 0);
+                            fromDate.set(Calendar.MINUTE, 0);
+                            fromDate.set(Calendar.SECOND, 0);
+                            toDate.set(Calendar.YEAR, current.get(Calendar.YEAR));
+                            toDate.set(Calendar.MONTH, current.get(Calendar.MONTH));
+                            toDate.set(Calendar.DAY_OF_MONTH, current.get(Calendar.DAY_OF_MONTH));
+                            toDate.set(Calendar.HOUR_OF_DAY, 23);
+                            toDate.set(Calendar.MINUTE, 59);
+                            toDate.set(Calendar.SECOND, 59);
+                        }
                         mController.createNewSchedule(txtName.getText().toString(), fromDate, toDate);
                     } else {
                         mController.editSchedule(schedule, txtName.getText().toString(), fromDate, toDate);

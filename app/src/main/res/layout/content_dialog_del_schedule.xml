@@ -1,62 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/params_50dp"
-    android:layout_marginLeft="@dimen/params_20dp"
-    android:layout_marginRight="@dimen/params_20dp"
-    android:layout_marginTop="@dimen/params_50dp"
-    app:cardBackgroundColor="@color/global_white"
-    app:cardCornerRadius="@dimen/params_2dp"
-    app:cardElevation="5dp">
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey_background"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:minWidth="@dimen/width_dialog_new_schedule"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/params_15dp"
-        android:paddingRight="@dimen/params_15dp">
-
-        <TextView
-            android:id="@+id/txt_name_del"
-            fontPath="@string/font_boto_regular"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/params_25dp"
-            android:layout_marginLeft="@dimen/params_20dp"
-            android:layout_marginRight="@dimen/params_20dp"
-            android:layout_marginTop="@dimen/params_40dp"
-            android:ellipsize="end"
-            android:gravity="left"
-            android:maxLines="1"
-            android:text="Tạo lịch trình mới"
-            android:textColor="@color/global_black"
-            android:textSize="@dimen/size_18sp" />
+        android:layout_marginRight="@dimen/params_20dp"
+        android:layout_marginLeft="@dimen/params_20dp"
+        app:cardBackgroundColor="@color/global_white"
+        app:cardCornerRadius="@dimen/params_2dp"
+        app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/params_10dp"
-            android:gravity="right">
+            android:background="@color/grey_background"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/params_15dp"
+            android:paddingRight="@dimen/params_15dp">
 
-            <Button
-                android:id="@+id/btn_cancel_del"
-                style="@style/ButtonDialog"
-                android:layout_marginRight="@dimen/params_10dp"
-                android:text="HỦY"/>
+            <TextView
+                android:id="@+id/txt_name_del"
+                fontPath="@string/font_boto_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/params_25dp"
+                android:layout_marginLeft="@dimen/params_20dp"
+                android:layout_marginRight="@dimen/params_20dp"
+                android:layout_marginTop="@dimen/params_40dp"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxLines="3"
+                android:text="Tạo lịch trình mới"
+                android:textColor="@color/global_black"
+                android:textSize="@dimen/size_18sp" />
 
-            <Button
-                android:id="@+id/btn_delete"
-                style="@style/ButtonDialog"
-                android:paddingLeft="@dimen/params_10dp"
-                android:paddingRight="@dimen/params_10dp"
-                android:text="XÓA"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/params_10dp"
+                android:gravity="right">
+
+                <Button
+                    android:id="@+id/btn_cancel_del"
+                    style="@style/ButtonDialog"
+                    android:layout_marginRight="@dimen/params_10dp"
+                    android:text="HỦY" />
+
+                <Button
+                    android:id="@+id/btn_delete"
+                    style="@style/ButtonDialog"
+                    android:text="XÓA" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
 
-</android.support.v7.widget.CardView>
+</LinearLayout>
